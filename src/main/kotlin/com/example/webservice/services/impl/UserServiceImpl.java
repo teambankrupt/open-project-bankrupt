@@ -186,6 +186,17 @@ public class UserServiceImpl implements UserService {
         acValidationToken.setTokenValidUntil(tokenValidUntil);
         // save acvalidationtoken
         acValidationToken = this.acValidationTokenService.save(acValidationToken);
+        AcValidationToken finalAcValidationToken = acValidationToken;
+        new Thread(() -> {
+            try {
+                Thread.sleep(2*60*1000);
+                finalAcValidationToken.setTokenValid(false);
+                acValidationTokenService.save(finalAcValidationToken);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+
         // build confirmation link
         String tokenMessage = "Your " + this.applicationName + " token is: " + acValidationToken.getToken();
         // send link by sms
