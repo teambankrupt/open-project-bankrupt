@@ -16,10 +16,7 @@ import com.example.webservice.exceptions.notfound.UserNotFoundException;
 import com.example.webservice.exceptions.nullpointer.NullPasswordException;
 import com.example.webservice.exceptions.unknown.UnknownException;
 import com.example.webservice.repositories.UserRepository;
-import com.example.webservice.services.AcValidationTokenService;
-import com.example.webservice.services.MailService;
-import com.example.webservice.services.RoleService;
-import com.example.webservice.services.UserService;
+import com.example.webservice.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -39,6 +36,7 @@ public class UserServiceImpl implements UserService {
     private final MailService mailService;
     private final RoleService roleService;
     private final RegistrationAttemptService registrationAttemptService;
+    private final SmsService smsService;
 
     @Value("${applicationName}")
     private String applicationName;
@@ -50,12 +48,13 @@ public class UserServiceImpl implements UserService {
     private String adminPhone2;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepo, AcValidationTokenService acValidationTokenService, MailService mailService, RoleService roleService, RegistrationAttemptService registrationAttemptService) {
+    public UserServiceImpl(UserRepository userRepo, AcValidationTokenService acValidationTokenService, MailService mailService, RoleService roleService, RegistrationAttemptService registrationAttemptService, SmsService smsService) {
         this.userRepo = userRepo;
         this.acValidationTokenService = acValidationTokenService;
         this.mailService = mailService;
         this.roleService = roleService;
         this.registrationAttemptService = registrationAttemptService;
+        this.smsService = smsService;
     }
 
     @Override
@@ -189,7 +188,7 @@ public class UserServiceImpl implements UserService {
         // build confirmation link
         String tokenMessage = "Your " + this.applicationName + " token is: " + acValidationToken.getToken();
         // send link by sms
-        NetworkUtil.sendSms(phone, tokenMessage);
+        this.smsService.sendSms(phone, tokenMessage);
     }
 
     @Override
@@ -284,7 +283,7 @@ public class UserServiceImpl implements UserService {
 
         int otp = SessionIdentifierGenerator.generateOTP();
         String message = "Your " + this.applicationName + " OTP is: " + otp;
-        boolean success = NetworkUtil.sendSms(user.getUsername(), message);
+        boolean success = this.smsService.sendSms(user.getUsername(), message);
         // save validation token
         if (!success) throw new UnknownException("Could not send SMS");
 

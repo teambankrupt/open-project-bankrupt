@@ -30,6 +30,7 @@ public class User extends BaseEntity implements UserDetails {
     @Column(unique = true, nullable = false)
     @NotNull
     @NotEmpty
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String username;
 
     @Column(unique = true)
@@ -58,11 +59,11 @@ public class User extends BaseEntity implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private boolean enabled = true;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private boolean accountNonExpired = true;
+    private boolean accountNonExpired = false;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private boolean accountNonLocked = true;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private boolean credentialsNonExpired = false;
+    private boolean credentialsNonExpired = true;
 
     @PrePersist
     private void onPrePersist() {

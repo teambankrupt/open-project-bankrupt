@@ -1,7 +1,6 @@
 package com.example.webservice.controllers;
 
 import com.example.webservice.commons.utils.DateUtil;
-import com.example.webservice.commons.utils.NetworkUtil;
 import com.example.webservice.config.security.SecurityConfig;
 import com.example.webservice.config.security.TokenService;
 import com.example.webservice.entities.AcValidationToken;
@@ -18,6 +17,7 @@ import com.example.webservice.exceptions.nullpointer.NullPasswordException;
 import com.example.webservice.exceptions.unknown.UnknownException;
 import com.example.webservice.services.AcValidationTokenService;
 import com.example.webservice.services.NotificationService;
+import com.example.webservice.services.SmsService;
 import com.example.webservice.services.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,16 +40,18 @@ public class HomeController {
     private final AcValidationTokenService acValidationTokenService;
     private final NotificationService notificationService;
     private final TokenService tokenService;
+    private final SmsService smsService;
 
     @Value("${baseUrl}")
     private String baseUrl;
 
     @Autowired
-    public HomeController(UserService userService, AcValidationTokenService acValidationTokenService, NotificationService notificationService, TokenService tokenService) {
+    public HomeController(UserService userService, AcValidationTokenService acValidationTokenService, NotificationService notificationService, TokenService tokenService, SmsService smsService) {
         this.userService = userService;
         this.acValidationTokenService = acValidationTokenService;
         this.notificationService = notificationService;
         this.tokenService = tokenService;
+        this.smsService = smsService;
     }
 
     @GetMapping("")
@@ -74,7 +76,7 @@ public class HomeController {
         // send sms to landlords with their password when field employee adds them
         if (currentUser != null && !currentUser.isAdmin() && sendPassword) {
             String message = "Dear User, your " + baseUrl + " credentials are - Username: " + user.getUsername() + " and Password: " + tempRawPassword;
-            NetworkUtil.sendSms(user.getUsername(), message);
+            this.smsService.sendSms(user.getUsername(), message);
         }
 
         return ResponseEntity.ok("OTP sent!");
@@ -126,7 +128,7 @@ public class HomeController {
         AcValidationToken acValidationToken = this.acValidationTokenService.findByToken(token);
         if (acValidationToken == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Token doesn't exist!");
         User user = acValidationToken.getUser();
-        user.setCredentialsNonExpired(true);
+        user.setAccountNonExpired(true);
         user = this.userService.save(user);
 
         acValidationToken.setTokenValid(false);

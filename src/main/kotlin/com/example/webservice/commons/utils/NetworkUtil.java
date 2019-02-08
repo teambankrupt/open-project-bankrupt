@@ -49,16 +49,4 @@ public class NetworkUtil {
 //        InputStream is = e.getContent();
     }
 
-    public static boolean sendSms(String phoneNumber, String message) {
-        String phone = phoneNumber.startsWith("88") ? phoneNumber : "88" + phoneNumber;
-        String url = "http://brandsms.mimsms.com/smsapi?api_key=C20028605c20e34fb09258.11734548&type=text&contacts=" + phone +
-                "&senderid=8801847169884&msg=" + message;
-        try {
-            NetworkUtil.postData(url, null, null);
-            return true;
-        } catch (IOException e) {
-            System.out.println("Could not send SMS. " + e.getMessage());
-            return false;
-        }
-    }
 }
