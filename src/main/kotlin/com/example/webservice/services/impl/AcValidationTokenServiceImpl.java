@@ -58,4 +58,10 @@ public class AcValidationTokenServiceImpl implements AcValidationTokenService {
         Date toDate = DateUtil.getDayEnd(date);
         return this.tokenRepo.countByUserIdAndCreatedBetween(user.getId(), fromDate, toDate) >= 3;
     }
+
+    @Override
+    public boolean canGetOTP(String phone) {
+        AcValidationToken token = this.tokenRepo.findFirstByPhoneOrderByIdDesc(phone);
+        return token == null || !token.isTokenValid() || new Date().after(token.getTokenValidUntil());
+    }
 }

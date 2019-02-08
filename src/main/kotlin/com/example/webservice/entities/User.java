@@ -1,9 +1,9 @@
 package com.example.webservice.entities;
 
+import com.example.webservice.entities.base.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.example.webservice.entities.base.BaseEntity;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
@@ -59,7 +59,7 @@ public class User extends BaseEntity implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private boolean enabled = true;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private boolean accountNonExpired = false;
+    private boolean accountNonExpired = true;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private boolean accountNonLocked = true;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)

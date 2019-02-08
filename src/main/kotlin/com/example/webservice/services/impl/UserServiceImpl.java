@@ -25,7 +25,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -64,8 +63,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByPhoneNumber(String phoneNumber) throws UserNotFoundException {
-        if (phoneNumber == null) throw new UserNotFoundException("Phone number can not be null!");
+    public User findByPhoneNumber(String phoneNumber) throws InvalidException {
+        if (phoneNumber == null) throw new InvalidException("Phone number can not be null!");
         return this.userRepo.findByPhoneNumber(phoneNumber);
     }
 
@@ -141,16 +140,16 @@ public class UserServiceImpl implements UserService {
                 throw new UserInvalidException("Maximum limit exceed!");
             this.registrationAttemptService.registrationSuccess(ip);
         }
-        // sent otp for new user
-        boolean newUser = user.getId() == null;
-        user = this.userRepo.save(user);
-        if (newUser) try {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis() + 120000);
-            this.requireAccountValidationByOTP(user.getPhoneNumber(), calendar.getTime());
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        }
+//        // sent otp for new user
+//        boolean newUser = user.getId() == null;
+//        user = this.userRepo.save(user);
+//        if (newUser) try {
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.setTimeInMillis(System.currentTimeMillis() + 120000);
+//            this.requireAccountValidationByOTP(user.getPhoneNumber(), calendar.getTime());
+//        } catch (UserNotFoundException e) {
+//            e.printStackTrace();
+//        }
         return this.userRepo.save(user);
     }
 
@@ -173,21 +172,24 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+
     @Override
-    public void requireAccountValidationByOTP(String phone, Date tokenValidUntil) throws UserNotFoundException {
-        if (phone == null) throw new IllegalArgumentException("Email invalid!");
+    public boolean requireAccountValidationByOTP(String phone, Date tokenValidUntil) throws InvalidException, UserAlreadyExistsException, ForbiddenException {
+        if (phone == null) throw new IllegalArgumentException("Phone invalid!");
         User user = this.findByPhoneNumber(phone);
+        if (user!=null) throw new UserAlreadyExistsException("User already registered with this phone number!");
+        if (!this.acValidationTokenService.canGetOTP(phone)) throw new ForbiddenException("Already sent an OTP. Please try agin in two minutes!");
         AcValidationToken acValidationToken = new AcValidationToken();
         acValidationToken.setToken(String.valueOf(SessionIdentifierGenerator.generateOTP()));
         acValidationToken.setTokenValid(true);
-        acValidationToken.setUser(user);
+        acValidationToken.setPhone(phone);
         acValidationToken.setTokenValidUntil(tokenValidUntil);
         // save acvalidationtoken
         acValidationToken = this.acValidationTokenService.save(acValidationToken);
         // build confirmation link
         String tokenMessage = "Your " + this.applicationName + " token is: " + acValidationToken.getToken();
         // send link by sms
-        this.smsService.sendSms(phone, tokenMessage);
+        return this.smsService.sendSms(phone, tokenMessage);
     }
 
     @Override

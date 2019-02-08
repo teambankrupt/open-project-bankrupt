@@ -12,6 +12,16 @@ public class AcValidationToken extends ValidationToken {
     @OneToOne
     private User user;
     private String reason;
+    private String phone;
+
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public User getUser() {
         return user;
@@ -34,6 +44,7 @@ public class AcValidationToken extends ValidationToken {
         return "AcValidationToken{" +
                 "user=" + user +
                 ", reason='" + reason + '\'' +
+                ", phone='" + phone + '\'' +
                 "} " + super.toString();
     }
 }

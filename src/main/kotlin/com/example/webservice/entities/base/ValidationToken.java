@@ -23,7 +23,7 @@ public class ValidationToken extends BaseEntity {
     }
 
     public boolean isTokenValid() {
-        return tokenValid;
+        return tokenValid && !new Date().after(tokenValidUntil);
     }
 
     public void setTokenValid(boolean tokenValid) {

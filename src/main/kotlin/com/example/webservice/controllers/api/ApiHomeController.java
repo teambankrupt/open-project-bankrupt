@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.net.URI;
+import java.util.Calendar;
 import java.util.Date;
 
 @RestController
@@ -61,25 +62,46 @@ public class ApiHomeController {
         return new ResponseEntity(headers, HttpStatus.TEMPORARY_REDIRECT);
     }
 
+    @PostMapping("/register/verifyPhone")
+    private ResponseEntity verifyPhone(@RequestParam("phone") String phone) throws UserAlreadyExistsException, InvalidException, NullPasswordException, JsonProcessingException, UnknownException, ForbiddenException {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis() + 120000);
+        boolean sent = this.userService.requireAccountValidationByOTP(phone, calendar.getTime());
+        if (!sent) return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        return ResponseEntity.ok("OTP sent!");
+    }
+
     @PostMapping("/register")
-    private ResponseEntity register(@RequestBody User user, BindingResult bindingResult,
-                                    @RequestParam(value = "sendPassword", defaultValue = "false") Boolean sendPassword,
-                                    @CurrentUser User currentUser) throws UserAlreadyExistsException, InvalidException, NullPasswordException, JsonProcessingException, UnknownException {
+    @Transactional
+    ResponseEntity register(@RequestParam("otp") String otp,
+                            @RequestBody User user, BindingResult bindingResult,
+                            @RequestParam(value = "sendPassword", defaultValue = "false") Boolean sendPassword,
+                            @CurrentUser User currentUser) throws UserAlreadyExistsException, InvalidException, NullPasswordException, JsonProcessingException, UnknownException, ForbiddenException {
         if (bindingResult.hasErrors())
             return ResponseEntity.badRequest().build();
+        if (!this.acValidationTokenService.isTokenValid(otp))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("OTP Invalid!");
+        AcValidationToken acValidationToken = this.acValidationTokenService.findByToken(otp);
+        if (acValidationToken == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("OTP doesn't exist!");
+        String phone = acValidationToken.getPhone();
+        user.setPhoneNumber(phone);
         String tempRawPassword = user.getPassword();
         user = this.userService.save(user);
-
+        acValidationToken.setTokenValid(false);
+        acValidationToken.setReason("Registration/Otp Confirmation");
+        this.acValidationTokenService.save(acValidationToken);
         // Notify admin for new registration
         this.notifyAdmin(user);
 
         // send sms to landlords with their password when field employee adds them
-        if (currentUser != null && !currentUser.isAdmin() && sendPassword) {
+        if (currentUser != null && currentUser.isAdmin() && sendPassword) {
             String message = "Dear User, your " + baseUrl + " credentials are - Username: " + user.getUsername() + " and Password: " + tempRawPassword;
             this.smsService.sendSms(user.getUsername(), message);
         }
 
-        return ResponseEntity.ok("OTP sent!");
+        SecurityConfig.updateAuthentication(user);
+        return ResponseEntity.ok(tokenService.createAccessToken(user));
     }
 
     private void notifyAdmin(User user) throws UnknownException, InvalidException, JsonProcessingException {
@@ -116,28 +138,6 @@ public class ApiHomeController {
                                @RequestParam("token") String token,
                                @RequestParam("password") String password) throws UserNotFoundException, ForbiddenException, UserAlreadyExistsException, NullPasswordException, UserInvalidException {
         this.userService.resetPassword(username, token, password);
-    }
-
-
-    // Verify email when registration
-    @PostMapping("/register/verify")
-    @Transactional
-    ResponseEntity verifyRegistration(@RequestParam("token") String token) throws Exception, NullPasswordException, UserAlreadyExistsException, UserInvalidException, ForbiddenException {
-        if (!this.acValidationTokenService.isTokenValid(token))
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Token Invalid!");
-        AcValidationToken acValidationToken = this.acValidationTokenService.findByToken(token);
-        if (acValidationToken == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Token doesn't exist!");
-        User user = acValidationToken.getUser();
-        user.setAccountNonExpired(true);
-        user = this.userService.save(user);
-
-        acValidationToken.setTokenValid(false);
-        acValidationToken.setReason("Registration/Otp Confirmation");
-        this.acValidationTokenService.save(acValidationToken);
-
-        SecurityConfig.updateAuthentication(user);
-
-        return ResponseEntity.ok(tokenService.createAccessToken(user));
     }
 
 

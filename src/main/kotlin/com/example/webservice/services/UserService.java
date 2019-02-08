@@ -17,7 +17,7 @@ import java.util.List;
 public interface UserService {
     User findByUsername(String username) throws UserNotFoundException;
 
-    User findByPhoneNumber(String phoneNumber) throws UserNotFoundException;
+    User findByPhoneNumber(String phoneNumber) throws UserNotFoundException, InvalidException;
 
     User findByEmail(String email) throws UserNotFoundException;
 
@@ -39,7 +39,7 @@ public interface UserService {
 
     User getAuthentication(String username, String password) throws UserNotFoundException, NullPasswordException;
 
-    void requireAccountValidationByOTP(String phone, Date tokenValidUntil) throws UserNotFoundException;
+    boolean requireAccountValidationByOTP(String phone, Date tokenValidUntil) throws InvalidException, UserAlreadyExistsException, ForbiddenException;
 
     void requireAccountValidationByEmail(String email, String validationUrl) throws UserNotFoundException;
 
