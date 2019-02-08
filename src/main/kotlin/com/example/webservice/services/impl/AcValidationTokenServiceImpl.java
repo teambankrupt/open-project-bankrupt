@@ -3,9 +3,9 @@ package com.example.webservice.services.impl;
 import com.example.webservice.commons.utils.DateUtil;
 import com.example.webservice.entities.AcValidationToken;
 import com.example.webservice.entities.User;
+import com.example.webservice.exceptions.forbidden.ForbiddenException;
 import com.example.webservice.repositories.AcValidationTokenRepository;
 import com.example.webservice.services.AcValidationTokenService;
-import com.example.webservice.exceptions.forbidden.ForbiddenException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -44,9 +44,6 @@ public class SwaggerConfig {
     @Value("${host.full.dns.auth.link}")
     private String authLink;
 
-    @Value("${app.loginEndpoint}")
-    private String loginEndpoint;
-
 
     @Bean
     public Docket api() {
@@ -66,7 +63,9 @@ public class SwaggerConfig {
                 .globalResponseMessage(RequestMethod.POST, list);
 
 
+
     }
+
 
 
     private OAuth securitySchema() {
@@ -77,7 +76,7 @@ public class SwaggerConfig {
         authorizationScopeList.add(new AuthorizationScope("write", "access all"));
 
         List<GrantType> grantTypes = newArrayList();
-        GrantType creGrant = new ResourceOwnerPasswordCredentialsGrant(this.authLink + this.loginEndpoint + "?client_id=" + this.clientId + "&client_secret=" + this.clientSecret);
+        GrantType creGrant = new ResourceOwnerPasswordCredentialsGrant(authLink + "oauth/token?client_id=" + this.clientId + "&client_secret=" + this.clientSecret);
 
         grantTypes.add(creGrant);
 

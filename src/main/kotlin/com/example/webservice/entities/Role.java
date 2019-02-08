@@ -23,9 +23,7 @@ public class Role extends BaseEntity {
 
     public enum ERole {
         ROLE_ADMIN("Admin"),
-        ROLE_EMPLOYEE("Employee"),
-        ROLE_FIELD_EMPLOYEE("Field Employee"),
-        ROLE_LANDLORD("LandLord"),
+        ROLE_DRIVER("Driver"),
         ROLE_USER("User");
 
         String value;
@@ -57,9 +55,7 @@ public class Role extends BaseEntity {
 
     public static class StringRole {
         public static final String ROLE_USER = "ROLE_USER";
-        public static final String ROLE_EMPLOYEE = "ROLE_EMPLOYEE";
-        public static final String ROLE_FIELD_EMPLOYEE = "ROLE_FIELD_EMPLOYEE";
-        public static final String ROLE_LANDLORD = "ROLE_LANDLORD";
+        public static final String ROLE_DRIVER = "ROLE_DRIVER";
         public static final String ROLE_ADMIN = "ROLE_ADMIN";
     }
 

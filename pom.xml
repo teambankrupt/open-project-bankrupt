@@ -11,7 +11,7 @@
     <groupId>com.example</groupId>
     <artifactId>webservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>firti</name>
+    <name>webservice</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

@@ -1,7 +1,5 @@
 package com.example.webservice.controllers;
 
-import com.example.webservice.services.UserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.example.webservice.commons.utils.DateUtil;
 import com.example.webservice.commons.utils.NetworkUtil;
 import com.example.webservice.config.security.SecurityConfig;
@@ -20,6 +18,8 @@ import com.example.webservice.exceptions.nullpointer.NullPasswordException;
 import com.example.webservice.exceptions.unknown.UnknownException;
 import com.example.webservice.services.AcValidationTokenService;
 import com.example.webservice.services.NotificationService;
+import com.example.webservice.services.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -33,6 +33,7 @@ import java.net.URI;
 import java.util.Date;
 
 @RestController
+@RequestMapping("/api/v1")
 public class HomeController {
 
     private final UserService userService;
@@ -71,14 +72,12 @@ public class HomeController {
         this.notifyAdmin(user);
 
         // send sms to landlords with their password when field employee adds them
-        if (currentUser != null && !currentUser.isNotAdminOrEmployeeOrFieldEmployee() && sendPassword) {
+        if (currentUser != null && !currentUser.isAdmin() && sendPassword) {
             String message = "Dear User, your " + baseUrl + " credentials are - Username: " + user.getUsername() + " and Password: " + tempRawPassword;
             NetworkUtil.sendSms(user.getUsername(), message);
         }
 
-        SecurityConfig.updateAuthentication(user);
-
-        return ResponseEntity.ok(tokenService.createAccessToken(user));
+        return ResponseEntity.ok("OTP sent!");
     }
 
     private void notifyAdmin(User user) throws UnknownException, InvalidException, JsonProcessingException {
@@ -119,21 +118,24 @@ public class HomeController {
 
 
     // Verify email when registration
-    @GetMapping("/register/verify")
+    @PostMapping("/register/verify")
     @Transactional
-    String verifyRegistration(@RequestParam("token") String token) throws Exception, NullPasswordException, UserAlreadyExistsException, UserInvalidException, ForbiddenException {
+    ResponseEntity verifyRegistration(@RequestParam("token") String token) throws Exception, NullPasswordException, UserAlreadyExistsException, UserInvalidException, ForbiddenException {
         if (!this.acValidationTokenService.isTokenValid(token))
-            return "redirect:" + this.baseUrl + "/login?verify=false";
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Token Invalid!");
         AcValidationToken acValidationToken = this.acValidationTokenService.findByToken(token);
-        if (acValidationToken == null) return "redirect:" + this.baseUrl + "/login?verify=false";
+        if (acValidationToken == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Token doesn't exist!");
         User user = acValidationToken.getUser();
-        user.setEnabled(true);
-        this.userService.save(user);
+        user.setCredentialsNonExpired(true);
+        user = this.userService.save(user);
 
         acValidationToken.setTokenValid(false);
-        acValidationToken.setReason("Registration/Email Confirmation");
+        acValidationToken.setReason("Registration/Otp Confirmation");
         this.acValidationTokenService.save(acValidationToken);
-        return "redirect:" + this.baseUrl + "/login?verify=true";
+
+        SecurityConfig.updateAuthentication(user);
+
+        return ResponseEntity.ok(tokenService.createAccessToken(user));
     }
 
 

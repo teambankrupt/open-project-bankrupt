@@ -1,5 +1,6 @@
 package com.example.webservice.controllers.api.promo.admin;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.example.webservice.entities.Promo;
 import com.example.webservice.exceptions.forbidden.ForbiddenException;
 import com.example.webservice.exceptions.invalid.ImageInvalidException;
@@ -7,7 +8,6 @@ import com.example.webservice.exceptions.invalid.InvalidException;
 import com.example.webservice.exceptions.notfound.NotFoundException;
 import com.example.webservice.exceptions.unknown.UnknownException;
 import com.example.webservice.services.PromoService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

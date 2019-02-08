@@ -2,11 +2,16 @@ package com.example.webservice.entities.base;
 
 
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 
 @MappedSuperclass
 public class ValidationToken extends BaseEntity {
     private String token;
     private boolean tokenValid;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date tokenValidUntil;
 
 
     public String getToken() {
@@ -25,6 +30,14 @@ public class ValidationToken extends BaseEntity {
         this.tokenValid = tokenValid;
     }
 
+    public Date getTokenValidUntil() {
+        return tokenValidUntil;
+    }
+
+    public void setTokenValidUntil(Date tokenValidUntil) {
+        this.tokenValidUntil = tokenValidUntil;
+    }
+
     @Override
     public String toString() {
         return "ValidationToken{" +
@@ -32,4 +45,5 @@ public class ValidationToken extends BaseEntity {
                 ", tokenValid=" + tokenValid +
                 "} " + super.toString();
     }
+
 }

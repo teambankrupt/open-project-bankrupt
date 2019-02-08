@@ -1,7 +1,7 @@
 package com.example.webservice.config.security;
 
-import com.example.webservice.entities.User;
 import com.example.webservice.commons.Commons;
+import com.example.webservice.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,8 +1,8 @@
 package com.example.webservice.entities;
 
 
-import com.example.webservice.entities.base.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.example.webservice.entities.base.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

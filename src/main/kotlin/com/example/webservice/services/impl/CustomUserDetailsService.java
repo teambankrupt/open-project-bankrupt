@@ -2,8 +2,8 @@ package com.example.webservice.services.impl;
 
 import com.example.webservice.commons.utils.NetworkUtil;
 import com.example.webservice.entities.User;
-import com.example.webservice.services.UserService;
 import com.example.webservice.exceptions.notfound.UserNotFoundException;
+import com.example.webservice.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

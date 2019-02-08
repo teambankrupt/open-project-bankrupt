@@ -2,12 +2,12 @@ package com.example.webservice.services.impl;
 
 import com.example.webservice.entities.User;
 import com.example.webservice.entities.firebase.FirebaseUserToken;
-import com.example.webservice.services.FirebaseTokenService;
-import com.example.webservice.services.UserService;
 import com.example.webservice.exceptions.invalid.InvalidException;
 import com.example.webservice.exceptions.notfound.FirebaseTokenNotFoundException;
 import com.example.webservice.exceptions.notfound.UserNotFoundException;
 import com.example.webservice.repositories.FirebaseTokenRepository;
+import com.example.webservice.services.FirebaseTokenService;
+import com.example.webservice.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

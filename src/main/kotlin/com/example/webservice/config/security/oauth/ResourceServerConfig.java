@@ -17,23 +17,16 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         "/",
-                        "/register/**",
-                        "/dev/register",
-                        "/dev/client/credentials",
-                        "/api/v1/users/create",
-                        "/api/v1/orders/create",
+                        "/api/v1/register/**",
                         "/api/v1/search/**",
                         "/api/v2/search/**",
-                        "/api/v1/apartments/**",
-                        "/api/v1/buildings/byApartment/**",
-                        "/login**",
+                        "/api/v1/login**",
                         "/oauth/token**",
                         "/swagger-resources/**",
                         "/v2/api-docs",
                         "/sw/**",
-                        "/resetPassword/**",
-                        "/checkTokenValidity",
-                        "/api/v1/apps/all",
+                        "/api/v1/resetPassword/**",
+                        "/api/v1/checkTokenValidity",
                         "/api/v1/promos/**",
                         "/swagger-ui.html",
                         "/api/v1/profiles/user/snap/*"
@@ -44,11 +37,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                         "/api/v1/search/users",
                         "/api/v1/stats/employee"
                 )
-                .hasAnyAuthority(Role.StringRole.ROLE_ADMIN, Role.StringRole.ROLE_EMPLOYEE, Role.StringRole.ROLE_FIELD_EMPLOYEE)
+                .hasAnyAuthority(Role.StringRole.ROLE_ADMIN)
                 .antMatchers(
                         "/api/v1/admin/**"
                 )
-                .hasAnyAuthority(Role.StringRole.ROLE_ADMIN, Role.StringRole.ROLE_EMPLOYEE)
+                .hasAnyAuthority(Role.StringRole.ROLE_ADMIN)
                 .antMatchers(
                         "/api/v1/users"
                 )

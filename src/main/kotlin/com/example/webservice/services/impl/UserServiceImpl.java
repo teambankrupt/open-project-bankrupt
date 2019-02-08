@@ -1,7 +1,5 @@
 package com.example.webservice.services.impl;
 
-import com.example.webservice.repositories.UserRepository;
-import com.example.webservice.services.UserService;
 import com.example.webservice.commons.PageAttr;
 import com.example.webservice.commons.utils.NetworkUtil;
 import com.example.webservice.commons.utils.PasswordUtil;
@@ -17,9 +15,11 @@ import com.example.webservice.exceptions.invalid.UserInvalidException;
 import com.example.webservice.exceptions.notfound.UserNotFoundException;
 import com.example.webservice.exceptions.nullpointer.NullPasswordException;
 import com.example.webservice.exceptions.unknown.UnknownException;
+import com.example.webservice.repositories.UserRepository;
 import com.example.webservice.services.AcValidationTokenService;
 import com.example.webservice.services.MailService;
 import com.example.webservice.services.RoleService;
+import com.example.webservice.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -28,6 +28,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -125,6 +127,8 @@ public class UserServiceImpl implements UserService {
 
         // set Roles
         user.grantRole(this.roleService.findRole(Role.ERole.ROLE_USER));
+        if (Role.getERole(user.getUserType()).equals(Role.ERole.ROLE_DRIVER))
+            user.grantRole(this.roleService.findRole(Role.ERole.ROLE_DRIVER));
 
         // Execute only when user is being registered
         if (user.getId() == null) {
@@ -139,14 +143,16 @@ public class UserServiceImpl implements UserService {
                 throw new UserInvalidException("Maximum limit exceed!");
             this.registrationAttemptService.registrationSuccess(ip);
         }
-//        boolean newUser = user.getId()==null;
-//        user = this.userRepo.save(user);
-//        if (newUser) try {
-//            if (!user.isOnlyUser())
-//                this.requireAccountValidationByEmail(user.getEmail(), "/register/verify");
-//        } catch (UserNotFoundException e) {
-//            e.printStackTrace();
-//        }
+        // sent otp for new user
+        boolean newUser = user.getId() == null;
+        user = this.userRepo.save(user);
+        if (newUser) try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis() + 120000);
+            this.requireAccountValidationByOTP(user.getPhoneNumber(), calendar.getTime());
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
         return this.userRepo.save(user);
     }
 
@@ -167,6 +173,23 @@ public class UserServiceImpl implements UserService {
         if (PasswordUtil.matches(user.getPassword(), password))
             return user;
         return null;
+    }
+
+    @Override
+    public void requireAccountValidationByOTP(String phone, Date tokenValidUntil) throws UserNotFoundException {
+        if (phone == null) throw new IllegalArgumentException("Email invalid!");
+        User user = this.findByPhoneNumber(phone);
+        AcValidationToken acValidationToken = new AcValidationToken();
+        acValidationToken.setToken(String.valueOf(SessionIdentifierGenerator.generateOTP()));
+        acValidationToken.setTokenValid(true);
+        acValidationToken.setUser(user);
+        acValidationToken.setTokenValidUntil(tokenValidUntil);
+        // save acvalidationtoken
+        acValidationToken = this.acValidationTokenService.save(acValidationToken);
+        // build confirmation link
+        String tokenMessage = "Your " + this.applicationName + " token is: " + acValidationToken.getToken();
+        // send link by sms
+        NetworkUtil.sendSms(phone, tokenMessage);
     }
 
     @Override

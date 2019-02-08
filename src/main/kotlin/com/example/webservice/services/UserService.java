@@ -11,6 +11,7 @@ import com.example.webservice.exceptions.unknown.UnknownException;
 import org.springframework.data.domain.Page;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 public interface UserService {
@@ -38,6 +39,8 @@ public interface UserService {
 
     User getAuthentication(String username, String password) throws UserNotFoundException, NullPasswordException;
 
+    void requireAccountValidationByOTP(String phone, Date tokenValidUntil) throws UserNotFoundException;
+
     void requireAccountValidationByEmail(String email, String validationUrl) throws UserNotFoundException;
 
     @Transactional
@@ -48,6 +51,7 @@ public interface UserService {
     User changeRole(Long id, String role) throws UserNotFoundException;
 
     User changePassword(Long id, String currentPassword, String newPassword) throws NullPasswordException, UserNotFoundException, InvalidException, ForbiddenException;
+
     User setPassword(Long id, String newPassword) throws NullPasswordException, UserNotFoundException, InvalidException, ForbiddenException;
 
     void handlePasswordResetRequest(String username) throws UserNotFoundException, ForbiddenException, UnknownException;

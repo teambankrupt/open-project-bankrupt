@@ -33,6 +33,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Long countByCreatedBetween(Date fromDate, Date toDate);
 
-//    @Query("SELECT new com.example.webservice.entities.pojo.DateCountPair(u.created, count(u.id)) FROM User u WHERE u.created BETWEEN :fromDate AND :toDate")
-//    List<DateCountPair> countUsersInAPeriod(@Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
+    @Query("SELECT new com.example.webservice.entities.pojo.DateCountPair(u.created, count(u.id)) FROM User u WHERE u.created BETWEEN :fromDate AND :toDate")
+    List<DateCountPair> countUsersInAPeriod(@Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
 }
