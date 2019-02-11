@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="adminlte/index">
+
+<div layout:fragment="main_content">
+
+    <section class="content-header">
+        <h1>
+            <span style="font-size: 50px; color: green;" th:text="${hotel?.name}"></span>
+            <small>Control panel</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a th:href="@{/dashboard}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a th:href="@{/admin/hotels}">All Hotels(Admin)</a></li>
+            <li class="active" th:text="${hotel?.name}"></li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <!--all room number-->
+            <div sec:authorize="hasRole('ROLE_HOTEL_ADMIN')" id="partners" class="tm_pb_section tm_pb_anchor tm_pb_section_9 tm_section_regular tm_section_transparent">
+                <hr/>
+                <div class="roomPanel" style="width: 100%;">
+                    <div class="tm_pb_column tm_pb_column_4_4  tm_pb_column_27 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 tm_pb_vertical_alligment_start">
+                        <div class="dashblue text-uppercase text-center">
+                            <h3>Rooms</h3>
+                        </div>
+
+                        <div class="container allRoomNumber">
+                            <div class="col-xs-1 roomBox" th:each="room : ${roomList}"
+                                 th:classappend="${bookedIds?.contains(room?.id)} ? bg-yellow : bg-aqua-active">
+                                <span th:text="${room?.roomNumber}"></span>
+                            </div>
+                        </div>
+                        <!-- .tm_pb_brands_showcase_module__wrapper -->
+                    </div>
+                    <!-- .tm_pb_column -->
+
+                    <!-- .tm_pb_row -->
+                </div>
+                <hr/>
+            </div><hr/>
+            <!--end all room number-->
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel row panel-default">
+                    <div class="col-sm-12">
+                        <a class="col-sm-3 btn btn-success" data-toggle="modal" data-target="#modal-create-room">Create
+                            New Room</a>
+                        <a class="col-sm-3 col-sm-offset-6 btn btn-warning" th:href="@{/hotels/}+${hotel?.id}">Switch to
+                            Booking Mode</a>
+                    </div>
+                    <!--<div class="panel-heading">Filter</div>-->
+                    <div class="panel-heading col-sm-3" sec:authorize="hasRole('ROLE_HOTEL_ADMIN')">
+                        <form class="form" th:action="@{/hotel/rooms}" id="dateFilterForm" method="get">
+                            <input name="filterType" type="hidden" th:value="date"></input>
+                            <input class="form-control" name="value" type="date" id="dateFilter"
+                                   th:value="${filterValue}"></input>
+                        </form>
+                    </div>
+                    <div class="panel-heading col-sm-6" sec:authorize="hasRole('ROLE_HOTEL_ADMIN')">
+                        <form class="form" th:action="@{/hotel/rooms/search}" method="get">
+                            <input class="form-control" name="q" type="text" placeholder="Search"></input>
+                        </form>
+                    </div>
+                    <div class="panel-heading col-sm-3" sec:authorize="hasRole('ROLE_HOTEL_ADMIN')">
+                        <form class="form" th:action="@{/hotel/rooms}" id="catFilterForm" method="get">
+                            <input name="filterType" type="hidden" th:value="category"></input>
+                            <select class="form-control" name="value" id="categoryFilter">
+                                <option th:each="category: ${categoryList}" th:text="${category?.name}"
+                                        th:selected="${filterValue?.equals(category?.name)}"></option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+        <!--<div class="row">-->
+        <!--<div class="panel col-sm-3" th:each="room : ${roomList}"-->
+        <!--th:classappend="${bookedIds?.contains(room?.id)} ? panel-danger : panel-primary">-->
+        <!--<div class="panel-heading">-->
+        <!--<h2 class="panel-title" th:text="${room?.category?.name}"></h2><br/>-->
+        <!--<h5 class="badge badge-primary" th:if="${room?.discounted}"-->
+        <!--th:text="${room?.getDiscountPercentage()}">Discounted</h5>-->
+        <!--</div>-->
+        <!--<div class="panel-body">-->
+        <!--<h1 th:text="${room?.roomNumber}"></h1>-->
+        <!--</div>-->
+        <!--<div class="panel-footer panel-primary clearfix">-->
+        <!--<div class="col-sm-6">-->
+        <!--<h6>Original Price</h6>-->
+        <!--<h3 th:text="${room?.price}"></h3>-->
+        <!--</div>-->
+        <!--<div class="col-sm-6" th:if="${room?.discounted}">-->
+        <!--<h6>Discounted Price</h6>-->
+        <!--<h3 th:text="${room?.getDiscountedPrice()}"></h3>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="panel-footer panel-primary clearfix">-->
+        <!--<div class="col-sm-12">-->
+        <!--<a class="btn btn-link" th:href="@{/hotel/rooms/edit/}+${room?.id}">Edit</a>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <div class="row">
+            <div class="col-md-3" th:each="room : ${roomList}" th:hidden="${room?.archived}"
+                 th:classappend="${bookedIds?.contains(room?.id)} ? panel-danger : panel-primary">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header"
+                         th:classappend="${bookedIds?.contains(room?.id)} ? bg-yellow : bg-aqua-active">
+                        <h3 class="widget-user-username">
+                            <span th:text="${room?.roomNumber}">Alexander Pierce</span>
+                            <span th:text="${room?.category?.name}" class="pull-right"></span>
+                        </h3>
+                        <h5 class="widget-user-desc">
+
+                            <span th:if="${bookedIds?.contains(room?.id)}">
+                                <kbd th:if="${filterType != null and !filterType.equals('category')}">Booked!</kbd>
+                            </span>
+                            <span th:unless="${bookedIds?.contains(room?.id)}"><kbd>Available</kbd></span>
+
+                        </h5>
+                    </div>
+                    <div class="widget-user-image">
+                        <!--<h1 style="color: white;" class="widget-user-username" th:text="${room?.roomNumber}">Alexander Pierce</h1>-->
+                        <img class="img-circle" th:src="@{/rooms/}+${room?.id}+@{/image/0}" alt="User Avatar">
+                    </div>
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-sm-4 border-right">
+                                <div class="description-block">
+                                    <span>Price</span>
+                                    <h5 class="description-header" th:text="${room?.price}">3,200</h5>
+                                    <span class="description-text">TK</span>
+                                </div>
+                                <!-- /.description-block -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-sm-4 border-right">
+                                <div class="description-block">
+                                    <span>...</span>
+                                    <h5 class="description-header" th:text="${room?.getDiscountPercentage(filterValue)}">
+                                        13,000</h5>
+                                    <span class="description-text">DISCOUNT</span>
+                                </div>
+                                <!-- /.description-block -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-sm-4">
+                                <div class="description-block">
+                                    <span>Price After</span>
+                                    <h5 class="description-header" th:text="${room?.getDiscountedPrice(filterValue)}">
+                                        35</h5>
+                                    <span class="description-text">TK</span>
+                                </div>
+                                <!-- /.description-block -->
+                            </div>
+                            <div class="col-sm-12">
+                                <a th:onclick="'onRoomItemClick(this,\'' + ${room.id} + '\');'"
+                                   class="btn btn-link btn-block" id="openEditModalButton"
+                                   data-toggle="modal" data-target="#modal-edit-room"><b>Edit</b></a>
+                                <a sec:authorize="hasRole('ROLE_HOTEL_ADMIN')"
+                                   th:href="@{/hotel/rooms/}+${room?.id}+@{/discounts}" class="btn btn-link btn-block"><b>Set
+                                    Discounts</b></a>
+                                <form sec:authorize="hasRole('ROLE_HOTEL_ADMIN')" th:action="@{/hotel/rooms/archive/}+${room?.id}" method="post" onsubmit="return confirm('Do you really want to delete this room?');">
+                                    <button type="submit" class="btn btn-link btn-block">Delete</button>
+                                </form>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                </div>
+                <!-- /.widget-user -->
+            </div>
+        </div>
+
+        <!--MODALS-->
+        <div>
+            <!--CREATE ROOM MODAL-->
+            <div th:include="adminlte/fragments/room/admin/createRoomModal"></div>
+            <!--EDIT ROOM MODAL-->
+            <div th:include="adminlte/fragments/room/admin/editRoomModal"></div>
+        </div>
+
+    </section>
+
+</div>

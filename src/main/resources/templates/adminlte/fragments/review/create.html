@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="adminlte/index">
+
+<div layout:fragment="main_content">
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-4">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user-2">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-yellow">
+                        <!--<div class="widget-user-image">-->
+                        <!--<img class="img-circle" th:src="@{/hotels/images/}+${hotel?.id}" alt="User Avatar">-->
+                        <!--</div>-->
+                        <!-- /.widget-user-image -->
+                        <h3 th:text="${hotel?.name}">Nadia Carmichael</h3>
+                        <h5 th:text="${hotel?.address?.getCommaSeperatedString()}">Lead Developer</h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            <li class="badge bg-green" style="color: #ecf0f5;" sec:authorize="!hasRole('ROLE_ADMIN')">My Bookings in this Hotel</li>
+                            <li class="badge bg-green" style="color: #ecf0f5;" sec:authorize="hasRole('ROLE_ADMIN')">Bookings by date in this Hotel</li>
+                            <li th:each="booking : ${bookingList}">
+                                <a th:href="@{/bookings/}+${booking?.id}"> <span class="badge bg-blue"
+                                                                                 th:text="${booking?.getAllBookingDates()}">31</span></a>
+                            </li>
+                            <!--<li><a href="#">Tasks <span class="pull-right badge bg-aqua">5</span></a></li>-->
+                            <!--<li><a href="#">Completed Projects <span class="pull-right badge bg-green">12</span></a></li>-->
+                            <!--<li><a href="#">Followers <span class="pull-right badge bg-red">842</span></a></li>-->
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.widget-user -->
+            </div>
+            <div class="col-md-8">
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Review <span th:text="${hotel?.name}"></span></h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <form role="form" th:action="@{/reviews/hotel/}+${hotel?.id}+@{/create}" method="post">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>Review Title</label>
+                                <input type="text" name="title" class="form-control" placeholder="Review Title">
+                            </div>
+
+                            <!-- textarea -->
+                            <div class="form-group">
+                                <label>Comment</label>
+                                <textarea name="comment" class="form-control" rows="6"
+                                          placeholder="Your comment"></textarea>
+                            </div>
+
+                            <div class="form-group" data-wow-delay=".5s">
+                                <label>Your Rating</label>
+                                <div class="row lead">
+                                    <div style="margin-left: 20px;" id="stars" class="starrr"></div>
+                                    <span hidden="hidden">You gave a rating of <span id="count">0</span> star(s)</span>
+                                </div>
+                                <input type="hidden" id="ratingCount" name="rating"></input>
+                            </div>
+
+
+                            <input class="btn btn-primary" type="submit" value="SUBMIT"></input>
+
+                        </form>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+
+        </div>
+
+
+    </section>
+
+</div>

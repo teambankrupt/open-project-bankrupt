@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="adminlte/index">
+
+<div layout:fragment="main_content">
+
+    <section class="content-header">
+        <h1>
+            <span>OFFERS</span>
+            <!--<small>Control panel</small>-->
+        </h1>
+        <ol class="breadcrumb">
+            <li><a th:href="@{/dashboard}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a th:href="@{/offers}">OFFERS</a></li>
+            <li><a th:href="@{/offers/}+${offer?.id}">Details</a></li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-sm-8" style="padding: 0;">
+                <div class="component-box">
+                    <div class="box-image">
+                        <img th:src="@{/offers/image/}+${offer?.id}" th:alt="${offer?.title}" class="img-responsive"
+                             style="width: 100%; height: auto;">
+                    </div>
+                </div>
+
+                <div class="box-header">
+                    <h2 class="offer-title"><span th:text="${offer?.title}"></span></h2>
+                    <div class="offer-box">
+                        <h3><span th:text="${offer?.shortTag}"></span></h3>
+                        <strong> Price : </strong><span th:text="${offer?.price}"></span> <br>
+                        <strong> Duration : </strong><span th:text="${offer?.duration}"></span> <br>
+
+                        <div th:if="${offer?.timeDistribution != null and !offer?.timeDistribution?.empty}">
+                            <strong>Time Distribution</strong><br/>
+                            <p th:text="${offer?.timeDistribution}"></p>
+                        </div>
+                        <h5 th:if="${offer?.include != null and !offer?.include?.empty}" style="margin-top: 10px;">
+                            <strong>This Offer includes</strong><br/>
+                            <span th:text="${offer?.include}"></span>
+                        </h5>
+
+                        <h5 th:if="${offer?.exclude != null and !offer?.exclude?.empty}" style="margin-top: 10px;">
+                            <strong>This Offer doesn't includes</strong><br/>
+                            <span th:text="${offer?.exclude}"></span>
+                        </h5>
+                        <div th:if="${offer?.date != null}" style="margin-top: 10px;">
+                            <strong>Last Date of Booking: </strong>
+                            <span th:text="${offer?.getReadableDate(offer?.date)}"></span>
+                        </div>
+
+
+                        <p th:text="${offer?.description}" style="margin-top: 15px;"></p>
+
+                    </div>
+                    <!--</div>-->
+                </div>
+            </div>
+
+            <div class="col-sm-4" style="padding-right: 0;">
+                <div class="box box-widget widget-user" th:each="p: ${offerList}">
+
+                    <div class="widget-user-header bg-black"
+                         th:style="'background:url(' + @{/offers/image/}+${p?.id} + ') center center;'"
+                         style="height:150px;">
+                    </div>
+
+
+                    <div class="row" style="padding: 10px;">
+                        <div class="col-xs-8">
+                            <h3 class="widget-user-username" th:text="${p?.title}"
+                                style="color: #000; font-family: 'Arial Rounded MT Bold'"></h3>
+                            <h5 class="widget-user-desc" th:text="${p?.location}" style="color: #000;"></h5>
+                        </div>
+                        <div class="col-xs-4">
+                            <a class="btn btn-primary pull-right" th:href="@{/offers/}+${p?.id}">Details</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="row">-->
+        <!--<div class="col-sm-8 col-sm-offset-2">-->
+        <!--<h2 th:text="${offer?.title}" class="title"></h2>-->
+        <!--<h4>-->
+        <!--<span>Location: </span>-->
+        <!--<span th:text="${offer?.location}"></span>-->
+        <!--</h4>-->
+        <!--<hr/>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-sm-8 col-sm-offset-2">-->
+        <!--<img th:src="@{/offers/image/}+${offer?.id}" th:alt="${offer?.title}" class="img-responsive pull-left"-->
+        <!--style="width: 200px; margin-right: 20px;margin-bottom: 20px;">-->
+        <!--<p th:text="${offer?.description}"></p>-->
+        <!--</div>-->
+        <!--</div>-->
+
+    </section>
+
+</div>

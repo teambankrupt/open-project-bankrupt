@@ -1,0 +1,180 @@
+<div class="modal fade" id="modal-create-room">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <!--<h4 class="modal-title">Create Room</h4>-->
+            </div>
+            <div class="modal-body">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Create Room</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" th:action="@{/hotel/rooms/create}" method="post" enctype="multipart/form-data">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="roomNumber">Room Number</label>
+                                <input id="roomNumber" name="roomNumber" class="form-control" type="text"
+                                       placeholder="Room Number">
+                            </div>
+                            <div class="form-group">
+                                <label for="floorNumber">Floor Number</label>
+                                <input name="floorNumber" id="floorNumber" class="form-control" type="number"
+                                       placeholder="Floor Number"
+                                       required="required">
+                            </div>
+                            <div class="form-group">
+                                <label for="price">Price</label>
+                                <input name="price" id="price" class="form-control" type="number" placeholder="Price"
+                                       required="required"></input>
+                            </div>
+                            <div class="form-group">
+                                <label for="discount">Discount</label>
+                                <input name="discount" id="discount" class="form-control" type="number"
+                                       placeholder="Discount"></input>
+                            </div>
+                            <div class="form-group" sec:authorize="hasRole('ROLE_ADMIN')">
+                                <label for="agentDiscount">Extra Discount for Group Booking (Agent)</label>
+                                <input name="agentDiscount" id="agentDiscount" class="form-control" type="number"
+                                       placeholder="Extra Discount"></input>
+                            </div>
+                            <div id="select_category" th:if="${categoryList!=null and !categoryList?.isEmpty()}">
+                                <label for="category">Category</label>
+                                <select id="category" name="category.id" class="wow fadeInDown animated"
+                                        class="form-control">
+                                    <option th:each="cat : ${categoryList}" th:value="${cat.id}"
+                                            th:text="${cat.name}"></option>
+                                    <!--<option th:value="Dummy">Dummy 2</option>-->
+                                </select>
+                            </div>
+                            <br/>
+
+                            <!--IMAGES-->
+                            <div class="form-group">
+                                <label for="image1">Image 1</label>
+                                <input name="images" id="image1" type="file">
+
+                                <p class="help-block">Choose your first image(Optional).</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="image2">Image 2</label>
+                                <input name="images" id="image2" type="file">
+
+                                <p class="help-block">Choose your second image(Optional).</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="image1">Image 3</label>
+                                <input name="images" id="image3" type="file">
+
+                                <p class="help-block">Choose your Third image(Optional).</p>
+                            </div>
+                            <div class="form-group" sec:authorize="hasRole('ROLE_ADMIN')">
+                                <input hidden="hidden" name="hotelId" id="hotelId" type="text" th:value="${hotel?.id}">
+                            </div>
+                            <br/>
+
+                            <!--FASCILITIES-->
+                            <div class="form-group">
+                                <label>Fascilities</label>
+                            </div>
+                            <hr/>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.frontFace" class="checkbox" type="checkbox">With Front
+                                Face?</input>
+                            </div>
+                            <div class="col-md-6 form-right" data-wow-delay=".5s">
+                                <input name="facilities.withCorridor" class="checkbox" type="checkbox">With
+                                Corridor?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.breakfast" class="checkbox" type="checkbox">Breakfast
+                                Available?</input>
+                            </div>
+                            <div class="col-md-6 form-right" data-wow-delay=".5s">
+                                <input name="facilities.internet" class="checkbox" type="checkbox">Internet
+                                Available?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.airConditioned" class="checkbox" type="checkbox">AC
+                                Available?</input>
+                            </div>
+                            <div class="col-md-6 form-right" data-wow-delay=".5s">
+                                <input name="facilities.tv" class="checkbox" type="checkbox">TV Available?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.geyser" class="checkbox" type="checkbox">Geyser
+                                Available?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.hillView" class="checkbox" type="checkbox">Hill View?</input>
+                            </div>
+
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.seaView" class="checkbox" type="checkbox" id="seaViewEdit">Sea View?</input>
+                            </div>
+
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.telephone" class="checkbox" type="checkbox">Has Telephone?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.bathTowel" class="checkbox" type="checkbox">Bath Towel?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.tableAndChair" class="checkbox" type="checkbox">Provides table
+                                and chair?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.inMiddle" class="checkbox" type="checkbox">Is in the
+                                middle?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.backFace" class="checkbox" type="checkbox">Back Face?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.kitchen" class="checkbox" type="checkbox">Kitchen?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.bathTub" class="checkbox" type="checkbox">Has Bathtub?</input>
+                            </div>
+
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.children" class="checkbox" type="checkbox">Children
+                                Allowed</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.extraBeds" class="checkbox" type="checkbox">Has Extra
+                                Bed</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.petsAllowed" class="checkbox" type="checkbox">Pets
+                                Allowed</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.hasPaymentMethod" class="checkbox" type="checkbox">Accepts
+                                payment methods</input>
+                            </div>
+
+
+                        </div>
+
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">CANCEL</button>
+                            <input class="btn btn-primary pull-right" type="submit" value="CREATE ROOM"></input>
+                        </div>
+                    </form>
+                </div>
+                <!--<div class="modal-footer">-->
+                <!--<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>-->
+                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                <!--</div>-->
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

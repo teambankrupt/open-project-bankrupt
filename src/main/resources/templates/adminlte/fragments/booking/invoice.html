@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="adminlte/index">
+
+<div layout:fragment="main_content">
+
+    <section class="invoice" id="invoiceContent" xmlns:th="http://www.w3.org/1999/xhtml">
+        <!-- title row -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="page-header">
+                    <i class="fa fa-globe"></i> Firti
+                    <div class="pull-right">
+                        <strong th:text="${invoice?.paid}?'Paid':'Unpaid' "></strong><br/>
+                        <small th:text="${invoice?.getReadableDateTime(invoice?.created)}">Date: 2/10/2014</small>
+                    </div>
+                </h2>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- info row -->
+        <div class="row invoice-info">
+            <div class="col-sm-4 invoice-col">
+                From
+                <!--<address th:if="${invoice?.booking?.manualBooking}">-->
+                    <!--<strong th:text="${invoice?.booking?.hotel?.name}">John Doe</strong><br>-->
+                    <!--<span th:text="${invoice?.booking?.hotel?.address?.getCommaSeperatedString()}">795 Folsom Ave, Suite 600</span><br/>-->
+                    <!--&lt;!&ndash;<span th:text="${invoice?.user?.address?.upazila}">San Francisco, CA 94107</span><br/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;Phone: <span th:text="${invoice?.booking?.hotel?.phoneNumber}"></span><br>&ndash;&gt;-->
+                    <!--Email: <span th:text="${invoice?.user?.email}">john.doe@example.com</span>-->
+                <!--</address>-->
+                <address>
+                    <strong>Firti</strong><br>
+                    <span>32/1, Khan Plaza ( 3rd floor), Sciece Lab, Mirpur Road, Dhanmondi, Dhaka- 1205</span><br/>
+                    <!--<span th:text="${invoice?.user?.address?.upazila}">San Francisco, CA 94107</span><br/>-->
+                    Phone: <span>01840477707</span><br>
+                    Email: <span>Firti.info@gmail.com</span><br/>
+                </address>
+            </div>
+
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+                To
+                <address sec:authorize="hasAnyRole('ROLE_HOTEL_ADMIN','ROLE_ADMIN')">
+                    <strong th:text="${invoice?.booking?.hotel?.name}">John Doe</strong><br>
+                    <span th:text="${invoice?.booking?.hotel?.address?.getCommaSeperatedString()}">795 Folsom Ave, Suite 600</span><br/>
+                    <!--<span th:text="${invoice?.user?.address?.upazila}">San Francisco, CA 94107</span><br/>-->
+                    Phone: <span th:text="${invoice?.booking?.hotel?.phoneNumber}"></span><br>
+                    Email: <span th:text="${invoice?.user?.email}">john.doe@example.com</span>
+                </address>
+                <address sec:authorize="hasRole('ROLE_USER')">
+                    <strong th:text="${invoice?.user?.name}">John Doe</strong><br>
+                    <span th:text="${invoice?.user?.address?.getCommaSeperatedString()}">795 Folsom Ave, Suite 600</span><br/>
+                    <!--<span th:text="${invoice?.user?.address?.upazila}">San Francisco, CA 94107</span><br/>-->
+                    Phone: <span th:text="${invoice?.user?.phoneNumber}"></span><br>
+                    Email: <span th:text="${invoice?.user?.email}">john.doe@example.com</span>
+                </address>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+                <b>Invoice <span th:text="${invoice?.getInvoiceId()}">#007612</span></b><br>
+                <br>
+                <b>Order ID:</b> <span th:text="${invoice?.booking?.id}">4F3S8J</span><br>
+                <!--<b>Payment Due:</b> <span th:text="${invoice?.getReadableDayMonth(invoice?.dueDate)}">2/22/2014</span><br>-->
+            </div>
+            <!-- /.col -->
+        </div>
+        <b style="font-size: 15px; margin-top: 5px;margin-bottom: 15px;">Hotel Name: <span class="text text-primary" th:text="${invoice?.booking?.hotel?.name}"></span></b>
+        <!-- /.row -->
+
+        <!-- Table row -->
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Room</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Discount</th>
+                        <th>Subtotal</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="room, iter : ${invoice?.booking?.roomList}">
+                        <td th:text="${room?.roomNumber}">Call of Duty</td>
+                        <td th:text="${room?.category?.name}">1</td>
+                        <td th:text="${room?.getReadableDayMonth(invoice?.booking?.getBookingDateList()?.get(iter.index))}">455-981-221</td>
+                        <td>৳<span th:text="${room?.getDiscount(invoice?.booking?.bookingDateList?.get(iter.index))}"></span></td>
+                        <td>৳<span th:text="${room?.getDiscountedPrice(invoice?.booking?.bookingDateList?.get(iter.index))}"></span></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+            <!-- accepted payments column -->
+            <div class="col-xs-6">
+                <p class="lead">Payment Methods:</p>
+                <img th:src="@{/adminlte/dist/img/credit/visa.png}" alt="Visa">
+                <img th:src="@{/adminlte/dist/img/credit/mastercard.png}" alt="Mastercard">
+                <img th:src="@{/adminlte/dist/img/credit/american-express.png}" alt="American Express">
+                <img th:src="@{/adminlte/dist/img/credit/paypal2.png}" alt="Paypal">
+
+
+                <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg
+                    dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
+                </p>
+            </div>
+            <!-- /.col -->
+            <div class="col-xs-6">
+                <!--<p class="lead">Amount Due 2/22/2014</p>-->
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th style="width:50%">Subtotal:</th>
+                            <td>৳<span th:text="${invoice?.booking?.getTotalCost()}"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Discount (<span th:text="${invoice?.booking?.getTotalDiscountPercentage()}"></span>)</th>
+                            <td>৳<span th:text="${invoice?.booking?.getTotalDiscount()}"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Total:</th>
+                            <td>৳<span th:text="${invoice?.booking?.getTotalPayableCost()}"></span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <!-- this row will not appear when printing -->
+        <div class="row no-print">
+            <div class="col-xs-12">
+                <a onclick="window.print();" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+                <span style="color: red;" th:if="${!invoice?.booking?.isValid() and !invoice?.paid}"><b>This booking is invalid. Please do not pay.</b></span>
+                <form class="pull-right" id="payment_gw" name="payment_gw" method="POST" action="https://securepay.sslcommerz.com/gwprocess/v3/process.php">
+                    <input type="hidden" name="total_amount" th:value="${invoice?.booking?.getTotalPayableCost()}" />
+                    <input type="hidden" name="store_id" th:value="test_Firti" />
+                    <input type="hidden" name="tran_id" th:value="${invoice?.booking?.transaction?.id}" />
+                    <input type="hidden" name="success_url" th:value="${@environment.getProperty('baseUrl')}+@{/invoices/}+${invoice?.id}+@{/payment/success}" />
+                    <input type="hidden" name="fail_url" th:value="${@environment.getProperty('baseUrl')}+@{/invoices/}+${invoice?.id}+@{/payment/failed}" />
+                    <input type="hidden" name="cancel_url" value="${@environment.getProperty('baseUrl')}+@{/invoices/}+${invoice?.id}+@{/payment/failed}" />
+                    <input type="hidden" name="version" value="3.00" />
+
+                    <!-- Customer Information !-->
+                    <input type="hidden" name="cus_name" th:value="${invoice?.user?.name}">
+                    <input type="hidden" name="cus_email" th:value="${invoice?.user?.email}">
+                    <input type="hidden" name="cus_add1" th:value="${invoice?.user?.address?.area}">
+                    <input type="hidden" name="cus_add2" value="">
+                    <input type="hidden" name="cus_city" th:value="${invoice?.user?.address?.city}">
+                    <input type="hidden" name="cus_state" value="">
+                    <input type="hidden" name="cus_postcode" value="">
+                    <input type="hidden" name="cus_country" value="${invoice?.user?.address?.country}">
+                    <input type="hidden" name="cus_phone" value="${invoice?.user?.phoneNumber}">
+                    <input type="hidden" name="cus_fax" value="">
+
+                    <!-- Shipping Information !-->
+                    <input type="hidden" name="ship_name" value="">
+                    <input type="hidden" name="ship_add1" value="">
+                    <input type="hidden" name="ship_add2" value="">
+                    <input type="hidden" name="ship_city" value="">
+                    <input type="hidden" name="ship_state" value="">
+                    <input type="hidden" name="ship_postcode" value="">
+                    <input type="hidden" name="ship_country" value="">
+
+                    <!-- Optional Parameters which will be stored and returned at the end !-->
+                    <input type="hidden" name="value_a" th:value="${invoice?.booking?.transaction?.id}+'SAyEM'+${invoice?.booking?.getTotalPayableCost()}">
+                    <input type="hidden" name="value_b" value="">
+                    <input type="hidden" name="value_c" value="">
+                    <input type="hidden" name="value_d" value="">
+
+                    <!-- PRODUCT 1 !-->
+                    <!--<input type="hidden" name="cart[0][product]" value="FRESH HOME MADE BREAD 350GM" />-->
+                    <!--<input type="hidden" name="cart[0][amount]" value="500.00" />-->
+
+                    <!--&lt;!&ndash; PRODUCT 2 !&ndash;&gt;-->
+                    <!--<input type="hidden" name="cart[1][product]" value="FRESH HOME MADE BREAD 350GM Quantity(1)" />-->
+                    <!--<input type="hidden" name="cart[1][amount]" value="600.00">-->
+
+                    <!--&lt;!&ndash; PRODUCT 3 !&ndash;&gt;-->
+                    <!--<input type="hidden" name="cart[2][product]" value="SHIPMENT CHARGE" />-->
+                    <!--<input type="hidden" name="cart[2][amount]" value="50.00" />-->
+
+                    <!-- SUBMIT REQUEST  !-->
+                    <button class="btn btn-danger" th:disabled="${invoice?.paid or !invoice?.booking?.isValid()}"><i class="fa fa-credit-card"></i>&nbsp;Pay Now</button>
+                </form>
+                <!--<button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment-->
+                <button type="button" onclick="window.print();" class="btn btn-primary pull-right" style="margin-right: 5px;">
+                    <i class="fa fa-download"></i> Generate PDF
+                </button>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="adminlte/index">
+
+<div layout:fragment="main_content">
+    <section class="content-header">
+        <h1>
+            <span>Pending Booking List</span>
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a th:href="@{/dashboard}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Booking</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="box table-responsive">
+                    <div class="box-header with-border">
+                        <div class="col-sm-4">
+                            <h3 class="box-title">
+                                Pending Bookings | <a th:href="@{/bookings/canceled}">Canceled Bookings</a>
+                            </h3>
+                        </div>
+                        <div class="col-sm-8">
+                            <!--<form sec:authorize="hasRole('ROLE_ADMIN')" class="form col-sm-4" th:action="@{/bookings}"-->
+                            <!--id="typeFilterForm" method="get">-->
+                            <!--<input name="filterType" type="hidden" value="hotelType"></input>-->
+                            <!--<select class="form-control" name="filterValue" id="typeFilter">-->
+                            <!--<option th:selected="${filterValue.toLowerCase().equals('hotel')}" name="hotel">Hotel-->
+                            <!--</option>-->
+                            <!--<option th:selected="${filterValue.toLowerCase().equals('ship')}" name="ship">Ship-->
+                            <!--</option>-->
+                            <!--</select>-->
+                            <!--</form>-->
+                            <form class="form col-sm-6" th:action="@{/bookings}" id="bookingsDateFilterForm"
+                                  method="get">
+                                <input name="filterType" type="hidden" value="date"></input>
+                                <input class="form-control" th:value="${filterValue}" name="filterValue" type="date"
+                                       id="bookingsDateFilter"/>
+                            </form>
+                            <form class="form col-sm-6" th:action="@{/bookings}" method="get">
+                                <input type="hidden" name="filterType" value="hotelName">
+                                <datalist id="hotels" th:if="${hotelList!=null}">
+                                    <option th:each="hotel : ${hotelList}" th:value="${hotel?.name}"
+                                            th:text="${hotel?.name}"></option>
+                                    <!--<option th:value="chaal">Saint Martins</option>-->
+                                </datalist>
+                                <input class="form-control" type="text" name="filterValue" placeholder="Hotel/Ship Name"
+                                       list="hotels">
+                            </form>
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Sl</th>
+                            <th>Booking ID</th>
+                            <th>Hotel Name</th>
+                            <th>User's Name</th>
+                            <th>Rooms</th>
+                            <!--<th>Total Rooms</th>-->
+                            <th>Room Rent</th>
+                            <!--<th>Placed On</th>-->
+                        </tr>
+                        <tr th:if="${bookingList != null}" th:each="booking,iter : ${bookingList}">
+                            <td th:text="${iter.index+1}"></td>
+                            <td>
+                                <span th:text="${booking?.id}"></span>&nbsp;&nbsp;&nbsp;<span
+                                    class="label label-warning">Pending</span>
+                            </td>
+                            <td>
+                                <a th:href="@{/bookings/}+${booking?.id}">
+                                    <h5 th:text="${booking?.hotel?.name}"></h5>
+                                </a>
+                            </td>
+                            <td>
+                                <span th:if="${!booking?.manualBooking}" th:text="${booking?.user?.name}"></span>
+                                <span th:if="${booking?.manualBooking}" th:text="${booking?.hotel?.name}"></span>
+                            </td>
+                            <td th:text="${booking?.getRoomNumbersString()}"></td>
+                            <td>৳<span th:text="${booking?.getTotalPayableCost()}"></span></td>
+                            <!--<td>-->
+                            <!--<span class="badge bg-green" th:text="${booking?.getTotalDiscountPercentage()}">90%</span>-->
+                            <!--</td>-->
+                            <!--<td th:text="${booking?.getReadableDateTime(booking?.getTime())}"><h4></h4></td>-->
+                            <td>
+
+                                <form class="form pull-left" style="margin-right: 10px;" th:action="@{/admin/bookings/}+${booking?.id}+@{/approve}" method="post">
+                                    <button class="btn btn-success"
+                                            onsubmit="return confirm('Are you sure?');">Approve</button>
+                                </form>
+
+                                <a th:href="@{/bookings/}+${booking?.id}" class="btn btn-primary">Details</a>
+
+                                <form class="form pull-right" th:action="@{/bookings/cancel/}+${booking?.id}"
+                                      method="post">
+                                    <button class="btn btn-warning"
+                                            onsubmit="return confirm('Do you really want to cancel this booking?');"
+                                            th:disabled="${!booking?.isCancelable()}">Cancel
+                                    </button>
+                                </form>
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li class="previous"><a th:hidden="${page==0}"
+                                                th:href="@{/bookings(page=${page-1})}">Previous</a>
+                        </li>
+                        <li class="next"><a th:hidden="${bookingList == null || bookingList.isEmpty()}"
+                                            th:href="@{/bookings(page=${page+1})}">Next</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -13,7 +13,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-//                .antMatcher("/api/v1/**")
+                .antMatcher("/api/v1/**")
                 .authorizeRequests()
                 .antMatchers(
                         "/",

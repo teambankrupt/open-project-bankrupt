@@ -1,0 +1,110 @@
+.row{
+    padding: 0;
+    margin: 0;
+}
+/*-------------------------------------------------- Top row compnay information --------------------------------------------------*/
+.top-row{
+    /*height: 80px;*/
+}
+.company-phone{
+    margin-top: 20px;
+    float: right;
+    text-align: right;
+    padding: 0 15px;
+    color: #6f6f6f;
+}
+.company-phone a{
+    text-decoration: none;
+    color: #6f6f6f;
+}
+@media (max-width: 768px) {
+    .company-phone{
+        font-size: 12px;
+    }
+}
+/*-------------------------------------------------- End Top row compnay information --------------------------------------------------*/
+/*-------------------------------------------------- Nav bar--------------------------------------------------*/
+/*fixed nav bar*/
+.affix {
+    top: 0;
+    width: 100%;
+    z-index: 9999 !important;
+}
+/* auto add top padding while scrolling*/
+.affix + .container-fluid {
+    padding-top: 50px;
+}
+.my-nav-bar{
+    background-color: #cee7e7;
+}
+.navbar{
+    margin: 0;
+    border: none;
+}
+.navbar-toggle{
+    border: 1px solid #6f6f6f;
+}
+.navbar-toggle .icon-bar{
+    background-color: #6f6f6f;
+}
+.navbar-collapse{
+    text-align: center;
+    height: 50px !important;
+}
+.nav-center{
+    margin:0;
+    float:none;
+}
+.nav-center>li {
+    display: inline-block;
+}
+.nav-center>li>a {
+    color: #777777;
+    padding: 15px;
+    text-transform: uppercase;
+    line-height: 20px;
+    font-size: 16px;
+    font-family:"Segoe UI", Arial, sans-serif;
+}
+.nav-center>li>a:focus, .nav-center>li>a:hover{
+    background-color: rgba(0, 0, 0, 0.24) ! important;
+    color: white;
+}
+.dropdown-menu{
+    border: none;
+    border-radius: 0;
+    margin: 0;
+}
+.dropdown-menu>li>a{
+    display: block;
+    padding: 8px 20px;
+    color: #777;
+    text-align: center;
+    text-transform: uppercase;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    white-space: nowrap;
+    letter-spacing: 1px;
+}
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{
+    background-color: rgba(0, 0, 0, 0.24) ! important;
+    color: white;
+}
+.dropdown.open>ul{
+    display: block;
+}
+@media (max-width: 768px) {
+    .nav-center>li {
+        display: block;
+    }
+    .navbar-collapse{
+        height: auto!important;
+    }
+
+}
+/*.nav-center .dropdown dropdown-toggle{*/
+    /**/
+/*}*/
+
+/*--------------------------------------------------End Nav bar--------------------------------------------------*/

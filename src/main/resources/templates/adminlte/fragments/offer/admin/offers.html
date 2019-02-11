@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="adminlte/index">
+
+<div layout:fragment="main_content">
+    <section class="content-header">
+        <h1>
+            <span>Offers</span>
+            <small>Control panel</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a th:href="@{/dashboard}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a th:href="@{/admin/offers}">Offers(Admin)</a></li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Widget: user widget style 1 -->
+                <div class="box">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="box-header bg-light-green">
+                        <!-- /.widget-user-image -->
+                        <h3 class="widget-user-username">Offers</h3>
+                    </div>
+                    <div class="box-body no-padding">
+                        <table class="table table-bordered table-hover">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Short Tag</th>
+                                <!--<th>Offer Link</th>-->
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            <tr th:if="${offerList != null}" th:each="offer,iter : ${offerList}">
+                                <td th:text="${iter.index+1}"></td>
+                                <td>
+                                    <h5>
+                                        <a th:href="@{/offers/}+${offer?.id}"><span th:text="${offer?.title}"></span></a>
+                                    </h5>
+                                </td>
+                                <td><h5 th:text="${offer?.shortTag}"></h5></td>
+                                <!--<td>-->
+                                    <!--<a th:href="${offer?.link}">-->
+                                        <!--<h5 th:text="${offer?.link}"></h5>-->
+                                    <!--</a>-->
+                                <!--</td>-->
+
+                                <td style="text-align: center;">
+                                    <a th:href="@{/admin/offers/edit/}+${offer?.id}">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                    </a>
+                                </td>
+                                <td style="text-align: center;">
+                                    <form onsubmit="return confirm('Are you sure?');"
+                                          th:action="@{/admin/offers/delete/}+${offer?.id}" method="post">
+                                        <button type="submit" class="btn btn-danger btn-sm"><i
+                                                class="glyphicon glyphicon-remove"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.widget-user -->
+            </div>
+            <div class="col-md-6">
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Create/Edit Offer</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <form role="form" th:action="${offer?.id==null ? '/admin/offers/create':'/admin/offers/edit/'+offer?.id}" method="post" enctype="multipart/form-data">
+                            <!-- text input -->
+                            <div class="form-group" hidden="hidden">
+                                <label>Offer ID</label>
+                                <input th:value="${offer?.id}" type="hidden" name="id" class="form-control" placeholder="Offer ID">
+                            </div>
+                            <div class="form-group">
+                                <label>Offer Title</label>
+                                <input th:value="${offer?.title}" type="text" required="required" name="title" class="form-control" placeholder="Offer Name">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Short Tag</label>
+                                <input th:value="${offer?.shortTag}" type="text"  name="shortTag" class="form-control" placeholder="Short Tag">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Last Booking Date</label>
+                                <input th:value="${offerDate}" type="date" required="required" name="date" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Duration/Validity</label>
+                                <input th:value="${offer?.duration}" type="text" name="duration" placeholder="Offer Duration" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Price</label>
+                                <input th:value="${offer?.price}" type="number" required="required" name="price" class="form-control" placeholder="Price">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Link</label>
+                                <input th:value="${offer?.link}" type="text"  name="link" class="form-control" placeholder="Offer Link">
+                            </div>
+                            <div class="form-group">
+                                <label>Time Distribution</label>
+                                <textarea th:text="${offer?.timeDistribution}" type="text"  name="timeDistribution" class="form-control" placeholder="Time Distribution"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Offer Include</label>
+                                <input th:value="${offer?.include}" type="text" name="include" class="form-control" placeholder="Offer Include">
+                            </div>
+                            <div class="form-group">
+                                <label>Offer Exclude</label>
+                                <input th:value="${offer?.exclude}" type="text" name="exclude" class="form-control" placeholder="Offer Exclude">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="location">Offer Location</label>
+                                <select class="form-control" id="location" name="location" required="required">
+                                    <option th:selected="${offer?.location?.equals('Coxs Bazar')}" value="Coxs Bazar">Coxs Bazar</option>
+                                    <option th:selected="${offer?.location?.equals('Saint Martins')}" value="Saint Martins">Saint Martins</option>
+                                    <option th:selected="${offer?.location?.equals('Bandarbans')}" value="Bandarbans">Bandarbans</option>
+                                    <option th:selected="${offer?.location?.equals('Rangamati')}" value="Rangamati">Rangamati</option>
+                                    <option th:selected="${offer?.location?.equals('Sajek')}" value="Sajek">Sajek</option>
+                                    <option th:selected="${offer?.location?.equals('Sylhet')}" value="Sylhet">Sylhet</option>
+                                    <option th:selected="${offer?.location?.equals('Srimangal')}" value="Srimangal">Srimangal</option>
+                                    <option th:selected="${offer?.location?.equals('International')}" value="International">International</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="image">Image</label>
+                                <input id="image" class="form-control" type="file" name="image" th:required="${offer?.id == null}">
+                            </div>
+                            <!-- textarea -->
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea th:text="${offer?.description}" name="description" class="form-control" rows="6"
+                                          placeholder="Offer Description"></textarea>
+                            </div>
+
+
+                            <input class="btn btn-primary" type="submit" value="SUBMIT"></input>
+
+                        </form>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+
+        </div>
+
+
+    </section>
+</div>
+

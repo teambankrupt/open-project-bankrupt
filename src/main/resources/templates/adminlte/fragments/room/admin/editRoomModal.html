@@ -1,0 +1,159 @@
+<div class="modal fade" id="modal-edit-room">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <!--<h4 class="modal-title">Create Room</h4>-->
+            </div>
+            <div class="modal-body">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Edit Room</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" th:action="@{/hotel/rooms/create}" method="post" enctype="multipart/form-data">
+                        <div class="box-body">
+                            <div class="form-group" hidden="hidden">
+                                <label for="roomIdEdit"></label>
+                                <input id="roomIdEdit" name="id" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="roomNumberEdit">Room Number</label>
+                                <input id="roomNumberEdit" th:value="${room?.roomNumber}" name="roomNumber"
+                                       class="form-control" type="text" placeholder="Room Number">
+                            </div>
+                            <div class="form-group">
+                                <label for="floorNumberEdit">Floor Number</label>
+                                <input name="floorNumber" th:value="${room?.floorNumber}"  id="floorNumberEdit" class="form-control" type="number" placeholder="Floor Number"
+                                       required="required">
+                            </div>
+                            <div class="form-group">
+                                <label for="priceEdit">Price</label>
+                                <input name="price" id="priceEdit" th:value="${room?.price}"  class="form-control" type="number" placeholder="Price" required="required"></input>
+                            </div>
+                            <div class="form-group">
+                                <label for="discountEdit">Discount</label>
+                                <input name="discount" id="discountEdit" th:value="${room?.getDiscount()}"  class="form-control" type="number" placeholder="Discount"></input>
+                            </div>
+                            <div class="form-group" sec:authorize="hasRole('ROLE_ADMIN')">
+                                <label for="agentDiscountEdit">Extra Discount for Group Booking (Agent)</label>
+                                <input name="agentDiscount" id="agentDiscountEdit" class="form-control" type="number" placeholder="Extra Discount"></input>
+                            </div>
+                            <div id="select_category" th:if="${categoryList!=null and !categoryList?.isEmpty()}">
+                                <label for="categoryIdsEdit">Category</label>
+                                <select id="categoryIdsEdit" name="category.id" class="wow fadeInDown animated" class="form-control">
+                                    <option th:each="cat : ${categoryList}" th:value="${cat.id}" th:text="${cat.name}" th:selected="${room?.category?.id==cat?.id}"></option>
+                                    <!--<option th:value="Dummy">Dummy 2</option>-->
+                                </select>
+                            </div><br/>
+
+                            <div class="form-group">
+                                <label for="image1">Image 1</label>
+                                <input name="images" id="image1" type="file">
+
+                                <p class="help-block">Choose your first image(Optional).</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="image2">Image 2</label>
+                                <input name="images" id="image2" type="file">
+
+                                <p class="help-block">Choose your second image(Optional).</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="image1">Image 3</label>
+                                <input name="images" id="image3" type="file">
+
+                                <p class="help-block">Choose your Third image(Optional).</p>
+                            </div>
+                            <div class="form-group" sec:authorize="hasRole('ROLE_ADMIN')">
+                                <input hidden="hidden" name="hotelId" id="hotelId" type="text" th:value="${hotel?.id}">
+                            </div>
+
+                            <!--FASCILITIES-->
+                            <div class="form-group">
+                                <label>Fascilities</label>
+                            </div><hr/>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.frontFace" class="checkbox" id="fascFrontFaceEdit" type="checkbox">With Front Face?</input>
+                            </div>
+                            <div class="col-md-6 form-right" data-wow-delay=".5s">
+                                <input name="facilities.withCorridor" class="checkbox" id="fascWithCorridorEdit"  type="checkbox">With Corridor?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.breakfast" class="checkbox" id="fascBreakfastEdit" type="checkbox">Breakfast Available?</input>
+                            </div>
+                            <div class="col-md-6 form-right" data-wow-delay=".5s">
+                                <input name="facilities.internet" class="checkbox" id="fascInternetEdit" type="checkbox">Internet Available?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.airConditioned" class="checkbox" id="fascAirConditionedEdit" type="checkbox">AC Available?</input>
+                            </div>
+                            <div class="col-md-6 form-right" data-wow-delay=".5s">
+                                <input name="facilities.tv" class="checkbox" type="checkbox" id="fascTvEdit">TV Available?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.geyser" class="checkbox" type="checkbox" id="fascGeyserEdit">Geyser Available?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.hillView" class="checkbox" type="checkbox" id="hillViewEdit">Hill View?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input name="facilities.seaView" class="checkbox" type="checkbox" id="seaViewEdit">Sea View?</input>
+                            </div>
+
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input id="telephoneEdit" name="facilities.telephone" class="checkbox" type="checkbox">Has Telephone?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input id="bathTowelEdit" name="facilities.bathTowel" class="checkbox" type="checkbox">Bath Towel?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input id="tableAndChairEdit" name="facilities.tableAndChair" class="checkbox" type="checkbox">Provides table and chair?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input id="inMiddleEdit" name="facilities.inMiddle" class="checkbox" type="checkbox">Is in the middle?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input id="backFaceEdit" name="facilities.backFace" class="checkbox" type="checkbox">Back Face?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input id="kitchenEdit" name="facilities.kitchen" class="checkbox" type="checkbox">Kitchen?</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input id="bathTubEdit" name="facilities.bathTub" class="checkbox" type="checkbox">Has Bathtub?</input>
+                            </div>
+
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input id="childrenEdit" name="facilities.children" class="checkbox" type="checkbox">Children Allowed</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input id="extraBedEdit" name="facilities.extraBeds" class="checkbox" type="checkbox">Has Extra Bed</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input id="petsAllowedEdit" name="facilities.petsAllowed" class="checkbox" type="checkbox">Pets Allowed</input>
+                            </div>
+                            <div class="col-md-6 form-left" data-wow-delay=".5s">
+                                <input id="paymentMethodsEdit" name="facilities.hasPaymentMethod" class="checkbox" type="checkbox">Accepts payment methods</input>
+                            </div>
+                        </div>
+
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">CANCEL</button>
+                            <input class="btn btn-primary pull-right" type="submit" value="UPDATE ROOM"></input>
+                        </div>
+                    </form>
+                </div>
+                <!--<div class="modal-footer">-->
+                <!--<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>-->
+                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                <!--</div>-->
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
