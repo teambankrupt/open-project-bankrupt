@@ -12,19 +12,15 @@ public class Address {
     private String house;
     private String road;
     @Column(nullable = false)
-    @NotNull
+    @NotNull(message = "Are must not be null")
     private String area;
     private String village;
     private String postOffice;
     private String postCode;
-    @Column(nullable = false)
-    @NotNull
     private String policeStation;
     @Column(name = "addr_union")
     private String union;
     private String upazila;
-    @Column(nullable = false)
-    @NotNull
     private String district;
     private String division;
     private String country;

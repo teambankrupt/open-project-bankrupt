@@ -1,7 +1,7 @@
 package com.example.webservice.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.example.webservice.entities.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -46,6 +46,7 @@ public class Role extends BaseEntity {
     }
 
     public static ERole getERoleFromRoleName(String roleName) {
+        if (roleName == null) roleName = "";
         for (ERole eRole : ERole.values()) {
             if (eRole.getValue().trim().toLowerCase().equals(roleName.trim().toLowerCase()))
                 return eRole;

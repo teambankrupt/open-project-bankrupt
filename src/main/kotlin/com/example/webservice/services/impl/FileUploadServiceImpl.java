@@ -17,6 +17,9 @@ public class FileUploadServiceImpl implements FileUploadService {
     @Value("${files.upload.path}")
     private String rootPath;
 
+    @Value("${app.domain}")
+    private String waterMarkText;
+
     @Override
     public UploadProperties uploadFile(MultipartFile multipartFile, String namespace, String uniqueProperty, boolean scaled) throws IOException {
         byte[] bytes = multipartFile.getBytes();
@@ -40,15 +43,14 @@ public class FileUploadServiceImpl implements FileUploadService {
         outputStream.close();
 
         if (!UploadProperties.NameSpaces.USERS.getValue().equals(namespace))
-            this.applyWatermark(imageFile);
+            this.applyWatermark(imageFile, this.waterMarkText);
 
         uploadProperties.setFileName(imageFile.getName());
         return uploadProperties;
     }
 
-    private void applyWatermark(File imageFile) {
+    private void applyWatermark(File imageFile, String text) {
         File output = new File(imageFile.getAbsolutePath());
-        String text = "servicito.com";
         try {
             ImageUtils.addTextWatermark(text, "png", imageFile, output);
         } catch (IOException e) {
