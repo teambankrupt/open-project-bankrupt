@@ -126,15 +126,14 @@ public class UserServiceImpl implements UserService {
 
         // set Roles
         user.grantRole(this.roleService.findRole(Role.ERole.ROLE_USER));
-        if (Role.getERole(user.getUserType()).equals(Role.ERole.ROLE_DRIVER))
-            user.grantRole(this.roleService.findRole(Role.ERole.ROLE_DRIVER));
+        user.grantRole(this.roleService.findRole(Role.getERoleFromRoleName(user.getUserType())));
 
         // Execute only when user is being registered
         if (user.getId() == null) {
             // Encrypt passwprd
             user.setPassword(PasswordUtil.encryptPassword(user.getPassword(), PasswordUtil.EncType.BCRYPT_ENCODER, null));
             if (user.getPhoneNumber().equals(this.adminPhone1) || user.getPhoneNumber().equals(this.adminPhone2))
-                user.grantRole(this.roleService.findRole(Role.ERole.ROLE_ADMIN));
+                user.getRoles().add(this.roleService.findRole(Role.ERole.ROLE_ADMIN));
 
             // flood control
             String ip = NetworkUtil.getClientIP();
