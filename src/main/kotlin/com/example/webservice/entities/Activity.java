@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "activity_logs")
 public class Activity extends BaseEntity {
     private String userAgent;
     private String ip;
