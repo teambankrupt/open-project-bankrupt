@@ -56,7 +56,7 @@ public class PromoServiceImpl implements PromoService {
 
     @Override
     public Promo findOne(Long id) throws NotFoundException {
-        Promo promo = this.promoRepo.findOne(id);
+        Promo promo = this.promoRepo.findById(id).orElse(null);
         if (promo == null) throw new NotFoundException("Could not find promo with id " + id);
         return promo;
     }
@@ -68,7 +68,7 @@ public class PromoServiceImpl implements PromoService {
 
     @Override
     public void notifyUser(Long promoId) throws NotFoundException, ForbiddenException, UnknownException, InvalidException, JsonProcessingException {
-        Promo promo = this.promoRepo.findOne(promoId);
+        Promo promo = this.promoRepo.findById(promoId).orElse(null);
         if (promo == null) throw new NotFoundException("Cound not find promo with id: " + promoId);
         if (!promo.isActive()) throw new ForbiddenException("Can not notify users. Promotion is not active!");
         NotificationData data = new NotificationData();

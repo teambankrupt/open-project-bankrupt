@@ -27,7 +27,7 @@ public class AcValidationTokenServiceImpl implements AcValidationTokenService {
 
     @Override
     public AcValidationToken findOne(Long id) {
-        return this.tokenRepo.findOne(id);
+        return this.tokenRepo.findById(id).orElse(null);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class AcValidationTokenServiceImpl implements AcValidationTokenService {
 
     @Override
     public void delete(Long id) {
-        this.tokenRepo.delete(id);
+        this.tokenRepo.deleteById(id);
     }
 
     @Override

@@ -47,7 +47,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<Role> findByUser(Long userId) throws ForbiddenException, UserNotFoundException {
-        User user = this.userRepo.findOne(userId);
+        User user = this.userRepo.findById(userId).orElse(null);
         if (user == null) throw new UserNotFoundException("Could not find user with id " + userId);
         return user.getRoles();
     }

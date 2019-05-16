@@ -108,7 +108,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findOne(Long id) throws UserNotFoundException {
         if (id == null) throw new UserNotFoundException("User id can not be null!");
-        return this.userRepo.findOne(id);
+        return this.userRepo.findById(id).orElse(null);
     }
 
     @Override

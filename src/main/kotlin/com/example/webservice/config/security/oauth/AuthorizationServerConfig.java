@@ -1,5 +1,8 @@
 package com.example.webservice.config.security.oauth;
 
+import com.example.webservice.commons.utils.PasswordUtil;
+import com.example.webservice.exceptions.nullpointer.NullPasswordException;
+import com.example.webservice.services.impl.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -17,23 +20,24 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-    private final AuthenticationManager authenticationManager;
-
     @Value("${app.client.id}")
     private String clientId;
     @Value("${app.client.secret}")
     private String clientSecret;
     @Value("${app.loginEndpoint}")
     private String loginEndpoint;
+    private final CustomUserDetailsService userDetailsService;
+    private final AuthenticationManager authenticationManager;
 
     @Autowired
-    public AuthorizationServerConfig(AuthenticationManager authenticationManager) {
+    public AuthorizationServerConfig(CustomUserDetailsService userDetailsService, AuthenticationManager authenticationManager) {
+        this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
     }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security
+        security.passwordEncoder(PasswordUtil.getBCryptPasswordEncoder())
                 .tokenKeyAccess("permitAll()")
                 .checkTokenAccess("isAuthenticated()")
                 .allowFormAuthenticationForClients();
@@ -41,25 +45,30 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients
-//                .jdbc(dataSource);
-                .inMemory().withClient(this.clientId)
-                .authorizedGrantTypes("client-credentials", "password", "refresh_token")
-                .authorities("ROLE_CLIENT", "ROLE_ANDROID_CLIENT")
-                .scopes("read", "write", "trust")
-                .resourceIds("oauth2-resource")
-                .accessTokenValiditySeconds(20000)
-                .secret(this.clientSecret).refreshTokenValiditySeconds(1209600);
+        try {
+            clients
+                    //                .jdbc(dataSource);
+                    .inMemory().withClient(this.clientId)
+                    .authorizedGrantTypes("authorization_code", "refresh_token", "password")
+                    .authorities("ROLE_CLIENT", "ROLE_ANDROID_CLIENT")
+                    .scopes("read", "write", "trust")
+                    .resourceIds("oauth2-resource")
+                    .accessTokenValiditySeconds(20000)
+                    .secret(PasswordUtil.encryptPassword(this.clientSecret, PasswordUtil.EncType.BCRYPT_ENCODER, null)).refreshTokenValiditySeconds(1209600);
+        } catch (NullPasswordException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.authenticationManager(authenticationManager)
+        endpoints.authenticationManager(this.authenticationManager).userDetailsService(this.userDetailsService)
                 .pathMapping("/oauth/token", this.loginEndpoint)
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
                 .tokenStore(inMemoryTokenStore())
                 .tokenEnhancer(new CustomTokenEnhancer());
     }
+
 
     @Bean
     public TokenStore inMemoryTokenStore() {

@@ -1,5 +1,5 @@
 cd /var/www/backend
-git checkout develop
+git checkout dev
 git pull
 fuser -k 80/tcp
 mvn clean package -Dmaven.test.skip=true

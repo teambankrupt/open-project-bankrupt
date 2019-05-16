@@ -1,4 +1,4 @@
-package com.example.demo
+package com.example.webservice
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -7,11 +7,10 @@ import org.springframework.test.context.junit4.SpringRunner
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
-class DemoApplicationTests {
+class WebserviceApplicationTests {
 
-    @Test
-    fun contextLoads() {
-    }
+	@Test
+	fun contextLoads() {
+	}
 
 }
-

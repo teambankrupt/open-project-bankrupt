@@ -52,7 +52,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public Activity findOne(long id) {
-        return this.activityRepo.findOne(id);
+        return this.activityRepo.findById(id).orElse(null);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public void delete(Long id) {
-        this.activityRepo.delete(id);
+        this.activityRepo.deleteById(id);
     }
 
 }

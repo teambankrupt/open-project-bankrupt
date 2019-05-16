@@ -1,9 +1,9 @@
 package com.example.webservice.entities.base;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.example.webservice.commons.utils.DateUtil;
 import com.example.webservice.config.security.SecurityConfig;
 import com.example.webservice.entities.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;

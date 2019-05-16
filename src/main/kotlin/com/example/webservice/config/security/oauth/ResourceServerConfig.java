@@ -1,15 +1,25 @@
 package com.example.webservice.config.security.oauth;
 
 import com.example.webservice.entities.Role;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
-    // TODO: secure url perfectly (some url need to secure at method level because of RequestMethod POST, PUT related to this url)
+
+    private final TokenStore tokenStore;
+
+    @Autowired
+    public ResourceServerConfig(TokenStore tokenStore) {
+        this.tokenStore = tokenStore;
+    }
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
@@ -49,5 +59,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and().logout().logoutSuccessUrl("/").permitAll();
+    }
+
+    @Override
+    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+        resources.tokenStore(this.tokenStore);
     }
 }
