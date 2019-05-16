@@ -94,7 +94,7 @@ public class ApiHomeController {
         // Notify admin for new registration
         this.notifyAdmin(user);
 
-        // send sms to landlords with their password when field employee adds them
+        // send sms to user with their password when admin adds them (if sendPassword flag is enabled)
         if (currentUser != null && currentUser.isAdmin() && sendPassword) {
             String message = "Dear User, your " + baseUrl + " credentials are - Username: " + user.getUsername() + " and Password: " + tempRawPassword;
             this.smsService.sendSms(user.getUsername(), message);

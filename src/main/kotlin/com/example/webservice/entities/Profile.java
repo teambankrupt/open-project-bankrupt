@@ -3,7 +3,6 @@ package com.example.webservice.entities;
 import com.example.webservice.commons.utils.DateUtil;
 import com.example.webservice.entities.base.BaseEntity;
 import com.example.webservice.entities.pojo.Address;
-import com.example.webservice.entities.pojo.LatLng;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -25,9 +24,6 @@ public class Profile extends BaseEntity {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String age;
-
-    @Embedded
-    private LatLng latLng;
 
     @Embedded
     private Address address;
@@ -56,13 +52,6 @@ public class Profile extends BaseEntity {
         this.age = age;
     }
 
-    public LatLng getLatLng() {
-        return latLng;
-    }
-
-    public void setLatLng(LatLng latLng) {
-        this.latLng = latLng;
-    }
 
     public String getName() {
         return name;
