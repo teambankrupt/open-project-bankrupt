@@ -20,8 +20,6 @@ import com.example.webservice.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -244,7 +242,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<User> findUsersIn(List<Long> userIds, int page) {
-        return this.userRepo.findByIdIn(userIds, new PageRequest(page, PageAttr.PAGE_SIZE, Sort.Direction.DESC, PageAttr.SORT_BY_FIELD_ID));
+        return this.userRepo.findByIdIn(userIds, PageAttr.getPageRequest(page));
     }
 
     @Override

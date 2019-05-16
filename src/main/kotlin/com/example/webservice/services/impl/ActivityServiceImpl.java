@@ -7,8 +7,6 @@ import com.example.webservice.repositories.ActivityRepository;
 import com.example.webservice.services.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,7 +45,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public Page<Activity> findByUser(User user, int page, int size) {
-        return this.activityRepo.findByUser(user, new PageRequest(page, size, Sort.Direction.DESC, PageAttr.SORT_BY_FIELD_ID));
+        return this.activityRepo.findByUser(user, PageAttr.getPageRequest(page,size));
     }
 
     @Override
