@@ -154,7 +154,10 @@ Response: Profile object, Json sample is exactly like above
 For General configurations, open `application.properties` file and change the values.
 
 File Storage path
-```files.upload.path=/var/appFiles```
+```$xslt
+files.upload.path=/var/appFiles
+```
+
 App Config
 ```$xslt
 #BASE URL
