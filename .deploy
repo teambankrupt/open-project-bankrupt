@@ -3,4 +3,4 @@ git checkout dev
 git pull
 fuser -k 80/tcp
 mvn clean package -Dmaven.test.skip=true
-nohup java -Dserver.port=80 -jar target/webservice-0.0.1-SNAPSHOT.jar &
+nohup java -Xmx1024m -Dserver.port=80 -jar target/webservice-0.0.1-SNAPSHOT.jar &
