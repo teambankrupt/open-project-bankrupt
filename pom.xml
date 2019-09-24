@@ -13,11 +13,78 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>webservice</name>
     <description>Demo project for Spring Boot</description>
+    <packaging>${packaging.type}</packaging>
+
 
     <properties>
         <java.version>1.8</java.version>
         <kotlin.version>1.2.71</kotlin.version>
     </properties>
+
+    <profiles>
+
+        <profile>
+            <id>local</id>
+            <activation>
+                <!-- this profile is active by default -->
+                <activeByDefault>true</activeByDefault>
+                <!-- activate if system properties 'env=dev' -->
+                <property>
+                    <name>env</name>
+                    <value>local</value>
+                </property>
+            </activation>
+            <properties>
+                <packaging.type>jar</packaging.type>
+                <db.driverClassName>com.mysql.cj.jdbc.Driver</db.driverClassName>
+                <db.url>jdbc:mysql://localhost/demodb?useUnicode=yes&amp;characterEncoding=UTF-8&amp;characterSetResults=UTF-8
+                    &amp;createDatabaseIfNotExist=true
+                </db.url>
+                <db.username>demouser</db.username>
+                <db.password>demopass</db.password>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>dev</id>
+            <activation>                <!-- activate if system properties 'env=dev' -->
+                <property>
+                    <name>env</name>
+                    <value>dev</value>
+                </property>
+            </activation>
+            <properties>
+                <packaging.type>jar</packaging.type>
+                <db.driverClassName>com.mysql.cj.jdbc.Driver</db.driverClassName>
+                <db.url>jdbc:mysql://localhost/demodb?useUnicode=yes&amp;characterEncoding=UTF-8&amp;characterSetResults=UTF-8
+                    &amp;createDatabaseIfNotExist=true
+                </db.url>
+                <db.username>demouser</db.username>
+                <db.password>demopass</db.password>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <activation>
+                <!-- activate if system properties 'env=prod' -->
+                <property>
+                    <name>env</name>
+                    <value>prod</value>
+                </property>
+            </activation>
+            <properties>
+                <packaging.type>jar</packaging.type>
+                <db.driverClassName>com.mysql.cj.jdbc.Driver</db.driverClassName>
+                <db.url>jdbc:mysql://localhost/demodb?useUnicode=yes&amp;characterEncoding=UTF-8&amp;characterSetResults=UTF-8
+                    &amp;createDatabaseIfNotExist=true
+                </db.url>
+                <db.username>demouser</db.username>
+                <db.password>demopass</db.password>
+            </properties>
+        </profile>
+    </profiles>
+
 
     <dependencies>
         <!--PRIMARY-->
@@ -183,6 +250,23 @@
                     </dependency>
                 </dependencies>
             </plugin>
+
+            <!-- display active profile in compile phase -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-help-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>show-profiles</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>active-profiles</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
         </plugins>
     </build>
 
