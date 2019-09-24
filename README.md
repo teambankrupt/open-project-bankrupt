@@ -7,7 +7,7 @@ It's a skeleton project with lots of features implemented by default.
 ### For Admin Panel
 * Login
 * Template configuration (Thymeleaf engine with layout dialect)
-* Integrated (with thymeleaf engine, layout dialect) Opensource AdminLTE bootstrap theme for admin panel
+* Integrated (with thymeleaf engine, layout dialect) Opensource AdminBSBMaterialDesign theme for admin panel
 * Spring Security Configuration (WebSecurity)
 
 ### For API's
