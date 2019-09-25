@@ -43,9 +43,16 @@ public class ActivityInterceptor extends HandlerInterceptorAdapter {
         if (SecurityConfig.isAuthenticated()) {
             User user = SecurityConfig.getCurrentUser();
             activity.setUser(user);
-            if (!activity.getUrl().contains("image") && !activity.getUrl().equals("/"))
-                activity = activityService.save(activity);
-            return super.preHandle(request, response, handler);
+            if (
+                    activity.getUrl().contains("image")
+                            || activity.getUrl().equals("/")
+                            || activity.getUrl().startsWith("/css")
+                            || activity.getUrl().startsWith("/fonts")
+                            || activity.getUrl().startsWith("/images")
+                            || activity.getUrl().startsWith("/js")
+            )
+                return super.preHandle(request, response, handler);
+            this.activityService.save(activity);
         }
         return super.preHandle(request, response, handler);
     }
