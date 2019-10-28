@@ -127,8 +127,12 @@
             <artifactId>flyway-maven-plugin</artifactId>
             <version>${flyway.version}</version>
         </dependency>
-
-
+        <!--Lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
         <!--Security-->
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2 -->
         <dependency>
