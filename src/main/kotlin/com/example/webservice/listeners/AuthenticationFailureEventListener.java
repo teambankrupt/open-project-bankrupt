@@ -1,7 +1,7 @@
 package com.example.webservice.listeners;
 
 import com.example.webservice.commons.utils.NetworkUtil;
-import com.example.webservice.services.impl.LoginAttemptService;
+import com.example.webservice.domains.users.services.LoginAttemptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;

@@ -1,8 +1,8 @@
 package com.example.webservice.config.security;
 
 import com.example.webservice.commons.utils.PasswordUtil;
-import com.example.webservice.entities.Role;
-import com.example.webservice.services.impl.CustomUserDetailsService;
+import com.example.webservice.domains.users.models.entities.Role;
+import com.example.webservice.domains.users.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
