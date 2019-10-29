@@ -2,9 +2,9 @@ package com.example.webservice.interceptors;
 
 import com.example.webservice.commons.utils.NetworkUtil;
 import com.example.webservice.config.security.SecurityConfig;
-import com.example.webservice.entities.Activity;
-import com.example.webservice.entities.User;
-import com.example.webservice.services.ActivityService;
+import com.example.webservice.domains.activities.models.entities.Activity;
+import com.example.webservice.domains.users.models.entities.User;
+import com.example.webservice.domains.activities.services.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;

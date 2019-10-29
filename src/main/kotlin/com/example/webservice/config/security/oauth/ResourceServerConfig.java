@@ -1,6 +1,6 @@
 package com.example.webservice.config.security.oauth;
 
-import com.example.webservice.entities.Role;
+import com.example.webservice.domains.users.models.entities.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

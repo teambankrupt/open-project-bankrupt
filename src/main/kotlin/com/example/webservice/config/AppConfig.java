@@ -5,7 +5,7 @@ import com.example.webservice.commons.utils.PasswordUtil;
 import com.example.webservice.interceptors.ActivityInterceptor;
 import com.example.webservice.listeners.AuthenticationFailureEventListener;
 import com.example.webservice.listeners.AuthenticationSuccessEventListener;
-import com.example.webservice.services.impl.CustomUserDetailsService;
+import com.example.webservice.domains.users.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
 import org.springframework.context.ApplicationListener;
