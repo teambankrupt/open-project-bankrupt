@@ -1,6 +1,6 @@
 package com.example.webservice.config.security.oauth;
 
-import com.example.webservice.entities.User;
+import com.example.webservice.domains.users.models.entities.User;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;

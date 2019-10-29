@@ -1,6 +1,6 @@
 package com.example.webservice.config.security;
 
-import com.example.webservice.entities.User;
+import com.example.webservice.domains.users.models.entities.User;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
