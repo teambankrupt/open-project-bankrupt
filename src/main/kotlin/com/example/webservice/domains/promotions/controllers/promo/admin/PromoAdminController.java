@@ -74,10 +74,4 @@ public class PromoAdminController {
         this.promoService.notifyUser(promoId);
     }
 
-    @PutMapping("/{id}/fileuploads/upload")
-    private ResponseEntity uploadImage(@PathVariable("id") Long promoId,
-                                       @RequestParam("image") MultipartFile multipartFile) throws ImageInvalidException, LimitExceededException, NotFoundException, IOException, ForbiddenException {
-        this.promoService.uploadPhoto(promoId, multipartFile);
-        return ResponseEntity.ok().build();
-    }
 }
