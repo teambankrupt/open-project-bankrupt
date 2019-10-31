@@ -48,7 +48,7 @@ public class ActivityInterceptor extends HandlerInterceptorAdapter {
                             || activity.getUrl().equals("/")
                             || activity.getUrl().startsWith("/css")
                             || activity.getUrl().startsWith("/fonts")
-                            || activity.getUrl().startsWith("/images")
+                            || activity.getUrl().startsWith("/fileuploads")
                             || activity.getUrl().startsWith("/js")
             )
                 return super.preHandle(request, response, handler);

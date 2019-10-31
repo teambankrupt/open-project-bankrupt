@@ -14,13 +14,21 @@ import java.util.Objects;
 @Entity
 @Table(name = "profiles")
 public class Profile extends BaseEntity {
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private String profilePicturePath;
     private String name;
-    private Date birthDate;
+
+    @Column(name = "birthday",nullable = false)
+    private Date birthday;
+
     private String gender;
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private String photoIdentityPath;
+
+    private String photo;
+
+    @Column(name = "blood_group")
+    @Enumerated(EnumType.STRING)
+    private BloodGroup bloodGroup;
+
+    @Column(name = "photo_identity_url")
+    private String photoIdentityUrl;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String age;
@@ -34,7 +42,8 @@ public class Profile extends BaseEntity {
     @PrePersist
     @PreUpdate
     private void onProfileUpdated() {
-        Period period = DateUtil.getAge(this.birthDate);
+        Period period = DateUtil.getAge(this.birthday);
+        if (period == null) return;
         this.age = (period.getYears() + " Years, " + period.getMonths() + " Months");
     }
 
@@ -43,6 +52,34 @@ public class Profile extends BaseEntity {
                 || Objects.equals(getCurrentUser().getId(), this.getUser().getId());
     }
 
+    public enum BloodGroup {
+        A_POSITIVE("A+"),
+        A_NEGATIVE("A-"),
+        B_POSITIVE("B+"),
+        B_NEGATIVE("B-"),
+        AB_POSITIVE("AB+"),
+        AB_NEGATIVE("AB-"),
+        O_POSITIVE("O+"),
+        O_NEGATIVE("O-");
+
+        private String value;
+
+        BloodGroup(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    public BloodGroup getBloodGroup() {
+        return bloodGroup;
+    }
+
+    public void setBloodGroup(BloodGroup bloodGroup) {
+        this.bloodGroup = bloodGroup;
+    }
 
     public String getAge() {
         return age;
@@ -61,13 +98,6 @@ public class Profile extends BaseEntity {
         this.name = name;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
 
     public String getGender() {
         return gender;
@@ -94,19 +124,27 @@ public class Profile extends BaseEntity {
         this.user = user;
     }
 
-    public String getProfilePicturePath() {
-        return profilePicturePath == null ? "" : profilePicturePath;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setProfilePicturePath(String profilePicturePath) {
-        this.profilePicturePath = profilePicturePath;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
-    public String getPhotoIdentityPath() {
-        return photoIdentityPath == null ? "" : photoIdentityPath;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setPhotoIdentityPath(String photoIdentityPath) {
-        this.photoIdentityPath = photoIdentityPath;
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getPhotoIdentityUrl() {
+        return photoIdentityUrl;
+    }
+
+    public void setPhotoIdentityUrl(String photoIdentityUrl) {
+        this.photoIdentityUrl = photoIdentityUrl;
     }
 }
