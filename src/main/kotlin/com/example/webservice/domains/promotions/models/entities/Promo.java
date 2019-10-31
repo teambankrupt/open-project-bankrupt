@@ -1,7 +1,6 @@
 package com.example.webservice.domains.promotions.models.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.example.webservice.domains.common.models.entities.base.BaseEntity;
 
 import javax.persistence.Column;
@@ -18,22 +17,13 @@ public class Promo extends BaseEntity {
     @Column(length = 2000)
     private String description;
     private String url;
-    @JsonIgnore
-    private String imagePath;
+    private String promoImage;
     private long viewCount;
     private long clickCount;
     private String priority;
     private String textColor;
     private String backgroundColor;
     private boolean active;
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
 
     public enum Priority {
         NORMAL("normal"),
@@ -56,6 +46,14 @@ public class Promo extends BaseEntity {
 
     public void increaseClickCount() {
         this.clickCount++;
+    }
+
+    public String getPromoImage() {
+        return promoImage;
+    }
+
+    public void setPromoImage(String promoImage) {
+        this.promoImage = promoImage;
     }
 
     public String getTitle() {
@@ -100,6 +98,7 @@ public class Promo extends BaseEntity {
     }
 
     public String getTextColor() {
+        if (textColor == null) return "#FFFFFF";
         if (!textColor.contains("#"))
             return "#" + textColor;
         return textColor;
@@ -110,6 +109,7 @@ public class Promo extends BaseEntity {
     }
 
     public String getBackgroundColor() {
+        if (backgroundColor == null) return "#000000";
         if (!backgroundColor.contains("#"))
             return "#" + backgroundColor;
         return backgroundColor;

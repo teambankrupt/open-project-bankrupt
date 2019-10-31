@@ -109,13 +109,12 @@ PUT /api/v1/profiles/user/{username} HTTP/1.1
 Host: localhost:8080
 Authorization: Bearer 810108a4-e375-4914-9186-d11512dbcf36
 Content-Type: application/json
-cache-control: no-cache
 {
 	"name":"Sayem Hossain",
-	"birthDate": "2018-01-01",
+	"birthday": "2018-01-01",
     "gender": "male",
-    "bloodDonor":"true",
-    "bloodGroup" : "O+",
+    "photo": "/images/c7e1c247-ef23-4b21-9243-927568bc7e45",
+    "bloodGroup" : "O_POSITIVE",
     "lastDonated" : "2018-07-21",
 	"address":{
 		"flat": "23",
@@ -141,7 +140,6 @@ Get own profile information.
 GET /api/v1/profiles/user/{username} HTTP/1.1
 Host: localhost:8080
 Authorization: Bearer 810108a4-e375-4914-9186-d11512dbcf36
-cache-control: no-cache
 
 ```
 
