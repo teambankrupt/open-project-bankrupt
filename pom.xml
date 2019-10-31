@@ -43,6 +43,7 @@
                 </db.url>
                 <db.username>demouser</db.username>
                 <db.password>demopass</db.password>
+                <storage.path>/var/appFiles</storage.path>
             </properties>
         </profile>
 
@@ -62,6 +63,7 @@
                 </db.url>
                 <db.username>demouser</db.username>
                 <db.password>demopass</db.password>
+                <storage.path>/var/appFiles</storage.path>
             </properties>
         </profile>
 
@@ -82,6 +84,7 @@
                 </db.url>
                 <db.username>demouser</db.username>
                 <db.password>demopass</db.password>
+                <storage.path>/var/appFiles</storage.path>
             </properties>
         </profile>
     </profiles>

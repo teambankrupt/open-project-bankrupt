@@ -1,18 +1,34 @@
-package com.example.webservice.domains.common.models.entities.pojo;
+package com.example.webservice.domains.fileuploads.models.entities;
 
+import com.example.webservice.domains.common.models.entities.base.BaseEntity;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.File;
 
-public class UploadProperties {
+@Entity
+@Table(name = "uploaded_files")
+public class UploadProperties extends BaseEntity {
     private String namespace;
     private String uniqueProperty;
     private String rootPath;
     private String fileName;
+    private String fileType = "fileuploads";
+
+    public UploadProperties() {
+    }
+
+    public UploadProperties(String rootPath, String namespace, String uniqueProperty, String fileType) {
+        this.rootPath = rootPath;
+        this.namespace = namespace;
+        this.uniqueProperty = uniqueProperty;
+        this.fileType = fileType;
+    }
 
     public enum NameSpaces {
         USERS("users"),
-        BUILDINGS("buildings"),
-        APARTMENTS("apartments"),
-        PROMOTIONS("promotions");
+        PROMOTIONS("promotions"),
+        PRODUCTS("products");
 
         String value;
 
@@ -31,13 +47,21 @@ public class UploadProperties {
                 || rootPath == null || rootPath.isEmpty())
             throw new IllegalArgumentException("Rootpath or uniqueProperty or Namespace can not be null or empty!");
         return rootPath + File.separator + "AppData" + File.separator + namespace
-                + File.separator + uniqueProperty + File.separator + "images";
+                + File.separator + uniqueProperty + File.separator + this.fileType;
     }
 
     public String getFilePath() {
         if (fileName == null || fileName.isEmpty())
             throw new IllegalArgumentException("Filename can not be null or empty!");
         return getDirPath() + File.separator + fileName;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 
     public String getNamespace() {

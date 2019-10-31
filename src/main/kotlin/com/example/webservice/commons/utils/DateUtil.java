@@ -58,6 +58,7 @@ public class DateUtil {
 
 
     public static java.time.Period getAge(Date date) {
+        if (date == null) return null;
         LocalDate today = LocalDate.now();
         LocalDate birthday = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
@@ -65,7 +66,7 @@ public class DateUtil {
     }
 
     public static long getDurationInDays(Date date) {
-        if(date==null) return 0L;
+        if (date == null) return 0L;
         LocalDate today = LocalDate.now();
         LocalDate myDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         return ChronoUnit.DAYS.between(myDate, today);
