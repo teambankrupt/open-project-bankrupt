@@ -75,29 +75,5 @@ public class ProfileController {
         return ResponseEntity.ok().build();
     }
 
-    // PROFILE PICTURE
-    @PostMapping("/profilePic/{username}")
-    private ResponseEntity updateProfilePic(@PathVariable("username") String username,
-                                            @RequestParam("file") MultipartFile file) throws IOException, NotFoundException, ImageInvalidException, UserAlreadyExistsException, NullPasswordException, UserInvalidException {
-        if (!ImageValidator.isImageValid(file))
-            throw new ImageInvalidException("Invalid Image");
-        return ResponseEntity.ok(this.profileService.setProfileImage(username, file));
-    }
-
-    @GetMapping("/profilePic/{username}")
-    private ResponseEntity getProfilePic(@PathVariable("username") String username) throws ProfileNotFoundException, ForbiddenException, IOException {
-        Profile profile = this.profileService.getProfileByUsername(username);
-        File file = new File(profile.getProfilePicturePath());
-        if (!file.exists()) return ResponseEntity.noContent().build();
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(FileUtils.readFileToByteArray(file));
-    }
-
-    @GetMapping("/profilePic/user/{userId}")
-    private ResponseEntity getProfilePhotoByUserId(@PathVariable("userId") Long userId) throws ProfileNotFoundException, ForbiddenException, IOException {
-        Profile profile = this.profileService.getProfileByUserId(userId);
-        File file = new File(profile.getProfilePicturePath());
-        if (!file.exists()) return ResponseEntity.noContent().build();
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(FileUtils.readFileToByteArray(file));
-    }
 
 }

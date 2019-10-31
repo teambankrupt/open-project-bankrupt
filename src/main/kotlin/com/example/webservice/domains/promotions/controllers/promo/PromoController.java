@@ -46,11 +46,4 @@ public class PromoController {
         return "redirect:" + redirectUrl;
     }
 
-    @GetMapping("/{id}/image")
-    private ResponseEntity getImage(@PathVariable("id") Long promoId) throws NotFoundException, IOException {
-        Promo promoImage = this.promoService.findOne(promoId);
-        if (promoImage.getImagePath() == null) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        File file = new File(promoImage.getImagePath());
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(FileUtils.readFileToByteArray(file));
-    }
 }

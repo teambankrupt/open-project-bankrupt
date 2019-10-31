@@ -61,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements S
                         "/fonts/**",
                         "/js/**",
                         "/css/**",
-                        "/images/**",
+                        "/fileuploads/**",
                         "/test",
                         "/init"
                 )

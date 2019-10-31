@@ -32,6 +32,4 @@ public interface ProfileService {
 
     boolean isExists(Long id);
 
-    boolean setProfileImage(String username, MultipartFile image) throws IOException, NotFoundException, UserAlreadyExistsException, NullPasswordException, UserInvalidException;
-
 }

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @MappedSuperclass
 public abstract class BaseEntity {
@@ -22,15 +23,22 @@ public abstract class BaseEntity {
 
     @OneToOne
     private User createdBy;
-    
+
     @OneToOne
     private User updatedBy;
+
+
+    @Column(name = "uuid_str")
+    private String uuid;
+
+    private boolean deleted;
 
     @PrePersist
     private void onBasePersist() {
         this.created = new Date();
         this.lastUpdated = new Date();
         this.createdBy = getCurrentUser();
+        this.uuid = UUID.randomUUID().toString();
     }
 
     @PreUpdate
@@ -42,6 +50,23 @@ public abstract class BaseEntity {
     @JsonIgnore
     public User getCurrentUser() {
         return SecurityConfig.getCurrentUser();
+    }
+
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     public String getReadableDate(Date date) {

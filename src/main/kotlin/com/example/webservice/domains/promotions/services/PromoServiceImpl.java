@@ -1,29 +1,23 @@
 package com.example.webservice.domains.promotions.services;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.example.webservice.commons.PageAttr;
-import com.example.webservice.commons.utils.ImageValidator;
 import com.example.webservice.commons.utils.Validator;
-import com.example.webservice.domains.promotions.models.entities.Promo;
+import com.example.webservice.domains.fileuploads.services.FileUploadService;
 import com.example.webservice.domains.firebase.models.dto.NotificationData;
 import com.example.webservice.domains.firebase.models.dto.PushNotification;
-import com.example.webservice.domains.common.models.entities.pojo.UploadProperties;
+import com.example.webservice.domains.firebase.services.NotificationService;
+import com.example.webservice.domains.promotions.models.entities.Promo;
+import com.example.webservice.domains.promotions.repositories.PromoRepository;
 import com.example.webservice.exceptions.forbidden.ForbiddenException;
-import com.example.webservice.exceptions.invalid.ImageInvalidException;
 import com.example.webservice.exceptions.invalid.InvalidException;
 import com.example.webservice.exceptions.notfound.NotFoundException;
 import com.example.webservice.exceptions.unknown.UnknownException;
-import com.example.webservice.domains.promotions.repositories.PromoRepository;
-import com.example.webservice.domains.common.services.FileUploadService;
-import com.example.webservice.domains.firebase.services.NotificationService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.naming.LimitExceededException;
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -86,16 +80,5 @@ public class PromoServiceImpl implements PromoService {
         this.notificationService.sendNotification(notification);
     }
 
-    @Override
-    public void uploadPhoto(Long promoId, MultipartFile multipartFile) throws ImageInvalidException, LimitExceededException, NotFoundException, IOException {
-        if (!ImageValidator.isImageValid(multipartFile))
-            throw new ImageInvalidException("Invalid image!");
-        if (multipartFile.getSize() > 1000000)
-            throw new LimitExceededException("Image size should be less than 1 mb");
-        Promo promo = this.findOne(promoId);
-        UploadProperties properties = this.fileUploadService.uploadFile(multipartFile, UploadProperties.NameSpaces.PROMOTIONS.getValue(), String.valueOf(promo.getId()), false);
-        promo.setImagePath(properties.getFilePath());
-        this.promoRepo.save(promo);
-    }
 
 }
