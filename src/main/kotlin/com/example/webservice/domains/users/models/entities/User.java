@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "m_users", uniqueConstraints = {
@@ -78,44 +79,31 @@ public class User extends BaseEntity implements UserDetails, Serializable {
         if (this.roles == null)
             this.roles = new ArrayList<>();
         // check if user already has that role
-        if (!hasRole(role.getRole()) && !role.isAdmin())
+        if (!hasRole(role) && !role.isAdmin())
             this.roles.add(role);
     }
 
-    public void changeRole(Role role) {
-        if (role == null || role.getRole().equals(Role.ERole.ROLE_ADMIN.toString())) return;
-        this.roles = new ArrayList<>();
-        this.roles.add(role);
+    public boolean hasRole(Role role) {
+        return this.roles != null && this.roles.stream().anyMatch(r -> r.isSameAs(role));
     }
 
-    public boolean hasRole(String role) {
-        return this.roles != null && this.roles.stream()
-                .filter(r -> r.getRole().trim().equals(role.trim()))
-                .count() > 0;
-    }
-
-    @JsonIgnore
-    public boolean isOnlyUser() {
-        return this.roles.size() == 1 && hasRole(Role.ERole.ROLE_USER.toString());
-    }
-
-    @JsonIgnore
-    public boolean isDriver() {
-        return this.hasRole(Role.ERole.ROLE_DRIVER.toString());
-    }
-
-    @JsonIgnore
     public boolean isAdmin() {
-        return this.hasRole(Role.ERole.ROLE_ADMIN.toString());
+        return this.roles != null &&
+                this.roles.stream().anyMatch(Role::isAdmin);
     }
 
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (this.roles == null) this.roles = new ArrayList<>();
         List<GrantedAuthority> authorityList = new ArrayList<>();
         for (Role role : this.roles) {
-            GrantedAuthority authority = new SimpleGrantedAuthority(role.getRole());
-            authorityList.add(authority);
+            if (role.getPrivileges() == null) continue;
+            authorityList.addAll(
+                    role.getPrivileges().stream()
+                            .map(privilege -> new SimpleGrantedAuthority(privilege.getName()))
+                            .collect(Collectors.toList())
+            );
         }
         return authorityList;
     }

@@ -48,7 +48,7 @@ public interface UserService {
 
     Page<User> findUsersIn(List<Long> userIds, int page);
 
-    User changeRole(Long id, String role) throws UserNotFoundException;
+//    User changeRole(Long id, String role) throws UserNotFoundException;
 
     User changePassword(Long id, String currentPassword, String newPassword) throws NullPasswordException, UserNotFoundException, InvalidException, ForbiddenException;
 
@@ -56,5 +56,5 @@ public interface UserService {
 
     void handlePasswordResetRequest(String username) throws UserNotFoundException, ForbiddenException, UnknownException;
 
-    User setRoles(Long id, String[] roles) throws UserNotFoundException, UserAlreadyExistsException, NullPasswordException, UserInvalidException;
+    User setRoles(Long id, List<Long> roleIds) throws UserNotFoundException, UserAlreadyExistsException, NullPasswordException, UserInvalidException;
 }

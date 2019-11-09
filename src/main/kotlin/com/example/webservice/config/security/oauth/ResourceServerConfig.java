@@ -1,6 +1,6 @@
 package com.example.webservice.config.security.oauth;
 
-import com.example.webservice.domains.users.models.entities.Role;
+import com.example.webservice.domains.users.models.entities.Privilege;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -45,17 +45,14 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .permitAll()
                 .antMatchers(
                         "/api/v1/search/users",
-                        "/api/v1/stats/employee"
+                        "/api/v1/stats/employee",
+                        "/api/v1/users"
                 )
-                .hasAnyAuthority(Role.StringRole.ROLE_ADMIN)
+                .hasAnyAuthority(Privilege.Privileges.ADMINISTRATION.toString())
                 .antMatchers(
                         "/api/v1/admin/**"
                 )
-                .hasAnyAuthority(Role.StringRole.ROLE_ADMIN)
-                .antMatchers(
-                        "/api/v1/users"
-                )
-                .hasAuthority(Role.StringRole.ROLE_ADMIN)
+                .hasAnyAuthority(Privilege.Privileges.ADMINISTRATION.toString())
                 .anyRequest()
                 .authenticated()
                 .and().logout().logoutSuccessUrl("/").permitAll();

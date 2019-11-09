@@ -1,7 +1,8 @@
-package com.example.webservice.domains.users.services;
+package com.example.webservice.domains.users.services.beans;
 
 import com.example.webservice.commons.utils.NetworkUtil;
 import com.example.webservice.domains.users.models.entities.User;
+import com.example.webservice.domains.users.services.UserService;
 import com.example.webservice.exceptions.notfound.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

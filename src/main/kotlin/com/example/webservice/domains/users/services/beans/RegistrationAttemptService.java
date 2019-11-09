@@ -1,4 +1,4 @@
-package com.example.webservice.domains.users.services;
+package com.example.webservice.domains.users.services.beans;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;

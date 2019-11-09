@@ -14,6 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
@@ -73,16 +75,8 @@ public class UserController {
 
     @PutMapping("/{id}/changeRole")
     private ResponseEntity changeRole(@PathVariable("id") Long id,
-                                      @RequestParam("roles") String[] roles) throws UserNotFoundException, UserInvalidException, UserAlreadyExistsException, NullPasswordException {
+                                      @RequestParam("roles") List<Long> roles) throws UserNotFoundException, UserInvalidException, UserAlreadyExistsException, NullPasswordException {
         User user = this.userService.setRoles(id, roles);
-        return ResponseEntity.ok(user);
-    }
-
-    @PostMapping("/{id}/access/change")
-    public ResponseEntity changeAccess(@PathVariable("id") Long id,
-                                       @RequestParam("role") String role) throws UserNotFoundException {
-        User user = this.userService.changeRole(id, role);
-        this.tokenService.revokeAuthentication(user);
         return ResponseEntity.ok(user);
     }
 

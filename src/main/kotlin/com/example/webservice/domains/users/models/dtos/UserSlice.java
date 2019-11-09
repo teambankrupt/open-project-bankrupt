@@ -1,4 +1,4 @@
-package com.example.webservice.domains.users.models.responses;
+package com.example.webservice.domains.users.models.dtos;
 
 import com.example.webservice.domains.users.models.entities.User;
 

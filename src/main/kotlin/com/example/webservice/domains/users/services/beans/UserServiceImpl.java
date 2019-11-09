@@ -1,4 +1,4 @@
-package com.example.webservice.domains.users.services;
+package com.example.webservice.domains.users.services.beans;
 
 import com.example.webservice.commons.PageAttr;
 import com.example.webservice.commons.utils.NetworkUtil;
@@ -10,6 +10,10 @@ import com.example.webservice.domains.common.services.SmsService;
 import com.example.webservice.domains.users.models.entities.AcValidationToken;
 import com.example.webservice.domains.users.models.entities.Role;
 import com.example.webservice.domains.users.models.entities.User;
+import com.example.webservice.domains.users.repositories.UserRepository;
+import com.example.webservice.domains.users.services.AcValidationTokenService;
+import com.example.webservice.domains.users.services.RoleService;
+import com.example.webservice.domains.users.services.UserService;
 import com.example.webservice.exceptions.exists.UserAlreadyExistsException;
 import com.example.webservice.exceptions.forbidden.ForbiddenException;
 import com.example.webservice.exceptions.invalid.InvalidException;
@@ -17,7 +21,6 @@ import com.example.webservice.exceptions.invalid.UserInvalidException;
 import com.example.webservice.exceptions.notfound.UserNotFoundException;
 import com.example.webservice.exceptions.nullpointer.NullPasswordException;
 import com.example.webservice.exceptions.unknown.UnknownException;
-import com.example.webservice.domains.users.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -126,15 +129,12 @@ public class UserServiceImpl implements UserService {
             throw new UserInvalidException("Password length must be at least 6 or more!");
 
         // set Roles
-        user.grantRole(this.roleService.findRole(Role.ERole.ROLE_USER));
-        user.grantRole(this.roleService.findRole(Role.getERoleFromRoleName(user.getUserType())));
+        user.grantRole(this.roleService.find("User"));
 
         // Execute only when user is being registered
         if (user.getId() == null) {
             // Encrypt passwprd
             user.setPassword(PasswordUtil.encryptPassword(user.getPassword(), PasswordUtil.EncType.BCRYPT_ENCODER, null));
-            if (user.getPhoneNumber().equals(this.adminPhone1) || user.getPhoneNumber().equals(this.adminPhone2))
-                user.getRoles().add(this.roleService.findRole(Role.ERole.ROLE_ADMIN));
 
             // flood control
             String ip = NetworkUtil.getClientIP();
@@ -251,17 +251,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User changeRole(Long id, String role) throws UserNotFoundException {
-        User user = this.findOne(id);
-        if (user == null) throw new UserNotFoundException("Could not find user with id " + id);
-        Role r = this.roleService.findRole(Role.getERole(role));
-        user.changeRole(r);
-        user = this.userRepo.save(user);
-        SecurityConfig.updateAuthentication(user);
-        return user;
-    }
-
-    @Override
     public User changePassword(Long id, String currentPassword, String newPassword) throws NullPasswordException, UserNotFoundException, InvalidException, ForbiddenException {
         User user = this.findOne(id);
         if (user == null) throw new UserNotFoundException("Could not find user with id " + id);
@@ -315,18 +304,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User setRoles(Long id, String[] roleNames) throws UserNotFoundException, UserAlreadyExistsException, NullPasswordException, UserInvalidException {
+    public User setRoles(Long id, List<Long> roleIds) throws UserNotFoundException, UserAlreadyExistsException, NullPasswordException, UserInvalidException {
         User user = this.findOne(id);
-        boolean isAdmin = user.isAdmin(); // check if user admin
-        user.getRoles().clear();
+        boolean isAdmin = user.isAdmin(); // check if user is admin
+        List<Role> roles = this.roleService.findByIds(roleIds);
+        user.setRoles(roles);
         if (isAdmin)  // set admin role explicitly after clearing roles
-            user.getRoles().add(this.roleService.findRole(Role.ERole.ROLE_ADMIN));
-        // add roles
-        for (String roleName : roleNames) {
-            Role role = this.roleService.findRole(Role.getERoleFromRoleName(roleName));
-            if (role == null) continue;
-            user.grantRole(role);
-        }
+            user.getRoles().add(this.roleService.find(Role.ERole.Admin.toString()));
         return this.save(user);
     }
 

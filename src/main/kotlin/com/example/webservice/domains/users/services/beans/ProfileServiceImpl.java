@@ -1,10 +1,12 @@
-package com.example.webservice.domains.users.services;
+package com.example.webservice.domains.users.services.beans;
 
 import com.example.webservice.commons.PageAttr;
 import com.example.webservice.commons.utils.Validator;
 import com.example.webservice.config.security.SecurityConfig;
 import com.example.webservice.domains.users.models.entities.Profile;
 import com.example.webservice.domains.users.models.entities.User;
+import com.example.webservice.domains.users.services.ProfileService;
+import com.example.webservice.domains.users.services.UserService;
 import com.example.webservice.exceptions.exists.UserAlreadyExistsException;
 import com.example.webservice.exceptions.forbidden.ForbiddenException;
 import com.example.webservice.exceptions.invalid.UserInvalidException;
