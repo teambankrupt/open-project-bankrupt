@@ -17,7 +17,7 @@ import java.util.List;
 public interface UserService {
     User findByUsername(String username) throws UserNotFoundException;
 
-    User findByPhoneNumber(String phoneNumber) throws UserNotFoundException, InvalidException;
+    User findByPhone(String phoneNumber) throws UserNotFoundException, InvalidException;
 
     User findByEmail(String email) throws UserNotFoundException;
 

@@ -87,8 +87,8 @@ public class ApiHomeController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("OTP Invalid!");
         AcValidationToken acValidationToken = this.acValidationTokenService.findByToken(otp);
         if (acValidationToken == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("OTP doesn't exist!");
-        String phone = acValidationToken.getPhone();
-        user.setPhoneNumber(phone);
+        String phone = acValidationToken.getUsername();
+        user.setPhone(phone);
         String tempRawPassword = user.getPassword();
         user = this.userService.save(user);
         acValidationToken.setTokenValid(false);

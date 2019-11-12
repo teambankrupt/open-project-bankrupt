@@ -25,54 +25,32 @@ import java.util.stream.Collectors;
 })
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User extends BaseEntity implements UserDetails, Serializable {
-    @NotNull
-    @NotEmpty
+
+    @Column(nullable = false)
     private String name;
 
     @Column(unique = true, nullable = false)
-    @NotNull
-    @NotEmpty
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String username;
 
     @Column(unique = true)
-    @Email
     private String email;
 
-    @Column
-    private String userType;
+    @Column(unique = true)
+    private String phone;
 
-    @Column(unique = true, nullable = false)
-    @NotNull
-    @Size(min = 11)
-    @JsonProperty("phone")
-    private String phoneNumber;
-
-    @NotEmpty
-    @NotNull
-    @Size(min = 6, max = 100, message = "Password must be between 6 to 100 characters!")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(length = 512, nullable = false)
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<Role> roles;
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private boolean enabled = true;
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private boolean accountNonExpired = true;
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private boolean accountNonLocked = true;
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private boolean credentialsNonExpired = true;
 
-    @PrePersist
-    private void onPrePersist() {
-//        if (roles == null || roles.isEmpty())
-//            grantRole(new Role(Role.ERole.ROLE_USER));
-        if (this.username == null) this.setUsername(this.getPhoneNumber());
-    }
+    private boolean enabled = true;
+
+    private boolean accountNonExpired = true;
+
+    private boolean accountNonLocked = true;
+
+    private boolean credentialsNonExpired = true;
 
 
     public void grantRole(Role role) {
@@ -93,7 +71,6 @@ public class User extends BaseEntity implements UserDetails, Serializable {
     }
 
     @Override
-    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.roles == null) this.roles = new ArrayList<>();
         List<GrantedAuthority> authorityList = new ArrayList<>();
@@ -188,20 +165,12 @@ public class User extends BaseEntity implements UserDetails, Serializable {
         this.username = username;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
 }

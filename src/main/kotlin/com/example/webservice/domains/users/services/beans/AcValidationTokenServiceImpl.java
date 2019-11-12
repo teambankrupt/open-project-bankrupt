@@ -60,8 +60,8 @@ public class AcValidationTokenServiceImpl implements AcValidationTokenService {
     }
 
     @Override
-    public boolean canGetOTP(String phone) {
-        AcValidationToken token = this.tokenRepo.findFirstByPhoneOrderByIdDesc(phone);
+    public boolean canGetOTP(String username) {
+        AcValidationToken token = this.tokenRepo.findFirstByUsernameOrderByIdDesc(username);
         return token == null || !token.isTokenValid() || new Date().after(token.getTokenValidUntil());
     }
 }

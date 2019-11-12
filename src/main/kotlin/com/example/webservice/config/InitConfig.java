@@ -27,7 +27,7 @@ public class InitConfig {
         User user = new User();
         user.setName("Admin");
         user.setUsername(adminPhone1);
-        user.setPhoneNumber(adminPhone1);
+        user.setPhone(adminPhone1);
         user.setPassword(adminPass1);
         this.userService.save(user);
     }

@@ -68,22 +68,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByPhoneNumber(String phoneNumber) throws InvalidException {
+    public User findByPhone(String phoneNumber) throws InvalidException {
         if (phoneNumber == null) throw new InvalidException("Phone number can not be null!");
-        return this.userRepo.findByPhoneNumber(phoneNumber);
+        return this.userRepo.findByPhone(phoneNumber);
     }
 
     @Override
     public User findByEmail(String email) throws UserNotFoundException {
         if (email == null) throw new UserNotFoundException("Email can not be null!");
-        return this.userRepo.findByPhoneNumber(email);
+        return this.userRepo.findByPhone(email);
     }
 
     @Override
     public User findByUsernameOrPhone(String usernameOrPhone) throws UserNotFoundException {
         User user = this.userRepo.findByUsername(usernameOrPhone);
         if (user == null)
-            user = this.userRepo.findByPhoneNumber(usernameOrPhone);
+            user = this.userRepo.findByPhone(usernameOrPhone);
         if (user == null)
             throw new UserNotFoundException("Could not find user with username or email " + usernameOrPhone);
         return user;
@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
         // check if user already exists
         if (user.getId() == null && this.exists(user))
             throw new UserAlreadyExistsException("User already exists with this email or username");
-        if (user.getPhoneNumber() == null)
+        if (user.getPhone() == null)
             throw new UserInvalidException("Phone number can not be empty!");
         if (user.getPassword() == null || user.getPassword().length() < 6)
             throw new UserInvalidException("Password length must be at least 6 or more!");
@@ -163,7 +163,7 @@ public class UserServiceImpl implements UserService {
     public boolean exists(User user) {
         if (user == null) throw new IllegalArgumentException("user can't be null");
         return this.userRepo.findByUsername(user.getUsername()) != null
-                || this.userRepo.findByPhoneNumber(user.getPhoneNumber()) != null;
+                || this.userRepo.findByPhone(user.getPhone()) != null;
     }
 
     @Override
@@ -178,14 +178,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean requireAccountValidationByOTP(String phone, Date tokenValidUntil) throws InvalidException, UserAlreadyExistsException, ForbiddenException {
         if (phone == null) throw new IllegalArgumentException("Phone invalid!");
-        User user = this.findByPhoneNumber(phone);
+        User user = this.findByPhone(phone);
         if (user != null) throw new UserAlreadyExistsException("User already registered with this phone number!");
         if (!this.acValidationTokenService.canGetOTP(phone))
             throw new ForbiddenException("Already sent an OTP. Please try agin in two minutes!");
         AcValidationToken acValidationToken = new AcValidationToken();
         acValidationToken.setToken(String.valueOf(SessionIdentifierGenerator.generateOTP()));
         acValidationToken.setTokenValid(true);
-        acValidationToken.setPhone(phone);
+        acValidationToken.setUsername(phone);
         acValidationToken.setTokenValidUntil(tokenValidUntil);
         // save acvalidationtoken
         acValidationToken = this.acValidationTokenService.save(acValidationToken);
