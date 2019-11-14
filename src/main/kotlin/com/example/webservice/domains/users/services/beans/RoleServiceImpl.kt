@@ -9,6 +9,7 @@ import com.example.webservice.exceptions.notfound.NotFoundException
 import com.example.webservice.exceptions.notfound.UserNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class RoleServiceImpl @Autowired
@@ -18,8 +19,12 @@ constructor(private val userRepo: UserRepository, private val roleRepo: RoleRepo
         return this.roleRepo.findByRoleIds(roleIds)
     }
 
-    override fun find(name: String): Role {
-        return this.roleRepo.find(name).orElseThrow { NotFoundException("Could not find role with name $name") }
+    override fun find(name: String): Optional<Role> {
+        return this.roleRepo.find(name)
+    }
+
+    override fun findUnrestricted(name: String): Optional<Role> {
+        return this.roleRepo.findUnrestricted(name)
     }
 
     override fun save(role: Role): Role {

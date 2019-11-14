@@ -18,6 +18,7 @@ import com.example.webservice.exceptions.exists.UserAlreadyExistsException;
 import com.example.webservice.exceptions.forbidden.ForbiddenException;
 import com.example.webservice.exceptions.invalid.InvalidException;
 import com.example.webservice.exceptions.invalid.UserInvalidException;
+import com.example.webservice.exceptions.notfound.NotFoundException;
 import com.example.webservice.exceptions.notfound.UserNotFoundException;
 import com.example.webservice.exceptions.nullpointer.NullPasswordException;
 import com.example.webservice.exceptions.unknown.UnknownException;
@@ -117,7 +118,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(User user) throws UserAlreadyExistsException, UserInvalidException, NullPasswordException {
+    public User save(User user) throws UserAlreadyExistsException, UserInvalidException, NullPasswordException, NotFoundException {
         if (!this.isValid(user)) throw new UserInvalidException("User invalid");
 
         // check if user already exists
@@ -129,7 +130,8 @@ public class UserServiceImpl implements UserService {
             throw new UserInvalidException("Password length must be at least 6 or more!");
 
         // set Roles
-        user.grantRole(this.roleService.find("User"));
+        Role role = this.roleService.find("User").orElseThrow(() -> new NotFoundException("Could not find role with name $name"));
+        user.grantRole(role);
 
         // Execute only when user is being registered
         if (user.getId() == null) {
@@ -229,7 +231,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User resetPassword(String username, String token, String password) throws NullPasswordException, UserAlreadyExistsException, UserInvalidException, ForbiddenException {
+    public User resetPassword(String username, String token, String password) throws NullPasswordException, UserAlreadyExistsException, UserInvalidException, ForbiddenException, NotFoundException {
         if (password.length() < 6)
             throw new ForbiddenException("Password length should be at least 6");
         AcValidationToken acValidationToken = this.acValidationTokenService.findByToken(token);
@@ -304,13 +306,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User setRoles(Long id, List<Long> roleIds) throws UserNotFoundException, UserAlreadyExistsException, NullPasswordException, UserInvalidException {
+    public User setRoles(Long id, List<Long> roleIds) throws NotFoundException, UserAlreadyExistsException, NullPasswordException, UserInvalidException {
         User user = this.findOne(id);
         boolean isAdmin = user.isAdmin(); // check if user is admin
         List<Role> roles = this.roleService.findByIds(roleIds);
         user.setRoles(roles);
-        if (isAdmin)  // set admin role explicitly after clearing roles
-            user.getRoles().add(this.roleService.find(Role.ERole.Admin.toString()));
+        if (isAdmin) {// set admin role explicitly after clearing roles
+            Role role = this.roleService.find(Role.ERole.Admin.toString()).orElseThrow(() -> new NotFoundException("Could not find role with name " + Role.ERole.Admin.toString()));
+            user.getRoles().add(role);
+        }
         return this.save(user);
     }
 

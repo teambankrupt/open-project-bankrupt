@@ -17,7 +17,10 @@ class Role : BaseEntity() {
     @JoinTable(name = "roles_privileges", joinColumns = [JoinColumn(name = "role_id", referencedColumnName = "id")], inverseJoinColumns = [JoinColumn(name = "privilege_id", referencedColumnName = "id")])
     var privileges: List<Privilege>? = null
 
-    enum class ERole{
+    @Column(nullable = false)
+    var restricted: Boolean = true
+
+    enum class ERole {
         Admin, User
     }
 

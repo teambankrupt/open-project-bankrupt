@@ -35,7 +35,7 @@ class ApiHomeControllerV2 @Autowired constructor(
     }
 
     @PostMapping("/register/verify")
-    fun verifyPhone(@RequestParam("identity") phoneOrEmail: String): ResponseEntity<Any> {
+    fun verifyIdentity(@RequestParam("identity") phoneOrEmail: String): ResponseEntity<Any> {
 
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis() + Integer.parseInt(this.tokenValidity)
@@ -54,6 +54,7 @@ class ApiHomeControllerV2 @Autowired constructor(
         SecurityConfig.updateAuthentication(user)
         return ResponseEntity.ok(tokenService.createAccessToken(user))
     }
+
 
 
 }

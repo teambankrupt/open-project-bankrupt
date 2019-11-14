@@ -5,6 +5,7 @@ import com.example.webservice.exceptions.exists.UserAlreadyExistsException;
 import com.example.webservice.exceptions.forbidden.ForbiddenException;
 import com.example.webservice.exceptions.invalid.InvalidException;
 import com.example.webservice.exceptions.invalid.UserInvalidException;
+import com.example.webservice.exceptions.notfound.NotFoundException;
 import com.example.webservice.exceptions.notfound.UserNotFoundException;
 import com.example.webservice.exceptions.nullpointer.NullPasswordException;
 import com.example.webservice.exceptions.unknown.UnknownException;
@@ -33,7 +34,7 @@ public interface UserService {
 
     User findOne(Long id) throws UserNotFoundException;
 
-    User save(User user) throws UserAlreadyExistsException, UserInvalidException, NullPasswordException;
+    User save(User user) throws UserAlreadyExistsException, UserInvalidException, NullPasswordException, NotFoundException;
 
     boolean exists(User user);
 
@@ -44,7 +45,7 @@ public interface UserService {
     void requireAccountValidationByEmail(String email, String validationUrl) throws UserNotFoundException;
 
     @Transactional
-    User resetPassword(String username, String token, String password) throws NullPasswordException, UserAlreadyExistsException, UserInvalidException, ForbiddenException;
+    User resetPassword(String username, String token, String password) throws NullPasswordException, UserAlreadyExistsException, UserInvalidException, ForbiddenException, NotFoundException;
 
     Page<User> findUsersIn(List<Long> userIds, int page);
 
@@ -56,5 +57,5 @@ public interface UserService {
 
     void handlePasswordResetRequest(String username) throws UserNotFoundException, ForbiddenException, UnknownException;
 
-    User setRoles(Long id, List<Long> roleIds) throws UserNotFoundException, UserAlreadyExistsException, NullPasswordException, UserInvalidException;
+    User setRoles(Long id, List<Long> roleIds) throws NotFoundException, UserAlreadyExistsException, NullPasswordException, UserInvalidException;
 }

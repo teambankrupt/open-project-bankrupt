@@ -2,12 +2,14 @@ package com.example.webservice.domains.users.models.mappers
 
 import com.example.webservice.commons.utils.PasswordUtil
 import com.example.webservice.domains.users.models.dtos.UserDto
+import com.example.webservice.domains.users.models.entities.Role
 import com.example.webservice.domains.users.models.entities.User
 import com.example.webservice.domains.users.services.RoleService
 import com.example.webservice.domains.users.services.UserService
 import com.example.webservice.domains.users.services.UserServiceV2
 import com.example.webservice.exceptions.exists.AlreadyExistsException
 import com.example.webservice.exceptions.invalid.InvalidException
+import com.example.webservice.exceptions.notfound.NotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
@@ -27,7 +29,8 @@ class UserMapper @Autowired constructor(
         user.username = dto.username
         user.password = PasswordUtil.encryptPassword(dto.password, PasswordUtil.EncType.BCRYPT_ENCODER, null)
         user.email = dto.email
-        user.roles = listOf(this.roleService.find(dto.role))
+        val unrestrictedRole = this.roleService.findUnrestricted(dto.role).orElseThrow { NotFoundException("Could not find role with name ${dto.role}") }
+        user.roles = listOf(unrestrictedRole)
         this.validate(user)
         return user
     }

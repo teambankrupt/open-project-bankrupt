@@ -12,6 +12,7 @@ import com.example.webservice.exceptions.exists.UserAlreadyExistsException;
 import com.example.webservice.exceptions.forbidden.ForbiddenException;
 import com.example.webservice.exceptions.invalid.InvalidException;
 import com.example.webservice.exceptions.invalid.UserInvalidException;
+import com.example.webservice.exceptions.notfound.NotFoundException;
 import com.example.webservice.exceptions.notfound.UserNotFoundException;
 import com.example.webservice.exceptions.nullpointer.NullPasswordException;
 import com.example.webservice.exceptions.unknown.UnknownException;
@@ -80,7 +81,7 @@ public class ApiHomeController {
     ResponseEntity register(@RequestParam("otp") String otp,
                             @RequestBody User user, BindingResult bindingResult,
                             @RequestParam(value = "sendPassword", defaultValue = "false") Boolean sendPassword,
-                            @CurrentUser User currentUser) throws UserAlreadyExistsException, InvalidException, NullPasswordException, JsonProcessingException, UnknownException, ForbiddenException {
+                            @CurrentUser User currentUser) throws UserAlreadyExistsException, InvalidException, NullPasswordException, JsonProcessingException, UnknownException, ForbiddenException, NotFoundException {
         if (bindingResult.hasErrors())
             return ResponseEntity.badRequest().build();
         if (!this.acValidationTokenService.isTokenValid(otp))
@@ -139,7 +140,7 @@ public class ApiHomeController {
     @ResponseStatus(HttpStatus.OK)
     private void resetPassword(@RequestParam("username") String username,
                                @RequestParam("token") String token,
-                               @RequestParam("password") String password) throws UserNotFoundException, ForbiddenException, UserAlreadyExistsException, NullPasswordException, UserInvalidException {
+                               @RequestParam("password") String password) throws NotFoundException, ForbiddenException, UserAlreadyExistsException, NullPasswordException, UserInvalidException {
         this.userService.resetPassword(username, token, password);
     }
 

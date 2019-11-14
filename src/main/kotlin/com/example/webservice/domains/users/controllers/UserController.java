@@ -6,6 +6,7 @@ import com.example.webservice.exceptions.exists.UserAlreadyExistsException;
 import com.example.webservice.exceptions.forbidden.ForbiddenException;
 import com.example.webservice.exceptions.invalid.InvalidException;
 import com.example.webservice.exceptions.invalid.UserInvalidException;
+import com.example.webservice.exceptions.notfound.NotFoundException;
 import com.example.webservice.exceptions.notfound.UserNotFoundException;
 import com.example.webservice.exceptions.nullpointer.NullPasswordException;
 import com.example.webservice.domains.users.services.UserService;
@@ -65,7 +66,7 @@ public class UserController {
 
     @PostMapping("/{id}/access/toggle")
     public ResponseEntity disableUser(@PathVariable("id") Long id,
-                                      @RequestParam("enabled") boolean enabled) throws UserNotFoundException, UserAlreadyExistsException, NullPasswordException, UserInvalidException {
+                                      @RequestParam("enabled") boolean enabled) throws NotFoundException, UserAlreadyExistsException, NullPasswordException, UserInvalidException {
         User user = this.userService.findOne(id);
         user.setEnabled(enabled);
         user = this.userService.save(user);
@@ -75,7 +76,7 @@ public class UserController {
 
     @PutMapping("/{id}/changeRole")
     private ResponseEntity changeRole(@PathVariable("id") Long id,
-                                      @RequestParam("roles") List<Long> roles) throws UserNotFoundException, UserInvalidException, UserAlreadyExistsException, NullPasswordException {
+                                      @RequestParam("roles") List<Long> roles) throws NotFoundException, UserInvalidException, UserAlreadyExistsException, NullPasswordException {
         User user = this.userService.setRoles(id, roles);
         return ResponseEntity.ok(user);
     }

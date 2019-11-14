@@ -2,6 +2,7 @@ package com.example.webservice.domains.users.services.beans
 
 import com.example.webservice.commons.utils.DateUtil
 import com.example.webservice.commons.utils.SessionIdentifierGenerator
+import com.example.webservice.commons.utils.Validator
 import com.example.webservice.domains.common.services.MailService
 import com.example.webservice.domains.common.services.SmsService
 import com.example.webservice.domains.firebase.models.dto.NotificationData
@@ -9,7 +10,6 @@ import com.example.webservice.domains.firebase.models.dto.PushNotification
 import com.example.webservice.domains.firebase.services.NotificationService
 import com.example.webservice.domains.users.models.entities.AcValidationToken
 import com.example.webservice.domains.users.models.entities.User
-import com.example.webservice.domains.users.repositories.UserRepository
 import com.example.webservice.domains.users.repositories.UserRepositoryV2
 import com.example.webservice.domains.users.services.AcValidationTokenService
 import com.example.webservice.domains.users.services.UserServiceV2
@@ -42,7 +42,7 @@ class UserServiceImplV2 @Autowired constructor(
             throw InvalidException("Token invalid!")
         val acValidationToken = this.acValidationTokenService.findByToken(token)
 
-        val username = if(authMethod=="phone") user.phone else user.email
+        val username = if (authMethod == "phone") user.phone else user.email
         if (username != acValidationToken.username) throw InvalidException("Token invalid!")
 
         val savedUser = this.userRepository.save(user)
@@ -55,7 +55,10 @@ class UserServiceImplV2 @Autowired constructor(
 
 
     override fun requireAccountValidationByOTP(phoneOrEmail: String, tokenValidUntil: Date): Boolean {
-        val user = if (this.authMethod == "phone") this.userRepository.findByPhone(phoneOrEmail)
+        val isPhone = this.authMethod == "phone"
+        this.validateIdentity(isPhone, phoneOrEmail)
+
+        val user = if (isPhone) this.userRepository.findByPhone(phoneOrEmail)
         else this.userRepository.findByEmail(phoneOrEmail)
         if (user.isPresent) throw UserAlreadyExistsException("User already registered with this ${authMethod}!")
 
@@ -84,6 +87,17 @@ class UserServiceImplV2 @Autowired constructor(
         // send link by sms
         return if (this.authMethod == "phone") this.smsService.sendSms(phoneOrEmail, tokenMessage)
         else this.mailService.sendEmail(phoneOrEmail, this.applicationName + " Registration", tokenMessage)
+    }
+
+    private fun validateIdentity(phone: Boolean, phoneOrEmail: String) {
+        if (phone) {
+            if (!Validator.isValidPhoneNumber(phoneOrEmail))
+                throw InvalidException("Phone number: $phoneOrEmail is invalid!")
+        }else{
+            if (!Validator.isValidEmail(phoneOrEmail))
+                throw InvalidException("Email: $phoneOrEmail is invalid!")
+        }
+
     }
 
 
