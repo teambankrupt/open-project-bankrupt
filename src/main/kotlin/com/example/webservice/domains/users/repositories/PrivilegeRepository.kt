@@ -19,4 +19,6 @@ interface PrivilegeRepository : JpaRepository<Privilege, Long> {
     @Query("SELECT p FROM Privilege p WHERE p.name=:name AND p.deleted = false")
     fun find(@Param("name") name: String): Optional<Privilege>
 
+    fun existsByName(name: String): Boolean
+    fun existsByLabel(label: String): Boolean
 }

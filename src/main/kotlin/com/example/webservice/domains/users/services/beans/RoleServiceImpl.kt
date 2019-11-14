@@ -5,6 +5,7 @@ import com.example.webservice.domains.users.models.entities.Role
 import com.example.webservice.domains.users.repositories.RoleRepository
 import com.example.webservice.domains.users.repositories.UserRepository
 import com.example.webservice.domains.users.services.RoleService
+import com.example.webservice.exceptions.exists.AlreadyExistsException
 import com.example.webservice.exceptions.forbidden.ForbiddenException
 import com.example.webservice.exceptions.invalid.InvalidException
 import com.example.webservice.exceptions.notfound.NotFoundException
@@ -41,6 +42,11 @@ class RoleServiceImpl @Autowired constructor(
     }
 
     override fun save(role: Role): Role {
+        // When creating new role check if already exists with same name
+        if (role.id == null) {
+            if (this.roleRepo.existsByName(role.name))
+                throw AlreadyExistsException("Role exists with name: ${role.name}")
+        }
         return this.roleRepo.save(role)
     }
 

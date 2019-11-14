@@ -1,28 +1,34 @@
 package com.example.webservice.config.security.oauth;
 
 import com.example.webservice.domains.users.models.entities.Privilege;
+import com.example.webservice.domains.users.repositories.PrivilegeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+
+import java.util.Objects;
 
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     private final TokenStore tokenStore;
+    private final PrivilegeRepository privilegeRepo;
 
     @Autowired
-    public ResourceServerConfig(TokenStore tokenStore) {
+    public ResourceServerConfig(TokenStore tokenStore, PrivilegeRepository privilegeRepo) {
         this.tokenStore = tokenStore;
+        this.privilegeRepo = privilegeRepo;
     }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http
+        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry r = http
                 .antMatcher("/api/**")
                 .authorizeRequests()
                 .antMatchers(
@@ -44,18 +50,17 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 )
                 .permitAll()
                 .antMatchers(
-                        "/api/v1/search/users",
-                        "/api/v1/stats/employee",
-                        "/api/v1/users"
-                )
-                .hasAnyAuthority(Privilege.Privileges.ADMINISTRATION.toString())
-                .antMatchers(
                         "/api/v1/admin/**"
                 )
-                .hasAnyAuthority(Privilege.Privileges.ADMINISTRATION.toString())
-                .anyRequest()
+                .hasAnyAuthority(Privilege.Privileges.ADMINISTRATION.toString());
+
+        for (Privilege p : this.privilegeRepo.findAll())
+            r.antMatchers(p.accessesArr()).hasAnyAuthority(p.name);
+
+        r.anyRequest()
                 .authenticated()
                 .and().logout().logoutSuccessUrl("/").permitAll();
+
     }
 
     @Override

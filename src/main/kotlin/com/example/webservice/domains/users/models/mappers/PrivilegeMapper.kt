@@ -14,6 +14,7 @@ class PrivilegeMapper {
 
         dto.name = privilege.name
         dto.label = privilege.label
+        dto.accessUrls = privilege.accessUrls
         return dto
     }
 
@@ -23,6 +24,7 @@ class PrivilegeMapper {
 
         privilege.name = dto.name.replace(" ", "_").toUpperCase()
         privilege.label = dto.label
+        privilege.accessUrls = dto.accessUrls
         return privilege
     }
 
