@@ -107,6 +107,24 @@ Postman-Token: 4826c898-6b31-4ccc-9551-f2c3d5c5bb01
 
 ```
 
+## Change Password
+```$xslt
+POST /api/v1/change_password?current_password=current_password&new_password=new_password
+```
+
+## Password Reset
+
+First get OTP with username
+
+```$xslt
+POST /api/v1/reset_password?username=your_username
+```
+
+You will receive an OTP via Email/Phone. Use it to reset password.
+```$xslt
+/api/v1/reset_password?username=username&token=452689&password=password
+```
+
 ---------------------
 
 # User profile

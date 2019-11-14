@@ -37,6 +37,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                         "/v2/api-docs",
                         "/sw/**",
                         "/api/v1/resetPassword/**",
+                        "/api/v2/reset_password/**",
                         "/api/v1/checkTokenValidity",
                         "/api/v1/promos/**",
                         "/swagger-ui.html",
