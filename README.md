@@ -117,12 +117,12 @@ POST /api/v1/change_password?current_password=current_password&new_password=new_
 First get OTP with username
 
 ```$xslt
-POST /api/v1/reset_password?username=your_username
+GET /api/v1/reset_password?username=your_username
 ```
 
 You will receive an OTP via Email/Phone. Use it to reset password.
 ```$xslt
-/api/v1/reset_password?username=username&token=452689&password=password
+POST /api/v1/reset_password?username=username&token=452689&password=password
 ```
 
 ---------------------

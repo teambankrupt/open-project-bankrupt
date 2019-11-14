@@ -2,6 +2,7 @@ package com.example.webservice.domains.users.controllers;
 
 import com.example.webservice.config.security.TokenService;
 import com.example.webservice.domains.users.models.entities.User;
+import com.example.webservice.domains.users.services.UserService;
 import com.example.webservice.exceptions.exists.UserAlreadyExistsException;
 import com.example.webservice.exceptions.forbidden.ForbiddenException;
 import com.example.webservice.exceptions.invalid.InvalidException;
@@ -9,7 +10,6 @@ import com.example.webservice.exceptions.invalid.UserInvalidException;
 import com.example.webservice.exceptions.notfound.NotFoundException;
 import com.example.webservice.exceptions.notfound.UserNotFoundException;
 import com.example.webservice.exceptions.nullpointer.NullPasswordException;
-import com.example.webservice.domains.users.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +43,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity getUser(@PathVariable("id") Long userId) throws UserNotFoundException {
-        User user = this.userService.findOne(userId);
+        User user = this.userService.find(userId).orElseThrow(()->new UserNotFoundException("Could not find user with id: "+userId));
         return ResponseEntity.ok(user);
     }
 
@@ -67,7 +67,7 @@ public class UserController {
     @PostMapping("/{id}/access/toggle")
     public ResponseEntity disableUser(@PathVariable("id") Long id,
                                       @RequestParam("enabled") boolean enabled) throws NotFoundException, UserAlreadyExistsException, NullPasswordException, UserInvalidException {
-        User user = this.userService.findOne(id);
+        User user = this.userService.find(id).orElseThrow(()->new UserNotFoundException("Could not find user with id: "+id));
         user.setEnabled(enabled);
         user = this.userService.save(user);
         this.tokenService.revokeAuthentication(user);

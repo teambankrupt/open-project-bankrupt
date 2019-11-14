@@ -33,10 +33,10 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public Profile save(Profile profile, String username) throws NotFoundException, UserAlreadyExistsException, NullPasswordException, UserInvalidException {
+    public Profile save(Profile profile, String username) throws NotFoundException {
         if (profile == null || username == null)
             throw new IllegalArgumentException("Profile or username can not be null");
-        User user = this.userService.findByUsernameOrPhone(username);
+        User user = this.userService.findByUsername(username).orElseThrow(() -> new ProfileNotFoundException("Could not find profile with username: " + username));
         profile.setUser(user);
         Profile exProfile = this.profileRepository.findByUserUsername(username);
         if (exProfile != null) {

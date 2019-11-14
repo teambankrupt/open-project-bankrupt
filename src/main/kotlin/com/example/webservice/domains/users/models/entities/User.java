@@ -29,6 +29,9 @@ public class User extends BaseEntity implements UserDetails, Serializable {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private String gender;
+
     @Column(unique = true, nullable = false)
     private String username;
 
@@ -127,6 +130,13 @@ public class User extends BaseEntity implements UserDetails, Serializable {
         return email;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
     public void setEmail(String email) {
         this.email = email;

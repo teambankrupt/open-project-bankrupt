@@ -1,10 +1,16 @@
 package com.example.webservice.domains.users.services
 
 import com.example.webservice.domains.users.models.entities.User
+import org.springframework.data.domain.Page
 import java.util.*
 import javax.transaction.Transactional
 
-interface UserServiceV2 {
+interface UserService {
+    fun searchUser(query: String, page: Int, size: Int): Page<User>
+    fun findAll(page: Int): Page<User>
+    fun findByRole(role: String, page: Int): Page<User>
+    fun findByRole(role: String): List<User>
+
     fun save(user: User) : User
     fun register(token: String, user: User): User
     fun requireAccountValidationByOTP(phoneOrEmail: String, tokenValidUntil: Date): Boolean

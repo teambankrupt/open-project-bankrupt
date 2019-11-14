@@ -60,7 +60,7 @@ public class ProfileController {
     // UPDATE PROFILE
     @PutMapping("/user/{username}")
     private ResponseEntity<Profile> updateProfile(@RequestBody Profile profile,
-                                                     @PathVariable("username") String username) throws NotFoundException, UserAlreadyExistsException, NullPasswordException, UserInvalidException, ForbiddenException {
+                                                  @PathVariable("username") String username) throws NotFoundException, UserAlreadyExistsException, NullPasswordException, UserInvalidException, ForbiddenException {
         // include existing profile picture when updating
         if (profile == null) return ResponseEntity.badRequest().build();
         profile = this.profileService.save(profile, username);

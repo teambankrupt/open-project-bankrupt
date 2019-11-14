@@ -28,7 +28,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers(
                         "/",
                         "/api/v1/register/**",
-                        "/api/v2/register/**",
                         "/api/v1/search/**",
                         "/api/v2/search/**",
                         "/api/v1/login**",
@@ -37,7 +36,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                         "/v2/api-docs",
                         "/sw/**",
                         "/api/v1/resetPassword/**",
-                        "/api/v2/reset_password/**",
                         "/api/v1/checkTokenValidity",
                         "/api/v1/promos/**",
                         "/swagger-ui.html",

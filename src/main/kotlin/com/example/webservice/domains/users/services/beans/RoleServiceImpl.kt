@@ -5,7 +5,6 @@ import com.example.webservice.domains.users.repositories.RoleRepository
 import com.example.webservice.domains.users.repositories.UserRepository
 import com.example.webservice.domains.users.services.RoleService
 import com.example.webservice.exceptions.forbidden.ForbiddenException
-import com.example.webservice.exceptions.notfound.NotFoundException
 import com.example.webservice.exceptions.notfound.UserNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

@@ -6,15 +6,7 @@ import com.example.webservice.domains.users.models.annotations.CurrentUser
 import com.example.webservice.domains.users.models.dtos.UserDto
 import com.example.webservice.domains.users.models.entities.User
 import com.example.webservice.domains.users.models.mappers.UserMapper
-import com.example.webservice.domains.users.services.UserServiceV2
-import com.example.webservice.exceptions.exists.UserAlreadyExistsException
-import com.example.webservice.exceptions.forbidden.ForbiddenException
-import com.example.webservice.exceptions.invalid.InvalidException
-import com.example.webservice.exceptions.invalid.UserInvalidException
-import com.example.webservice.exceptions.notfound.NotFoundException
-import com.example.webservice.exceptions.notfound.UserNotFoundException
-import com.example.webservice.exceptions.nullpointer.NullPasswordException
-import com.example.webservice.exceptions.unknown.UnknownException
+import com.example.webservice.domains.users.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
@@ -25,9 +17,9 @@ import java.net.URI
 import java.util.*
 
 @RestController
-@RequestMapping("/api/v2")
-class ApiHomeControllerV2 @Autowired constructor(
-        val userService: UserServiceV2,
+@RequestMapping("/api/v1")
+class ApiHomeController @Autowired constructor(
+        val userService: UserService,
         val tokenService: TokenService,
         val userMapper: UserMapper
 ) {
@@ -38,7 +30,7 @@ class ApiHomeControllerV2 @Autowired constructor(
     val tokenValidity: String? = null
 
     @GetMapping("")
-    fun index(): ResponseEntity<*> {
+    fun index(): ResponseEntity<Any> {
         val headers = HttpHeaders()
         headers.location = URI.create("/swagger-ui.html")
         return ResponseEntity(null, headers, HttpStatus.TEMPORARY_REDIRECT)

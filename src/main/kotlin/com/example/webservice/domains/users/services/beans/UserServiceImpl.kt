@@ -1,5 +1,6 @@
 package com.example.webservice.domains.users.services.beans
 
+import com.example.webservice.commons.PageAttr
 import com.example.webservice.commons.utils.DateUtil
 import com.example.webservice.commons.utils.PasswordUtil
 import com.example.webservice.commons.utils.SessionIdentifierGenerator
@@ -13,34 +14,33 @@ import com.example.webservice.domains.firebase.services.NotificationService
 import com.example.webservice.domains.users.models.entities.AcValidationToken
 import com.example.webservice.domains.users.models.entities.Role
 import com.example.webservice.domains.users.models.entities.User
-import com.example.webservice.domains.users.repositories.UserRepositoryV2
+import com.example.webservice.domains.users.repositories.UserRepository
 import com.example.webservice.domains.users.services.AcValidationTokenService
 import com.example.webservice.domains.users.services.RoleService
-import com.example.webservice.domains.users.services.UserServiceV2
+import com.example.webservice.domains.users.services.UserService
 import com.example.webservice.exceptions.exists.UserAlreadyExistsException
 import com.example.webservice.exceptions.forbidden.ForbiddenException
 import com.example.webservice.exceptions.invalid.InvalidException
-import com.example.webservice.exceptions.invalid.UserInvalidException
 import com.example.webservice.exceptions.notfound.NotFoundException
 import com.example.webservice.exceptions.notfound.UserNotFoundException
-import com.example.webservice.exceptions.nullpointer.NullPasswordException
 import com.example.webservice.exceptions.unknown.UnknownException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service
 import java.util.*
 import javax.transaction.Transactional
 
 
 @Service
-class UserServiceImplV2 @Autowired constructor(
-        val userRepository: UserRepositoryV2,
+class UserServiceImpl @Autowired constructor(
+        val userRepository: UserRepository,
         val acValidationTokenService: AcValidationTokenService,
         val notificationService: NotificationService,
         val smsService: SmsService,
         val mailService: MailService,
         val roleService: RoleService
-) : UserServiceV2 {
+) : UserService {
 
     @Value("\${auth.method}")
     lateinit var authMethod: String
@@ -48,14 +48,25 @@ class UserServiceImplV2 @Autowired constructor(
     @Value("\${applicationName}")
     lateinit var applicationName: String
 
-    @Value("\${baseUrlApi}")
-    lateinit var baseUrlApi: String
-    @Value("\${admin.phone1}")
-    lateinit var adminPhone1: String
-    @Value("\${admin.phone2}")
-    lateinit var adminPhone2: String
     @Value("\${token.validity}")
     lateinit var tokenValidity: String
+
+    override fun searchUser(query: String, page: Int, size: Int): Page<User> {
+        return this.userRepository.searchByNameOrUsername(query, PageAttr.getPageRequest(page, size))
+    }
+
+    override fun findAll(page: Int): Page<User> {
+        return this.userRepository.findAll(PageAttr.getPageRequest(page))
+    }
+
+    override fun findByRole(role: String, page: Int): Page<User> {
+        return this.userRepository.findByRolesName(role, PageAttr.getPageRequest(page))
+    }
+
+    override fun findByRole(role: String): List<User> {
+        return this.userRepository.findByRolesName(role)
+    }
+
 
     override fun save(user: User): User {
         return this.userRepository.save(user)
