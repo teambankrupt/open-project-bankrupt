@@ -23,6 +23,7 @@ class UserMapper @Autowired constructor(
     fun map(dto: UserDto, exUser: User?): User {
         val user = exUser ?: User()
         user.name = dto.name
+        user.gender = dto.gender
         user.phone = dto.phone
         user.username = dto.username
         user.password = PasswordUtil.encryptPassword(dto.password, PasswordUtil.EncType.BCRYPT_ENCODER, null)
@@ -35,7 +36,12 @@ class UserMapper @Autowired constructor(
 
     fun map(user: User): UserDto {
         val dto = UserDto()
+        dto.id = user.id
+        dto.created = user.created
+        dto.lastUpdated = user.lastUpdated
+
         dto.name = user.name
+        dto.gender = user.gender
         dto.username = user.username
         dto.phone = user.phone
         dto.email = user.email

@@ -18,10 +18,10 @@ class PrivilegeMapper {
     }
 
     fun map(dto: PrivilegeDto, exPrivilege: Privilege?): Privilege {
-        var privilege = exPrivilege;
+        var privilege = exPrivilege
         if (privilege == null) privilege = Privilege()
 
-        privilege.name = dto.name
+        privilege.name = dto.name.replace(" ", "_").toUpperCase()
         privilege.label = dto.label
         return privilege
     }

@@ -1,10 +1,12 @@
 package com.example.webservice.domains.users.models.dtos
 
+import com.example.webservice.domains.common.models.dtos.BaseDto
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
-class UserDto {
+class UserDto : BaseDto() {
     @NotBlank
     lateinit var name: String
 
@@ -24,6 +26,6 @@ class UserDto {
     @NotBlank
     lateinit var gender: String
 
-
+    @NotBlank
     lateinit var role: String
 }

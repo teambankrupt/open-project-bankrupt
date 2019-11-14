@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/v1/privileges")
+@RequestMapping("/api/v1/admin/privileges")
 class PrivilegeController @Autowired constructor(
         val privilegeService: PrivilegeService,
         val privilegeMapper: PrivilegeMapper
@@ -42,7 +42,7 @@ class PrivilegeController @Autowired constructor(
     }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Long): ResponseEntity<Any> {
+    fun softDelete(@PathVariable id: Long): ResponseEntity<Any> {
         this.privilegeService.delete(id)
         return ResponseEntity.ok().build()
     }

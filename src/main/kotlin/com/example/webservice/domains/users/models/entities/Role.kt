@@ -10,7 +10,7 @@ import javax.persistence.*
 @Table(name = "roles")
 class Role : BaseEntity() {
     @Column(nullable = false, unique = true)
-    var name: String? = null
+    lateinit var name: String
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
