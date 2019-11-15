@@ -33,99 +33,119 @@ It's a skeleton project with lots of features implemented by default.
 
 # Authentication Flow (Some basic implemented api's)
 
-## Registration
-You can register your user using either `phone` or `email` authentication method.
-Configure phone or email verification for your project in `application.properties` file
-Set `auth.method=phone` or `auth.method=email` according to your need
-
-Before you can register a user you need to verify phone or email. You must provide phone number to verify if you configured your project to use phone verification method.
-Same applies to email also.
-
-```$xslt
-POST /api/v1/register/verify?identity=01710000000
-```
-That phone number will get a token (validity for 2 minutes, can send another token request after two minutes)
-
-Then you can send a request for registering user with that token
-
-```$xslt
-POST /api/v1/register?otp=449183 HTTP/1.1
-Host: localhost:8080
-Content-Type: application/json
-cache-control: no-cache
-{
-	"name":"Sayem",
-	"phone": "01710000000", // must be present if auth.method=phone in application.properties
-	"email: "demo@example.com", // must be present if auth.method=email in application.properties
-	"username": "username",
-	"password": "password",
-	"gender": "male",
-	"role": "User"
-}
-```
-If registration is successful it will give you a response like below, so that you can instantly log user in.
-
-```$xslt
-{
-    "access_token": "eea1a168-36d3-41ae-963b-e5156cb678ed",
-    "token_type": "bearer",
-    "refresh_token": "cc936718-e938-4143-b742-b7d0575c49a2",
-    "expires_in": 19999,
-    "scope": "read trust write",
-    "phone": "01710000000",
-    "email": "email@example.com",
-    "name": "Sayem Hossain",
-    "id": 10,
-    "authorities": [
-        {
-            "authority": "ROLE_USER"
-        }
-    ],
-    "username": "username"
-}
-```
-
-Bind this response to your defined UserAuth object and this object should be your authentication
-
-## Login
-
-```$xslt
-GET /api/v1/login?username=01610226163&amp; password=123456&amp; client_id=client_id&amp; client_secret=client_secret&amp; grant_type=password HTTP/1.1
-Host: localhost:8080
-cache-control: no-cache
-
-```  
-Response of login url will be same as registration response above (UserAuth) if login succeed.
-
-## Refresh Token
-The validity duration of access token is 5000s. So if you find 401 response code in any request, refresh your access token
-```$xslt
-POST /api/v1/login?client_id=client_id&amp; client_secret=client_secret&amp; grant_type=refresh_token&amp; refresh_token=cc936718-e938-4143-b742-b7d0575c49a2 HTTP/1.1
-Host: localhost:8080
-cache-control: no-cache
-Postman-Token: 4826c898-6b31-4ccc-9551-f2c3d5c5bb01
-
-```
-
-## Change Password
-```$xslt
-POST /api/v1/change_password?current_password=current_password&new_password=new_password
-```
-
-## Password Reset
-
-First get OTP with username
-
-```$xslt
-GET /api/v1/reset_password?username=your_username
-```
-
-You will receive an OTP via Email/Phone. Use it to reset password.
-```$xslt
-POST /api/v1/reset_password?username=username&token=452689&password=password
-```
-
 ---------------------
+
+There are Admin API's for authority management (User Roles, Privileges/Permissions)
+
+# Architecture:
+
+#### Privileges
+A Privilege/Permission is the smallest piece of element which is responsible for accessing certain API or collection of API's.<br/>
+It has two Main property and a `Label` for human readability.
+
+- label (Hoomans..! it's for you)
+- name (A Unique String all uppercase sperated with underscore. Ex. CREATE_POST, VIEW_STATISTICS)
+- access_urls (A role containing this privilege will have access to these urls)
+
+A privilege can be created and maintained by admin users.
+
+#### Roles
+A Role contains a collection of privileges. It can also be consider as a group of privileges. <br/>
+A User with certain role can have all the privileges inside that role, thus access all endpoints defined for those privileges.
+
+- name (Any Unique String, Ex. Admin, Financial Advisor, Monitor)
+- restricted (A boolean value)
+- privileges
+
+Here, set `restricted` to false when creating/updating a role, if you don't want your user to register for that certain role. </br>
+For example, for  a ride sharing app, you may want your user to register for both `Drive` and `User` role, but you don't want them to register for `admin` role.
+
+
+# Implemented Admin API's
+
+## Privileges
+
+### Get all privileges
+```GET /api/v1/admin/privileges HTTP/1.1```
+
+### Create a privilege
+
+```$xslt
+POST /api/v1/admin/privileges HTTP/1.1
+Content-Type: application/json
+
+{
+	"name": "update post",
+	"label": "update post",
+	"access_urls": [
+		"/api/v1/posts/update"
+		]
+}
+```
+
+### Update a privilege
+
+```
+PATCH /api/v1/admin/privileges/{privilege_id} HTTP/1.1
+Content-Type: application/json
+
+{
+	"name": "UPDATE_POST",
+	"label": "Update Post",
+	"access_urls": [
+		"/api/v1/posts/update"
+		]
+}
+```
+
+### Delete a privilege
+
+``` 
+DELETE /api/v1/admin/privileges/{privilege_id} HTTP/1.1
+```
+
+## Roles
+
+### Get list of Roles
+
+``` 
+GET /api/v1/admin/roles HTTP/1.1
+```
+
+### Create a role with privileges
+
+``` 
+POST /api/v1/admin/roles HTTP/1.1
+Content-Type: application/json
+
+{
+	"name": "Editor",
+	"restricted": false,
+	"privilege_ids": [1,3]
+}
+```
+
+### Update a role
+
+``` 
+PATCH /api/v1/admin/roles/{role_id} HTTP/1.1
+Content-Type: application/json
+
+{
+	"name": "Editor",
+	"restricted": false,
+	"privilege_ids": [3,5]
+}
+```
+
+## Delete a role
+
+``` 
+DELETE /api/v1/admin/roles/{role_id} HTTP/1.1
+
+```
+
+
 
 # User profile
 
