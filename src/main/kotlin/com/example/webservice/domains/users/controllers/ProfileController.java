@@ -1,25 +1,17 @@
 package com.example.webservice.domains.users.controllers;
 
-import com.example.webservice.commons.utils.ImageValidator;
 import com.example.webservice.domains.users.models.entities.Profile;
+import com.example.webservice.domains.users.services.ProfileService;
 import com.example.webservice.exceptions.exists.UserAlreadyExistsException;
 import com.example.webservice.exceptions.forbidden.ForbiddenException;
-import com.example.webservice.exceptions.invalid.ImageInvalidException;
 import com.example.webservice.exceptions.invalid.UserInvalidException;
 import com.example.webservice.exceptions.notfound.NotFoundException;
 import com.example.webservice.exceptions.notfound.ProfileNotFoundException;
 import com.example.webservice.exceptions.nullpointer.NullPasswordException;
-import com.example.webservice.domains.users.services.ProfileService;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/profiles")
