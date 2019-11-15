@@ -1,7 +1,8 @@
 package com.example.webservice.domains.users.models.mappers
 
 import com.example.webservice.commons.utils.PasswordUtil
-import com.example.webservice.domains.users.models.dtos.UserDto
+import com.example.webservice.domains.users.models.dtos.UserRequest
+import com.example.webservice.domains.users.models.dtos.UserResponse
 import com.example.webservice.domains.users.models.entities.User
 import com.example.webservice.domains.users.services.RoleService
 import com.example.webservice.domains.users.services.UserService
@@ -11,16 +12,18 @@ import com.example.webservice.exceptions.notfound.NotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
+import java.util.stream.Collectors
 
 @Component
 class UserMapper @Autowired constructor(
         val userService: UserService,
-        val roleService: RoleService
+        val roleService: RoleService,
+        val roleMapper: RoleMapper
 ) {
     @Value("\${auth.method}")
     lateinit var authMethod: String
 
-    fun map(dto: UserDto, exUser: User?): User {
+    fun map(dto: UserRequest, exUser: User?): User {
         val user = exUser ?: User()
         user.name = dto.name
         user.gender = dto.gender
@@ -34,8 +37,8 @@ class UserMapper @Autowired constructor(
         return user
     }
 
-    fun map(user: User): UserDto {
-        val dto = UserDto()
+    fun map(user: User): UserResponse {
+        val dto = UserResponse()
         dto.id = user.id
         dto.created = user.created
         dto.lastUpdated = user.lastUpdated
@@ -45,6 +48,7 @@ class UserMapper @Autowired constructor(
         dto.username = user.username
         dto.phone = user.phone
         dto.email = user.email
+        dto.roles = user.roles.stream().map { role -> role.id }.collect(Collectors.toList())
         return dto
     }
 

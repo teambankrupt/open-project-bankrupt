@@ -1,7 +1,6 @@
 package com.example.webservice.config
 
 import com.example.webservice.commons.utils.PasswordUtil
-import com.example.webservice.domains.users.models.dtos.UserDto
 import com.example.webservice.domains.users.models.entities.Privilege
 import com.example.webservice.domains.users.models.entities.Role
 import com.example.webservice.domains.users.models.entities.User

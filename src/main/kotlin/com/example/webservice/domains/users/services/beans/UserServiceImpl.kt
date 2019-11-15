@@ -51,8 +51,9 @@ class UserServiceImpl @Autowired constructor(
     @Value("\${token.validity}")
     lateinit var tokenValidity: String
 
-    override fun searchUser(query: String, page: Int, size: Int): Page<User> {
-        return this.userRepository.searchByNameOrUsername(query, PageAttr.getPageRequest(page, size))
+    override fun search(query: String, role: String, page: Int, size: Int): Page<User> {
+        val r = this.roleService.find(role).get()
+        return this.userRepository.search(query, r, PageAttr.getPageRequest(page, size))
     }
 
     override fun findAll(page: Int): Page<User> {
@@ -219,7 +220,7 @@ class UserServiceImpl @Autowired constructor(
         val user = this.find(id).orElseThrow { NotFoundException("Could not find user with username: $id") }
         val isAdmin = user.isAdmin // check if user is admin
         val roles = this.roleService.findByIds(roleIds)
-        user.roles = roles
+        user.roles = roles.filter { role -> !role.isAdmin() }
         if (isAdmin) {// set admin role explicitly after clearing roles
             val role = this.roleService.find(Role.ERole.Admin.name).orElseThrow { NotFoundException("Admin role couldn't be set!") }
             user.roles.add(role)

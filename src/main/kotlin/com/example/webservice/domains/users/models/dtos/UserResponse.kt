@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
-class UserDto : BaseDto() {
+class UserResponse : BaseDto() {
     @NotBlank
     lateinit var name: String
 
@@ -20,12 +20,7 @@ class UserDto : BaseDto() {
     var email: String? = null
 
     @NotBlank
-    @Size(min = 6)
-    lateinit var password: String
-
-    @NotBlank
     lateinit var gender: String
 
-    @NotBlank
-    lateinit var role: String
+    lateinit var roles: List<Long>
 }

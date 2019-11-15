@@ -3,7 +3,7 @@ package com.example.webservice.domains.home.controllers.api
 import com.example.webservice.config.security.SecurityConfig
 import com.example.webservice.config.security.TokenService
 import com.example.webservice.domains.users.models.annotations.CurrentUser
-import com.example.webservice.domains.users.models.dtos.UserDto
+import com.example.webservice.domains.users.models.dtos.UserRequest
 import com.example.webservice.domains.users.models.entities.User
 import com.example.webservice.domains.users.models.mappers.UserMapper
 import com.example.webservice.domains.users.services.UserService
@@ -49,7 +49,7 @@ class ApiHomeController @Autowired constructor(
 
     @PostMapping("/register")
     fun register(@RequestParam("token") token: String,
-                 @RequestBody userDto: UserDto): ResponseEntity<Any> {
+                 @RequestBody userDto: UserRequest): ResponseEntity<Any> {
 
         val user = this.userService.register(token, this.userMapper.map(userDto, null))
 
