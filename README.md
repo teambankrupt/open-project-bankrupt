@@ -34,10 +34,15 @@ It's a skeleton project with lots of features implemented by default.
 # Authentication Flow (Some basic implemented api's)
 
 ## Registration
-Before you can register a user with a phone number you need to verify phone.
+You can register your user using either `phone` or `email` authentication method.
+Configure phone or email verification for your project in `application.properties` file
+Set `auth.method=phone` or `auth.method=email` according to your need
+
+Before you can register a user you need to verify phone or email. You must provide phone number to verify if you configured your project to use phone verification method.
+Same applies to email also.
 
 ```$xslt
-POST /api/v1/register/verifyPhone?phone=01610226163 HTTP/1.1
+POST /api/v1/register/verify?identity=01710000000
 ```
 That phone number will get a token (validity for 2 minutes, can send another token request after two minutes)
 
@@ -49,10 +54,13 @@ Host: localhost:8080
 Content-Type: application/json
 cache-control: no-cache
 {
-	"name": "Sayem Hossain",
-	"email" : "optional@whatever.com",
-	"phone" : "01610226163",
-	"password": "123456"
+	"name":"Sayem",
+	"phone": "01710000000", // must be present if auth.method=phone in application.properties
+	"email: "demo@example.com", // must be present if auth.method=email in application.properties
+	"username": "username",
+	"password": "password",
+	"gender": "male",
+	"role": "User"
 }
 ```
 If registration is successful it will give you a response like below, so that you can instantly log user in.
@@ -64,7 +72,8 @@ If registration is successful it will give you a response like below, so that yo
     "refresh_token": "cc936718-e938-4143-b742-b7d0575c49a2",
     "expires_in": 19999,
     "scope": "read trust write",
-    "phone": "01610226163",
+    "phone": "01710000000",
+    "email": "email@example.com",
     "name": "Sayem Hossain",
     "id": 10,
     "authorities": [
@@ -72,7 +81,7 @@ If registration is successful it will give you a response like below, so that yo
             "authority": "ROLE_USER"
         }
     ],
-    "username": "01610226163"
+    "username": "username"
 }
 ```
 
@@ -96,6 +105,24 @@ Host: localhost:8080
 cache-control: no-cache
 Postman-Token: 4826c898-6b31-4ccc-9551-f2c3d5c5bb01
 
+```
+
+## Change Password
+```$xslt
+POST /api/v1/change_password?current_password=current_password&new_password=new_password
+```
+
+## Password Reset
+
+First get OTP with username
+
+```$xslt
+GET /api/v1/reset_password?username=your_username
+```
+
+You will receive an OTP via Email/Phone. Use it to reset password.
+```$xslt
+POST /api/v1/reset_password?username=username&token=452689&password=password
 ```
 
 ---------------------

@@ -2,7 +2,7 @@ package com.example.webservice.config.security.oauth;
 
 import com.example.webservice.commons.utils.PasswordUtil;
 import com.example.webservice.exceptions.nullpointer.NullPasswordException;
-import com.example.webservice.domains.users.services.CustomUserDetailsService;
+import com.example.webservice.domains.users.services.beans.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

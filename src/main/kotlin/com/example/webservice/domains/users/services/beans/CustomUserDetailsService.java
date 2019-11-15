@@ -1,7 +1,8 @@
-package com.example.webservice.domains.users.services;
+package com.example.webservice.domains.users.services.beans;
 
 import com.example.webservice.commons.utils.NetworkUtil;
 import com.example.webservice.domains.users.models.entities.User;
+import com.example.webservice.domains.users.services.UserService;
 import com.example.webservice.exceptions.notfound.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,7 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         // end flood control
         User user;
         try {
-            user = this.userService.findByUsernameOrPhone(username);
+            user = this.userService.findByUsername(username).orElseThrow(() -> new UserNotFoundException("User doesn't exist!"));
         } catch (UserNotFoundException e) {
             throw new UsernameNotFoundException("User doesn't exist!");
         }

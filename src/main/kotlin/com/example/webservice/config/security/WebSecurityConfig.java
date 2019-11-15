@@ -1,8 +1,9 @@
 package com.example.webservice.config.security;
 
 import com.example.webservice.commons.utils.PasswordUtil;
+import com.example.webservice.domains.users.models.entities.Privilege;
 import com.example.webservice.domains.users.models.entities.Role;
-import com.example.webservice.domains.users.services.CustomUserDetailsService;
+import com.example.webservice.domains.users.services.beans.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -66,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements S
                         "/init"
                 )
                 .permitAll()
-                .antMatchers("/admin/**").hasRole(Role.StringRole.AUTHORITY_ADMIN)
+                .antMatchers("/admin/**").hasRole(Privilege.Privileges.ADMINISTRATION.toString())
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

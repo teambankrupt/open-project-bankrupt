@@ -11,6 +11,6 @@ import java.util.Date;
 public interface AcValidationTokenRepository extends JpaRepository<AcValidationToken, Long> {
     AcValidationToken findFirstByTokenOrderByIdDesc(String token);
 
-    AcValidationToken findFirstByPhoneOrderByIdDesc(String phone);
+    AcValidationToken findFirstByUsernameOrderByIdDesc(String phone);
     int countByUserIdAndCreatedBetween(Long id, Date fromDate, Date toDate);
 }

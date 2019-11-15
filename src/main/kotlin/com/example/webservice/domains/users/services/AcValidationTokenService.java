@@ -13,5 +13,5 @@ public interface AcValidationTokenService {
     boolean isTokenValid(String token) throws ForbiddenException;
     boolean isLimitExceeded(User user);
 
-    boolean canGetOTP(String phone);
+    boolean canGetOTP(String username);
 }
