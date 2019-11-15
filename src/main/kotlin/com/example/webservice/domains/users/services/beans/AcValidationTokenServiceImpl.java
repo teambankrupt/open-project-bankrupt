@@ -1,8 +1,9 @@
-package com.example.webservice.domains.users.services;
+package com.example.webservice.domains.users.services.beans;
 
 import com.example.webservice.commons.utils.DateUtil;
 import com.example.webservice.domains.users.models.entities.AcValidationToken;
 import com.example.webservice.domains.users.models.entities.User;
+import com.example.webservice.domains.users.services.AcValidationTokenService;
 import com.example.webservice.exceptions.forbidden.ForbiddenException;
 import com.example.webservice.domains.users.repositories.AcValidationTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +60,8 @@ public class AcValidationTokenServiceImpl implements AcValidationTokenService {
     }
 
     @Override
-    public boolean canGetOTP(String phone) {
-        AcValidationToken token = this.tokenRepo.findFirstByPhoneOrderByIdDesc(phone);
+    public boolean canGetOTP(String username) {
+        AcValidationToken token = this.tokenRepo.findFirstByUsernameOrderByIdDesc(username);
         return token == null || !token.isTokenValid() || new Date().after(token.getTokenValidUntil());
     }
 }
