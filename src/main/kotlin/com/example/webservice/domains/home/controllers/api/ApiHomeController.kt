@@ -9,11 +9,9 @@ import com.example.webservice.domains.users.models.mappers.UserMapper
 import com.example.webservice.domains.users.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.net.URI
 import java.util.*
 
 @RestController
@@ -28,13 +26,6 @@ class ApiHomeController @Autowired constructor(
 
     @Value("\${token.validity}")
     val tokenValidity: String? = null
-
-    @GetMapping("")
-    fun index(): ResponseEntity<Any> {
-        val headers = HttpHeaders()
-        headers.location = URI.create("/swagger-ui.html")
-        return ResponseEntity(null, headers, HttpStatus.TEMPORARY_REDIRECT)
-    }
 
     @PostMapping("/register/verify")
     fun verifyIdentity(@RequestParam("identity") phoneOrEmail: String): ResponseEntity<Any> {

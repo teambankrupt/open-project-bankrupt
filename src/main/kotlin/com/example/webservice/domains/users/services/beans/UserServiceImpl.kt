@@ -33,7 +33,7 @@ import javax.transaction.Transactional
 
 
 @Service
-class UserServiceImpl @Autowired constructor(
+open class UserServiceImpl @Autowired constructor(
         val userRepository: UserRepository,
         val acValidationTokenService: AcValidationTokenService,
         val notificationService: NotificationService,

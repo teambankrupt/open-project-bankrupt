@@ -1,0 +1,36 @@
+stages:
+  - deploy
+
+variables:
+  # MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode --errors --fail-at-end --show-version"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+before_script:
+  - apt update && apt install -y maven
+  #- apt install psmisc
+
+deploy_dev:
+  stage: deploy
+  script:
+    - mvn clean
+    - mvn package -DskipTests -Denv=dev
+    - mv target/webservice-0.0.1-SNAPSHOT.jar ~/webservice/webservice.jar
+    - systemctl restart webservice
+
+  only:
+    - dev
+
+deploy_production:
+  stage: deploy
+  script:
+    - mvn clean
+    - mvn package -DskipTests -Denv=prod
+    - mv target/webservice-0.0.1-SNAPSHOT.jar ~/webservice/webservice.jar
+    - systemctl restart webservice
+
+  only:
+    - master
+
+cache:
+  paths:
+    - .m2/repository/
