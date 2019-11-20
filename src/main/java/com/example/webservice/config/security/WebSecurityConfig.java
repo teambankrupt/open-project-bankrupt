@@ -66,7 +66,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements S
                         "/init"
                 )
                 .permitAll()
-                .antMatchers("/admin/**").hasRole(Privilege.Privileges.ADMINISTRATION.toString())
+                .antMatchers("/admin/**")
+                .hasAuthority(Privilege.Privileges.ADMINISTRATION.toString())
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
