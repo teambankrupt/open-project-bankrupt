@@ -1,10 +1,8 @@
 package com.example.webservice.domains.home.controllers.api
 
-import com.example.webservice.config.security.SecurityConfig
+import com.example.webservice.config.security.SecurityContext
 import com.example.webservice.config.security.TokenService
-import com.example.webservice.domains.users.models.annotations.CurrentUser
 import com.example.webservice.domains.users.models.dtos.UserRequest
-import com.example.webservice.domains.users.models.entities.User
 import com.example.webservice.domains.users.models.mappers.UserMapper
 import com.example.webservice.domains.users.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -44,16 +42,15 @@ class ApiHomeController @Autowired constructor(
 
         val user = this.userService.register(token, this.userMapper.map(userDto, null))
 
-        SecurityConfig.updateAuthentication(user)
+        SecurityContext.updateAuthentication(user)
         return ResponseEntity.ok(tokenService.createAccessToken(user))
     }
 
 
     @PostMapping("/change_password")
     fun changePassword(@RequestParam("current_password") currentPassword: String,
-                       @RequestParam("new_password") newPassword: String,
-                       @CurrentUser currentUser: User): ResponseEntity<Any> {
-        this.userService.changePassword(currentUser.id, currentPassword, newPassword)
+                       @RequestParam("new_password") newPassword: String): ResponseEntity<Any> {
+        this.userService.changePassword(SecurityContext.getCurrentUser().id, currentPassword, newPassword)
         return ResponseEntity.ok().build()
     }
 

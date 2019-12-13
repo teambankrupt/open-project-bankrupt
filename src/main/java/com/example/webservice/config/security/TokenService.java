@@ -25,7 +25,7 @@ public class TokenService {
     private String clientId;
 
     @Autowired
-    public TokenService(@Qualifier("inMemoryTokenStore") TokenStore tokenStore, AuthorizationServerEndpointsConfiguration configuration) {
+    public TokenService(@Qualifier("tokenStore") TokenStore tokenStore, AuthorizationServerEndpointsConfiguration configuration) {
         this.tokenStore = tokenStore;
         this.configuration = configuration;
     }

@@ -1,7 +1,7 @@
 package com.example.webservice.domains.firebase.controllers;
 
+import com.example.webservice.config.security.SecurityContext;
 import com.example.webservice.domains.firebase.services.FirebaseTokenService;
-import com.example.webservice.domains.users.models.annotations.CurrentUser;
 import com.example.webservice.domains.users.models.entities.User;
 import com.example.webservice.exceptions.invalid.InvalidException;
 import com.example.webservice.exceptions.notfound.UserNotFoundException;
@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/api/v1/firebase")
@@ -25,9 +27,8 @@ public class FirebaseController {
 
     @PostMapping("/token")
     @ResponseStatus(HttpStatus.OK)
-    private void saveToken(@CurrentUser User user,
-                           @RequestParam("token") String token) throws UserNotFoundException, InvalidException {
-        this.firebaseTokenService.save(user.getId(), token);
+    private void saveToken(@RequestParam("token") String token) throws UserNotFoundException, InvalidException {
+        this.firebaseTokenService.save(Objects.requireNonNull(SecurityContext.getCurrentUser()).getId(), token);
     }
 
 }

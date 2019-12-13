@@ -1,10 +1,10 @@
 package com.example.webservice.domains.fileuploads.controllers;
 
 import com.example.webservice.commons.utils.ImageValidator;
+import com.example.webservice.config.security.SecurityContext;
 import com.example.webservice.domains.fileuploads.models.entities.UploadProperties;
 import com.example.webservice.domains.fileuploads.models.responses.ImageUploadResponse;
 import com.example.webservice.domains.fileuploads.services.FileUploadService;
-import com.example.webservice.domains.users.models.annotations.CurrentUser;
 import com.example.webservice.domains.users.models.entities.User;
 import com.example.webservice.exceptions.invalid.ImageInvalidException;
 import com.example.webservice.exceptions.notfound.NotFoundException;
@@ -34,21 +34,19 @@ public class ImageController {
     // UPLOAD IMAGES
     @PostMapping("")
     public ResponseEntity uploadImage(@RequestParam("file") MultipartFile file,
-                                      @RequestParam(value = "namespace") String namespace,
-                                      @CurrentUser User currentUser) throws ImageInvalidException, IOException {
-        ImageUploadResponse response = upload(file, namespace, currentUser);
+                                      @RequestParam(value = "namespace") String namespace) throws ImageInvalidException, IOException {
+        ImageUploadResponse response = upload(file, namespace, SecurityContext.getCurrentUser());
         return ResponseEntity.ok(response);
     }
 
     // UPLOAD IMAGESpost
     @PostMapping("/bulk")
     public ResponseEntity uploadImages(@RequestParam("files") MultipartFile[] files,
-                                       @RequestParam(value = "namespace") String namespace,
-                                       @CurrentUser User currentUser) throws ImageInvalidException, IOException {
+                                       @RequestParam(value = "namespace") String namespace) throws ImageInvalidException, IOException {
         if (files.length == 0) return ResponseEntity.badRequest().body("At least one image is expected!");
         List<ImageUploadResponse> responses = new ArrayList<>();
         for (MultipartFile file : files)
-            responses.add(upload(file, namespace, currentUser));
+            responses.add(upload(file, namespace, SecurityContext.getCurrentUser()));
 
         return ResponseEntity.ok(responses);
     }

@@ -5,7 +5,7 @@ import com.example.webservice.commons.utils.DateUtil
 import com.example.webservice.commons.utils.PasswordUtil
 import com.example.webservice.commons.utils.SessionIdentifierGenerator
 import com.example.webservice.commons.utils.Validator
-import com.example.webservice.config.security.SecurityConfig
+import com.example.webservice.config.security.SecurityContext
 import com.example.webservice.domains.common.services.MailService
 import com.example.webservice.domains.common.services.SmsService
 import com.example.webservice.domains.firebase.models.dto.NotificationData
@@ -181,7 +181,7 @@ open class UserServiceImpl @Autowired constructor(
     }
 
     override fun setPassword(id: Long, newPassword: String): User {
-        val currentUser = SecurityConfig.getCurrentUser()
+        val currentUser = SecurityContext.getCurrentUser()
         if (currentUser == null || !currentUser.isAdmin)
             throw ForbiddenException("You are not authorised to do this action.")
 
