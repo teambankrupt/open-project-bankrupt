@@ -45,7 +45,7 @@ public abstract class BaseEntity implements Serializable {
     @PreUpdate
     private void onBaseUpdate() {
         this.lastUpdated = new Date();
-//        this.updatedBy = getCurrentUser();
+        this.updatedBy = getCurrentUser();
     }
 
     @JsonIgnore

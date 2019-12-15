@@ -15,8 +15,9 @@ import javax.annotation.PostConstruct;
 public class SecurityContext {
 
     private static UserRepository userRepository;
+    private static User loggedInUser;
 
-    public SecurityContext(UserRepository userRepository){
+    public SecurityContext(UserRepository userRepository) {
         SecurityContext.userRepository = userRepository;
     }
 
@@ -36,8 +37,11 @@ public class SecurityContext {
     public static User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
-            if (authentication.getPrincipal() instanceof String)
-                return SecurityContext.userRepository.findByUsername((String) authentication.getPrincipal()).orElse(null);
+            if (authentication.getPrincipal() instanceof String) {
+                if (loggedInUser == null || !authentication.getPrincipal().equals(loggedInUser.getUsername()))
+                    loggedInUser = SecurityContext.userRepository.findByUsername((String) authentication.getPrincipal()).orElse(null);
+                return loggedInUser;
+            }
             return (User) authentication.getPrincipal();
         }
         return null;
