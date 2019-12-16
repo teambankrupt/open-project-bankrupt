@@ -1,7 +1,7 @@
 package com.example.webservice.domains.common.models.entities.base;
 
 import com.example.webservice.commons.utils.DateUtil;
-import com.example.webservice.config.security.SecurityConfig;
+import com.example.webservice.config.security.SecurityContext;
 import com.example.webservice.domains.users.models.entities.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -50,7 +50,7 @@ public abstract class BaseEntity implements Serializable {
 
     @JsonIgnore
     public User getCurrentUser() {
-        return SecurityConfig.getCurrentUser();
+        return SecurityContext.getCurrentUser();
     }
 
 

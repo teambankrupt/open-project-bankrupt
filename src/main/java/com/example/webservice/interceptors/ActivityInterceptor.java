@@ -1,7 +1,7 @@
 package com.example.webservice.interceptors;
 
 import com.example.webservice.commons.utils.NetworkUtil;
-import com.example.webservice.config.security.SecurityConfig;
+import com.example.webservice.config.security.SecurityContext;
 import com.example.webservice.domains.activities.models.entities.Activity;
 import com.example.webservice.domains.activities.services.ActivityService;
 import com.example.webservice.domains.users.models.entities.User;
@@ -41,8 +41,8 @@ public class ActivityInterceptor extends HandlerInterceptorAdapter {
             activity.setUserAgent(m.group(1));
         }
 
-        if (SecurityConfig.isAuthenticated()) {
-            User user = SecurityConfig.getCurrentUser();
+        if (SecurityContext.isAuthenticated()) {
+            User user = SecurityContext.getCurrentUser();
             activity.setUser(user);
             if (
                     activity.getUrl().contains("image")

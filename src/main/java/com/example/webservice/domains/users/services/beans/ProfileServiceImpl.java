@@ -2,7 +2,7 @@ package com.example.webservice.domains.users.services.beans;
 
 import com.example.webservice.commons.PageAttr;
 import com.example.webservice.commons.utils.Validator;
-import com.example.webservice.config.security.SecurityConfig;
+import com.example.webservice.config.security.SecurityContext;
 import com.example.webservice.domains.users.models.entities.Profile;
 import com.example.webservice.domains.users.models.entities.User;
 import com.example.webservice.domains.users.repositories.ProfileRepository;
@@ -51,7 +51,7 @@ public class ProfileServiceImpl implements ProfileService {
         user.setName(profile.getName());
         this.userService.save(user);
 
-        SecurityConfig.updateAuthentication(profile.getUser());
+        SecurityContext.updateAuthentication(profile.getUser());
         return this.profileRepository.save(profile);
     }
 

@@ -16,6 +16,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
@@ -26,6 +28,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private String clientSecret;
     @Value("${app.loginEndpoint}")
     private String loginEndpoint;
+
+    @Value("${auth.token.type}")
+    private String tokenType;
+    @Value("${auth.token.private-signing-key}")
+    private String signingKey;
+    @Value("${auth.token.public-verifier-key}")
+    private String verifierKey;
+
     private final CustomUserDetailsService userDetailsService;
     private final AuthenticationManager authenticationManager;
 
@@ -48,13 +58,15 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         try {
             clients
                     //                .jdbc(dataSource);
-                    .inMemory().withClient(this.clientId)
+                    .inMemory()
+                    .withClient(this.clientId)
+                    .secret(PasswordUtil.encryptPassword(this.clientSecret, PasswordUtil.EncType.BCRYPT_ENCODER, null))
                     .authorizedGrantTypes("authorization_code", "refresh_token", "password")
                     .authorities("ROLE_CLIENT", "ROLE_ANDROID_CLIENT")
                     .scopes("read", "write", "trust")
                     .resourceIds("oauth2-resource")
                     .accessTokenValiditySeconds(20000)
-                    .secret(PasswordUtil.encryptPassword(this.clientSecret, PasswordUtil.EncType.BCRYPT_ENCODER, null)).refreshTokenValiditySeconds(1209600);
+                    .refreshTokenValiditySeconds(1209600);
         } catch (NullPasswordException e) {
             e.printStackTrace();
         }
@@ -65,14 +77,27 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         endpoints.authenticationManager(this.authenticationManager).userDetailsService(this.userDetailsService)
                 .pathMapping("/oauth/token", this.loginEndpoint)
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
-                .tokenStore(inMemoryTokenStore())
-                .tokenEnhancer(new CustomTokenEnhancer());
+                .tokenStore(tokenStore());
+        if ("jwt".equalsIgnoreCase(this.tokenType))
+            endpoints.accessTokenConverter(jwtTokenConverter());
+        else endpoints.tokenEnhancer(new CustomTokenEnhancer());
+//                .tokenEnhancer(new CustomTokenEnhancer());
     }
 
 
     @Bean
-    public TokenStore inMemoryTokenStore() {
+    public TokenStore tokenStore() {
+        if ("jwt".equalsIgnoreCase(this.tokenType))
+            return new JwtTokenStore(jwtTokenConverter());
         return new InMemoryTokenStore();
+    }
+
+    @Bean
+    public JwtTokenConverter jwtTokenConverter() {
+        JwtTokenConverter converter = new JwtTokenConverter();
+        converter.setSigningKey(this.signingKey);
+//        converter.setVerifierKey(this.signingKey);
+        return converter;
     }
 
 //    @Bean
