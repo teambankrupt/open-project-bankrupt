@@ -1,6 +1,6 @@
 package com.example.webservice.config.security.oauth;
 
-import com.example.webservice.domains.users.models.entities.User;
+import com.example.webservice.domains.users.models.UserAuth;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -12,7 +12,7 @@ import java.util.Map;
 public class CustomTokenEnhancer implements TokenEnhancer {
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
+        UserAuth user = (UserAuth) authentication.getPrincipal();
         final Map<String, Object> additionalInfo = new HashMap<>();
 
         additionalInfo.put("id", user.getId());

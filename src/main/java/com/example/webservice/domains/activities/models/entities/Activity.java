@@ -1,6 +1,7 @@
 package com.example.webservice.domains.activities.models.entities;
 
 import com.example.webservice.domains.common.models.entities.base.BaseEntity;
+import com.example.webservice.domains.users.models.UserAuth;
 import com.example.webservice.domains.users.models.entities.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Cascade;
@@ -35,6 +36,11 @@ public class Activity extends BaseEntity {
     public void addTag(Tag tag) {
         if (tags == null) tags = new HashSet<>();
         tags.add(tag.name());
+    }
+
+    public void setUser(UserAuth auth) {
+        if (auth==null) throw new IllegalArgumentException("Auth can't be null!");
+        this.user = new User(auth);
     }
 
     public Set<String> getTags() {

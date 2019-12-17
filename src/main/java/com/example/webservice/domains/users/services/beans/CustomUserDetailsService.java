@@ -1,6 +1,7 @@
 package com.example.webservice.domains.users.services.beans;
 
 import com.example.webservice.commons.utils.NetworkUtil;
+import com.example.webservice.domains.users.models.UserAuth;
 import com.example.webservice.domains.users.models.entities.User;
 import com.example.webservice.domains.users.services.UserService;
 import com.example.webservice.exceptions.notfound.UserNotFoundException;
@@ -37,7 +38,8 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User doesn't exist!");
         }
         if (user == null) throw new UsernameNotFoundException("User doesn't exist!");
-        return user;
+        return new UserAuth(user);
     }
+
 
 }

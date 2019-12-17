@@ -1,24 +1,19 @@
 package com.example.webservice.domains.users.models.entities;
 
 import com.example.webservice.domains.common.models.entities.base.BaseEntity;
+import com.example.webservice.domains.users.models.UserAuth;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "m_users", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"username", "email"})
 })
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class User extends BaseEntity implements UserDetails, Serializable {
+public class User extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
@@ -49,6 +44,23 @@ public class User extends BaseEntity implements UserDetails, Serializable {
 
     private boolean credentialsNonExpired = true;
 
+    public User() {
+    }
+
+    public User(UserAuth auth) {
+        if (auth == null) throw new IllegalArgumentException("User can not be null!");
+        this.setId(auth.getId());
+        this.name = auth.getName();
+        this.username = auth.getUsername();
+        this.password = auth.getPassword();
+        this.phone = auth.getPhone();
+        this.email = auth.getEmail();
+        this.enabled = auth.isEnabled();
+        this.roles = auth.getRoles();
+        this.accountNonExpired = auth.isAccountNonExpired();
+        this.accountNonLocked = auth.isAccountNonLocked();
+        this.credentialsNonExpired = auth.isCredentialsNonExpired();
+    }
 
     public void grantRole(Role role) {
         if (this.roles == null)
@@ -67,47 +79,27 @@ public class User extends BaseEntity implements UserDetails, Serializable {
                 this.roles.stream().anyMatch(Role::isAdmin);
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.roles == null) this.roles = new ArrayList<>();
-        List<GrantedAuthority> authorityList = new ArrayList<>();
-        for (Role role : this.roles) {
-            if (role.getPrivileges() == null) continue;
-            authorityList.addAll(
-                    role.getPrivileges().stream()
-                            .map(privilege -> new SimpleGrantedAuthority(privilege.getName()))
-                            .collect(Collectors.toList())
-            );
-        }
-        return authorityList;
-    }
 
-    @Override
     public String getPassword() {
         return this.password;
     }
 
-    @Override
     public String getUsername() {
         return this.username;
     }
 
-    @Override
     public boolean isAccountNonExpired() {
         return this.accountNonExpired;
     }
 
-    @Override
     public boolean isAccountNonLocked() {
         return this.accountNonLocked;
     }
 
-    @Override
     public boolean isCredentialsNonExpired() {
         return this.credentialsNonExpired;
     }
 
-    @Override
     public boolean isEnabled() {
         return this.enabled;
     }

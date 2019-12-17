@@ -2,6 +2,7 @@ package com.example.webservice.domains.home.controllers.api
 
 import com.example.webservice.config.security.SecurityContext
 import com.example.webservice.config.security.TokenService
+import com.example.webservice.domains.users.models.UserAuth
 import com.example.webservice.domains.users.models.dtos.UserRequest
 import com.example.webservice.domains.users.models.mappers.UserMapper
 import com.example.webservice.domains.users.services.UserService
@@ -42,7 +43,7 @@ class ApiHomeController @Autowired constructor(
 
         val user = this.userService.register(token, this.userMapper.map(userDto, null))
 
-        SecurityContext.updateAuthentication(user)
+        SecurityContext.updateAuthentication(UserAuth(user))
         return ResponseEntity.ok(tokenService.createAccessToken(user))
     }
 

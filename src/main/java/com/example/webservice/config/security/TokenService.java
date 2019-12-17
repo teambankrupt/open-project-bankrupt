@@ -1,6 +1,7 @@
 package com.example.webservice.config.security;
 
 import com.example.webservice.commons.Commons;
+import com.example.webservice.domains.users.models.UserAuth;
 import com.example.webservice.domains.users.models.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -38,6 +39,7 @@ public class TokenService {
     }
 
     public OAuth2AccessToken createAccessToken(User user) {
+        UserAuth userAuth = new UserAuth(user);
 
         Map<String, String> requestParameters = new HashMap<>();
         Set<String> scope = new HashSet<>();
@@ -48,11 +50,11 @@ public class TokenService {
         Map<String, Serializable> extensionProperties = new HashMap<>();
 
         OAuth2Request oAuth2Request = new OAuth2Request(requestParameters, this.clientId,
-                user.getAuthorities(), user.isEnabled(), scope,
+                userAuth.getAuthorities(), userAuth.isEnabled(), scope,
                 resourceIds, null, responseTypes, extensionProperties);
 
 
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null, userAuth.getAuthorities());
         OAuth2Authentication auth = new OAuth2Authentication(oAuth2Request, authenticationToken);
         AuthorizationServerTokenServices tokenService = configuration.getEndpointsConfigurer().getTokenServices();
         return tokenService.createAccessToken(auth);
