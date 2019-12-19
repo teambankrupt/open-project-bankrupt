@@ -4,6 +4,7 @@ import com.example.webservice.commons.utils.NetworkUtil;
 import com.example.webservice.config.security.SecurityContext;
 import com.example.webservice.domains.activities.models.entities.Activity;
 import com.example.webservice.domains.activities.services.ActivityService;
+import com.example.webservice.domains.users.models.UserAuth;
 import com.example.webservice.domains.users.models.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -42,7 +43,7 @@ public class ActivityInterceptor extends HandlerInterceptorAdapter {
         }
 
         if (SecurityContext.isAuthenticated()) {
-            User user = SecurityContext.getCurrentUser();
+            UserAuth user = SecurityContext.getCurrentUser();
             activity.setUser(user);
             if (
                     activity.getUrl().contains("image")

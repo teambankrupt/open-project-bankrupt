@@ -2,6 +2,7 @@ package com.example.webservice.domains.common.models.entities.base;
 
 import com.example.webservice.commons.utils.DateUtil;
 import com.example.webservice.config.security.SecurityContext;
+import com.example.webservice.domains.users.models.UserAuth;
 import com.example.webservice.domains.users.models.entities.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -38,18 +39,18 @@ public abstract class BaseEntity implements Serializable {
     private void onBasePersist() {
         this.created = new Date();
         this.lastUpdated = new Date();
-        this.createdBy = getCurrentUser();
+        this.createdBy = new User(getCurrentUser());
         this.uuid = UUID.randomUUID().toString();
     }
 
     @PreUpdate
     private void onBaseUpdate() {
         this.lastUpdated = new Date();
-        this.updatedBy = getCurrentUser();
+        this.updatedBy = new User(getCurrentUser());
     }
 
     @JsonIgnore
-    public User getCurrentUser() {
+    public UserAuth getCurrentUser() {
         return SecurityContext.getCurrentUser();
     }
 

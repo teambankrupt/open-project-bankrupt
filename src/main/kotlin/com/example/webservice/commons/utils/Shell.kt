@@ -18,7 +18,7 @@ class Shell private constructor() {
             pr.waitFor()
             val buf = BufferedReader(InputStreamReader(pr.inputStream))
             val log = StringBuilder()
-            var line: String? = ""
+            var line: String?
             while (buf.readLine().also { line = it } != null) {
                 log.append(line).append("\n")
                 //            System.out.println(line);

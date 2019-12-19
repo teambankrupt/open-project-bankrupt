@@ -5,6 +5,7 @@ import com.example.webservice.config.security.SecurityContext;
 import com.example.webservice.domains.fileuploads.models.entities.UploadProperties;
 import com.example.webservice.domains.fileuploads.models.responses.ImageUploadResponse;
 import com.example.webservice.domains.fileuploads.services.FileUploadService;
+import com.example.webservice.domains.users.models.UserAuth;
 import com.example.webservice.domains.users.models.entities.User;
 import com.example.webservice.exceptions.invalid.ImageInvalidException;
 import com.example.webservice.exceptions.notfound.NotFoundException;
@@ -61,7 +62,7 @@ public class ImageController {
                 .body(FileUtils.readFileToByteArray(file));
     }
 
-    private ImageUploadResponse upload(MultipartFile file, String namespace, User currentUser) throws IOException, ImageInvalidException {
+    private ImageUploadResponse upload(MultipartFile file, String namespace, UserAuth currentUser) throws IOException, ImageInvalidException {
         if (!ImageValidator.isImageValid(file))
             throw new ImageInvalidException("Invalid Image");
         ImageUploadResponse response = new ImageUploadResponse();
