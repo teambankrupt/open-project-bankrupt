@@ -39,14 +39,16 @@ public abstract class BaseEntity implements Serializable {
     private void onBasePersist() {
         this.created = new Date();
         this.lastUpdated = new Date();
-        this.createdBy = new User(getCurrentUser());
+        if (getCurrentUser() != null)
+            this.createdBy = new User(getCurrentUser());
         this.uuid = UUID.randomUUID().toString();
     }
 
     @PreUpdate
     private void onBaseUpdate() {
         this.lastUpdated = new Date();
-        this.updatedBy = new User(getCurrentUser());
+        if (getCurrentUser() != null)
+            this.updatedBy = new User(getCurrentUser());
     }
 
     @JsonIgnore

@@ -37,6 +37,7 @@
             <properties>
                 <packaging.type>jar</packaging.type>
                 <db.driverClassName>com.mysql.cj.jdbc.Driver</db.driverClassName>
+                <db.dialect>org.hibernate.dialect.MySQL55Dialect</db.dialect>
                 <db.url>jdbc:mysql://localhost/demodb?useUnicode=yes&amp;characterEncoding=UTF-8&amp;characterSetResults=UTF-8
                     &amp;createDatabaseIfNotExist=true
                 </db.url>
@@ -57,6 +58,7 @@
             <properties>
                 <packaging.type>jar</packaging.type>
                 <db.driverClassName>com.mysql.cj.jdbc.Driver</db.driverClassName>
+                <db.dialect>org.hibernate.dialect.MySQL55Dialect</db.dialect>
                 <db.url>jdbc:mysql://localhost/demodb?useUnicode=yes&amp;characterEncoding=UTF-8&amp;characterSetResults=UTF-8
                     &amp;createDatabaseIfNotExist=true
                 </db.url>
@@ -78,6 +80,7 @@
             <properties>
                 <packaging.type>jar</packaging.type>
                 <db.driverClassName>com.mysql.cj.jdbc.Driver</db.driverClassName>
+                <db.dialect>org.hibernate.dialect.MySQL55Dialect</db.dialect>
                 <db.url>jdbc:mysql://localhost/demodb?useUnicode=yes&amp;characterEncoding=UTF-8&amp;characterSetResults=UTF-8
                     &amp;createDatabaseIfNotExist=true
                 </db.url>
