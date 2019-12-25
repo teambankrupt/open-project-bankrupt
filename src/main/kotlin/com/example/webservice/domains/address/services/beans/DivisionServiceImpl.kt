@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class DivisionServiceImpl(@Autowired val divisionRepo: DivisionRepo) : DivisionService {
+class DivisionServiceImpl @Autowired constructor(
+        private val divisionRepo: DivisionRepo
+) : DivisionService {
 
-    override fun save(division: Division): Division {
-        return this.divisionRepo.save(division)
+    override fun save(entity: Division): Division {
+        return this.divisionRepo.save(entity)
     }
 
     override fun search(query: String, page: Int): Page<Division> {
@@ -25,12 +27,12 @@ class DivisionServiceImpl(@Autowired val divisionRepo: DivisionRepo) : DivisionS
         return this.divisionRepo.find(id)
     }
 
-    override fun delete(id: Long) {
-        //TODO not implemented yet
-    }
-
-    override fun softDelete(id: Long) {
-        val division: Division = this.find(id).orElseThrow{ NotFoundException("Could not find division with id $id" ) }
+    override fun delete(id: Long, softDelete: Boolean) {
+        if (!softDelete) {
+            this.divisionRepo.deleteById(id)
+            return
+        }
+        val division: Division = this.find(id).orElseThrow { NotFoundException("Could not find division with id $id") }
         division.isDeleted = true
         this.save(division)
     }

@@ -1,4 +1,4 @@
-package com.example.webservice.domains.firebase.models.dto;
+package com.example.webservice.domains.notifications.models.dto;
 
 import com.fasterxml.jackson.annotation.*;
 

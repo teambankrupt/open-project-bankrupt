@@ -1,28 +1,22 @@
 package com.example.webservice.domains.users.controllers
 
+import com.example.webservice.commons.Constants
 import com.example.webservice.config.security.TokenService
-import com.example.webservice.domains.users.models.entities.User
 import com.example.webservice.domains.users.models.mappers.UserMapper
 import com.example.webservice.domains.users.services.UserService
-import com.example.webservice.exceptions.exists.UserAlreadyExistsException
-import com.example.webservice.exceptions.forbidden.ForbiddenException
-import com.example.webservice.exceptions.invalid.InvalidException
-import com.example.webservice.exceptions.invalid.UserInvalidException
-import com.example.webservice.exceptions.notfound.NotFoundException
 import com.example.webservice.exceptions.notfound.UserNotFoundException
-import com.example.webservice.exceptions.nullpointer.NullPasswordException
+import io.swagger.annotations.Api
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/v1/admin/users")
-class UserController @Autowired
-constructor(
-        val userService: UserService,
-        val userMapper: UserMapper,
-        val tokenService: TokenService
+@Api(tags = [Constants.Swagger.USERS_ADMIN], description = Constants.Swagger.USERS_ADMIN_API_DETAILS)
+class UserController @Autowired constructor(
+        private val userService: UserService,
+        private val userMapper: UserMapper,
+        private val tokenService: TokenService
 ) {
 
     @GetMapping("")
@@ -55,7 +49,7 @@ constructor(
 
     @PutMapping("/{id}/change_role")
     fun changeRole(@PathVariable("id") id: Long,
-                           @RequestParam("roles") roles: List<Long>): ResponseEntity<*> {
+                   @RequestParam("roles") roles: List<Long>): ResponseEntity<*> {
         val user = this.userService.setRoles(id, roles)
         return ResponseEntity.ok(this.userMapper.map(user))
     }

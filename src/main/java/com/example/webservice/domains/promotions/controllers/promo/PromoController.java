@@ -4,6 +4,7 @@ import com.example.webservice.domains.promotions.models.entities.Promo;
 import com.example.webservice.domains.promotions.services.PromoService;
 import com.example.webservice.exceptions.invalid.InvalidException;
 import com.example.webservice.exceptions.notfound.NotFoundException;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/api/v1/promos")
+@Api(tags = "Promo", description = "Fetching latest promotions, handling click events etc")
 public class PromoController {
 
     private final PromoService promoService;

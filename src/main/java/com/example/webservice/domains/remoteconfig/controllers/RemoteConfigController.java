@@ -3,6 +3,7 @@ package com.example.webservice.domains.remoteconfig.controllers;
 import com.example.webservice.domains.remoteconfig.models.entities.RemoteConfig;
 import com.example.webservice.domains.remoteconfig.services.RemoteConfigService;
 import com.example.webservice.exceptions.notfound.NotFoundException;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,22 +13,23 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/remote-config")
+@Api(tags = "Remote Config", description = "To check client versions, handle force updates etc")
 public class RemoteConfigController {
 
-    @Autowired
     private final RemoteConfigService remoteConfigService;
 
+    @Autowired
     public RemoteConfigController(RemoteConfigService remoteConfigService) {
         this.remoteConfigService = remoteConfigService;
     }
 
     @GetMapping
-    public List<RemoteConfig> fetchAllClientConfig(){
+    public List<RemoteConfig> fetchAllClientConfig() {
         return remoteConfigService.fetchAllRemoteConfigs();
     }
 
     @GetMapping("{id}")
-    public Optional<RemoteConfig> fetchClientConfig(@PathVariable Long id){
+    public Optional<RemoteConfig> fetchClientConfig(@PathVariable Long id) {
         return remoteConfigService.fetchRemoteConfig(id);
     }
 

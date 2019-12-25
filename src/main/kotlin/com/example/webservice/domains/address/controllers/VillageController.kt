@@ -1,10 +1,15 @@
 package com.example.webservice.domains.address.controllers
 
+import com.example.webservice.commons.Constants
+import com.example.webservice.commons.utils.ExceptionUtil
 import com.example.webservice.domains.address.models.dto.VillageDto
 import com.example.webservice.domains.address.models.entities.Village
 import com.example.webservice.domains.address.models.mappers.VillageMapper
 import com.example.webservice.domains.address.services.VillageService
-import com.example.webservice.exceptions.notfound.NotFoundException
+import com.example.webservice.domains.common.controller.CrudController
+import com.example.webservice.routing.Route
+import io.swagger.annotations.Api
+import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
@@ -12,38 +17,46 @@ import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/api/v1/villages")
-class VillageController @Autowired constructor(val villageService: VillageService, val villageMapper: VillageMapper) {
+@Api(tags = [Constants.Swagger.VILLAGE], description = Constants.Swagger.REST_API)
+class VillageController @Autowired constructor(
+        private val villageService: VillageService,
+        private val villageMapper: VillageMapper
+) : CrudController<VillageDto> {
 
-    @GetMapping("")
-    fun search(@RequestParam("q", defaultValue = "") query: String,
-               @RequestParam("page", defaultValue = "0") page: Int): ResponseEntity<Any> {
+    @GetMapping(Route.V1.SEARCH_VILLAGES)
+    @ApiOperation(value = Constants.Swagger.SEARCH_ALL_MSG + Constants.Swagger.VILLAGE)
+    override fun search(@RequestParam("q", defaultValue = "") query: String,
+                        @RequestParam("page", defaultValue = "0") page: Int): ResponseEntity<Any> {
         val villages: Page<Village> = this.villageService.search(query, page)
         return ResponseEntity.ok(villages.map { village -> this.villageMapper.map(village) })
     }
 
-    @PostMapping("")
-    fun create(@Valid @RequestBody villageDto: VillageDto): ResponseEntity<Any> {
-        val village: Village = this.villageService.save(this.villageMapper.map(villageDto, null))
+    @PostMapping(Route.V1.CREATE_VILLAGES)
+    @ApiOperation(value = Constants.Swagger.POST_MSG + Constants.Swagger.VILLAGE)
+    override fun create(@Valid @RequestBody dto: VillageDto): ResponseEntity<Any> {
+        val village: Village = this.villageService.save(this.villageMapper.map(dto, null))
         return ResponseEntity.ok(this.villageMapper.map(village))
     }
 
-    @GetMapping("/{id}")
-    fun find(@PathVariable id: Long): ResponseEntity<Any>? {
-        val village: Village = this.villageService.find(id).orElseThrow { NotFoundException("Could not found village with id $id") }
+    @GetMapping(Route.V1.FIND_VILLAGES)
+    @ApiOperation(value = Constants.Swagger.GET_MSG + Constants.Swagger.VILLAGE)
+    override fun find(@PathVariable id: Long): ResponseEntity<Any> {
+        val village: Village = this.villageService.find(id).orElseThrow { ExceptionUtil.getNotFound("village", id) }
         return ResponseEntity.ok(this.villageMapper.map(village))
     }
 
-    @PatchMapping("/{id}")
-    fun update(@Valid @RequestBody villageDto: VillageDto, @PathVariable id: Long): ResponseEntity<Any>? {
-        var village: Village = villageService.find(id).orElseThrow { NotFoundException("Could not found village with id $id") }
-        village = villageService.save(villageMapper.map(villageDto, village))
+    @PatchMapping(Route.V1.UPDATE_VILLAGES)
+    @ApiOperation(value = Constants.Swagger.PATCH_MSG + Constants.Swagger.VILLAGE)
+    override fun update(@PathVariable id: Long, @Valid @RequestBody dto: VillageDto): ResponseEntity<Any> {
+        var village: Village = villageService.find(id).orElseThrow { ExceptionUtil.getNotFound("village", id) }
+        village = villageService.save(villageMapper.map(dto, village))
         return ResponseEntity.ok(villageMapper.map(village))
     }
 
-    @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Long): ResponseEntity<Any>? {
-        this.villageService.softDelete(id)
+    @DeleteMapping(Route.V1.DELETE_VILLAGES)
+    @ApiOperation(value = Constants.Swagger.DELETE_MSG + Constants.Swagger.VILLAGE)
+    override fun delete(@PathVariable id: Long): ResponseEntity<Any> {
+        this.villageService.delete(id, true)
         return ResponseEntity.ok().build()
     }
 }

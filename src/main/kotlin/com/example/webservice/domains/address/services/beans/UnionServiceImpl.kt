@@ -2,7 +2,6 @@ package com.example.webservice.domains.address.services.beans
 
 import com.example.webservice.commons.PageAttr
 import com.example.webservice.domains.address.models.entities.Union
-import com.example.webservice.domains.address.models.entities.Upazila
 import com.example.webservice.domains.address.repositories.UnionRepo
 import com.example.webservice.domains.address.services.UnionService
 import com.example.webservice.exceptions.notfound.NotFoundException
@@ -13,10 +12,12 @@ import java.util.*
 
 
 @Service
-class UnionServiceImpl(@Autowired val unionRepo: UnionRepo) : UnionService {
+class UnionServiceImpl @Autowired constructor(
+        private val unionRepo: UnionRepo
+) : UnionService {
 
-    override fun save(union: Union): Union {
-        return this.unionRepo.save(union)
+    override fun save(entity: Union): Union {
+        return this.unionRepo.save(entity)
     }
 
     override fun search(query: String, page: Int): Page<Union> {
@@ -27,14 +28,15 @@ class UnionServiceImpl(@Autowired val unionRepo: UnionRepo) : UnionService {
         return this.unionRepo.find(id)
     }
 
-    override fun delete(id: Long) {
-        //TODO not implemented yet
-    }
-
-    override fun softDelete(id: Long) {
+    override fun delete(id: Long, softDelete: Boolean) {
+        if (!softDelete) {
+            this.unionRepo.deleteById(id)
+            return
+        }
         val union: Union = this.find(id).orElseThrow { NotFoundException("Could not find union with id $id") }
         union.isDeleted = true
         this.save(union)
     }
+
 
 }

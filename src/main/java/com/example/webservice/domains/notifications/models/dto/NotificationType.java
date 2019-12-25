@@ -1,4 +1,4 @@
-package com.example.webservice.domains.firebase.models.dto;
+package com.example.webservice.domains.notifications.models.dto;
 
 public final class NotificationType {
     private NotificationType() {

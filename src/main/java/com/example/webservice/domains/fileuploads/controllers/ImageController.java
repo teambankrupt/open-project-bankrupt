@@ -9,6 +9,7 @@ import com.example.webservice.domains.users.models.UserAuth;
 import com.example.webservice.domains.users.models.entities.User;
 import com.example.webservice.exceptions.invalid.ImageInvalidException;
 import com.example.webservice.exceptions.notfound.NotFoundException;
+import io.swagger.annotations.Api;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,6 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/images")
+@Api(tags = "Uploads", description = "Handle File Uploads including images")
 public class ImageController {
 
     private final FileUploadService uploadService;

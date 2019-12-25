@@ -1,6 +1,6 @@
 package com.example.webservice.domains.users.models.dtos
 
-import com.example.webservice.domains.common.models.dto.BaseDto
+import com.example.webservice.domains.common.models.dtos.BaseDto
 import com.fasterxml.jackson.annotation.JsonProperty
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotEmpty

@@ -12,10 +12,12 @@ import java.util.*
 
 
 @Service
-class UpazilaServiceImpl(@Autowired val upazilaRepo: UpazilaRepo) : UpazilaService {
+class UpazilaServiceImpl @Autowired constructor(
+        private val upazilaRepo: UpazilaRepo
+) : UpazilaService {
 
-    override fun save(upazilaEntity: Upazila): Upazila {
-        return upazilaRepo.save(upazilaEntity)
+    override fun save(entity: Upazila): Upazila {
+        return upazilaRepo.save(entity)
     }
 
     override fun search(query: String, page: Int): Page<Upazila> {
@@ -26,14 +28,15 @@ class UpazilaServiceImpl(@Autowired val upazilaRepo: UpazilaRepo) : UpazilaServi
         return upazilaRepo.find(id)
     }
 
-    override fun delete(id: Long) {
-        upazilaRepo.deleteById(id)
-    }
-
-    override fun softDelete(id: Long) {
-        val upazila: Upazila = find(id).orElseThrow{ NotFoundException("Could not find upazila with id $id" ) }
+    override fun delete(id: Long, softDelete: Boolean) {
+        if (!softDelete) {
+            this.upazilaRepo.deleteById(id)
+            return
+        }
+        val upazila: Upazila = find(id).orElseThrow { NotFoundException("Could not find upazila with id $id") }
         upazila.isDeleted = true
         save(upazila)
     }
+
 
 }

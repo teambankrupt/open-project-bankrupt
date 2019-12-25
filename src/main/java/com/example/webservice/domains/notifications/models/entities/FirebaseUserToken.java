@@ -1,4 +1,4 @@
-package com.example.webservice.domains.firebase.models.entities;
+package com.example.webservice.domains.notifications.models.entities;
 
 import com.example.webservice.domains.common.models.entities.base.BaseEntity;
 import com.example.webservice.domains.users.models.entities.User;

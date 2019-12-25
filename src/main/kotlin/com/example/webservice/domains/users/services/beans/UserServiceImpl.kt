@@ -8,9 +8,9 @@ import com.example.webservice.commons.utils.Validator
 import com.example.webservice.config.security.SecurityContext
 import com.example.webservice.domains.common.services.MailService
 import com.example.webservice.domains.common.services.SmsService
-import com.example.webservice.domains.firebase.models.dto.NotificationData
-import com.example.webservice.domains.firebase.models.dto.PushNotification
-import com.example.webservice.domains.firebase.services.NotificationService
+import com.example.webservice.domains.notifications.models.dto.NotificationData
+import com.example.webservice.domains.notifications.models.dto.PushNotification
+import com.example.webservice.domains.notifications.services.NotificationService
 import com.example.webservice.domains.users.models.entities.AcValidationToken
 import com.example.webservice.domains.users.models.entities.Role
 import com.example.webservice.domains.users.models.entities.User

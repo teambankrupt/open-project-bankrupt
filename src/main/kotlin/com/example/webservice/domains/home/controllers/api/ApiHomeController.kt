@@ -1,11 +1,14 @@
 package com.example.webservice.domains.home.controllers.api
 
+import com.example.webservice.commons.Constants
 import com.example.webservice.config.security.SecurityContext
 import com.example.webservice.config.security.TokenService
 import com.example.webservice.domains.users.models.UserAuth
 import com.example.webservice.domains.users.models.dtos.UserRequest
 import com.example.webservice.domains.users.models.mappers.UserMapper
 import com.example.webservice.domains.users.services.UserService
+import io.swagger.annotations.Api
+import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
@@ -15,10 +18,11 @@ import java.util.*
 
 @RestController
 @RequestMapping("/api/v1")
+@Api(tags = [Constants.Swagger.BASIC_APIS], description = Constants.Swagger.BASIC_API_DETAILS)
 class ApiHomeController @Autowired constructor(
-        val userService: UserService,
-        val tokenService: TokenService,
-        val userMapper: UserMapper
+        private val userService: UserService,
+        private val tokenService: TokenService,
+        private val userMapper: UserMapper
 ) {
     @Value("\${baseUrl}")
     val baseUrl: String? = null
@@ -27,6 +31,7 @@ class ApiHomeController @Autowired constructor(
     val tokenValidity: String? = null
 
     @PostMapping("/register/verify")
+    @ApiOperation(value = Constants.Swagger.VERIFY_PHONE)
     fun verifyIdentity(@RequestParam("identity") phoneOrEmail: String): ResponseEntity<Any> {
 
         val calendar = Calendar.getInstance()
@@ -38,6 +43,7 @@ class ApiHomeController @Autowired constructor(
     }
 
     @PostMapping("/register")
+    @ApiOperation(value = Constants.Swagger.REGISTER)
     fun register(@RequestParam("token") token: String,
                  @RequestBody userDto: UserRequest): ResponseEntity<Any> {
 
@@ -49,6 +55,7 @@ class ApiHomeController @Autowired constructor(
 
 
     @PostMapping("/change_password")
+    @ApiOperation(value = Constants.Swagger.CHANGE_PASSWORD)
     fun changePassword(@RequestParam("current_password") currentPassword: String,
                        @RequestParam("new_password") newPassword: String): ResponseEntity<Any> {
         this.userService.changePassword(SecurityContext.getCurrentUser().id, currentPassword, newPassword)
@@ -58,12 +65,14 @@ class ApiHomeController @Autowired constructor(
     // Password reset
     @GetMapping("/reset_password")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = Constants.Swagger.VERIFY_RESET_PASSWORD)
     fun requestResetPassword(@RequestParam("username") username: String) {
         this.userService.handlePasswordResetRequest(username)
     }
 
     @PostMapping("/reset_password")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = Constants.Swagger.RESET_PASSWORD)
     fun resetPassword(@RequestParam("username") username: String,
                       @RequestParam("token") token: String,
                       @RequestParam("password") password: String) {

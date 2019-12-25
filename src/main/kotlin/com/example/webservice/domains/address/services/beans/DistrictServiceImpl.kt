@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class DistrictServiceImpl(@Autowired val districtRepo: DistrictRepo) : DistrictService {
+class DistrictServiceImpl @Autowired constructor(
+        private val districtRepo: DistrictRepo
+) : DistrictService {
 
-    override fun save(district: District): District {
-        return this.districtRepo.save(district)
+    override fun save(entity: District): District {
+        return this.districtRepo.save(entity)
     }
 
     override fun search(query: String, page: Int): Page<District> {
@@ -25,11 +27,11 @@ class DistrictServiceImpl(@Autowired val districtRepo: DistrictRepo) : DistrictS
         return this.districtRepo.find(id)
     }
 
-    override fun delete(id: Long) {
-        //TODO not implemented yet
-    }
-
-    override fun softDelete(id: Long) {
+    override fun delete(id: Long, softDelete: Boolean) {
+        if (!softDelete) {
+            this.districtRepo.deleteById(id)
+            return
+        }
         val district: District = this.find(id).orElseThrow { NotFoundException("Could not find district with id $id") }
         district.isDeleted = true
         this.save(district)
