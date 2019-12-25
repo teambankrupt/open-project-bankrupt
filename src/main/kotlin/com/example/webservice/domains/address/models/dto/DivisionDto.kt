@@ -1,9 +1,8 @@
 package com.example.webservice.domains.address.models.dto
 
-import com.example.webservice.domains.common.models.dto.BaseDto
+import com.example.webservice.domains.common.models.dtos.BaseDto
 import com.fasterxml.jackson.annotation.JsonProperty
 import javax.validation.constraints.NotBlank
-import javax.validation.constraints.NotNull
 
 class DivisionDto : BaseDto() {
 

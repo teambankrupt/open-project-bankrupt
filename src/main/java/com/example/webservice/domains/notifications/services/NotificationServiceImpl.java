@@ -1,7 +1,7 @@
-package com.example.webservice.domains.firebase.services;
+package com.example.webservice.domains.notifications.services;
 
-import com.example.webservice.domains.firebase.models.dto.PushNotification;
-import com.example.webservice.domains.firebase.models.entities.FirebaseUserToken;
+import com.example.webservice.domains.notifications.models.dto.PushNotification;
+import com.example.webservice.domains.notifications.models.entities.FirebaseUserToken;
 import com.example.webservice.exceptions.invalid.InvalidException;
 import com.example.webservice.exceptions.notfound.NotFoundException;
 import com.example.webservice.exceptions.unknown.UnknownException;
@@ -14,14 +14,16 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
 @Service
+@PropertySource("classpath:security.properties")
 public class NotificationServiceImpl implements NotificationService {
 
-    @Value("${app.fcm.serverkey}")
+    @Value("${auth.fcm.serverkey}")
     private String fcmServerKey;
 
     private final FirebaseTokenService firebaseTokenService;

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.event.ContextRefreshedEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
+import java.lang.RuntimeException
 
 @Component
 class InitConfig @Autowired constructor(
@@ -22,16 +23,16 @@ class InitConfig @Autowired constructor(
         val userService: UserService,
         val userMapper: UserMapper
 ) {
-    @Value("\${admin.username}")
+    @Value("\${auth.admin.username}")
     lateinit var adminUsername: String
 
-    @Value("\${admin.password}")
+    @Value("\${auth.admin.password}")
     lateinit var adminPass: String
 
-    @Value("\${admin.phone}")
+    @Value("\${auth.admin.phone}")
     lateinit var adminPhone: String
 
-    @Value("\${admin.email}")
+    @Value("\${auth.admin.email}")
     lateinit var adminEmail: String
 
     @Value("\${auth.method}")
@@ -67,6 +68,11 @@ class InitConfig @Autowired constructor(
         user.gender = "male"
         user.roles = ArrayList()
         user.roles.add(this.roleService.find(Role.ERole.Admin.name).orElseThrow { NotFoundException("Could not assign admin role to admin as it's not found!") })
+
+        if ("phone" == this.authMethod && (user.phone == null || user.phone.isEmpty()))
+            throw RuntimeException("You've chooses `phone` number as authentication method, but forgot to provide admin phone number in security.properties?")
+        if ("email" == this.authMethod && (user.email == null || user.email.isEmpty()))
+            throw RuntimeException("You've chooses `email` number as authentication method, but forgot to provide admin email in security.properties?")
 
         this.userService.save(user)
 

@@ -1,6 +1,6 @@
-package com.example.webservice.domains.firebase.services;
+package com.example.webservice.domains.notifications.services;
 
-import com.example.webservice.domains.firebase.models.entities.FirebaseUserToken;
+import com.example.webservice.domains.notifications.models.entities.FirebaseUserToken;
 import com.example.webservice.exceptions.invalid.InvalidException;
 import com.example.webservice.exceptions.notfound.FirebaseTokenNotFoundException;
 import com.example.webservice.exceptions.notfound.UserNotFoundException;

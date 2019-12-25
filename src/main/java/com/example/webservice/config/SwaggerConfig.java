@@ -16,6 +16,7 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.ApiKeyVehicle;
 import springfox.documentation.swagger.web.SecurityConfiguration;
+import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Collections;
@@ -23,13 +24,18 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 
+
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
 
-    @Value("${app.client.id}")
+    public static final String securitySchemaOAuth2 = "oauth2schema";
+    public static final String authorizationScopeGlobal = "global";
+    public static final String authorizationScopeGlobalDesc = "accessEverything";
+
+    @Value("${auth.client.id}")
     private String clientId;
-    @Value("${app.client.secret}")
+    @Value("${auth.client.secret}")
     private String clientSecret;
 
     @Value("${applicationName}")
@@ -48,24 +54,34 @@ public class SwaggerConfig {
     @Bean
     public Docket api() {
 
-        List<ResponseMessage> list = new java.util.ArrayList<>();
-        list.add(new ResponseMessageBuilder().code(500).message("500 message")
+        List<ResponseMessage> responseMessageList = new java.util.ArrayList<>();
+
+        responseMessageList.add(new ResponseMessageBuilder().code(200).message("Successfully retrieved list")
                 .responseModel(new ModelRef("Result")).build());
-        list.add(new ResponseMessageBuilder().code(401).message("Unauthorized")
+        responseMessageList.add(new ResponseMessageBuilder().code(401).message("You are not authorized to view the resource")
                 .responseModel(new ModelRef("Result")).build());
-        list.add(new ResponseMessageBuilder().code(406).message("Not Acceptable")
+        responseMessageList.add(new ResponseMessageBuilder().code(403).message("Accessing the resource you were trying to reach is forbidden")
+                .responseModel(new ModelRef("Result")).build());
+        responseMessageList.add(new ResponseMessageBuilder().code(404).message("The resource you were trying to reach is not found")
+                .responseModel(new ModelRef("Result")).build());
+        responseMessageList.add(new ResponseMessageBuilder().code(406).message("The resource you were trying to reach is not acceptable")
+                .responseModel(new ModelRef("Result")).build());
+        responseMessageList.add(new ResponseMessageBuilder().code(500).message("Internal server error")
                 .responseModel(new ModelRef("Result")).build());
 
-        return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any()).build().securitySchemes(Collections.singletonList(securitySchema()))
-                .securityContexts(Collections.singletonList(securityContext())).pathMapping("/")
-                .useDefaultResponseMessages(false).apiInfo(apiInfo()).globalResponseMessage(RequestMethod.GET, list)
-                .globalResponseMessage(RequestMethod.POST, list);
-
-
-
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
+                .build()
+                .securitySchemes(Collections.singletonList(securitySchema()))
+                .securityContexts(Collections.singletonList(securityContext()))
+                .pathMapping("/")
+                .useDefaultResponseMessages(false)
+                .apiInfo(apiInfo())
+                .globalResponseMessage(RequestMethod.GET, responseMessageList)
+                .globalResponseMessage(RequestMethod.POST, responseMessageList);
     }
-
 
 
     private OAuth securitySchema() {
@@ -76,16 +92,17 @@ public class SwaggerConfig {
         authorizationScopeList.add(new AuthorizationScope("write", "access all"));
 
         List<GrantType> grantTypes = newArrayList();
-        GrantType creGrant = new ResourceOwnerPasswordCredentialsGrant(authLink + "oauth/token?client_id=" + this.clientId + "&client_secret=" + this.clientSecret);
+        GrantType creGrant = new ResourceOwnerPasswordCredentialsGrant(authLink + "/oauth/token?client_id=" + this.clientId + "&client_secret=" + this.clientSecret);
 
         grantTypes.add(creGrant);
 
-        return new OAuth("oauth2schema", authorizationScopeList, grantTypes);
-
+        return new OAuth(securitySchemaOAuth2, authorizationScopeList, grantTypes);
     }
 
     private SecurityContext securityContext() {
-        return SecurityContext.builder().securityReferences(defaultAuth()).forPaths(PathSelectors.ant("/user/**"))
+        return SecurityContext.builder()
+                .securityReferences(defaultAuth())
+                .forPaths(PathSelectors.ant("/api/**"))
                 .build();
     }
 
@@ -96,12 +113,21 @@ public class SwaggerConfig {
         authorizationScopes[1] = new AuthorizationScope("trust", "trust all");
         authorizationScopes[2] = new AuthorizationScope("write", "write all");
 
-        return Collections.singletonList(new SecurityReference("oauth2schema", authorizationScopes));
+        return Collections.singletonList(new SecurityReference(securitySchemaOAuth2, authorizationScopes));
     }
+
+    /*@Bean
+    public SecurityConfiguration securityInfo() {
+        return new SecurityConfiguration(clientId, clientSecret, "", "", "", ApiKeyVehicle.HEADER, "", " ");
+    }*/
 
     @Bean
     public SecurityConfiguration securityInfo() {
-        return new SecurityConfiguration(clientId, clientSecret, "", "", "", ApiKeyVehicle.HEADER, "", " ");
+        return SecurityConfigurationBuilder.builder()
+                .clientId(clientId)
+                .clientSecret(clientSecret)
+                .scopeSeparator(" ")
+                .build();
     }
 
     private ApiInfo apiInfo() {

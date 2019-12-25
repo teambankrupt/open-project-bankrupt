@@ -1,19 +1,22 @@
 package com.example.webservice.domains.users.controllers
 
 
+import com.example.webservice.commons.Constants
 import com.example.webservice.domains.users.models.dtos.RoleDto
 import com.example.webservice.domains.users.models.mappers.RoleMapper
 import com.example.webservice.domains.users.services.RoleService
 import com.example.webservice.exceptions.notfound.NotFoundException
+import io.swagger.annotations.Api
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/v1/admin/roles")
+@Api(tags = [Constants.Swagger.ROLES_ADMIN], description = Constants.Swagger.ROLES_ADMIN_API_DETAILS)
 class RoleController @Autowired constructor(
-        val roleService: RoleService,
-        val roleMapper: RoleMapper
+        private val roleService: RoleService,
+        private val roleMapper: RoleMapper
 ) {
 
     @GetMapping("")

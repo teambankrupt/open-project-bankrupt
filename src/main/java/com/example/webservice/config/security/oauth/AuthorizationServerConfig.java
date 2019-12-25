@@ -22,11 +22,11 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-    @Value("${app.client.id}")
+    @Value("${auth.client.id}")
     private String clientId;
-    @Value("${app.client.secret}")
+    @Value("${auth.client.secret}")
     private String clientSecret;
-    @Value("${app.loginEndpoint}")
+    @Value("${auth.loginEndpoint}")
     private String loginEndpoint;
 
     @Value("${auth.token.type}")
@@ -75,8 +75,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(this.authenticationManager).userDetailsService(this.userDetailsService)
-                .pathMapping("/oauth/token", this.loginEndpoint)
-                .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
+//                .pathMapping("/oauth/token", this.loginEndpoint)
+                .allowedTokenEndpointRequestMethods(HttpMethod.POST)
                 .tokenStore(tokenStore());
         if ("jwt".equalsIgnoreCase(this.tokenType))
             endpoints.accessTokenConverter(jwtTokenConverter());

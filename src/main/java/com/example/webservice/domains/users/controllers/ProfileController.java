@@ -8,6 +8,7 @@ import com.example.webservice.exceptions.invalid.UserInvalidException;
 import com.example.webservice.exceptions.notfound.NotFoundException;
 import com.example.webservice.exceptions.notfound.ProfileNotFoundException;
 import com.example.webservice.exceptions.nullpointer.NullPasswordException;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/profiles")
+@Api(tags = "Profiles", description = "Create/update user profile")
 public class ProfileController {
 
     private final ProfileService profileService;

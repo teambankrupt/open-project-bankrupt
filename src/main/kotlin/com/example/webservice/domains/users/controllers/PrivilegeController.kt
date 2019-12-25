@@ -1,18 +1,21 @@
 package com.example.webservice.domains.users.controllers
 
+import com.example.webservice.commons.Constants
 import com.example.webservice.domains.users.models.dtos.PrivilegeDto
 import com.example.webservice.domains.users.models.mappers.PrivilegeMapper
 import com.example.webservice.domains.users.services.PrivilegeService
 import com.example.webservice.exceptions.notfound.NotFoundException
+import io.swagger.annotations.Api
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/v1/admin/privileges")
+@Api(tags = [Constants.Swagger.PRIVILEGES_ADMIN], description = Constants.Swagger.PRIVILEGES_ADMIN_API_DETAILS)
 class PrivilegeController @Autowired constructor(
-        val privilegeService: PrivilegeService,
-        val privilegeMapper: PrivilegeMapper
+        private val privilegeService: PrivilegeService,
+        private val privilegeMapper: PrivilegeMapper
 ) {
 
     @PostMapping("")

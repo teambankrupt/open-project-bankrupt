@@ -1,10 +1,15 @@
 package com.example.webservice.domains.address.controllers
 
+import com.example.webservice.commons.Constants
+import com.example.webservice.commons.utils.ExceptionUtil
 import com.example.webservice.domains.address.models.dto.DistrictDto
 import com.example.webservice.domains.address.models.entities.District
 import com.example.webservice.domains.address.models.mappers.DistrictMapper
 import com.example.webservice.domains.address.services.DistrictService
-import com.example.webservice.exceptions.notfound.NotFoundException
+import com.example.webservice.domains.common.controller.CrudController
+import com.example.webservice.routing.Route
+import io.swagger.annotations.Api
+import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
@@ -12,41 +17,46 @@ import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/api/v1/districts")
+@Api(tags = [Constants.Swagger.DISTRICT], description = Constants.Swagger.REST_API)
 class DistrictController(
         @Autowired val districtService: DistrictService,
         @Autowired val districtMapper: DistrictMapper
-) {
+) : CrudController<DistrictDto> {
 
-    @GetMapping("")
-    fun search(@RequestParam("q", defaultValue = "") query: String,
-               @RequestParam("page", defaultValue = "0") page: Int): ResponseEntity<Any> {
+    @GetMapping(Route.V1.SEARCH_DISTRICT)
+    @ApiOperation(value = Constants.Swagger.SEARCH_ALL_MSG + Constants.Swagger.DISTRICT)
+    override fun search(@RequestParam("q", defaultValue = "") query: String,
+                        @RequestParam("page", defaultValue = "0") page: Int): ResponseEntity<Any> {
         val districts: Page<District> = this.districtService.search(query, page)
         return ResponseEntity.ok(districts.map { district -> this.districtMapper.map(district) })
     }
 
-    @GetMapping("/{id}")
-    fun find(@PathVariable id: Long): ResponseEntity<Any> {
-        val district: District = this.districtService.find(id).orElseThrow{ NotFoundException("Could not found district with id $id")}
+    @GetMapping(Route.V1.FIND_DISTRICT)
+    @ApiOperation(value = Constants.Swagger.GET_MSG + Constants.Swagger.DISTRICT)
+    override fun find(@PathVariable id: Long): ResponseEntity<Any> {
+        val district: District = this.districtService.find(id).orElseThrow { ExceptionUtil.getNotFound("district", id) }
         return ResponseEntity.ok(this.districtMapper.map(district))
     }
 
-    @PostMapping("")
-    fun save(@Valid @RequestBody districtDto: DistrictDto): ResponseEntity<Any> {
-        val district: District = this.districtService.save(this.districtMapper.map(districtDto, null))
+    @PostMapping(Route.V1.CREATE_DISTRICT)
+    @ApiOperation(value = Constants.Swagger.POST_MSG + Constants.Swagger.DISTRICT)
+    override fun create(@Valid @RequestBody dto: DistrictDto): ResponseEntity<Any> {
+        val district: District = this.districtService.save(this.districtMapper.map(dto, null))
         return ResponseEntity.ok(this.districtMapper.map(district))
     }
 
-    @PatchMapping("/{id}")
-    fun update(@Valid @RequestBody districtDto: DistrictDto, @PathVariable id: Long): ResponseEntity<Any> {
-        var district: District = this.districtService.find(id).orElseThrow{ NotFoundException("Could not found district with id $id")}
-        district = this.districtService.save(this.districtMapper.map(districtDto, district))
+    @PatchMapping(Route.V1.UPDATE_DISTRICT)
+    @ApiOperation(value = Constants.Swagger.PATCH_MSG + Constants.Swagger.DISTRICT)
+    override fun update(@PathVariable id: Long, @Valid @RequestBody dto: DistrictDto): ResponseEntity<Any> {
+        var district: District = this.districtService.find(id).orElseThrow { ExceptionUtil.getNotFound("district", id) }
+        district = this.districtService.save(this.districtMapper.map(dto, district))
         return ResponseEntity.ok(this.districtMapper.map(district))
     }
 
-    @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Long): ResponseEntity<Any>? {
-        this.districtService.softDelete(id)
+    @DeleteMapping(Route.V1.DELETE_DISTRICT)
+    @ApiOperation(value = Constants.Swagger.DELETE_MSG + Constants.Swagger.DISTRICT)
+    override fun delete(@PathVariable id: Long): ResponseEntity<Any> {
+        this.districtService.delete(id, true)
         return ResponseEntity.ok().build()
     }
 

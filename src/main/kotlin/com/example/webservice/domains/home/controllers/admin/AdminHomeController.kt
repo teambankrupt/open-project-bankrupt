@@ -3,8 +3,10 @@ package com.example.webservice.domains.home.controllers.admin
 import com.example.webservice.config.security.SecurityContext
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
+import springfox.documentation.annotations.ApiIgnore
 
 @Controller
+@ApiIgnore
 class AdminHomeController {
 
     @GetMapping("")
