@@ -17,7 +17,7 @@ public class FlywayConfig {
     @Bean(initMethod = "migrate")
     Flyway flyway() {
         return Flyway.configure()
-                .outOfOrder(true)
+//                .outOfOrder(true)
                 .dataSource(this.dataSource).load();
     }
 

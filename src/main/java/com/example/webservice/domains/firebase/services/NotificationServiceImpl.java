@@ -14,14 +14,16 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
 @Service
+@PropertySource("classpath:security.properties")
 public class NotificationServiceImpl implements NotificationService {
 
-    @Value("${app.fcm.serverkey}")
+    @Value("${auth.fcm.serverkey}")
     private String fcmServerKey;
 
     private final FirebaseTokenService firebaseTokenService;

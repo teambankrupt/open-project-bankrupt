@@ -27,9 +27,9 @@ import static com.google.common.collect.Lists.newArrayList;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    @Value("${app.client.id}")
+    @Value("${auth.client.id}")
     private String clientId;
-    @Value("${app.client.secret}")
+    @Value("${auth.client.secret}")
     private String clientSecret;
 
     @Value("${applicationName}")

@@ -22,7 +22,7 @@ import java.util.*;
 public class TokenService {
     private final TokenStore tokenStore;
     private final AuthorizationServerEndpointsConfiguration configuration;
-    @Value("${app.client.id}")
+    @Value("${auth.client.id}")
     private String clientId;
 
     @Autowired
