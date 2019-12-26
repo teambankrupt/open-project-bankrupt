@@ -21,6 +21,7 @@ It's a skeleton project with lots of features implemented by default.
 * Profile CRUD
 
 ### Common
+* Swagger Documentation
 * Email configuration for sending Emails
 * SMS service configuration for sending SMS
 * Exception Handling
