@@ -26,28 +26,28 @@ class VillageController @Autowired constructor(
     @GetMapping(Route.V1.SEARCH_VILLAGES)
     @ApiOperation(value = Constants.Swagger.SEARCH_ALL_MSG + Constants.Swagger.VILLAGE)
     override fun search(@RequestParam("q", defaultValue = "") query: String,
-                        @RequestParam("page", defaultValue = "0") page: Int): ResponseEntity<Any> {
+                        @RequestParam("page", defaultValue = "0") page: Int): ResponseEntity<Page<VillageDto>> {
         val villages: Page<Village> = this.villageService.search(query, page)
         return ResponseEntity.ok(villages.map { village -> this.villageMapper.map(village) })
     }
 
     @PostMapping(Route.V1.CREATE_VILLAGES)
     @ApiOperation(value = Constants.Swagger.POST_MSG + Constants.Swagger.VILLAGE)
-    override fun create(@Valid @RequestBody dto: VillageDto): ResponseEntity<Any> {
+    override fun create(@Valid @RequestBody dto: VillageDto): ResponseEntity<VillageDto> {
         val village: Village = this.villageService.save(this.villageMapper.map(dto, null))
         return ResponseEntity.ok(this.villageMapper.map(village))
     }
 
     @GetMapping(Route.V1.FIND_VILLAGES)
     @ApiOperation(value = Constants.Swagger.GET_MSG + Constants.Swagger.VILLAGE)
-    override fun find(@PathVariable id: Long): ResponseEntity<Any> {
+    override fun find(@PathVariable id: Long): ResponseEntity<VillageDto> {
         val village: Village = this.villageService.find(id).orElseThrow { ExceptionUtil.getNotFound("village", id) }
         return ResponseEntity.ok(this.villageMapper.map(village))
     }
 
     @PatchMapping(Route.V1.UPDATE_VILLAGES)
     @ApiOperation(value = Constants.Swagger.PATCH_MSG + Constants.Swagger.VILLAGE)
-    override fun update(@PathVariable id: Long, @Valid @RequestBody dto: VillageDto): ResponseEntity<Any> {
+    override fun update(@PathVariable id: Long, @Valid @RequestBody dto: VillageDto): ResponseEntity<VillageDto> {
         var village: Village = villageService.find(id).orElseThrow { ExceptionUtil.getNotFound("village", id) }
         village = villageService.save(villageMapper.map(dto, village))
         return ResponseEntity.ok(villageMapper.map(village))

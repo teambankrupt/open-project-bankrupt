@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.oauth2.common.OAuth2AccessToken
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
@@ -28,24 +29,24 @@ class ApiHomeController @Autowired constructor(
     val baseUrl: String? = null
 
     @Value("\${token.validity}")
-    val tokenValidity: String? = null
+    lateinit var tokenValidity: String
 
     @PostMapping("/register/verify")
     @ApiOperation(value = Constants.Swagger.VERIFY_PHONE)
-    fun verifyIdentity(@RequestParam("identity") phoneOrEmail: String): ResponseEntity<Any> {
+    fun verifyIdentity(@RequestParam("identity") phoneOrEmail: String): ResponseEntity<String> {
 
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis() + Integer.parseInt(this.tokenValidity)
         val sent = this.userService.requireAccountValidationByOTP(phoneOrEmail, calendar.time)
 
         return if (!sent) ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build()
-        else ResponseEntity.ok("OTP sent!")
+        else ResponseEntity.ok("Token Validity: " + this.tokenValidity + " ms")
     }
 
     @PostMapping("/register")
     @ApiOperation(value = Constants.Swagger.REGISTER)
     fun register(@RequestParam("token") token: String,
-                 @RequestBody userDto: UserRequest): ResponseEntity<Any> {
+                 @RequestBody userDto: UserRequest): ResponseEntity<OAuth2AccessToken> {
 
         val user = this.userService.register(token, this.userMapper.map(userDto, null))
 
@@ -57,7 +58,7 @@ class ApiHomeController @Autowired constructor(
     @PostMapping("/change_password")
     @ApiOperation(value = Constants.Swagger.CHANGE_PASSWORD)
     fun changePassword(@RequestParam("current_password") currentPassword: String,
-                       @RequestParam("new_password") newPassword: String): ResponseEntity<Any> {
+                       @RequestParam("new_password") newPassword: String): ResponseEntity<HttpStatus> {
         this.userService.changePassword(SecurityContext.getCurrentUser().id, currentPassword, newPassword)
         return ResponseEntity.ok().build()
     }

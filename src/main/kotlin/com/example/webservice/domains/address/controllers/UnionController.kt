@@ -25,14 +25,14 @@ class UnionController @Autowired constructor(
     @GetMapping(Route.V1.SEARCH_UNION)
     @ApiOperation(value = Constants.Swagger.SEARCH_ALL_MSG + Constants.Swagger.UNION)
     override fun search(@RequestParam("q", defaultValue = "") query: String,
-                        @RequestParam("page", defaultValue = "0") page: Int): ResponseEntity<Any> {
+                        @RequestParam("page", defaultValue = "0") page: Int): ResponseEntity<Page<UnionDto>> {
         val unions: Page<Union> = unionService.search(query, page)
         return ResponseEntity.ok(unions.map { union -> unionMapper.map(union) })
     }
 
     @GetMapping(Route.V1.FIND_UNION)
     @ApiOperation(value = Constants.Swagger.GET_MSG + Constants.Swagger.UNION)
-    override fun find(@PathVariable id: Long): ResponseEntity<Any> {
+    override fun find(@PathVariable id: Long): ResponseEntity<UnionDto> {
         val union: Union = unionService.find(id).orElseThrow { ExceptionUtil.getNotFound("union", id) }
         return ResponseEntity.ok(unionMapper.map(union))
     }
@@ -40,14 +40,14 @@ class UnionController @Autowired constructor(
 
     @PostMapping(Route.V1.CREATE_UNION)
     @ApiOperation(value = Constants.Swagger.POST_MSG + Constants.Swagger.UNION)
-    override fun create(@Valid @RequestBody dto: UnionDto): ResponseEntity<Any> {
+    override fun create(@Valid @RequestBody dto: UnionDto): ResponseEntity<UnionDto> {
         val union: Union = unionService.save(unionMapper.map(dto, null))
         return ResponseEntity.ok(unionMapper.map(union))
     }
 
     @PatchMapping(Route.V1.UPDATE_UNION)
     @ApiOperation(value = Constants.Swagger.PATCH_MSG + Constants.Swagger.UNION)
-    override fun update(@PathVariable id: Long, @Valid @RequestBody dto: UnionDto): ResponseEntity<Any> {
+    override fun update(@PathVariable id: Long, @Valid @RequestBody dto: UnionDto): ResponseEntity<UnionDto> {
         var union: Union = unionService.find(id).orElseThrow { ExceptionUtil.getNotFound("union", id) }
         union = unionService.save(unionMapper.map(dto, union))
         return ResponseEntity.ok(unionMapper.map(union))

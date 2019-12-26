@@ -25,21 +25,22 @@ class UpazilaController @Autowired constructor(
 
     @GetMapping(Route.V1.SEARCH_UPAZILA)
     @ApiOperation(value = Constants.Swagger.SEARCH_ALL_MSG + Constants.Swagger.UPAZILA)
-    override fun search(@RequestParam("q", defaultValue = "") query: String, @RequestParam("page", defaultValue = "0") page: Int): ResponseEntity<Any> {
+    override fun search(@RequestParam("q", defaultValue = "") query: String,
+                        @RequestParam("page", defaultValue = "0") page: Int): ResponseEntity<Page<UpazilaDto>> {
         val upazilas: Page<Upazila> = upazilaService.search(query, page)
         return ResponseEntity.ok(upazilas.map { upazila -> upazilaMapper.map(upazila) })
     }
 
     @GetMapping(Route.V1.FIND_UPAZILA)
     @ApiOperation(value = Constants.Swagger.GET_MSG + Constants.Swagger.UPAZILA)
-    override fun find(@PathVariable id: Long): ResponseEntity<Any> {
+    override fun find(@PathVariable id: Long): ResponseEntity<UpazilaDto> {
         val upazila: Upazila = upazilaService.find(id).orElseThrow { ExceptionUtil.getNotFound("upazila", id) }
         return ResponseEntity.ok(upazilaMapper.map(upazila))
     }
 
     @PostMapping(Route.V1.CREATE_UPAZILA)
     @ApiOperation(value = Constants.Swagger.POST_MSG + Constants.Swagger.UPAZILA)
-    override fun create(@Valid @RequestBody dto: UpazilaDto): ResponseEntity<Any> {
+    override fun create(@Valid @RequestBody dto: UpazilaDto): ResponseEntity<UpazilaDto> {
         var upazila = upazilaMapper.map(dto, null)
         upazila = upazilaService.save(upazila)
         return ResponseEntity.ok(upazilaMapper.map(upazila))
@@ -47,7 +48,7 @@ class UpazilaController @Autowired constructor(
 
     @PatchMapping(Route.V1.UPDATE_UPAZILA)
     @ApiOperation(value = Constants.Swagger.PATCH_MSG + Constants.Swagger.UPAZILA)
-    override fun update(@PathVariable id: Long, @Valid @RequestBody dto: UpazilaDto): ResponseEntity<Any> {
+    override fun update(@PathVariable id: Long, @Valid @RequestBody dto: UpazilaDto): ResponseEntity<UpazilaDto> {
         var upazila: Upazila = upazilaService.find(id).orElseThrow { ExceptionUtil.getNotFound("upazila", id) }
         upazila = upazilaService.save(upazilaMapper.map(dto, upazila))
         return ResponseEntity.ok(upazilaMapper.map(upazila))
