@@ -56,18 +56,18 @@ public class SwaggerConfig {
 
         List<ResponseMessage> responseMessageList = new java.util.ArrayList<>();
 
-        responseMessageList.add(new ResponseMessageBuilder().code(200).message("Successfully retrieved list")
-                .responseModel(new ModelRef("Result")).build());
-        responseMessageList.add(new ResponseMessageBuilder().code(401).message("You are not authorized to view the resource")
-                .responseModel(new ModelRef("Result")).build());
-        responseMessageList.add(new ResponseMessageBuilder().code(403).message("Accessing the resource you were trying to reach is forbidden")
-                .responseModel(new ModelRef("Result")).build());
-        responseMessageList.add(new ResponseMessageBuilder().code(404).message("The resource you were trying to reach is not found")
-                .responseModel(new ModelRef("Result")).build());
-        responseMessageList.add(new ResponseMessageBuilder().code(406).message("The resource you were trying to reach is not acceptable")
-                .responseModel(new ModelRef("Result")).build());
-        responseMessageList.add(new ResponseMessageBuilder().code(500).message("Internal server error")
-                .responseModel(new ModelRef("Result")).build());
+        responseMessageList.add(new ResponseMessageBuilder().code(200).message("Successfully retrieved list").build());
+//                .responseModel(new ModelRef("string")).build());
+        responseMessageList.add(new ResponseMessageBuilder().code(401).message("You are not authorized to view the resource").build());
+//                .responseModel(new ModelRef("string")).build());
+        responseMessageList.add(new ResponseMessageBuilder().code(403).message("Accessing the resource you were trying to reach is forbidden").build());
+//                .responseModel(new ModelRef("string")).build());
+        responseMessageList.add(new ResponseMessageBuilder().code(404).message("The resource you were trying to reach is not found").build());
+//                .responseModel(new ModelRef("string")).build());
+        responseMessageList.add(new ResponseMessageBuilder().code(406).message("The resource you were trying to reach is not acceptable").build());
+//                .responseModel(new ModelRef("string")).build());
+        responseMessageList.add(new ResponseMessageBuilder().code(500).message("Internal server error").build());
+//                .responseModel(new ModelRef("string")).build());
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
