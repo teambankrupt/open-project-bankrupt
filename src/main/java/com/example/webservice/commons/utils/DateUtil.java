@@ -8,7 +8,7 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-public class DateUtil {
+public final class DateUtil {
     private DateUtil() {
     }
 

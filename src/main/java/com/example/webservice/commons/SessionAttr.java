@@ -1,6 +1,6 @@
 package com.example.webservice.commons;
 
-public class SessionAttr {
+public final class SessionAttr {
     private SessionAttr() {
     }
 

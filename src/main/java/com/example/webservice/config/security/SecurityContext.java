@@ -14,7 +14,7 @@ import javax.annotation.PostConstruct;
 import java.util.Optional;
 
 @Component
-public class SecurityContext {
+public final class SecurityContext {
 
     private static UserRepository userRepository;
     private static UserAuth loggedInUser;

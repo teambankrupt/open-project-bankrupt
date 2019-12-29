@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
 
-public class ImageValidator{
+public final class ImageValidator{
     public static boolean isImageValid(MultipartFile multipartFile) {
         try {
             Image image = ImageIO.read(FileIO.convertToFile(multipartFile));

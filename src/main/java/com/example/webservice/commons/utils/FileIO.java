@@ -9,8 +9,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileIO {
+public final class FileIO {
+    private FileIO(){}
+
     public static File convertToFile(MultipartFile multipartFile) {
+        if (multipartFile==null) return null;
         File file = new File(multipartFile.getOriginalFilename());
         try (OutputStream outputStream = new FileOutputStream(file)) {
             outputStream.write(multipartFile.getBytes());

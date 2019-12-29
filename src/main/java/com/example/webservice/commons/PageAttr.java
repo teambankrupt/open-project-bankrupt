@@ -3,7 +3,10 @@ package com.example.webservice.commons;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
-public class PageAttr {
+public final class PageAttr {
+    private PageAttr() {
+    }
+
     public static int PAGE_SIZE = 10;
 
     public static String SORT_BY_FIELD_ID = "id";

@@ -54,7 +54,7 @@ public class TokenService {
                 resourceIds, null, responseTypes, extensionProperties);
 
 
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null, userAuth.getAuthorities());
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userAuth, null, userAuth.getAuthorities());
         OAuth2Authentication auth = new OAuth2Authentication(oAuth2Request, authenticationToken);
         AuthorizationServerTokenServices tokenService = configuration.getEndpointsConfigurer().getTokenServices();
         return tokenService.createAccessToken(auth);
