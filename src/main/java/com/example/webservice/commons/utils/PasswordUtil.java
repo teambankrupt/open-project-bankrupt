@@ -3,7 +3,7 @@ package com.example.webservice.commons.utils;
 import com.example.webservice.exceptions.nullpointer.NullPasswordException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-public class PasswordUtil {
+public final class PasswordUtil {
     public static int PASS_MIN_SIZE = 6;
     public static final int CRYPTO_STRENGTH = 512;
 

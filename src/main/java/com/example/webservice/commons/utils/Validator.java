@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Validator {
+public final class Validator {
     private Validator() {
     }
 

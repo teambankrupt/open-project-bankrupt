@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class ImageUtils {
+public final class ImageUtils {
     private ImageUtils(){}
 
     public static void addTextWatermark(String text, String type, File source, File destination) throws IOException {
