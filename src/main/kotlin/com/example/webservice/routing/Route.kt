@@ -48,6 +48,9 @@ class Route {
             const val UPDATE_VILLAGES = "$API$VERSION/villages/{id}"
             const val DELETE_VILLAGES = "$API$VERSION/villages/{id}"
 
+            // Imports batch
+            const val IMPORT_USERS = "$API$VERSION/admin/imports/users"
+
         }
     }
 }

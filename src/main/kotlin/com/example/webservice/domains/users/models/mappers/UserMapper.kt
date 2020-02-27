@@ -57,13 +57,13 @@ class UserMapper @Autowired constructor(
         if (user.id == null) { // For new user
             if (this.userService.findByUsername(user.username).isPresent) throw AlreadyExistsException("User already exists with username: ${user.username}")
             if (authMethod == "phone") {
-                if (user.phone.isBlank()) throw InvalidException("Phone number can't be null or empty!")
+                if (user.phone == null || user.phone.isEmpty()) throw InvalidException("Phone number can't be null or empty!")
                 if (this.userService.findByPhone(user.phone).isPresent) throw AlreadyExistsException("User already exists with phone: ${user.phone}")
             } else if (authMethod == "email") {
-                if (user.email.isBlank()) throw InvalidException("Email can't be null or empty!")
+                if (user.email == null || user.email.isEmpty()) throw InvalidException("Email can't be null or empty!")
                 if (this.userService.findByEmail(user.email).isPresent) throw AlreadyExistsException("User already exists with email: ${user.email}")
             } else { // both
-                if (user.phone.isBlank() || user.email.isBlank()) throw InvalidException("Email or phone can not be empty!")
+                if ((user.phone == null || user.phone.isEmpty()) && (user.email == null || user.email.isEmpty())) throw InvalidException("Email or phone can not be empty!")
                 if (user.phone.isNotEmpty())
                     if (this.userService.findByPhone(user.phone).isPresent) throw AlreadyExistsException("User already exists with phone: ${user.phone}")
                 if (user.email.isNotEmpty())
