@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository;
 import java.util.Date;
 
 @Repository
-public interface ActivityRepository extends JpaRepository<Activity,Long> {
+public interface ActivityRepository extends JpaRepository<Activity, Long> {
     Activity findFirstBy();
-    Activity findFirstByUserOrderByIdDesc(User user);
-    Page<Activity> findByUser(User user, Pageable pageable);
 
-    Long countByCreatedBetween(Date fromDate, Date toDate);
+    Activity findFirstByUserOrderByIdDesc(User user);
+
+    Page<Activity> findByUser(User user, Pageable pageable);
 }

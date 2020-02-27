@@ -17,5 +17,5 @@ open class BaseDto : Serializable {
 
         @JsonProperty("last_updated", access = JsonProperty.Access.READ_ONLY)
         @ApiModelProperty(notes = "It's read only")
-        lateinit var lastUpdated: Date
+        lateinit var updatedAt: Date
 }

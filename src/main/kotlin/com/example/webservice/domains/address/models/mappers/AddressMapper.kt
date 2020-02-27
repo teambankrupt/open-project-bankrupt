@@ -27,8 +27,8 @@ class AddressMapper @Autowired constructor(
         dto.villageId = address.village?.id
         dto.lat = address.latLng?.lat
         dto.lng = address.latLng?.lng
-        dto.created = address.created
-        dto.lastUpdated = address.lastUpdated
+        dto.created = address.createdAt
+        dto.updatedAt = address.updatedAt
         return dto
     }
 

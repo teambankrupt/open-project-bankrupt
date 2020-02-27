@@ -26,6 +26,7 @@ import com.example.webservice.exceptions.notfound.UserNotFoundException
 import com.example.webservice.exceptions.unknown.UnknownException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.PropertySource
 import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service
 import java.util.*
@@ -33,13 +34,14 @@ import javax.transaction.Transactional
 
 
 @Service
+@PropertySource("classpath:security.properties")
 open class UserServiceImpl @Autowired constructor(
-        val userRepository: UserRepository,
-        val acValidationTokenService: AcValidationTokenService,
-        val notificationService: NotificationService,
-        val smsService: SmsService,
-        val mailService: MailService,
-        val roleService: RoleService
+        private val userRepository: UserRepository,
+        private val acValidationTokenService: AcValidationTokenService,
+        private val notificationService: NotificationService,
+        private val smsService: SmsService,
+        private val mailService: MailService,
+        private val roleService: RoleService
 ) : UserService {
 
     @Value("\${auth.method}")

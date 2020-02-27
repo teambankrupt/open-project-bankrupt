@@ -10,14 +10,13 @@ import org.springframework.stereotype.Component
 @Component
 class UnionMapper(@Autowired val upazilaService: UpazilaService) {
 
-
     fun map(union: Union): UnionDto {
         val unionDto = UnionDto()
         unionDto.id = union.id
         unionDto.nameEn = union.nameEn
         unionDto.nameBn = union.nameBn
-        unionDto.created = union.created
-        unionDto.lastUpdated = union.lastUpdated
+        unionDto.created = union.createdAt
+        unionDto.updatedAt = union.updatedAt
         unionDto.upazilaId = union.upazila?.id
         return unionDto
     }

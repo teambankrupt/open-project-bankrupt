@@ -3,6 +3,8 @@ package com.example.webservice.domains.users.repositories;
 
 import com.example.webservice.domains.users.models.entities.AcValidationToken;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -12,5 +14,7 @@ public interface AcValidationTokenRepository extends JpaRepository<AcValidationT
     AcValidationToken findFirstByTokenOrderByIdDesc(String token);
 
     AcValidationToken findFirstByUsernameOrderByIdDesc(String phone);
-    int countByUserIdAndCreatedBetween(Long id, Date fromDate, Date toDate);
+
+    @Query("SELECT COUNT(t) FROM AcValidationToken t WHERE t.id=:id AND (t.createdAt BETWEEN :fromDate AND :toDate) AND t.deleted=false")
+    int count(@Param("id") Long id, @Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
 }

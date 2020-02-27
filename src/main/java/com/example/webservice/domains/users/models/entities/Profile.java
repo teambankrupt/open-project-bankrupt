@@ -47,10 +47,10 @@ public class Profile extends BaseEntity {
         this.age = (period.getYears() + " Years, " + period.getMonths() + " Months");
     }
 
-    public boolean hasAuthorizedAccess() {
-        return getCurrentUser().isAdmin()
-                || Objects.equals(getCurrentUser().getId(), this.getUser().getId());
-    }
+//    public boolean hasAuthorizedAccess() {
+//        return getCurrentUser().isAdmin()
+//                || Objects.equals(getCurrentUser().getId(), this.getUser().getId());
+//    }
 
     public enum BloodGroup {
         A_POSITIVE("A+"),
