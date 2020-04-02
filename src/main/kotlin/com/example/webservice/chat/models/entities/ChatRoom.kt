@@ -2,6 +2,8 @@ package com.example.webservice.chat.models.entities
 
 import com.example.webservice.domains.common.models.entities.base.BaseEntity
 import com.example.webservice.domains.users.models.entities.User
+import org.hibernate.annotations.LazyCollection
+import org.hibernate.annotations.LazyCollectionOption
 import javax.persistence.*
 
 @Entity
@@ -9,7 +11,8 @@ import javax.persistence.*
 class ChatRoom : BaseEntity() {
     lateinit var title: String
 
-    @ElementCollection
+    @ManyToMany
     @JoinTable(name = "chat_chatroom_users")
+    @LazyCollection(LazyCollectionOption.FALSE)
     lateinit var users: MutableList<User>
 }
