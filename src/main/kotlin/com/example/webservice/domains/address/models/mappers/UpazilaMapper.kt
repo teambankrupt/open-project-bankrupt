@@ -9,13 +9,14 @@ import org.springframework.stereotype.Component
 
 @Component
 class UpazilaMapper(@Autowired val districtService: DistrictService) {
+
     fun map(entity: Upazila): UpazilaDto {
-        var dto = UpazilaDto()
+        val dto = UpazilaDto()
         dto.id = entity.id
         dto.nameEn = entity.nameEn
         dto.nameBn = entity.nameBn
-        dto.created = entity.created
-        dto.lastUpdated = entity.lastUpdated
+        dto.created = entity.createdAt
+        dto.updatedAt = entity.updatedAt
         dto.districtId = entity.district?.id
         return dto
     }

@@ -9,8 +9,8 @@ class PrivilegeMapper {
     fun map(privilege: Privilege): PrivilegeDto {
         val dto = PrivilegeDto()
         dto.id = privilege.id
-        dto.created = privilege.created
-        dto.lastUpdated = privilege.lastUpdated
+        dto.created = privilege.createdAt
+        dto.updatedAt = privilege.updatedAt
 
         dto.name = privilege.name
         dto.label = privilege.label

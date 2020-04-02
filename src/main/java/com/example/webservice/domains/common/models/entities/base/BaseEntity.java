@@ -14,46 +14,47 @@ import java.util.UUID;
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
     @Id
+    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Temporal(value = TemporalType.TIMESTAMP)
-    private Date created;
+    @Column(name = "created_at", nullable = false)
+    private Date createdAt;
 
     @Temporal(value = TemporalType.TIMESTAMP)
-    private Date lastUpdated;
+    @Column(name = "updated_at")
+    private Date updatedAt;
 
-    @OneToOne
-    private User createdBy;
+    @Column(name = "created_by")
+    private String createdBy;
 
-    @OneToOne
-    private User updatedBy;
+    @Column(name = "updated_by")
+    private String updatedBy;
 
-
-    @Column(name = "uuid_str")
+    @Column(name = "uuid_str", nullable = false, unique = true)
     private String uuid;
 
+    @Column(nullable = false)
     private boolean deleted;
 
     @PrePersist
     private void onBasePersist() {
-        this.created = new Date();
-        this.lastUpdated = new Date();
-        if (getCurrentUser() != null)
-            this.createdBy = new User(getCurrentUser());
+        this.createdAt = new Date();
+        this.updatedAt = createdAt;
+        this.createdBy = this.getLoggedInUsername();
         this.uuid = UUID.randomUUID().toString();
     }
 
     @PreUpdate
     private void onBaseUpdate() {
-        this.lastUpdated = new Date();
-        if (getCurrentUser() != null)
-            this.updatedBy = new User(getCurrentUser());
+        this.updatedAt = new Date();
+        this.updatedBy = this.getLoggedInUsername();
     }
 
     @JsonIgnore
-    public UserAuth getCurrentUser() {
-        return SecurityContext.getCurrentUser();
+    public String getLoggedInUsername() {
+        return SecurityContext.getLoggedInUsername();
     }
 
 
@@ -86,27 +87,25 @@ public abstract class BaseEntity implements Serializable {
     }
 
 
-    public Date getCreated() {
-        return created;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
 
-    public Date getLastUpdated() {
-        return lastUpdated;
+    public Date getUpdatedAt() {
+        return updatedAt;
     }
 
 
-    @JsonIgnore
-    public User getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy;
     }
 
-    @JsonIgnore
-    public User getUpdatedBy() {
+    public String getUpdatedBy() {
         return updatedBy;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

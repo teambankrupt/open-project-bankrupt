@@ -11,14 +11,15 @@ import com.example.webservice.exceptions.invalid.InvalidException
 import com.example.webservice.exceptions.notfound.NotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.PropertySource
 import org.springframework.stereotype.Component
 import java.util.stream.Collectors
 
 @Component
+@PropertySource("classpath:security.properties")
 class UserMapper @Autowired constructor(
-        val userService: UserService,
-        val roleService: RoleService,
-        val roleMapper: RoleMapper
+        private val userService: UserService,
+        private val roleService: RoleService
 ) {
     @Value("\${auth.method}")
     lateinit var authMethod: String
@@ -40,8 +41,8 @@ class UserMapper @Autowired constructor(
     fun map(user: User): UserResponse {
         val dto = UserResponse()
         dto.id = user.id
-        dto.created = user.created
-        dto.lastUpdated = user.lastUpdated
+        dto.created = user.createdAt
+        dto.updatedAt = user.updatedAt
 
         dto.name = user.name
         dto.gender = user.gender
@@ -58,10 +59,15 @@ class UserMapper @Autowired constructor(
             if (authMethod == "phone") {
                 if (user.phone == null || user.phone.isEmpty()) throw InvalidException("Phone number can't be null or empty!")
                 if (this.userService.findByPhone(user.phone).isPresent) throw AlreadyExistsException("User already exists with phone: ${user.phone}")
-            } else {
+            } else if (authMethod == "email") {
                 if (user.email == null || user.email.isEmpty()) throw InvalidException("Email can't be null or empty!")
                 if (this.userService.findByEmail(user.email).isPresent) throw AlreadyExistsException("User already exists with email: ${user.email}")
-
+            } else { // both
+                if ((user.phone == null || user.phone.isEmpty()) && (user.email == null || user.email.isEmpty())) throw InvalidException("Email or phone can not be empty!")
+                if (user.phone.isNotEmpty())
+                    if (this.userService.findByPhone(user.phone).isPresent) throw AlreadyExistsException("User already exists with phone: ${user.phone}")
+                if (user.email.isNotEmpty())
+                    if (this.userService.findByEmail(user.email).isPresent) throw AlreadyExistsException("User already exists with email: ${user.email}")
             }
         }
     }

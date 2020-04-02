@@ -4,24 +4,24 @@ import com.example.webservice.commons.utils.PasswordUtil
 import com.example.webservice.domains.users.models.entities.Privilege
 import com.example.webservice.domains.users.models.entities.Role
 import com.example.webservice.domains.users.models.entities.User
-import com.example.webservice.domains.users.models.mappers.UserMapper
 import com.example.webservice.domains.users.services.PrivilegeService
 import com.example.webservice.domains.users.services.RoleService
 import com.example.webservice.domains.users.services.UserService
 import com.example.webservice.exceptions.notfound.NotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.PropertySource
 import org.springframework.context.event.ContextRefreshedEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 import java.lang.RuntimeException
 
 @Component
+@PropertySource("classpath:security.properties")
 class InitConfig @Autowired constructor(
-        val privilegeService: PrivilegeService,
-        val roleService: RoleService,
-        val userService: UserService,
-        val userMapper: UserMapper
+        private val privilegeService: PrivilegeService,
+        private val roleService: RoleService,
+        private val userService: UserService
 ) {
     @Value("\${auth.admin.username}")
     lateinit var adminUsername: String
@@ -78,7 +78,7 @@ class InitConfig @Autowired constructor(
 
     }
 
-    fun createPrivilegesIfNotExists(): List<Privilege> {
+    private fun createPrivilegesIfNotExists(): List<Privilege> {
         val privileges: MutableList<Privilege> = ArrayList()
 
         Privilege.Privileges.values().forEach {

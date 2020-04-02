@@ -56,7 +56,7 @@ public class AcValidationTokenServiceImpl implements AcValidationTokenService {
         Date date = new Date();
         Date fromDate = DateUtil.getDayStart(date);
         Date toDate = DateUtil.getDayEnd(date);
-        return this.tokenRepo.countByUserIdAndCreatedBetween(user.getId(), fromDate, toDate) >= 3;
+        return this.tokenRepo.count(user.getId(), fromDate, toDate) >= 3;
     }
 
     @Override

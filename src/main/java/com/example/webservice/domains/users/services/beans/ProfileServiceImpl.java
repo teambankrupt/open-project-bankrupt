@@ -70,7 +70,6 @@ public class ProfileServiceImpl implements ProfileService {
         Profile profile = this.profileRepository.findById(id).orElse(null);
         if (profile == null)
             throw new ProfileNotFoundException("Profile could not be found.");
-        if (!profile.hasAuthorizedAccess()) throw new ForbiddenException("You can not access this profile.");
         return profile;
     }
 
@@ -79,7 +78,6 @@ public class ProfileServiceImpl implements ProfileService {
         Profile profile = this.profileRepository.findByUserUsername(username);
         if (profile == null)
             throw new ProfileNotFoundException("Profile could not be found.");
-        if (!profile.hasAuthorizedAccess()) throw new ForbiddenException("You can not access this profile.");
         return profile;
     }
 

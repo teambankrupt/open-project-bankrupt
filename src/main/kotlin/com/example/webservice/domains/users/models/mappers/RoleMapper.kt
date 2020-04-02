@@ -9,15 +9,15 @@ import org.springframework.stereotype.Component
 
 @Component
 class RoleMapper @Autowired constructor(
-        val privilegeMapper: PrivilegeMapper,
-        val privilegeService: PrivilegeService
+        private val privilegeMapper: PrivilegeMapper,
+        private val privilegeService: PrivilegeService
 ) {
 
     fun map(role: Role): RoleDto {
         val dto = RoleDto()
         dto.id = role.id
-        dto.created = role.created
-        dto.lastUpdated = role.lastUpdated
+        dto.created = role.createdAt
+        dto.updatedAt = role.updatedAt
 
         dto.name = role.name
         dto.restricted = role.restricted

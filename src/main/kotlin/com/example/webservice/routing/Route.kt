@@ -48,6 +48,23 @@ class Route {
             const val UPDATE_VILLAGES = "$API$VERSION/villages/{id}"
             const val DELETE_VILLAGES = "$API$VERSION/villages/{id}"
 
+            // Imports batch
+            const val IMPORT_USERS = "$API$VERSION/admin/imports/users"
+
+            /**
+             * WEBSOCKET - CHAT
+             */
+            // Chat Rooms
+            const val SEARCH_CHATROOMS = "$API$VERSION/chat/chatrooms"
+            const val CREATE_CHATROOM = "$API$VERSION/chat/chatrooms"
+            const val FIND_CHATROOM = "$API$VERSION/chat/chatrooms/{id}"
+            const val UPDATE_CHATROOM = "$API$VERSION/chat/chatrooms/{id}"
+            const val DELETE_CHATROOM = "$API$VERSION/chat/chatrooms/{id}"
+
+            // Chat
+            const val CHAT = "/chat"
+
+
         }
     }
 }

@@ -236,6 +236,26 @@
             <version>8.10.22</version>
         </dependency>
 
+        <!--WebSocket-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+            <version>5.2.2.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+            <version>5.2.2.RELEASE</version>
+        </dependency>
+
+
+        <!--BATCH PROCESSING-->
+        <dependency>
+            <groupId>org.springframework.batch</groupId>
+            <artifactId>spring-batch-core</artifactId>
+        </dependency>
+
         <!--DEV DEPENDENCIES-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

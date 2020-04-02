@@ -36,6 +36,17 @@ public final class SecurityContext {
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
+    public static String getLoggedInUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
+            if (authentication.getPrincipal() instanceof String)
+                return (String) authentication.getPrincipal();
+            else
+                return ((UserAuth) authentication.getPrincipal()).getUsername();
+        }
+        return null;
+    }
+
     public static UserAuth getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
