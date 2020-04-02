@@ -16,7 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 //@Order(SecurityProperties.DEFAULT_FILTER_ORDER)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomUserDetailsService userDetailsService;
 
@@ -63,7 +63,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
                         "/css/**",
                         "/fileuploads/**",
                         "/test",
-                        "/init"
+                        "/init",
+                        "/chat/**",
+                        "/topic/**"
                 )
                 .permitAll()
                 .antMatchers("/admin/**")
