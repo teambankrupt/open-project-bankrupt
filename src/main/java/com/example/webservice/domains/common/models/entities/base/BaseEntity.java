@@ -41,7 +41,7 @@ public abstract class BaseEntity implements Serializable {
     @PrePersist
     private void onBasePersist() {
         this.createdAt = new Date();
-        this.updatedAt = new Date();
+        this.updatedAt = createdAt;
         this.createdBy = this.getLoggedInUsername();
         this.uuid = UUID.randomUUID().toString();
     }
