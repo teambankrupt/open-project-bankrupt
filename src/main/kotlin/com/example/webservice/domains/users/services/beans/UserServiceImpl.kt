@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.PropertySource
 import org.springframework.data.domain.Page
+import org.springframework.social.connect.Connection
 import org.springframework.stereotype.Service
 import java.util.*
 import javax.transaction.Transactional
@@ -245,6 +246,43 @@ open class UserServiceImpl @Autowired constructor(
         acValidationToken.user = user
         this.acValidationTokenService.save(acValidationToken)
         return user
+    }
+
+    override fun createSocialLoginUser(connection: Connection<*>): User {
+        val key = connection.key
+        println("key= (" + key.providerId + "," + key.providerUserId + ")")
+        val userProfile = connection.fetchUserProfile()
+
+        val userByEmail = this.userRepository.findByEmail(userProfile.email)
+        val userByUserName = this.userRepository.findByUsername(userProfile.username)
+        if (userByEmail.isPresent) return userByEmail.get()
+        if (userByUserName.isPresent) return userByUserName.get()
+
+        // Creat new user
+        val userNamePrefix = userProfile.firstName.trim().toLowerCase() + "_" + userProfile.lastName.trim().toLowerCase()
+        val username = this.findAvailableUserName(userNamePrefix)
+        val newUser = User()
+        newUser.username = username
+        newUser.password = PasswordUtil.encryptPassword(username, PasswordUtil.EncType.BCRYPT_ENCODER, null)
+        newUser.email = userProfile.email
+        newUser.name = userProfile.firstName + " " + userProfile.lastName
+        newUser.gender = "Other"
+        newUser.phone = null
+        val unrestrictedRole = this.roleService.findUnrestricted("User").orElseThrow { NotFoundException("Could not find role with name User") }
+        newUser.roles = listOf(unrestrictedRole)
+        return this.userRepository.save(newUser)
+    }
+
+    private fun findAvailableUserName(userNamePrefix: String): String {
+        var userAccount = this.userRepository.findByUsername(userNamePrefix)
+        if (!userAccount.isPresent) return userNamePrefix
+
+        var i = 0
+        while (true) {
+            val userName = userNamePrefix + "_" + i++
+            userAccount = this.findByUsername(userName)
+            if (!userAccount.isPresent) return userName
+        }
     }
 
 }

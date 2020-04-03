@@ -2,6 +2,7 @@ package com.example.webservice.domains.users.services
 
 import com.example.webservice.domains.users.models.entities.User
 import org.springframework.data.domain.Page
+import org.springframework.social.connect.Connection
 import java.util.*
 import javax.transaction.Transactional
 
@@ -11,7 +12,7 @@ interface UserService {
     fun findByRole(role: String, page: Int): Page<User>
     fun findByRole(role: String): List<User>
 
-    fun save(user: User) : User
+    fun save(user: User): User
     fun register(token: String, user: User): User
     fun requireAccountValidationByOTP(phoneOrEmail: String, tokenValidUntil: Date): Boolean
     fun find(id: Long): Optional<User>
@@ -27,4 +28,5 @@ interface UserService {
     @Transactional
     fun resetPassword(username: String, token: String, password: String): User
 
+    fun createSocialLoginUser(connection: Connection<*>): User
 }

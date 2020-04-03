@@ -1,4 +1,88 @@
-<html xmlns:th="http://www.thymeleaf.org">
-    <h1>Hello Freakin World!!</h1><br/>
-    <a th:href="@{/login}">Login</a>
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--    <h1>Hello Freakin World!!</h1><br/>-->
+<!--    <a th:href="@{/login}">Login</a>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Social Media Login Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1>Social Media Login</h1>
+        <p>Social media login example. You can login by using Google, Facebook, Twitter and Linked In. <br/>All type of
+            logins are more secured by using OAuth2.</p>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-1">
+        </div>
+        <div class="col-sm-3">
+            <div style="padding-top:12px;">
+                <a class="btn btn-block btn-social btn-facebook customBtn" th:href="@{/auth/facebook}">
+                    <span class="fa fa-facebook width42px"></span> Sign in with Facebook
+                </a>
+
+                <a class="btn btn-block btn-social btn-google customBtn" th:href="@{/auth/google}">
+                    <span class="fa fa-google width42px"></span> Sign in with Google
+                </a>
+
+                <a class="btn btn-block btn-social btn-twitter customBtn" th:href="@{/auth/twitter}">
+                    <span class="fa fa-twitter width42px"></span> Sign in with Twitter
+                </a>
+
+                <a class="btn btn-block btn-social btn-linkedin customBtn" th:href="@{/auth/linkedin}">
+                    <span class="fa fa-linkedin width42px"></span> Sign in with LinkedIn
+                </a>
+
+            </div>
+
+        </div>
+        <div class="col-sm-1">
+            <hr>
+        </div>
+        <div class="col-sm-5">
+            <div style="padding-top:15px;">
+                <!-- /login?error=true -->
+                <div class="alert alert-danger" th:if="${#request.getParameter('error') == 'true'}">
+                    Invalid Username/Password
+                </div>
+                <form th:action="@{/j_spring_security_check}" method='POST'>
+                    <div class="form-group">
+                        <label for="usernameTxt">Username:</label>
+                        <input type="text" class="form-control" id="usernameTxt" autofocus name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="password" class="form-control" id="pwd" name="password">
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <div class="p-2"><a href="/signup">
+                            <button type="button" class="btn btn-success">Create New Account</button>
+                        </a></div>
+                        <div class="p-2"></div>
+                        <div class="p-2">
+                            <button type="submit" name="submit" class="btn btn-info">Sigin in</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-2">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
 </html>

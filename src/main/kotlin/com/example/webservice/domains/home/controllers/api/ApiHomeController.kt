@@ -14,7 +14,12 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.oauth2.common.OAuth2AccessToken
+import org.springframework.social.connect.Connection
+import org.springframework.social.connect.ConnectionFactoryLocator
+import org.springframework.social.connect.UsersConnectionRepository
+import org.springframework.social.connect.web.ProviderSignInUtils
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.context.request.WebRequest
 import java.util.*
 
 @RestController
@@ -23,7 +28,9 @@ import java.util.*
 class ApiHomeController @Autowired constructor(
         private val userService: UserService,
         private val tokenService: TokenService,
-        private val userMapper: UserMapper
+        private val userMapper: UserMapper,
+        private val connectionFactoryLocator: ConnectionFactoryLocator,
+        private val connectionRepository: UsersConnectionRepository
 ) {
     @Value("\${baseUrl}")
     val baseUrl: String? = null
@@ -54,6 +61,18 @@ class ApiHomeController @Autowired constructor(
         return ResponseEntity.ok(tokenService.createAccessToken(user))
     }
 
+    @PostMapping("/register/social")
+    @ApiOperation(value = Constants.Swagger.REGISTER)
+    fun socialRegister(@RequestParam("request") request: WebRequest,
+                       @RequestBody userDto: UserRequest): ResponseEntity<OAuth2AccessToken> {
+        val providerSignInUtils = ProviderSignInUtils(connectionFactoryLocator, connectionRepository)
+        val connection: Connection<*> = providerSignInUtils.getConnectionFromSession(request)
+
+        val user = this.userService.createSocialLoginUser(connection)
+
+        SecurityContext.updateAuthentication(UserAuth(user))
+        return ResponseEntity.ok(tokenService.createAccessToken(user))
+    }
 
     @PostMapping("/change_password")
     @ApiOperation(value = Constants.Swagger.CHANGE_PASSWORD)
