@@ -31,6 +31,10 @@ It's a skeleton project with lots of features implemented by default.
 * File Upload Configuration for storing files on FileSystem
 * And lots of utility classes
 
+## Extra
+* Spring Batch Integration/Implementation
+* Spring Websocket (STOMP) implementation (Chatroom)
+
 <hr/>
 
 # [See Documentation](https://github.com/sayemkcn/Spring-Boot-Featured-Skeleton/wiki)
