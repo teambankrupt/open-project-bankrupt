@@ -22,7 +22,8 @@ function connect() {
     });
 }
 
-function subscribe(chatroomId) {
+function subscribe(elementId, chatroomId) {
+    console.log("Subscribing chatroom 1..");
     if (subscription != null)
         subscription.unsubscribe();
     const url = '/topic/chatrooms/' + chatroomId + '/messages';
@@ -30,6 +31,10 @@ function subscribe(chatroomId) {
         // console.log(messageOutput)
         showMessageOutput(JSON.parse(messageOutput.body));
     });
+
+    $('#chat_room_id').val(chatroomId);
+    $("[id^=chatRoomItem]").attr('class','');
+    $('#' + elementId).attr('class', 'active');
 }
 
 function disconnect() {
