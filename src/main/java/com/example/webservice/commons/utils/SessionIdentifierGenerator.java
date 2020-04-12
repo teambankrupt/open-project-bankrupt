@@ -16,9 +16,13 @@ public class SessionIdentifierGenerator {
 //        return "p"+(10000+random.nextInt(9000000));
     }
 
+//     public static int generateOTP() {
+//         SecureRandom random = new SecureRandom();
+//         return random.nextInt(999999);
+//     }
     public static int generateOTP() {
         SecureRandom random = new SecureRandom();
-        return random.nextInt(999999);
+        return 100000 + random.nextInt(89999);
     }
 
 }
