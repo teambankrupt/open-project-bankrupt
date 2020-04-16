@@ -1,17 +1,15 @@
 package com.example.webservice.domains.users.services
 
+import com.example.webservice.domains.common.services.CrudService
 import com.example.webservice.domains.users.models.entities.Privilege
+import org.springframework.data.domain.Page
 import java.util.*
 
-interface PrivilegeService {
-    fun save(privilege: Privilege): Privilege
+interface PrivilegeService: CrudService<Privilege>{
 
-    fun find(id: Long): Optional<Privilege>
     fun find(name: String): Optional<Privilege>
 
-    fun search(q: String): List<Privilege>
-
-    fun delete(id: Long)
-
     fun empty(): Boolean
+
+    fun findAll(): List<Privilege>
 }

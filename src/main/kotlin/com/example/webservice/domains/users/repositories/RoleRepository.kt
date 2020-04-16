@@ -1,6 +1,8 @@
 package com.example.webservice.domains.users.repositories
 
 import com.example.webservice.domains.users.models.entities.Role
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
@@ -9,6 +11,10 @@ import java.util.*
 
 @Repository
 interface RoleRepository : JpaRepository<Role, Long> {
+
+    @Query("SELECT r FROM Role r WHERE (:q IS NULL OR r.name LIKE %:q%) AND r.deleted=false")
+    fun search(@Param("q") query: String, pageable: Pageable): Page<Role>
+
     @Query("SELECT r FROM Role r WHERE r.id=:id AND r.deleted=false")
     fun find(@Param("id") id: Long): Optional<Role>
 

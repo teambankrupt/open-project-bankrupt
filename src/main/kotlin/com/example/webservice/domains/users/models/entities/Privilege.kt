@@ -34,4 +34,8 @@ class Privilege() : BaseEntity() {
     enum class Privileges(val label: String) {
         ADMINISTRATION("Administration"), ACCESS_USER_RESOURCES("Access User Resources")
     }
+
+    public fun accessesStr(): String {
+        return this.accessUrls.joinToString()
+    }
 }

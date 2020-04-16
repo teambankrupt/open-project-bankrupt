@@ -5,6 +5,7 @@ class Route {
         companion object {
             private const val API = "/api"
             private const val VERSION = "/v1"
+            private const val ADMIN = "/admin"
 
             // Address API's
             const val SEARCH_ADDRESSES = "$API$VERSION/addresses"
@@ -64,6 +65,18 @@ class Route {
             // Chat
             const val CHAT = "/chat"
 
+            // Roles
+            const val WEB_RELOAD_APPLICATION_CONTEXT = "$ADMIN/roles/reload-applicatication-context"
+            const val WEB_ROLES_PAGE = "$ADMIN/roles"
+            const val WEB_ROLE_DETAILS_PAGE = "$ADMIN/roles/{role_id}"
+            const val WEB_ROLE_CREATE = "$ADMIN/roles"
+            const val WEB_ROLE_UPDATE = "$ADMIN/roles/{role_id}"
+
+            // Privileges
+            const val WEB_PRIVILEGES_PAGE = "$ADMIN/privileges"
+            const val WEB_PRIVILEGE_CREATE = "$ADMIN/privileges"
+            const val WEB_PRIVILEGE_DETAILS_PAGE = "$ADMIN/privileges/{privilege_id}"
+            const val WEB_PRIVILEGE_UPDATE = "$ADMIN/privileges/{privilege_id}"
 
         }
     }

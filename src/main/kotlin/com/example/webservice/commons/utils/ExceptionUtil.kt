@@ -1,5 +1,6 @@
 package com.example.webservice.commons.utils
 
+import com.example.webservice.exceptions.forbidden.ForbiddenException
 import com.example.webservice.exceptions.notfound.NotFoundException
 
 /**
@@ -16,6 +17,9 @@ class ExceptionUtil {
         }
         fun getNotFound(name: String, code: String?): NotFoundException {
             return NotFoundException("Could not find $name with id: $code")
+        }
+        fun forbidden(message: String): ForbiddenException {
+            return ForbiddenException(message)
         }
     }
 }
