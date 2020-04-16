@@ -11,7 +11,7 @@ class RoleDto : BaseDto() {
     lateinit var name: String
 
     @NotNull
-    var restricted: Boolean = true
+    var restricted: Boolean = false
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     var privileges: List<PrivilegeDto>? = null

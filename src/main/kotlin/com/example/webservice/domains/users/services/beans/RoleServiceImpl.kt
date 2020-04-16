@@ -1,6 +1,7 @@
 package com.example.webservice.domains.users.services.beans
 
 import com.example.webservice.commons.PageAttr
+import com.example.webservice.commons.utils.ExceptionUtil
 import com.example.webservice.domains.users.models.entities.Role
 import com.example.webservice.domains.users.repositories.RoleRepository
 import com.example.webservice.domains.users.repositories.UserRepository
@@ -8,7 +9,6 @@ import com.example.webservice.domains.users.services.RoleService
 import com.example.webservice.exceptions.exists.AlreadyExistsException
 import com.example.webservice.exceptions.forbidden.ForbiddenException
 import com.example.webservice.exceptions.invalid.InvalidException
-import com.example.webservice.exceptions.notfound.NotFoundException
 import com.example.webservice.exceptions.notfound.UserNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
@@ -25,8 +25,8 @@ class RoleServiceImpl @Autowired constructor(
         return this.roleRepo.find(id)
     }
 
-    override fun findAll(page: Int): Page<Role> {
-        return this.roleRepo.findAll(PageAttr.getPageRequest(page));
+    override fun search(query: String, page: Int): Page<Role> {
+        return this.roleRepo.search(query, PageAttr.getPageRequest(page));
     }
 
     override fun findByIds(roleIds: List<Long>): List<Role> {
@@ -41,13 +41,13 @@ class RoleServiceImpl @Autowired constructor(
         return this.roleRepo.findUnrestricted(name)
     }
 
-    override fun save(role: Role): Role {
+    override fun save(entity: Role): Role {
         // When creating new role check if already exists with same name
-        if (role.id == null) {
-            if (this.roleRepo.existsByName(role.name))
-                throw AlreadyExistsException("Role exists with name: ${role.name}")
+        if (entity.id == null) {
+            if (this.roleRepo.existsByName(entity.name))
+                throw AlreadyExistsException("Role exists with name: ${entity.name}")
         }
-        return this.roleRepo.save(role)
+        return this.roleRepo.save(entity)
     }
 
     @Throws(ForbiddenException::class, UserNotFoundException::class)
@@ -56,9 +56,26 @@ class RoleServiceImpl @Autowired constructor(
         return user.roles
     }
 
+    override fun findAll(): List<Role> {
+        return this.roleRepo.findAll()
+    }
+
     override fun delete(id: Long) {
         val role = this.roleRepo.find(id)
         if (!role.isPresent) throw InvalidException("Role doesn't exist with id: $id")
         this.roleRepo.delete(role.get())
+    }
+
+    override fun delete(id: Long, softDelete: Boolean) {
+        val role = this.roleRepo.find(id).orElseThrow { ExceptionUtil.getNotFound("role", id) }
+
+        if (softDelete) {
+            role.isDeleted = true
+            this.roleRepo.save(role)
+            return
+        }
+        role.privileges = emptyList()
+        this.roleRepo.save(role)
+        this.roleRepo.delete(role)
     }
 }
