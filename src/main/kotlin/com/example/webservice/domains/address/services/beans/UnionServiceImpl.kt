@@ -20,8 +20,8 @@ class UnionServiceImpl @Autowired constructor(
         return this.unionRepo.save(entity)
     }
 
-    override fun search(query: String, page: Int): Page<Union> {
-        return this.unionRepo.search(query, PageAttr.getPageRequest(page))
+    override fun search(query: String, page: Int, size: Int): Page<Union> {
+        return this.unionRepo.search(query, PageAttr.getPageRequest(page,size))
     }
 
     override fun find(id: Long): Optional<Union> {

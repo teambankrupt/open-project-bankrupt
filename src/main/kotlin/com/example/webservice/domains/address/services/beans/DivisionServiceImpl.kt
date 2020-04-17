@@ -19,8 +19,8 @@ class DivisionServiceImpl @Autowired constructor(
         return this.divisionRepo.save(entity)
     }
 
-    override fun search(query: String, page: Int): Page<Division> {
-        return this.divisionRepo.search(query, PageAttr.getPageRequest(page))
+    override fun search(query: String, page: Int, size: Int): Page<Division> {
+        return this.divisionRepo.search(query, PageAttr.getPageRequest(page,size))
     }
 
     override fun find(id: Long): Optional<Division> {

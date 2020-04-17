@@ -25,8 +25,9 @@ class UnionController @Autowired constructor(
     @GetMapping(Route.V1.SEARCH_UNION)
     @ApiOperation(value = Constants.Swagger.SEARCH_ALL_MSG + Constants.Swagger.UNION)
     override fun search(@RequestParam("q", defaultValue = "") query: String,
-                        @RequestParam("page", defaultValue = "0") page: Int): ResponseEntity<Page<UnionDto>> {
-        val unions: Page<Union> = unionService.search(query, page)
+                        @RequestParam("page", defaultValue = "0") page: Int,
+                        @RequestParam("size", defaultValue = "10") size: Int): ResponseEntity<Page<UnionDto>> {
+        val unions: Page<Union> = unionService.search(query, page, size)
         return ResponseEntity.ok(unions.map { union -> unionMapper.map(union) })
     }
 

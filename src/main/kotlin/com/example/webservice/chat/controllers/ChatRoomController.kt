@@ -21,8 +21,9 @@ class ChatRoomController @Autowired constructor(
 
     @GetMapping(Route.V1.SEARCH_CHATROOMS)
     override fun search(@RequestParam("q", defaultValue = "") query: String,
-                        @RequestParam("page", defaultValue = "0") page: Int): ResponseEntity<Page<ChatRoomDto>> {
-        val chatRooms = this.chatRoomService.search(query, page)
+                        @RequestParam("page", defaultValue = "0") page: Int,
+                        @RequestParam("size", defaultValue = "10") size: Int): ResponseEntity<Page<ChatRoomDto>> {
+        val chatRooms = this.chatRoomService.search(query, page, size)
         return ResponseEntity.ok(chatRooms.map { this.chatRoomMapper.map(it) })
     }
 

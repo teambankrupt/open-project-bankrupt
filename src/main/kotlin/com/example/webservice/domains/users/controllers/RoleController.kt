@@ -24,8 +24,9 @@ class RoleController @Autowired constructor(
 
     @GetMapping("")
     override fun search(@RequestParam("query", defaultValue = "") query: String,
-                        @RequestParam("page", defaultValue = "0") page: Int): ResponseEntity<Page<RoleDto>> {
-        val roles = this.roleService.search(query, page)
+                        @RequestParam("page", defaultValue = "0") page: Int,
+                        @RequestParam("size", defaultValue = "10") size: Int): ResponseEntity<Page<RoleDto>> {
+        val roles = this.roleService.search(query, page, size)
         return ResponseEntity.ok(roles.map { this.roleMapper.map(it) })
     }
 

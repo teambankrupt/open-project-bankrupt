@@ -20,8 +20,8 @@ class UpazilaServiceImpl @Autowired constructor(
         return upazilaRepo.save(entity)
     }
 
-    override fun search(query: String, page: Int): Page<Upazila> {
-        return upazilaRepo.search(query, PageAttr.getPageRequest(page))
+    override fun search(query: String, page: Int, size: Int): Page<Upazila> {
+        return upazilaRepo.search(query, PageAttr.getPageRequest(page,size))
     }
 
     override fun find(id: Long): Optional<Upazila> {

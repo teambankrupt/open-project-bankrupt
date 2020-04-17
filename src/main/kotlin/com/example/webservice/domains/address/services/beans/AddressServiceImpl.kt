@@ -15,8 +15,8 @@ class AddressServiceImpl @Autowired constructor(
         private val addressRepo: AddressRepo
 ) : AddressService {
 
-    override fun search(query: String, page: Int): Page<Address> {
-        return this.addressRepo.search(query, PageAttr.getPageRequest(page))
+    override fun search(query: String, page: Int, size: Int): Page<Address> {
+        return this.addressRepo.search(query, PageAttr.getPageRequest(page,size))
     }
 
     override fun save(entity: Address): Address {

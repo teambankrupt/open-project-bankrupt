@@ -55,8 +55,8 @@ open class UserServiceImpl @Autowired constructor(
         return this.userRepository.search(query, r, PageAttr.getPageRequest(page, size))
     }
 
-    override fun search(query: String, page: Int): Page<User> {
-        return this.userRepository.search(query, PageAttr.getPageRequest(page))
+    override fun search(query: String, page: Int, size: Int): Page<User> {
+        return this.userRepository.search(query, PageAttr.getPageRequest(page, size))
     }
 
     override fun findAll(page: Int): Page<User> {
