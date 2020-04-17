@@ -1,10 +1,7 @@
 package com.example.webservice.domains.users.services.beans
 
 import com.example.webservice.commons.PageAttr
-import com.example.webservice.commons.utils.DateUtil
-import com.example.webservice.commons.utils.PasswordUtil
-import com.example.webservice.commons.utils.SessionIdentifierGenerator
-import com.example.webservice.commons.utils.Validator
+import com.example.webservice.commons.utils.*
 import com.example.webservice.config.security.SecurityContext
 import com.example.webservice.domains.common.services.MailService
 import com.example.webservice.domains.common.services.SmsService
@@ -54,8 +51,12 @@ open class UserServiceImpl @Autowired constructor(
     lateinit var tokenValidity: String
 
     override fun search(query: String, role: String, page: Int, size: Int): Page<User> {
-        val r = this.roleService.find(role).get()
+        val r = this.roleService.find(role).orElseThrow { ExceptionUtil.getNotFound("Role", role) }
         return this.userRepository.search(query, r, PageAttr.getPageRequest(page, size))
+    }
+
+    override fun search(query: String, page: Int): Page<User> {
+        return this.userRepository.search(query, PageAttr.getPageRequest(page))
     }
 
     override fun findAll(page: Int): Page<User> {
@@ -71,8 +72,8 @@ open class UserServiceImpl @Autowired constructor(
     }
 
 
-    override fun save(user: User): User {
-        return this.userRepository.save(user)
+    override fun save(entity: User): User {
+        return this.userRepository.save(entity)
     }
 
     override fun register(token: String, user: User): User {
@@ -144,8 +145,8 @@ open class UserServiceImpl @Autowired constructor(
         val data = NotificationData()
         data.title = "New Registration -:- " + user.name
         val description = "Username: " + user.username + ", On: " + DateUtil.getReadableDateTime(Date())
-        val brief = description.substring(0, Math.min(description.length, 100))
-        data.message = brief
+        val brief = description.substring(0, description.length.coerceAtMost(100))
+        data.message = brief.substring(0, brief.length.coerceAtMost(100))
         data.type = PushNotification.Type.ADMIN_NOTIFICATIONS.value
 
         val notification = PushNotification(null, data)
@@ -155,6 +156,16 @@ open class UserServiceImpl @Autowired constructor(
 
     override fun find(id: Long): Optional<User> {
         return this.userRepository.findById(id)
+    }
+
+    override fun delete(id: Long, softDelete: Boolean) {
+        if (softDelete) {
+            val user = this.userRepository.find(id).orElseThrow { ExceptionUtil.getNotFound("User", id) }
+            user.isDeleted = false
+            this.userRepository.save(user)
+            return
+        }
+        return this.userRepository.deleteById(id)
     }
 
     override fun findByUsername(username: String): Optional<User> {
@@ -220,9 +231,9 @@ open class UserServiceImpl @Autowired constructor(
 
     override fun setRoles(id: Long, roleIds: List<Long>): User {
         val user = this.find(id).orElseThrow { NotFoundException("Could not find user with username: $id") }
-        val isAdmin = user.isAdmin // check if user is admin
+        val isAdmin = user.isAdmin() // check if user is admin
         val roles = this.roleService.findByIds(roleIds)
-        user.roles = roles.filter { role -> !role.isAdmin() }
+        user.roles = roles.filter { role -> !role.isAdmin() }.toMutableList()
         if (isAdmin) {// set admin role explicitly after clearing roles
             val role = this.roleService.find(Role.ERole.Admin.name).orElseThrow { NotFoundException("Admin role couldn't be set!") }
             user.roles.add(role)
