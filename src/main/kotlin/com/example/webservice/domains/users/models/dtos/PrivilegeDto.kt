@@ -12,6 +12,8 @@ class PrivilegeDto : BaseDto() {
     @ApiModelProperty(name = "A Unique string without space", example = "ACCESS_USER_DATA")
     lateinit var name: String
 
+    var description: String? = null
+
     @NotBlank
     @ApiModelProperty(name = "A readable label for the Privilege", example = "Read User Data")
     lateinit var label: String
