@@ -65,18 +65,25 @@ class Route {
             // Chat
             const val CHAT = "/chat"
 
-            // Roles
+            // Roles (Admin)
             const val WEB_RELOAD_APPLICATION_CONTEXT = "$ADMIN/roles/reload-applicatication-context"
             const val WEB_ROLES_PAGE = "$ADMIN/roles"
             const val WEB_ROLE_DETAILS_PAGE = "$ADMIN/roles/{role_id}"
             const val WEB_ROLE_CREATE = "$ADMIN/roles"
             const val WEB_ROLE_UPDATE = "$ADMIN/roles/{role_id}"
 
-            // Privileges
+            // Privileges (Admin)
             const val WEB_PRIVILEGES_PAGE = "$ADMIN/privileges"
             const val WEB_PRIVILEGE_CREATE = "$ADMIN/privileges"
             const val WEB_PRIVILEGE_DETAILS_PAGE = "$ADMIN/privileges/{privilege_id}"
             const val WEB_PRIVILEGE_UPDATE = "$ADMIN/privileges/{privilege_id}"
+
+            // Users (Admin)
+            const val WEB_USERS_SEARCH_PAGE = "$ADMIN/users"
+            const val WEB_USERS_CREATE = "$ADMIN/users"
+            const val WEB_USERS_DETAILS_PAGE = "$ADMIN/users/{user_id}"
+            const val WEB_USERS_UPDATE = "$ADMIN/users/{user_id}"
+            const val WEB_TOGGLE_ENABLED = "$ADMIN/users/{user_id}/toggle-access"
 
         }
     }

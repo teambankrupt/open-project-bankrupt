@@ -258,4 +258,9 @@ open class UserServiceImpl @Autowired constructor(
         return user
     }
 
+    @Transactional
+    override fun toggleAccess(userId: Long, enable: Boolean) {
+        this.userRepository.toggleAccess(userId, enable)
+    }
+
 }
