@@ -20,15 +20,6 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     public Activity save(Activity activity) {
-        if (activity.getId() == null) { // new activity (user logged in)
-            Activity firstActivity = this.findFirst();
-            if (firstActivity != null) {
-                Long total = firstActivity.getTotalVisitors();
-                activity.setTotalVisitors(++total);
-                firstActivity.setTotalVisitors(total);
-                this.activityRepo.save(firstActivity);
-            }
-        }
         return this.activityRepo.save(activity);
     }
 

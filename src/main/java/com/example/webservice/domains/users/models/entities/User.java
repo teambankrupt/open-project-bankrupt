@@ -77,6 +77,13 @@ public class User extends BaseEntity {
                 this.roles.stream().anyMatch(Role::isAdmin);
     }
 
+    public boolean canLogin() {
+        return this.enabled
+                && this.accountNonExpired
+                && this.accountNonLocked
+                && this.credentialsNonExpired;
+    }
+
 
     public String getPassword() {
         return this.password;
