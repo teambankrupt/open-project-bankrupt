@@ -15,8 +15,8 @@ class ChatRoomServiceBean @Autowired constructor(
         private val chatRoomRepository: ChatRoomRepository
 ) : ChatRoomService {
 
-    override fun search(query: String, page: Int): Page<ChatRoom> {
-        return this.chatRoomRepository.search(query, PageAttr.getPageRequest(page))
+    override fun search(query: String, page: Int, size: Int): Page<ChatRoom> {
+        return this.chatRoomRepository.search(query, PageAttr.getPageRequest(page,size))
     }
 
     override fun save(entity: ChatRoom): ChatRoom {

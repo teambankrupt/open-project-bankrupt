@@ -34,6 +34,29 @@
                 </a>
             </li>
             <li>
+                <a href="javascript:void(0);" class="menu-toggle">
+                    <i class="material-icons">widgets</i>
+                    <span>Users (Admin)</span>
+                </a>
+                <ul class="ml-menu">
+                    <li>
+                        <a th:href="@{/admin/users}">
+                            <span>Users</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/admin/roles}">
+                            <span>Roles</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/admin/privileges}">
+                            <span>Privileges</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
                 <a href="pages/typography.html">
                     <i class="material-icons">text_fields</i>
                     <span>Typography</span>

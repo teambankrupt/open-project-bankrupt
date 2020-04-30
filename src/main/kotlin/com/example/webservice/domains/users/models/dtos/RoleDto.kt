@@ -10,6 +10,8 @@ class RoleDto : BaseDto() {
     @NotBlank
     lateinit var name: String
 
+    var description: String? = null
+
     @NotNull
     var restricted: Boolean = false
 

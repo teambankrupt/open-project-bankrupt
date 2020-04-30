@@ -26,8 +26,9 @@ class DistrictController(
     @GetMapping(Route.V1.SEARCH_DISTRICT)
     @ApiOperation(value = Constants.Swagger.SEARCH_ALL_MSG + Constants.Swagger.DISTRICT)
     override fun search(@RequestParam("q", defaultValue = "") query: String,
-                        @RequestParam("page", defaultValue = "0") page: Int): ResponseEntity<Page<DistrictDto>> {
-        val districts: Page<District> = this.districtService.search(query, page)
+                        @RequestParam("page", defaultValue = "0") page: Int,
+                        @RequestParam("size", defaultValue = "10") size: Int): ResponseEntity<Page<DistrictDto>> {
+        val districts: Page<District> = this.districtService.search(query, page, size)
         return ResponseEntity.ok(districts.map { district -> this.districtMapper.map(district) })
     }
 

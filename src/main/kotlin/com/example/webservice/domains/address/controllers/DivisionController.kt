@@ -25,8 +25,9 @@ class DivisionController(
     @GetMapping(Route.V1.SEARCH_DIVISION)
     @ApiOperation(value = Constants.Swagger.SEARCH_ALL_MSG + Constants.Swagger.DIVISION)
     fun search(@RequestParam("q", defaultValue = "") query: String,
-               @RequestParam("page", defaultValue = "0") page: Int): ResponseEntity<Any> {
-        val divisions: Page<Division> = this.divisionService.search(query, page)
+               @RequestParam("page", defaultValue = "0") page: Int,
+                        @RequestParam("size", defaultValue = "10") size: Int): ResponseEntity<Any> {
+        val divisions: Page<Division> = this.divisionService.search(query, page, size)
         return ResponseEntity.ok(divisions.map { division -> this.divisionMapper.map(division) })
     }
 

@@ -43,8 +43,8 @@ class PrivilegeServiceImpl @Autowired constructor(
         return this.privilegeRepo.find(id)
     }
 
-    override fun search(query: String, page: Int): Page<Privilege> {
-        return this.privilegeRepo.search(query, PageAttr.getPageRequest(page))
+    override fun search(query: String, page: Int, size: Int): Page<Privilege> {
+        return this.privilegeRepo.search(query, PageAttr.getPageRequest(page,size))
     }
 
 

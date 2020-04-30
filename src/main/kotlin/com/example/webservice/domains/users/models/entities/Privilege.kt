@@ -17,6 +17,8 @@ class Privilege() : BaseEntity() {
     @Column(nullable = false, unique = true)
     lateinit var label: String
 
+    var description: String? = null
+
     @ElementCollection
     @LazyCollection(LazyCollectionOption.FALSE)
     @CollectionTable(name = "privileges_access_urls")

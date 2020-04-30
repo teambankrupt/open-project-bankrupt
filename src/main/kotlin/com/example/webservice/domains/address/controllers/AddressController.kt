@@ -26,8 +26,9 @@ class AddressController @Autowired constructor(
     @GetMapping(Route.V1.SEARCH_ADDRESSES)
     @ApiOperation(value = Constants.Swagger.SEARCH_ALL_MSG + Constants.Swagger.ADDRESS)
     override fun search(@RequestParam("query", defaultValue = "") query: String,
-                        @RequestParam("page", defaultValue = "0") page: Int): ResponseEntity<Page<AddressDto>> {
-        val addresses = this.addressService.search(query, page)
+                        @RequestParam("page", defaultValue = "0") page: Int,
+                        @RequestParam("size", defaultValue = "10") size: Int): ResponseEntity<Page<AddressDto>> {
+        val addresses = this.addressService.search(query, page, size)
         return ResponseEntity.ok(addresses.map { this.addressMapper.map(it) })
     }
 

@@ -14,8 +14,8 @@ import java.util.*
 class ChatMessageServiceBean @Autowired constructor(
         private val chatMessageRepository: ChatMessageRepository
 ) : ChatMessageService {
-    override fun search(query: String, page: Int): Page<ChatMessage> {
-        return this.chatMessageRepository.search(query, PageAttr.getPageRequest(page))
+    override fun search(query: String, page: Int, size: Int): Page<ChatMessage> {
+        return this.chatMessageRepository.search(query, PageAttr.getPageRequest(page, size))
     }
 
     override fun save(entity: ChatMessage): ChatMessage {

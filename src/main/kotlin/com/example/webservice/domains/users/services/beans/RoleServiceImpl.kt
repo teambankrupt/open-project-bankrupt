@@ -25,8 +25,8 @@ class RoleServiceImpl @Autowired constructor(
         return this.roleRepo.find(id)
     }
 
-    override fun search(query: String, page: Int): Page<Role> {
-        return this.roleRepo.search(query, PageAttr.getPageRequest(page));
+    override fun search(query: String, page: Int, size: Int): Page<Role> {
+        return this.roleRepo.search(query, PageAttr.getPageRequest(page,size));
     }
 
     override fun findByIds(roleIds: List<Long>): List<Role> {

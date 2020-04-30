@@ -15,8 +15,8 @@ class VillageServiceImpl @Autowired constructor(
         private val villageRepo: VillageRepo
 ) : VillageService {
 
-    override fun search(query: String, page: Int): Page<Village> {
-        return this.villageRepo.search(query, PageAttr.getPageRequest(page))
+    override fun search(query: String, page: Int, size: Int): Page<Village> {
+        return this.villageRepo.search(query, PageAttr.getPageRequest(page,size))
     }
 
     override fun save(entity: Village): Village {
