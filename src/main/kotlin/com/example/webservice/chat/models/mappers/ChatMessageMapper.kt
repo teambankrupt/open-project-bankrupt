@@ -22,7 +22,7 @@ class ChatMessageMapper @Autowired constructor(
         dto.created = entity.createdAt
         dto.updatedAt = entity.updatedAt
 
-        dto.from = entity.from.name
+        dto.from = entity.from.username
         dto.chatRoomId = entity.chatRoom.id
         dto.content = entity.content
         dto.time = SimpleDateFormat("HH:mm").format(entity.updatedAt)

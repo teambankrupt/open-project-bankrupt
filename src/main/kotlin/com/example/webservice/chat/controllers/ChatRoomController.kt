@@ -4,6 +4,7 @@ import com.example.webservice.chat.models.dtos.ChatRoomDto
 import com.example.webservice.chat.models.mappers.ChatRoomMapper
 import com.example.webservice.chat.services.ChatRoomService
 import com.example.webservice.commons.utils.ExceptionUtil
+import com.example.webservice.config.security.SecurityContext
 import com.example.webservice.domains.common.controller.CrudController
 import com.example.webservice.routing.Route
 import org.springframework.beans.factory.annotation.Autowired
