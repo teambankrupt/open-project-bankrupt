@@ -3,9 +3,16 @@ package com.example.webservice.domains.common.services.impl;
 import com.example.webservice.domains.common.services.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.File;
 
 @Service
 public class MailServiceImpl implements MailService {
@@ -24,15 +31,26 @@ public class MailServiceImpl implements MailService {
         mailMessage.setSubject(subject);
         mailMessage.setText(message);
         try {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    javaMailSender.send(mailMessage);
-                }
-            }).start();
+            new Thread(() -> javaMailSender.send(mailMessage)).start();
         } catch (Exception e) {
             System.out.println(e.toString());
         }
         return true;
+    }
+
+    public void sendEmail(String to, String from, String sub, String msgBody, File file) {
+        MimeMessage message = javaMailSender.createMimeMessage();
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            if (from != null)
+                helper.setFrom(from);
+            helper.setTo(to);
+            helper.setSubject(sub);
+            helper.setText(msgBody);
+            helper.addAttachment(file.getName(), new FileSystemResource(file));
+            new Thread(() -> javaMailSender.send(message)).start();
+        } catch (MessagingException e) {
+            System.out.println(e.toString());
+        }
     }
 }
