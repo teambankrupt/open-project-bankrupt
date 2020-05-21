@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
+import java.util.List;
 
 @Service
 public class MailServiceImpl implements MailService {
@@ -38,7 +39,8 @@ public class MailServiceImpl implements MailService {
         return true;
     }
 
-    public void sendEmail(String to, String from, String sub, String msgBody, File file) {
+    @Override
+    public void sendEmail(String to, String from, String sub, String msgBody, List<File> attachments) {
         MimeMessage message = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -47,10 +49,14 @@ public class MailServiceImpl implements MailService {
             helper.setTo(to);
             helper.setSubject(sub);
             helper.setText(msgBody);
-            helper.addAttachment(file.getName(), new FileSystemResource(file));
+            if (attachments != null)
+                for (File a : attachments)
+                    helper.addAttachment(a.getName(), new FileSystemResource(a));
+
             new Thread(() -> javaMailSender.send(message)).start();
         } catch (MessagingException e) {
             System.out.println(e.toString());
         }
     }
+
 }
