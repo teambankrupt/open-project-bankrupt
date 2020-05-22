@@ -28,7 +28,7 @@ class Role : BaseEntity() {
     }
 
     fun isAdmin(): Boolean {
-        return privileges != null && this.privileges!!.stream().anyMatch { Privilege.Privileges.ADMINISTRATION.name.equals(it.name) }
+        return privileges != null && this.privileges!!.stream().anyMatch { Privilege.Privileges.ADMINISTRATION.name == it.name }
     }
 
     fun isSameAs(role: Role): Boolean {
