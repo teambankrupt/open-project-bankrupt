@@ -33,6 +33,10 @@ class RoleServiceImpl @Autowired constructor(
         return this.roleRepo.findByRoleIds(roleIds)
     }
 
+    override fun findByIdsUnrestricted(roleIds: List<Long>): List<Role> {
+        return this.roleRepo.findByRoleIdsUnrestricted(roleIds)
+    }
+
     override fun find(name: String): Optional<Role> {
         return this.roleRepo.find(name)
     }

@@ -27,5 +27,8 @@ interface RoleRepository : JpaRepository<Role, Long> {
     @Query("SELECT r from Role r WHERE r.id IN :ids AND r.deleted=false")
     fun findByRoleIds(@Param("ids") roleIds: List<Long>): List<Role>
 
+    @Query("SELECT r from Role r WHERE r.id IN :ids AND r.restricted=false AND r.deleted=false")
+    fun findByRoleIdsUnrestricted(@Param("ids") roleIds: List<Long>): List<Role>
+
     fun existsByName(name: String): Boolean
 }

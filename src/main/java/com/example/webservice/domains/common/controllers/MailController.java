@@ -20,9 +20,9 @@ public class MailController {
     }
 
     @PostMapping("/api/v1/test-email")
-    private ResponseEntity testEmail(@RequestParam("email") String email,
-                                     @RequestParam(value = "subject", defaultValue = "Test Email") String subject,
-                                     @RequestParam(value = "message", defaultValue = "Hi,\n\nEmail is working!!") String message) {
+    private ResponseEntity<String> testEmail(@RequestParam("email") String email,
+                                             @RequestParam(value = "subject", defaultValue = "Test Email") String subject,
+                                             @RequestParam(value = "message", defaultValue = "Hi,\n\nEmail is working!!") String message) {
         this.mailService.sendEmail(email, subject, message);
         return ResponseEntity.ok("Email Sent!!");
     }

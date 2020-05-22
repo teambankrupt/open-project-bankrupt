@@ -62,7 +62,7 @@
                             <td th:text="${user.accountNonLocked?'No':'Yes'}">@mdo</td>
                             <td th:text="${user.credentialsNonExpired?'No':'Yes'}">@mdo</td>
                             <td>
-                                <a class="btn btn-primary" th:href="@{/admin/users/}+${user.id}+@{/update}">UPDATE</a>
+                                <a class="btn btn-primary" th:href="@{/admin/users/}+${user.id}">UPDATE</a>
                             </td>
                             <td th:if="${!user.isAdmin()}">
                                 <a class="btn btn-danger" th:if="${user.enabled}"

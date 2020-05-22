@@ -12,6 +12,7 @@ interface RoleService : CrudService<Role>{
     fun find(name: String): Optional<Role>
     fun findUnrestricted(name: String): Optional<Role>
     fun findByIds(roleIds: List<Long>): List<Role>
+    fun findByIdsUnrestricted(roleIds: List<Long>): List<Role>
 
     @Throws(ForbiddenException::class, UserNotFoundException::class)
     fun findByUser(userId: Long): List<Role>
