@@ -20,7 +20,8 @@
                         USERS <small>Select a user to update</small><br/>
                         <!--                        <a th:href="@{/admin/roles}" class="btn btn-warning pull-right">Create New</a>-->
                         <form class="form form-line" th:action="@{/admin/users/}+${user?.id}">
-                            <input type="text" name="q" placeholder="Search User" class="form-control"></input><br/>
+                            <input type="text" name="query" placeholder="Search User" class="form-control"
+                                   th:value="${query}"></input><br/>
                             <button type="submit" class="btn btn-success pull-right">Search</button>
                         </form>
                     </h2>
@@ -40,7 +41,8 @@
                 </div>
                 <div class="body">
                     <ul class="list-group">
-                        <a th:each="u: ${users}" th:href="@{/admin/users/}+${u.id}" class="list-group-item"
+                        <a th:each="u: ${users}" th:href="@{/admin/users/}+${u.id}+@{/(query=${query})}"
+                           class="list-group-item"
                            th:classappend="${user!=null && u.id==user.id?'active':''}">
                             <h5 class="list-group-item-heading">
                                 <span th:text="${u.name}"></span>

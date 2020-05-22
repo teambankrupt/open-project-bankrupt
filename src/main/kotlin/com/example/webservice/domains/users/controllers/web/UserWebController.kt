@@ -19,28 +19,31 @@ class UserWebController @Autowired constructor(
         private val userService: UserService,
         private val roleService: RoleService,
         private val userMapper: UserMapper
-) : CrudWebController<UserRequest> {
+) {
 
     @GetMapping(Route.V1.WEB_USERS_SEARCH_PAGE)
-    override fun search(@RequestParam("query", defaultValue = "") query: String,
-                        @RequestParam("page", defaultValue = "0") page: Int,
-                        @RequestParam("query", defaultValue = "10") size: Int,
-                        model: Model): String {
-        val users = this.userService.search(query, page, size)
+    fun search(@RequestParam("query", defaultValue = "") query: String,
+               @RequestParam(value = "role", required = false) role: String?,
+               @RequestParam("page", defaultValue = "0") page: Int,
+               @RequestParam("size", defaultValue = "10") size: Int,
+               model: Model): String {
+        val users = this.userService.search(query, role, page, size)
         model.addAttribute("users", users)
         return "material/fragments/users/users"
     }
 
     @GetMapping(Route.V1.WEB_USERS_UPDATE)
     fun detailsPage(@PathVariable("user_id") id: Long,
-                    @RequestParam("q", defaultValue = "") query: String,
+                    @RequestParam("query", defaultValue = "") query: String,
+                    @RequestParam(value = "role", required = false) role: String?,
                     @RequestParam("page", defaultValue = "0") page: Int,
-                    @RequestParam("query", defaultValue = "10") size: Int,
+                    @RequestParam("size", defaultValue = "10") size: Int,
                     model: Model): String {
         val user = this.userService.find(id).orElseThrow { ExceptionUtil.getNotFound("User", id) }
 
+        model.addAttribute("query", query)
         model.addAttribute("user", user)
-        model.addAttribute("users", this.userService.search(query, page, size))
+        model.addAttribute("users", this.userService.search(query, role, page, size))
         model.addAttribute("roles", this.roleService.findAll())
         return "material/fragments/users/details"
     }
@@ -53,21 +56,6 @@ class UserWebController @Autowired constructor(
         return "redirect:/admin/users/${user.id}"
     }
 
-    override fun find(id: Long): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun createPage(model: Model): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun create(dto: UserRequest): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun delete(id: Long): String {
-        TODO("Not yet implemented")
-    }
 
     @GetMapping(Route.V1.WEB_TOGGLE_ENABLED)
     fun toggleEnabled(@PathVariable("user_id") userId: Long,
@@ -75,14 +63,5 @@ class UserWebController @Autowired constructor(
         this.userService.toggleAccess(userId, enable)
         return "redirect:${Route.V1.WEB_USERS_SEARCH_PAGE}"
     }
-
-    override fun updatePage(id: Long, model: Model): String {
-        TODO("Not yet implemented")
-    }
-
-    override fun update(id: Long, dto: UserRequest): String {
-        TODO("Not yet implemented")
-    }
-
 
 }

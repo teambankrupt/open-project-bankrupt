@@ -7,7 +7,7 @@ import java.util.*
 import javax.transaction.Transactional
 
 interface UserService : CrudService<User> {
-    fun search(query: String, role: String, page: Int, size: Int): Page<User>
+    fun search(query: String, role: String?, page: Int, size: Int): Page<User>
     fun findAll(page: Int): Page<User>
     fun findByRole(role: String, page: Int): Page<User>
     fun findByRole(role: String): List<User>
