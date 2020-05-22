@@ -3,10 +3,12 @@ package com.example.webservice.chat.controllers
 import com.example.webservice.chat.models.dtos.ChatRoomDto
 import com.example.webservice.chat.models.mappers.ChatRoomMapper
 import com.example.webservice.chat.services.ChatRoomService
+import com.example.webservice.commons.Constants
 import com.example.webservice.commons.utils.ExceptionUtil
 import com.example.webservice.config.security.SecurityContext
 import com.example.webservice.domains.common.controller.CrudController
 import com.example.webservice.routing.Route
+import io.swagger.annotations.Api
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
@@ -15,6 +17,7 @@ import javax.validation.Valid
 
 
 @RestController
+@Api(tags = [Constants.Swagger.CHAT_ROOMS], description = Constants.Swagger.CHAT_ROOMS_DETAILS)
 class ChatRoomController @Autowired constructor(
         private val chatRoomMapper: ChatRoomMapper,
         private val chatRoomService: ChatRoomService

@@ -1,6 +1,9 @@
 package com.example.webservice.domains.users.models.mappers
 
+import com.example.webservice.commons.utils.ExceptionUtil
 import com.example.webservice.commons.utils.PasswordUtil
+import com.example.webservice.config.security.SecurityContext
+import com.example.webservice.domains.users.models.dtos.UserUpdateAdminDto
 import com.example.webservice.domains.users.models.dtos.UserRequest
 import com.example.webservice.domains.users.models.dtos.UserResponse
 import com.example.webservice.domains.users.models.entities.User
@@ -53,7 +56,35 @@ class UserMapper @Autowired constructor(
         return dto
     }
 
+
+    fun map(dto: UserUpdateAdminDto, exUser: User?): User {
+        val user = exUser ?: User()
+        user.apply {
+            name = dto.name
+            gender = dto.gender
+            phone = dto.phone
+            username = dto.username
+
+            if (dto.password.isNotBlank()) {
+                if (dto.password.length < 6) throw ExceptionUtil.forbidden("Invalid password length!")
+                password = PasswordUtil.encryptPassword(dto.password, PasswordUtil.EncType.BCRYPT_ENCODER, null)
+            } else if (exUser == null) // if password not entered for new user, throw exception
+                throw ExceptionUtil.forbidden("Password length not be empty!")
+
+            email = dto.email
+            roles = if (SecurityContext.getCurrentUser().isAdmin) roleService.findByIds(dto.roleIds) else roleService.findByIdsUnrestricted(dto.roleIds)
+            isEnabled = dto.enabled
+            isAccountNonExpired = dto.accountNonExpired
+            isAccountNonLocked = dto.accountNonLocked
+            isCredentialsNonExpired = dto.credentialsNonExpired
+        }
+
+        this.validate(user)
+        return user
+    }
+
     fun validate(user: User) {
+
         if (user.id == null) { // For new user
             if (this.userService.findByUsername(user.username).isPresent) throw AlreadyExistsException("User already exists with username: ${user.username}")
             if (authMethod == "phone") {
