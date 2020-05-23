@@ -1,8 +1,8 @@
 package com.example.webservice.domains.address.models.mappers
 
 import com.example.webservice.domains.address.models.dto.AddressDto
-import com.example.webservice.domains.address.models.dto.LatLng
 import com.example.webservice.domains.address.models.entities.Address
+import com.example.webservice.domains.address.models.entities.LatLng
 import com.example.webservice.domains.address.services.*
 import com.example.webservice.exceptions.notfound.NotFoundException
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,8 +25,8 @@ class AddressMapper @Autowired constructor(
         dto.upazilaId = address.upazila?.id
         dto.unionId = address.union?.id
         dto.villageId = address.village?.id
-        dto.lat = address.latLng?.lat
-        dto.lng = address.latLng?.lng
+        dto.lat = address.latLng?.latitude
+        dto.lng = address.latLng?.longitude
         dto.created = address.createdAt
         dto.updatedAt = address.updatedAt
         return dto
@@ -41,8 +41,8 @@ class AddressMapper @Autowired constructor(
         addr.union = addressDto.unionId?.let { this.unionService.find(it).orElseThrow { NotFoundException("Could not find union with id: " + addr.union?.id) } }
         addr.village = addressDto.villageId?.let { this.villageService.find(it).orElseThrow { NotFoundException("Could not find village with id: " + addr.village?.id) } }
         if (addr.latLng == null) addr.latLng = LatLng()
-        addr.latLng!!.lat = addressDto.lat ?: addr.latLng!!.lat
-        addr.latLng!!.lng = addressDto.lng ?: addr.latLng!!.lng
+        addr.latLng!!.latitude = addressDto.lat ?: addr.latLng!!.latitude
+        addr.latLng!!.longitude = addressDto.lng ?: addr.latLng!!.longitude
         return addr
     }
 

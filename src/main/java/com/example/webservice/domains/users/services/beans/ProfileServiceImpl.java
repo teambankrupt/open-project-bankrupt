@@ -42,11 +42,6 @@ public class ProfileServiceImpl implements ProfileService {
             if (Validator.nullOrEmpty(profile.getPhoto()))
                 profile.setPhoto(exProfile.getPhoto());
         }
-        if (profile.getAddress() == null ||
-                profile.getAddress().getArea() == null
-                || profile.getAddress().getPoliceStation() == null
-                || profile.getAddress().getDistrict() == null)
-            throw new NotFoundException("Address doesn\'t meet required information");
 
         // update name of user
         user.setName(profile.getName());
