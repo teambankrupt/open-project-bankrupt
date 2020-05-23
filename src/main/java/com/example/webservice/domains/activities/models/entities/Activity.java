@@ -1,6 +1,6 @@
 package com.example.webservice.domains.activities.models.entities;
 
-import com.example.webservice.domains.common.models.entities.base.BaseEntity;
+import com.example.webservice.domains.common.base.models.entities.BaseEntity;
 import com.example.webservice.domains.users.models.UserAuth;
 import com.example.webservice.domains.users.models.entities.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -8,7 +8,6 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity

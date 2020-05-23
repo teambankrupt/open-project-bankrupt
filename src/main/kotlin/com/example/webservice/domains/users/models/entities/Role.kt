@@ -1,6 +1,6 @@
 package com.example.webservice.domains.users.models.entities
 
-import com.example.webservice.domains.common.models.entities.base.BaseEntity
+import com.example.webservice.domains.common.base.models.entities.BaseEntity
 import org.hibernate.annotations.Fetch
 import org.hibernate.annotations.FetchMode
 
@@ -28,7 +28,7 @@ class Role : BaseEntity() {
     }
 
     fun isAdmin(): Boolean {
-        return privileges != null && this.privileges!!.stream().anyMatch { Privilege.Privileges.ADMINISTRATION.name.equals(it.name) }
+        return privileges != null && this.privileges!!.stream().anyMatch { Privilege.Privileges.ADMINISTRATION.name == it.name }
     }
 
     fun isSameAs(role: Role): Boolean {

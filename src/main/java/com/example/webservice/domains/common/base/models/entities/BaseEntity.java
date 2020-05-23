@@ -1,9 +1,7 @@
-package com.example.webservice.domains.common.models.entities.base;
+package com.example.webservice.domains.common.base.models.entities;
 
 import com.example.webservice.commons.utils.DateUtil;
 import com.example.webservice.config.security.SecurityContext;
-import com.example.webservice.domains.users.models.UserAuth;
-import com.example.webservice.domains.users.models.entities.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;

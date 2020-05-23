@@ -1,6 +1,6 @@
 package com.example.webservice.chat.models.dtos
 
-import com.example.webservice.domains.common.models.dtos.BaseDto
+import com.example.webservice.domains.common.base.models.dtos.BaseDto
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import javax.validation.constraints.NotBlank

@@ -1,7 +1,7 @@
 package com.example.webservice.domains.promotions.models.entities;
 
 
-import com.example.webservice.domains.common.models.entities.base.BaseEntity;
+import com.example.webservice.domains.common.base.models.entities.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

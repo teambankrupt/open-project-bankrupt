@@ -3,8 +3,8 @@ package com.example.webservice.domains.users.services.beans
 import com.example.webservice.commons.PageAttr
 import com.example.webservice.commons.utils.*
 import com.example.webservice.config.security.SecurityContext
-import com.example.webservice.domains.common.services.MailService
-import com.example.webservice.domains.common.services.SmsService
+import com.example.webservice.domains.common.mail.services.MailService
+import com.example.webservice.domains.common.sms.services.SmsService
 import com.example.webservice.domains.notifications.models.dto.NotificationData
 import com.example.webservice.domains.notifications.models.dto.PushNotification
 import com.example.webservice.domains.notifications.services.NotificationService
@@ -50,8 +50,8 @@ open class UserServiceImpl @Autowired constructor(
     @Value("\${token.validity}")
     lateinit var tokenValidity: String
 
-    override fun search(query: String, role: String, page: Int, size: Int): Page<User> {
-        val r = this.roleService.find(role).orElseThrow { ExceptionUtil.getNotFound("Role", role) }
+    override fun search(query: String, role: String?, page: Int, size: Int): Page<User> {
+        val r = role?.let { this.roleService.find(it).orElseThrow { ExceptionUtil.getNotFound("Role", role) } }
         return this.userRepository.search(query, r, PageAttr.getPageRequest(page, size))
     }
 

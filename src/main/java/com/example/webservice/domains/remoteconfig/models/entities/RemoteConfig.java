@@ -1,6 +1,6 @@
 package com.example.webservice.domains.remoteconfig.models.entities;
 
-import com.example.webservice.domains.common.models.entities.base.BaseEntity;
+import com.example.webservice.domains.common.base.models.entities.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

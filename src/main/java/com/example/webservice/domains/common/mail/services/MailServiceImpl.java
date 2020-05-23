@@ -1,9 +1,9 @@
-package com.example.webservice.domains.common.services.impl;
+package com.example.webservice.domains.common.mail.services;
 
-import com.example.webservice.domains.common.services.MailService;
+import com.example.webservice.domains.common.mail.models.entities.EmailLog;
+import com.example.webservice.domains.common.mail.repositories.EmailLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -19,10 +19,12 @@ import java.util.List;
 public class MailServiceImpl implements MailService {
 
     private final JavaMailSender javaMailSender;
+    private final EmailLogRepository emailLogRepository;
 
     @Autowired
-    public MailServiceImpl(@Qualifier("javaMailSenderBean") JavaMailSender javaMailSender) {
+    public MailServiceImpl(@Qualifier("javaMailSenderBean") JavaMailSender javaMailSender, EmailLogRepository emailLogRepository) {
         this.javaMailSender = javaMailSender;
+        this.emailLogRepository = emailLogRepository;
     }
 
     @Override
@@ -35,12 +37,14 @@ public class MailServiceImpl implements MailService {
             new Thread(() -> javaMailSender.send(mailMessage)).start();
         } catch (Exception e) {
             System.out.println(e.toString());
+            return false;
         }
+        this.saveLog(email, null, subject, message, 0);
         return true;
     }
 
     @Override
-    public void sendEmail(String to, String from, String sub, String msgBody, List<File> attachments) {
+    public boolean sendEmail(String to, String from, String sub, String msgBody, List<File> attachments) {
         MimeMessage message = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -56,7 +60,15 @@ public class MailServiceImpl implements MailService {
             new Thread(() -> javaMailSender.send(message)).start();
         } catch (MessagingException e) {
             System.out.println(e.toString());
+            return false;
         }
+        this.saveLog(to, from, sub, msgBody, attachments == null ? 0 : attachments.size());
+        return true;
+    }
+
+    private void saveLog(String to, String from, String subject, String msg, int noOfAttachments) {
+        EmailLog log = new EmailLog(from == null ? "SystemMail" : from, to, null, null, subject, msg, noOfAttachments);
+        this.emailLogRepository.save(log);
     }
 
 }

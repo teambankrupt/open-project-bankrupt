@@ -1,22 +1,21 @@
 package com.example.webservice.domains.users.models.entities;
 
 import com.example.webservice.commons.utils.DateUtil;
-import com.example.webservice.domains.common.models.entities.base.BaseEntity;
-import com.example.webservice.domains.common.models.entities.pojo.Address;
+import com.example.webservice.domains.address.models.entities.Address;
+import com.example.webservice.domains.common.base.models.entities.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.time.Period;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name = "profiles")
 public class Profile extends BaseEntity {
     private String name;
 
-    @Column(name = "birthday",nullable = false)
+    @Column(name = "birthday", nullable = false)
     private Date birthday;
 
     private String gender;
@@ -33,8 +32,10 @@ public class Profile extends BaseEntity {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String age;
 
-    @Embedded
+    @OneToOne
+    @JoinColumn(name = "address_id")
     private Address address;
+
     @OneToOne
     @JsonIgnore
     private User user;

@@ -1,6 +1,6 @@
 package com.example.webservice.chat.models.dtos
 
-import com.example.webservice.domains.common.models.dtos.BaseDto
+import com.example.webservice.domains.common.base.models.dtos.BaseDto
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
 

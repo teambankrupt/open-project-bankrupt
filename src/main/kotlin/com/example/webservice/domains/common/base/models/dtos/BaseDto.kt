@@ -1,4 +1,4 @@
-package com.example.webservice.domains.common.models.dtos
+package com.example.webservice.domains.common.base.models.dtos
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.swagger.annotations.ApiModelProperty

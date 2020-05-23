@@ -1,6 +1,6 @@
 package com.example.webservice.domains.common.controller
 
-import com.example.webservice.domains.common.models.dtos.BaseDto
+import com.example.webservice.domains.common.base.models.dtos.BaseDto
 import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
 

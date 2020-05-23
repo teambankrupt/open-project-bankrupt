@@ -72,7 +72,9 @@ class UserMapper @Autowired constructor(
                 throw ExceptionUtil.forbidden("Password length not be empty!")
 
             email = dto.email
-            roles = if (SecurityContext.getCurrentUser().isAdmin) roleService.findByIds(dto.roleIds) else roleService.findByIdsUnrestricted(dto.roleIds)
+            if (exUser == null || !exUser.isAdmin)
+                roles = if (SecurityContext.getCurrentUser().isAdmin) roleService.findByIds(dto.roleIds) else roleService.findByIdsUnrestricted(dto.roleIds)
+
             isEnabled = dto.enabled
             isAccountNonExpired = dto.accountNonExpired
             isAccountNonLocked = dto.accountNonLocked
