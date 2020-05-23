@@ -4,7 +4,7 @@ import com.example.webservice.chat.models.dtos.ChatMessageDto
 import com.example.webservice.chat.models.entities.ChatMessage
 import com.example.webservice.chat.services.ChatRoomService
 import com.example.webservice.commons.utils.ExceptionUtil
-import com.example.webservice.domains.common.models.mappers.BaseMapper
+import com.example.webservice.domains.common.base.models.mappers.BaseMapper
 import com.example.webservice.domains.users.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component

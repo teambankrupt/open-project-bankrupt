@@ -2,7 +2,7 @@ package com.example.webservice.domains.users.models.entities;
 
 import com.example.webservice.commons.utils.DateUtil;
 import com.example.webservice.domains.address.models.entities.Address;
-import com.example.webservice.domains.common.models.entities.base.BaseEntity;
+import com.example.webservice.domains.common.base.models.entities.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

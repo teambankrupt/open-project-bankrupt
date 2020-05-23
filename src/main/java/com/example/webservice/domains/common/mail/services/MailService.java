@@ -1,4 +1,4 @@
-package com.example.webservice.domains.common.services;
+package com.example.webservice.domains.common.mail.services;
 
 import java.io.File;
 import java.util.List;

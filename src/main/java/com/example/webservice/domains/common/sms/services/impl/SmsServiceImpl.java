@@ -1,7 +1,7 @@
-package com.example.webservice.domains.common.services.impl;
+package com.example.webservice.domains.common.sms.services.impl;
 
 import com.example.webservice.commons.utils.NetworkUtil;
-import com.example.webservice.domains.common.services.SmsService;
+import com.example.webservice.domains.common.sms.services.SmsService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;

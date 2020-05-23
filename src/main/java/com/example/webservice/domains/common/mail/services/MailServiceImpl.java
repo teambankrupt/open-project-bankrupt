@@ -1,9 +1,7 @@
-package com.example.webservice.domains.common.services.impl;
+package com.example.webservice.domains.common.mail.services;
 
-import com.example.webservice.domains.common.services.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

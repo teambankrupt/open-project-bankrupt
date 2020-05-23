@@ -1,6 +1,6 @@
 package com.example.webservice.domains.users.models.mappers
 
-import com.example.webservice.domains.common.models.mappers.BaseMapper
+import com.example.webservice.domains.common.base.models.mappers.BaseMapper
 import com.example.webservice.domains.users.models.dtos.RoleDto
 import com.example.webservice.domains.users.models.entities.Role
 import com.example.webservice.domains.users.services.PrivilegeService

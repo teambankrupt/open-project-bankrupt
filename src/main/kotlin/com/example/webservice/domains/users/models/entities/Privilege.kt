@@ -1,12 +1,9 @@
 package com.example.webservice.domains.users.models.entities
 
-import com.example.webservice.domains.common.models.entities.base.BaseEntity
+import com.example.webservice.domains.common.base.models.entities.BaseEntity
 import org.hibernate.annotations.LazyCollection
 import org.hibernate.annotations.LazyCollectionOption
-import java.util.*
 import javax.persistence.*
-
-import kotlin.collections.ArrayList
 
 @Entity
 @Table(name = "privileges")

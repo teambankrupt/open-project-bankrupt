@@ -1,6 +1,6 @@
-package com.example.webservice.domains.common.services
+package com.example.webservice.domains.common.sms.services
 
-import com.example.webservice.domains.common.models.entities.base.BaseEntity
+import com.example.webservice.domains.common.base.models.entities.BaseEntity
 import org.springframework.data.domain.Page
 import java.util.*
 

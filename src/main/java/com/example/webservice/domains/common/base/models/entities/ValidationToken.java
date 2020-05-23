@@ -1,4 +1,4 @@
-package com.example.webservice.domains.common.models.entities.base;
+package com.example.webservice.domains.common.base.models.entities;
 
 
 import javax.persistence.MappedSuperclass;

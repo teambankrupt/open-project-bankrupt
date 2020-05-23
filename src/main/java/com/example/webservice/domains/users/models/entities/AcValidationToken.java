@@ -1,6 +1,6 @@
 package com.example.webservice.domains.users.models.entities;
 
-import com.example.webservice.domains.common.models.entities.base.ValidationToken;
+import com.example.webservice.domains.common.base.models.entities.ValidationToken;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
