@@ -6,7 +6,7 @@ import com.example.webservice.domains.address.models.dto.UpazilaDto
 import com.example.webservice.domains.address.models.entities.Upazila
 import com.example.webservice.domains.address.models.mappers.UpazilaMapper
 import com.example.webservice.domains.address.services.UpazilaService
-import com.example.webservice.domains.common.controller.CrudController
+import com.example.webservice.domains.common.base.controllers.CrudController
 import com.example.webservice.routing.Route
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation

@@ -6,7 +6,7 @@ import com.example.webservice.domains.address.models.dto.UnionDto
 import com.example.webservice.domains.address.models.entities.Union
 import com.example.webservice.domains.address.models.mappers.UnionMapper
 import com.example.webservice.domains.address.services.UnionService
-import com.example.webservice.domains.common.controller.CrudController
+import com.example.webservice.domains.common.base.controllers.CrudController
 import com.example.webservice.routing.Route
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation

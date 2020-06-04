@@ -1,9 +1,7 @@
 package com.example.webservice.domains.users.controllers.web
 
 import com.example.webservice.commons.utils.ExceptionUtil
-import com.example.webservice.domains.common.controller.CrudWebController
 import com.example.webservice.domains.users.models.dtos.UserUpdateAdminDto
-import com.example.webservice.domains.users.models.dtos.UserRequest
 import com.example.webservice.domains.users.models.mappers.UserMapper
 import com.example.webservice.domains.users.services.RoleService
 import com.example.webservice.domains.users.services.UserService

@@ -1,4 +1,4 @@
-package com.example.webservice.domains.common.sms.services
+package com.example.webservice.domains.common.base.services
 
 import com.example.webservice.domains.common.base.models.entities.BaseEntity
 import org.springframework.data.domain.Page

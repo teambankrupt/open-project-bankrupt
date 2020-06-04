@@ -2,7 +2,7 @@ package com.example.webservice.domains.users.controllers
 
 
 import com.example.webservice.commons.Constants
-import com.example.webservice.domains.common.controller.CrudController
+import com.example.webservice.domains.common.base.controllers.CrudController
 import com.example.webservice.domains.users.models.dtos.RoleDto
 import com.example.webservice.domains.users.models.mappers.RoleMapper
 import com.example.webservice.domains.users.services.RoleService

@@ -1,6 +1,6 @@
 package com.example.webservice.domains.users.services
 
-import com.example.webservice.domains.common.sms.services.CrudService
+import com.example.webservice.domains.common.base.services.CrudService
 import com.example.webservice.domains.users.models.entities.User
 import org.springframework.data.domain.Page
 import java.util.*

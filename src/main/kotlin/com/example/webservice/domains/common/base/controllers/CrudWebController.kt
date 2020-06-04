@@ -1,4 +1,4 @@
-package com.example.webservice.domains.common.controller
+package com.example.webservice.domains.common.base.controllers
 
 import com.example.webservice.domains.common.base.models.dtos.BaseDto
 import org.springframework.ui.Model
