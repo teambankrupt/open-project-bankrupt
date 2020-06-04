@@ -16,11 +16,14 @@ import javax.persistence.Transient
 class LatLng {
     var latitude = 0.0
     var longitude = 0.0
+    var altitude = 0.0
 
     constructor() {}
-    constructor(latitude: Double, longitude: Double) {
+
+    constructor(latitude: Double, longitude: Double, altitude: Double) {
         this.latitude = latitude
         this.longitude = longitude
+        this.altitude = altitude
     }
 
     companion object {
@@ -33,8 +36,8 @@ class LatLng {
         val LNG = "lng"
 
         @Throws(IOException::class, NotFoundException::class)
-        fun parse(areaName: String?): Map<String, Double> {
-            var areaName = areaName ?: throw NotFoundException("Can not parse LatLng, area isn\'t provided or empty!")
+        fun parse(area: String?): Map<String, Double> {
+            var areaName = area ?: throw NotFoundException("Can not parse LatLng, area isn\'t provided or empty!")
             areaName = areaName.replace(" ", "%20")
             val url = URL("https://maps.googleapis.com/maps/api/geocode/json?address=$areaName,dhaka&sensor=true&key=AIzaSyANZfglkpcpj5QcUHw-zPGloYnpeE4qiMY")
             val connection = url.openConnection() as HttpURLConnection
