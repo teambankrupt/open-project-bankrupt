@@ -1,6 +1,0 @@
-cd /var/www/backend
-git checkout dev
-git pull
-fuser -k 80/tcp
-mvn clean package -DskipTests -Denv=prod
-nohup java -Xmx1024m -Dserver.port=80 -jar target/webservice-0.0.1-SNAPSHOT.jar &
