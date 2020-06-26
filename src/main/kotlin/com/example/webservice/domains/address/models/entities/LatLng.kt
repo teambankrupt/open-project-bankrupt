@@ -57,7 +57,7 @@ class LatLng {
         @Throws(NotFoundException::class)
         private fun parseLatLng(output: String): Map<String, Double> {
             val jsonArray = JSONObject(output).getJSONArray("results")
-            var jsonObject: JSONObject? = null
+            val jsonObject: JSONObject?
             if (jsonArray == null || jsonArray.length() < 1) throw NotFoundException("Can not parse LatLng, area isn\'t provided or empty!")
             jsonObject = (jsonArray[0] as JSONObject).getJSONObject("geometry").getJSONObject("location")
             val latLng: MutableMap<String, Double> = HashMap()
