@@ -19,6 +19,11 @@
         <java.version>1.8</java.version>
         <kotlin.version>1.3.72</kotlin.version>
         <flyway.version>5.2.4</flyway.version>
+        <oauth2.version>2.3.6.RELEASE</oauth2.version>
+        <jwt.version>1.1.1.RELEASE</jwt.version>
+        <swagger.version>2.9.2</swagger.version>
+        <websocket.version>5.2.2.RELEASE</websocket.version>
+        <websocket.messaging.version>5.2.2.RELEASE</websocket.messaging.version>
     </properties>
 
     <profiles>
@@ -141,12 +146,12 @@
         <dependency>
             <groupId>org.springframework.security.oauth</groupId>
             <artifactId>spring-security-oauth2</artifactId>
-            <version>2.3.6.RELEASE</version>
+            <version>${oauth2.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-jwt</artifactId>
-            <version>1.0.10.RELEASE</version>
+            <version>${jwt.version}</version>
         </dependency>
 
         <!--EMAIL-->
@@ -159,12 +164,12 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
+            <version>${swagger.version}</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
+            <version>${swagger.version}</version>
         </dependency>
 
         <!--Utils-->
@@ -234,13 +239,13 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-websocket</artifactId>
-            <version>5.2.2.RELEASE</version>
+            <version>${websocket.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-messaging</artifactId>
-            <version>5.2.2.RELEASE</version>
+            <version>${websocket.messaging.version}</version>
         </dependency>
 
 
