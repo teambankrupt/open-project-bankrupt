@@ -1,7 +1,7 @@
 package com.example.webservice.domains.users.controllers
 
 import com.example.webservice.commons.Constants
-import com.example.webservice.domains.common.controller.CrudController
+import com.example.webservice.domains.common.base.controllers.CrudController
 import com.example.webservice.domains.users.models.dtos.PrivilegeDto
 import com.example.webservice.domains.users.models.mappers.PrivilegeMapper
 import com.example.webservice.domains.users.services.PrivilegeService
@@ -9,7 +9,6 @@ import com.example.webservice.exceptions.notfound.NotFoundException
 import io.swagger.annotations.Api
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
-import org.springframework.data.repository.query.Param
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 

@@ -5,8 +5,7 @@ import com.example.webservice.chat.models.mappers.ChatRoomMapper
 import com.example.webservice.chat.services.ChatRoomService
 import com.example.webservice.commons.Constants
 import com.example.webservice.commons.utils.ExceptionUtil
-import com.example.webservice.config.security.SecurityContext
-import com.example.webservice.domains.common.controller.CrudController
+import com.example.webservice.domains.common.base.controllers.CrudController
 import com.example.webservice.routing.Route
 import io.swagger.annotations.Api
 import org.springframework.beans.factory.annotation.Autowired

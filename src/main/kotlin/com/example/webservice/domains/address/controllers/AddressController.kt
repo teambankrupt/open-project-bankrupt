@@ -6,7 +6,7 @@ import com.example.webservice.domains.address.models.dto.AddressDto
 import com.example.webservice.domains.address.models.entities.Address
 import com.example.webservice.domains.address.models.mappers.AddressMapper
 import com.example.webservice.domains.address.services.AddressService
-import com.example.webservice.domains.common.controller.CrudController
+import com.example.webservice.domains.common.base.controllers.CrudController
 import com.example.webservice.routing.Route
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation

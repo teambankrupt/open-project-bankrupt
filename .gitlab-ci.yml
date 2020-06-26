@@ -1,36 +1,34 @@
+image: maven:3-jdk-8
+
 stages:
   - deploy
 
 variables:
-  # MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode --errors --fail-at-end --show-version"
-  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  MAVEN_CLI_OPTS: " --batch-mode --errors --fail-at-end --show-version"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository -DAWS_S3_ID=$AWS_ACCESS_KEY_ID -DAWS_S3_PASSWORD=$AWS_SECRET_KEY"
+  DEV_SERV_IP: "$DEV_SERVER_IP"
 
 before_script:
-  - apt update && apt install -y maven
+  - mkdir -p ~/.ssh
+  - ssh-keyscan -H  $DEV_SERV_IP >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
   #- apt install psmisc
 
-deploy_dev:
-  stage: deploy
-  script:
-    - mvn clean
-    - mvn package -DskipTests -Denv=dev
-    - mv target/webservice-0.0.1-SNAPSHOT.jar ~/webservice/webservice.jar
-    - systemctl restart webservice
-
-  only:
-    - dev
-
-deploy_production:
-  stage: deploy
-  script:
-    - mvn clean
-    - mvn package -DskipTests -Denv=prod
-    - mv target/webservice-0.0.1-SNAPSHOT.jar ~/webservice/webservice.jar
-    - systemctl restart webservice
-
-  only:
-    - master
 
 cache:
   paths:
     - .m2/repository/
+
+deploy_dev:
+  stage: deploy
+  script:
+    - cat $SECRET_KEY_DEV > key.pem
+    - chmod 400 key.pem
+    - mvn -f pom.xml clean package -DskipTests -Denv=dev $MAVEN_CLI_OPTS
+    - scp -i key.pem target/webservice-0.0.1-SNAPSHOT.jar ubuntu@$DEV_SERV_IP:app-dev/app-dev.jar
+    - /bin/sh -c "ssh -i key.pem ubuntu@$DEV_SERV_IP 'bash -s' < deploy_dev.sh"
+
+  only:
+    - new_dev
+
+

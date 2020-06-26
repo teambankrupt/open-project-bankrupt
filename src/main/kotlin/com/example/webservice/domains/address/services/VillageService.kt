@@ -1,7 +1,7 @@
 package com.example.webservice.domains.address.services
 
 import com.example.webservice.domains.address.models.entities.Village
-import com.example.webservice.domains.common.sms.services.CrudService
+import com.example.webservice.domains.common.base.services.CrudService
 
 
 interface VillageService: CrudService<Village>

@@ -1,4 +1,4 @@
-package com.example.webservice.domains.common.controller
+package com.example.webservice.domains.common.global.controllers
 
 import com.example.webservice.WebserviceApplication
 import com.example.webservice.commons.Constants

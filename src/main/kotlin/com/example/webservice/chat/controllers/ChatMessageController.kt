@@ -4,19 +4,13 @@ import com.example.webservice.chat.models.dtos.ChatMessageDto
 import com.example.webservice.chat.models.mappers.ChatMessageMapper
 import com.example.webservice.chat.services.ChatMessageService
 import com.example.webservice.routing.Route
-//import com.example.webservice.chat.models.mappers.MessageMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.messaging.handler.annotation.MessageMapping
 import org.springframework.messaging.handler.annotation.Payload
-import org.springframework.messaging.handler.annotation.SendTo
 import org.springframework.messaging.simp.SimpMessagingTemplate
-import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 import java.security.Principal
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.validation.Valid
-
 
 @RestController
 class ChatMessageController @Autowired constructor(
