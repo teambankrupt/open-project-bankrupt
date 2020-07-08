@@ -26,6 +26,8 @@ class UserWebController @Autowired constructor(
                @RequestParam("size", defaultValue = "10") size: Int,
                model: Model): String {
         val users = this.userService.search(query, role, page, size)
+
+        model.addAttribute("query", query)
         model.addAttribute("users", users)
         return "material/fragments/users/users"
     }
