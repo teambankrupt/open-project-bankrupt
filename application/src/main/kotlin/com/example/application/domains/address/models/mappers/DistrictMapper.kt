@@ -3,7 +3,7 @@ package com.example.application.domains.address.models.mappers
 import com.example.application.domains.address.models.dto.DistrictDto
 import com.example.application.domains.address.models.entities.District
 import com.example.application.domains.address.services.DivisionService
-import com.example.application.exceptions.notfound.NotFoundException
+import com.example.common.exceptions.notfound.NotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 

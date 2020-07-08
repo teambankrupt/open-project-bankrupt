@@ -2,9 +2,9 @@ package com.example.application.domains.notifications.services;
 
 import com.example.application.domains.notifications.models.dto.PushNotification;
 import com.example.application.domains.notifications.models.entities.FirebaseUserToken;
-import com.example.application.exceptions.invalid.InvalidException;
-import com.example.application.exceptions.notfound.NotFoundException;
-import com.example.application.exceptions.unknown.UnknownException;
+import com.example.common.exceptions.invalid.InvalidException;
+import com.example.common.exceptions.notfound.NotFoundException;
+import com.example.common.exceptions.unknown.UnknownException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.client.methods.CloseableHttpResponse;

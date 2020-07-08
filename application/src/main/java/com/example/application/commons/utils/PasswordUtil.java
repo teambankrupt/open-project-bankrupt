@@ -1,9 +1,9 @@
 package com.example.application.commons.utils;
 
-import com.example.application.exceptions.nullpointer.NullPasswordException;
+import com.example.common.exceptions.nullpointer.NullPasswordException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-public final class PasswordUtil {
+public class PasswordUtil {
     public static int PASS_MIN_SIZE = 6;
     public static final int CRYPTO_STRENGTH = 512;
 

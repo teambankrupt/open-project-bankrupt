@@ -1,13 +1,14 @@
 package com.example.application.config
 
 import com.example.application.commons.utils.PasswordUtil
+
 import com.example.application.domains.users.models.entities.Privilege
 import com.example.application.domains.users.models.entities.Role
 import com.example.application.domains.users.models.entities.User
 import com.example.application.domains.users.services.PrivilegeService
 import com.example.application.domains.users.services.RoleService
 import com.example.application.domains.users.services.UserService
-import com.example.application.exceptions.notfound.NotFoundException
+import com.example.common.exceptions.notfound.NotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.PropertySource

@@ -4,7 +4,7 @@ import com.example.application.domains.common.base.models.mappers.BaseMapper
 import com.example.application.domains.users.models.dtos.RoleDto
 import com.example.application.domains.users.models.entities.Role
 import com.example.application.domains.users.services.PrivilegeService
-import com.example.application.exceptions.notfound.NotFoundException
+import com.example.common.exceptions.notfound.NotFoundException
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component

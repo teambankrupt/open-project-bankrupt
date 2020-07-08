@@ -1,7 +1,7 @@
 package com.example.application.commons.utils
 
-import com.example.application.exceptions.forbidden.ForbiddenException
-import com.example.application.exceptions.notfound.NotFoundException
+import com.example.common.exceptions.forbidden.ForbiddenException
+import com.example.common.exceptions.notfound.NotFoundException
 
 /**
  * Created by IntelliJ IDEA.

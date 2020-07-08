@@ -1,7 +1,7 @@
 package com.example.application.domains.remoteconfig.services;
 
 import com.example.application.domains.remoteconfig.models.entities.RemoteConfig;
-import com.example.application.exceptions.notfound.NotFoundException;
+import com.example.common.exceptions.notfound.NotFoundException;
 
 import java.util.List;
 import java.util.Optional;

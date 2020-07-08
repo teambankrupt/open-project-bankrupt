@@ -4,7 +4,7 @@ import com.example.application.commons.Constants
 import com.example.application.config.security.TokenService
 import com.example.application.domains.users.models.mappers.UserMapper
 import com.example.application.domains.users.services.UserService
-import com.example.application.exceptions.notfound.UserNotFoundException
+import com.example.common.exceptions.notfound.UserNotFoundException
 import io.swagger.annotations.Api
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity

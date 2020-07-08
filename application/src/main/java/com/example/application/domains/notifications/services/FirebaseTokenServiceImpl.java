@@ -4,8 +4,8 @@ import com.example.application.domains.notifications.models.entities.FirebaseUse
 import com.example.application.domains.notifications.repositories.FirebaseTokenRepository;
 import com.example.application.domains.users.models.entities.User;
 import com.example.application.domains.users.repositories.UserRepository;
-import com.example.application.exceptions.invalid.InvalidException;
-import com.example.application.exceptions.notfound.UserNotFoundException;
+import com.example.common.exceptions.invalid.InvalidException;
+import com.example.common.exceptions.notfound.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

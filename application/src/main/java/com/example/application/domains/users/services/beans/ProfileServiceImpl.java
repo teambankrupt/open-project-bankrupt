@@ -1,7 +1,7 @@
 package com.example.application.domains.users.services.beans;
 
 import com.example.application.commons.PageAttr;
-import com.example.application.commons.utils.Validator;
+
 import com.example.application.config.security.SecurityContext;
 import com.example.application.domains.users.models.UserAuth;
 import com.example.application.domains.users.models.entities.Profile;
@@ -9,9 +9,10 @@ import com.example.application.domains.users.models.entities.User;
 import com.example.application.domains.users.repositories.ProfileRepository;
 import com.example.application.domains.users.services.ProfileService;
 import com.example.application.domains.users.services.UserService;
-import com.example.application.exceptions.forbidden.ForbiddenException;
-import com.example.application.exceptions.notfound.NotFoundException;
-import com.example.application.exceptions.notfound.ProfileNotFoundException;
+import com.example.common.exceptions.forbidden.ForbiddenException;
+import com.example.common.exceptions.notfound.NotFoundException;
+import com.example.common.exceptions.notfound.ProfileNotFoundException;
+import com.example.common.utils.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;

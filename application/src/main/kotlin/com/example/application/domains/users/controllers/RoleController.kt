@@ -6,7 +6,7 @@ import com.example.application.domains.common.base.controllers.CrudController
 import com.example.application.domains.users.models.dtos.RoleDto
 import com.example.application.domains.users.models.mappers.RoleMapper
 import com.example.application.domains.users.services.RoleService
-import com.example.application.exceptions.notfound.NotFoundException
+import com.example.common.exceptions.notfound.NotFoundException
 import io.swagger.annotations.Api
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page

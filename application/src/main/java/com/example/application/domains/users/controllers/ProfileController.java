@@ -2,12 +2,12 @@ package com.example.application.domains.users.controllers;
 
 import com.example.application.domains.users.models.entities.Profile;
 import com.example.application.domains.users.services.ProfileService;
-import com.example.application.exceptions.exists.UserAlreadyExistsException;
-import com.example.application.exceptions.forbidden.ForbiddenException;
-import com.example.application.exceptions.invalid.UserInvalidException;
-import com.example.application.exceptions.notfound.NotFoundException;
-import com.example.application.exceptions.notfound.ProfileNotFoundException;
-import com.example.application.exceptions.nullpointer.NullPasswordException;
+import com.example.common.exceptions.exists.UserAlreadyExistsException;
+import com.example.common.exceptions.forbidden.ForbiddenException;
+import com.example.common.exceptions.invalid.UserInvalidException;
+import com.example.common.exceptions.notfound.NotFoundException;
+import com.example.common.exceptions.notfound.ProfileNotFoundException;
+import com.example.common.exceptions.nullpointer.NullPasswordException;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

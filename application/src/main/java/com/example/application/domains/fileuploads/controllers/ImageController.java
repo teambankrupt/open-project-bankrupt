@@ -1,13 +1,13 @@
 package com.example.application.domains.fileuploads.controllers;
 
-import com.example.application.commons.utils.ImageValidator;
+import com.example.common.utils.ImageValidator;
 import com.example.application.config.security.SecurityContext;
 import com.example.application.domains.fileuploads.models.entities.UploadProperties;
 import com.example.application.domains.fileuploads.models.responses.ImageUploadResponse;
 import com.example.application.domains.fileuploads.services.FileUploadService;
 import com.example.application.domains.users.models.UserAuth;
-import com.example.application.exceptions.invalid.ImageInvalidException;
-import com.example.application.exceptions.notfound.NotFoundException;
+import com.example.common.exceptions.invalid.ImageInvalidException;
+import com.example.common.exceptions.notfound.NotFoundException;
 import io.swagger.annotations.Api;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;

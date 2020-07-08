@@ -2,10 +2,10 @@ package com.example.application.domains.promotions.services;
 
 
 import com.example.application.domains.promotions.models.entities.Promo;
-import com.example.application.exceptions.forbidden.ForbiddenException;
-import com.example.application.exceptions.invalid.InvalidException;
-import com.example.application.exceptions.notfound.NotFoundException;
-import com.example.application.exceptions.unknown.UnknownException;
+import com.example.common.exceptions.forbidden.ForbiddenException;
+import com.example.common.exceptions.invalid.InvalidException;
+import com.example.common.exceptions.notfound.NotFoundException;
+import com.example.common.exceptions.unknown.UnknownException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.data.domain.Page;
 

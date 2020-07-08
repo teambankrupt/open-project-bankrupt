@@ -4,7 +4,7 @@ import com.example.application.commons.PageAttr
 import com.example.application.domains.address.models.entities.Address
 import com.example.application.domains.address.repositories.AddressRepo
 import com.example.application.domains.address.services.AddressService
-import com.example.application.exceptions.notfound.NotFoundException
+import com.example.common.exceptions.notfound.NotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service

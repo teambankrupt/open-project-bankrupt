@@ -1,6 +1,6 @@
 package com.example.application.domains.common.sms.services.impl;
 
-import com.example.application.commons.utils.NetworkUtil;
+import com.example.common.utils.NetworkUtil;
 import com.example.application.domains.common.sms.services.SmsService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;

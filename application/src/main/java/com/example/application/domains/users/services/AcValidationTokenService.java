@@ -3,7 +3,7 @@ package com.example.application.domains.users.services;
 
 import com.example.application.domains.users.models.entities.AcValidationToken;
 import com.example.application.domains.users.models.entities.User;
-import com.example.application.exceptions.forbidden.ForbiddenException;
+import com.example.common.exceptions.forbidden.ForbiddenException;
 
 public interface AcValidationTokenService {
     AcValidationToken save(AcValidationToken acValidationToken);

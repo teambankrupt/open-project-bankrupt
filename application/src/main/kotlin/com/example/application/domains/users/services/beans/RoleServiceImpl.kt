@@ -6,10 +6,10 @@ import com.example.application.domains.users.models.entities.Role
 import com.example.application.domains.users.repositories.RoleRepository
 import com.example.application.domains.users.repositories.UserRepository
 import com.example.application.domains.users.services.RoleService
-import com.example.application.exceptions.exists.AlreadyExistsException
-import com.example.application.exceptions.forbidden.ForbiddenException
-import com.example.application.exceptions.invalid.InvalidException
-import com.example.application.exceptions.notfound.UserNotFoundException
+import com.example.common.exceptions.exists.AlreadyExistsException
+import com.example.common.exceptions.forbidden.ForbiddenException
+import com.example.common.exceptions.invalid.InvalidException;
+import com.example.common.exceptions.notfound.UserNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service

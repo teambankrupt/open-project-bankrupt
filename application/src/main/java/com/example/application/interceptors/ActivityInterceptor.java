@@ -1,10 +1,11 @@
 package com.example.application.interceptors;
 
-import com.example.application.commons.utils.NetworkUtil;
+
 import com.example.application.config.security.SecurityContext;
 import com.example.application.domains.activities.models.entities.Activity;
 import com.example.application.domains.activities.services.ActivityService;
 import com.example.application.domains.users.models.UserAuth;
+import com.example.common.utils.NetworkUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;

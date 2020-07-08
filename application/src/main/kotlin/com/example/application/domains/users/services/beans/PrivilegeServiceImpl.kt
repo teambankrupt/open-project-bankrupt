@@ -5,7 +5,7 @@ import com.example.application.commons.utils.ExceptionUtil
 import com.example.application.domains.users.models.entities.Privilege
 import com.example.application.domains.users.repositories.PrivilegeRepository
 import com.example.application.domains.users.services.PrivilegeService
-import com.example.application.exceptions.exists.AlreadyExistsException
+import com.example.common.exceptions.exists.AlreadyExistsException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service

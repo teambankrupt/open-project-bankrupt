@@ -1,8 +1,8 @@
 package com.example.application.config.security;
 
-import com.example.application.commons.Commons;
 import com.example.application.domains.users.models.UserAuth;
 import com.example.application.domains.users.models.entities.User;
+import com.example.common.misc.Commons;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;

@@ -9,9 +9,9 @@ import com.example.application.domains.users.models.dtos.UserResponse
 import com.example.application.domains.users.models.entities.User
 import com.example.application.domains.users.services.RoleService
 import com.example.application.domains.users.services.UserService
-import com.example.application.exceptions.exists.AlreadyExistsException
-import com.example.application.exceptions.invalid.InvalidException
-import com.example.application.exceptions.notfound.NotFoundException
+import com.example.common.exceptions.exists.AlreadyExistsException
+import com.example.common.exceptions.invalid.InvalidException;
+import com.example.common.exceptions.notfound.NotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.PropertySource

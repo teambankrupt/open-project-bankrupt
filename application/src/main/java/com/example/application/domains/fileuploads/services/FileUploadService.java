@@ -2,7 +2,8 @@ package com.example.application.domains.fileuploads.services;
 
 
 import com.example.application.domains.fileuploads.models.entities.UploadProperties;
-import com.example.application.exceptions.notfound.NotFoundException;
+
+import com.example.common.exceptions.notfound.NotFoundException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;

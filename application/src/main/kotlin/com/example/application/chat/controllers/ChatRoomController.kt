@@ -5,6 +5,7 @@ import com.example.application.chat.models.mappers.ChatRoomMapper
 import com.example.application.chat.services.ChatRoomService
 import com.example.application.commons.Constants
 import com.example.application.commons.utils.ExceptionUtil
+
 import com.example.application.domains.common.base.controllers.CrudController
 import com.example.application.routing.Route
 import io.swagger.annotations.Api

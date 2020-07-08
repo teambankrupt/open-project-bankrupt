@@ -1,7 +1,8 @@
 package com.example.application.domains.common.base.models.entities;
 
-import com.example.application.commons.utils.DateUtil;
+import com.example.common.utils.DateUtil;
 import com.example.application.config.security.SecurityContext;
+import com.example.common.utils.DateUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;

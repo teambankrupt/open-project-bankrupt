@@ -2,7 +2,7 @@ package com.example.application.domains.remoteconfig.services;
 
 import com.example.application.domains.remoteconfig.models.entities.RemoteConfig;
 import com.example.application.domains.remoteconfig.repositories.RemoteConfigRepository;
-import com.example.application.exceptions.notfound.NotFoundException;
+import com.example.common.exceptions.notfound.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

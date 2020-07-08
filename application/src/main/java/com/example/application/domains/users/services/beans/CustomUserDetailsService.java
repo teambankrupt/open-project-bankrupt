@@ -1,10 +1,10 @@
 package com.example.application.domains.users.services.beans;
 
-import com.example.application.commons.utils.NetworkUtil;
+import com.example.common.utils.NetworkUtil;
 import com.example.application.domains.users.models.UserAuth;
 import com.example.application.domains.users.models.entities.User;
 import com.example.application.domains.users.services.UserService;
-import com.example.application.exceptions.notfound.UserNotFoundException;
+import com.example.common.exceptions.notfound.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

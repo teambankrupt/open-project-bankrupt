@@ -1,6 +1,6 @@
 package com.example.application.domains.users.models.entities;
 
-import com.example.application.commons.utils.DateUtil;
+import com.example.common.utils.DateUtil;
 import com.example.application.domains.address.models.entities.Address;
 import com.example.application.domains.common.base.models.entities.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;

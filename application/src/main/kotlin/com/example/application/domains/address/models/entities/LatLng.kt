@@ -1,6 +1,6 @@
 package com.example.application.domains.address.models.entities
 
-import com.example.application.exceptions.notfound.NotFoundException
+import com.example.common.exceptions.notfound.NotFoundException
 import com.fasterxml.jackson.annotation.JsonIgnore
 import org.json.JSONObject
 import java.io.BufferedReader
