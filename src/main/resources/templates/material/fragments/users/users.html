@@ -16,6 +16,10 @@
                     <h2>
                         Users
                         <small>Search and manage users facilities for <code>Super Admin</code></small>
+                        <form class="form pull-right" th:action="@{/admin/users}">
+                            <input type="text" name="query" placeholder="Search User" class="form-control"
+                                   th:value="${query}"></input>
+                        </form>
                     </h2>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
