@@ -1,0 +1,14 @@
+package com.example.application.chat.models.dtos
+
+import com.example.application.domains.common.base.models.dtos.BaseDto
+import javax.validation.constraints.NotEmpty
+import javax.validation.constraints.NotNull
+
+class ChatRoomDto : BaseDto() {
+    @NotNull
+    lateinit var title: String
+
+    @NotNull
+    @NotEmpty
+    lateinit var users: List<Long>
+}
