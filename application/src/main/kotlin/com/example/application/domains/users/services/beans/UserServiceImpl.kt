@@ -6,12 +6,13 @@ import com.example.application.domains.notifications.models.dto.NotificationData
 import com.example.application.domains.notifications.models.dto.PushNotification
 import com.example.application.domains.notifications.services.NotificationService
 import com.example.application.domains.users.models.entities.AcValidationToken
-import com.example.application.domains.users.models.entities.Role
+import com.example.auth.domains.models.entities.Role
 import com.example.application.domains.users.models.entities.User
 import com.example.application.domains.users.repositories.UserRepository
 import com.example.application.domains.users.services.AcValidationTokenService
 import com.example.application.domains.users.services.RoleService
 import com.example.application.domains.users.services.UserService
+import com.example.auth.domains.models.enums.Roles
 import com.example.auth.utils.PasswordUtil
 import com.example.common.exceptions.exists.UserAlreadyExistsException
 import com.example.common.exceptions.forbidden.ForbiddenException
@@ -235,11 +236,11 @@ open class UserServiceImpl @Autowired constructor(
 
     override fun setRoles(id: Long, roleIds: List<Long>): User {
         val user = this.find(id).orElseThrow { NotFoundException("Could not find user with username: $id") }
-        val isAdmin = user.isAdmin() // check if user is admin
+        val isAdmin = user.isAdmin // check if user is admin
         val roles = this.roleService.findByIds(roleIds)
-        user.roles = roles.filter { role -> !role.isAdmin() }.toMutableList()
+        user.roles = roles.filter { role -> !role.isAdmin }.toMutableList()
         if (isAdmin) {// set admin role explicitly after clearing roles
-            val role = this.roleService.find(Role.ERole.Admin.name).orElseThrow { NotFoundException("Admin role couldn't be set!") }
+            val role = this.roleService.find(Roles.Admin.name).orElseThrow { NotFoundException("Admin role couldn't be set!") }
             user.roles.add(role)
         }
         return this.save(user)

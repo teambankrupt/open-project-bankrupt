@@ -27,7 +27,7 @@ public class UserAuth implements UserDetails {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "m_users_roles", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "roles_id", referencedColumnName = "id")})
-    private List<SecurityGroup> roles;
+    private List<Role> roles;
 
     private boolean enabled = true;
 
@@ -120,7 +120,7 @@ public class UserAuth implements UserDetails {
 
     public boolean isAdmin() {
         return this.roles != null &&
-                this.roles.stream().anyMatch(SecurityGroup::isAdmin);
+                this.roles.stream().anyMatch(Role::isAdmin);
     }
 
     public Long getId() {
@@ -139,7 +139,7 @@ public class UserAuth implements UserDetails {
         return email;
     }
 
-    public List<SecurityGroup> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
@@ -147,10 +147,10 @@ public class UserAuth implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.roles == null) this.roles = new ArrayList<>();
         List<GrantedAuthority> authorityList = new ArrayList<>();
-        for (SecurityGroup group : this.roles) {
-            if (group.getAuthorities() == null) continue;
+        for (Role group : this.roles) {
+            if (group.getPrivileges() == null) continue;
             authorityList.addAll(
-                    group.getAuthorities().stream()
+                    group.getPrivileges().stream()
                             .map(authority -> new SimpleGrantedAuthority(authority.getName()))
                             .collect(Collectors.toList())
             );

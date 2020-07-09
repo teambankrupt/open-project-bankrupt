@@ -1,6 +1,6 @@
 //package com.example.application.config.security;
 //
-//import com.example.application.domains.users.models.entities.Privilege;
+//import com.example.auth.domains.models.entities.Privilege;
 //import com.example.auth.services.CustomUserDetailsService;
 //import com.example.auth.utils.PasswordUtil;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +69,7 @@
 //                )
 //                .permitAll()
 //                .antMatchers("/admin/**")
-//                .hasAuthority(Privilege.Privileges.ADMINISTRATION.toString())
+//                .hasAuthority(Privileges.ADMINISTRATION.toString())
 //                .anyRequest().authenticated()
 //                .and()
 //                .formLogin()

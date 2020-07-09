@@ -1,10 +1,14 @@
 package com.example.application.domains.users.services
 
-import com.example.coreweb.domains.base.services.CrudService
-import com.example.application.domains.users.models.entities.Privilege
+import com.example.auth.domains.models.entities.Privilege
+import org.springframework.data.domain.Page
 import java.util.*
 
-interface PrivilegeService: CrudService<Privilege> {
+interface PrivilegeService {
+    fun search(query: String, page: Int, size: Int): Page<Privilege>
+    fun save(entity: Privilege): Privilege
+    fun find(id: Long): Optional<Privilege>
+    fun delete(id: Long, softDelete: Boolean)
 
     fun find(name: String): Optional<Privilege>
 

@@ -1,13 +1,17 @@
 package com.example.application.domains.users.services
 
-
-import com.example.coreweb.domains.base.services.CrudService
-import com.example.application.domains.users.models.entities.Role
+import com.example.auth.domains.models.entities.Role
 import com.example.common.exceptions.forbidden.ForbiddenException
 import com.example.common.exceptions.notfound.UserNotFoundException
+import org.springframework.data.domain.Page
 import java.util.*
 
-interface RoleService : CrudService<Role> {
+interface RoleService  {
+    fun search(query: String, page: Int, size: Int): Page<Role>
+    fun save(entity: Role): Role
+    fun find(id: Long): Optional<Role>
+    fun delete(id: Long, softDelete: Boolean)
+
     fun find(name: String): Optional<Role>
     fun findUnrestricted(name: String): Optional<Role>
     fun findByIds(roleIds: List<Long>): List<Role>

@@ -1,12 +1,14 @@
 package com.example.application.config
 
 
-import com.example.application.domains.users.models.entities.Privilege
-import com.example.application.domains.users.models.entities.Role
+import com.example.auth.domains.models.entities.Privilege
+import com.example.auth.domains.models.entities.Role
 import com.example.application.domains.users.models.entities.User
 import com.example.application.domains.users.services.PrivilegeService
 import com.example.application.domains.users.services.RoleService
 import com.example.application.domains.users.services.UserService
+import com.example.auth.domains.models.enums.Privileges
+import com.example.auth.domains.models.enums.Roles
 import com.example.auth.utils.PasswordUtil
 import com.example.common.exceptions.notfound.NotFoundException
 import org.springframework.beans.factory.annotation.Autowired
@@ -53,8 +55,8 @@ class InitConfig @Autowired constructor(
 
         val userRole = Role()
         userRole.name = "User"
-        userRole.restricted = false
-        val userPrivilege = this.privilegeService.find(Privilege.Privileges.ACCESS_USER_RESOURCES.name).orElseThrow { NotFoundException("Could not find privilege for user: ${Privilege.Privileges.ACCESS_USER_RESOURCES.name}") }
+        userRole.isRestricted = false
+        val userPrivilege = this.privilegeService.find(Privileges.ACCESS_USER_RESOURCES.name).orElseThrow { NotFoundException("Could not find privilege for user: ${Privileges.ACCESS_USER_RESOURCES.name}") }
         userRole.privileges = listOf(userPrivilege)
         this.roleService.save(userRole)
 
@@ -68,7 +70,7 @@ class InitConfig @Autowired constructor(
         user.email = this.adminEmail
         user.gender = "male"
         user.roles = ArrayList()
-        user.roles.add(this.roleService.find(Role.ERole.Admin.name).orElseThrow { NotFoundException("Could not assign admin role to admin as it's not found!") })
+        user.roles.add(this.roleService.find(Roles.Admin.name).orElseThrow { NotFoundException("Could not assign admin role to admin as it's not found!") })
 
         if ("phone" == this.authMethod && (user.phone == null || user.phone.isEmpty()))
             throw RuntimeException("You've chooses `phone` number as authentication method, but forgot to provide admin phone number in security.properties?")
@@ -82,7 +84,7 @@ class InitConfig @Autowired constructor(
     private fun createPrivilegesIfNotExists(): List<Privilege> {
         val privileges: MutableList<Privilege> = ArrayList()
 
-        Privilege.Privileges.values().forEach {
+        Privileges.values().forEach {
             val privilege = this.privilegeService.find(it.toString())
             if (!privilege.isPresent) {
                 privileges.add(this.privilegeService.save(Privilege(it.name, it.label)))

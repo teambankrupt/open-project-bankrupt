@@ -1,6 +1,6 @@
 //package com.example.application.config.security.oauth;
 //
-//import com.example.application.domains.users.models.entities.Privilege;
+//import com.example.auth.domains.models.entities.Privilege;
 //import com.example.application.domains.users.repositories.PrivilegeRepository;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.context.annotation.Configuration;
@@ -50,7 +50,7 @@
 //                .antMatchers(
 //                        "/api/v1/admin/**"
 //                )
-//                .hasAnyAuthority(Privilege.Privileges.ADMINISTRATION.toString());
+//                .hasAnyAuthority(Privileges.ADMINISTRATION.toString());
 //
 //        for (Privilege p : this.privilegeRepo.findAll())
 //            r.antMatchers(p.accessesArr()).hasAnyAuthority(p.name);

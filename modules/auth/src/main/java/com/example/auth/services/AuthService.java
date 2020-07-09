@@ -1,6 +1,6 @@
 package com.example.auth.services;
 
-import com.example.auth.domains.models.entities.Authority;
+import com.example.auth.domains.models.entities.Privilege;
 import com.example.auth.domains.models.entities.UserAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,21 +30,21 @@ public class AuthService {
         return auth;
     }
 
-    public List<Authority> getAuthorities() {
+    public List<Privilege> getAuthorities() {
 //        String sql = "SELECT p.name,p.label,p.description FROM privileges p  WHERE p.deleted=false";
-        String sql = "SELECT a FROM Authority a  WHERE a.deleted=false";
+        String sql = "SELECT a FROM Privilege a  WHERE a.deleted=false";
         Query query = this.entityManager.createQuery(sql);
 
-        List<Authority> authorities = query.getResultList();
+        List<Privilege> authorities = query.getResultList();
         return authorities;
     }
 
 
-    private List<Authority> populateAccessUrls(List<Authority> authorities) {
+    private List<Privilege> populateAccessUrls(List<Privilege> authorities) {
         if (authorities == null) return new ArrayList<>();
-        return authorities.stream().peek(authority -> {
+        return authorities.stream().peek(privilege -> {
             //TODO: query authorities from database
-            authority.setAccessUrls(new ArrayList<>());
+            privilege.setAccessUrls(new ArrayList<>());
         }).collect(Collectors.toList());
     }
 
