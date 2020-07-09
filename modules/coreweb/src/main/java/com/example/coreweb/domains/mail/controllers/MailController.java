@@ -1,7 +1,7 @@
-package com.example.application.domains.common.mail.controllers;
+package com.example.coreweb.domains.mail.controllers;
 
 
-import com.example.application.domains.common.mail.services.MailService;
+import com.example.coreweb.domains.mail.services.MailService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
-package com.example.application.domains.common.mail.services;
+package com.example.coreweb.domains.mail.services;
 
-import com.example.application.domains.common.mail.models.entities.EmailLog;
-import com.example.application.domains.common.mail.repositories.EmailLogRepository;
+import com.example.coreweb.domains.mail.models.entities.EmailLog;
+import com.example.coreweb.domains.mail.repositories.EmailLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.FileSystemResource;

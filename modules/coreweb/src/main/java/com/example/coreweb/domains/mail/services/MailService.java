@@ -1,4 +1,4 @@
-package com.example.application.domains.common.mail.services;
+package com.example.coreweb.domains.mail.services;
 
 import java.io.File;
 import java.util.List;

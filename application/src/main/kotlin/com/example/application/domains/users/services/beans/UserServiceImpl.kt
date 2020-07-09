@@ -4,8 +4,6 @@ import com.example.application.commons.PageAttr
 import com.example.application.commons.utils.ExceptionUtil
 import com.example.application.commons.utils.PasswordUtil
 import com.example.application.config.security.SecurityContext
-import com.example.application.domains.common.mail.services.MailService
-import com.example.application.domains.common.sms.services.SmsService
 import com.example.application.domains.notifications.models.dto.NotificationData
 import com.example.application.domains.notifications.models.dto.PushNotification
 import com.example.application.domains.notifications.services.NotificationService
@@ -25,6 +23,8 @@ import com.example.common.exceptions.unknown.UnknownException
 import com.example.common.utils.DateUtil
 import com.example.common.utils.SessionIdentifierGenerator
 import com.example.common.utils.Validator
+import com.example.coreweb.domains.mail.services.MailService
+import com.example.coreweb.domains.sms.services.SmsService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.PropertySource
