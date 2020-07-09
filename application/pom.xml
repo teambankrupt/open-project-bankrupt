@@ -40,14 +40,7 @@
             </activation>
             <properties>
                 <packaging.type>jar</packaging.type>
-                <db.driverClassName>com.mysql.cj.jdbc.Driver</db.driverClassName>
-                <db.dialect>org.hibernate.dialect.MySQL55Dialect</db.dialect>
-                <db.url>jdbc:mysql://localhost/demodb?useUnicode=yes&amp;characterEncoding=UTF-8&amp;characterSetResults=UTF-8
-                    &amp;createDatabaseIfNotExist=true
-                </db.url>
-                <db.username>demouser</db.username>
-                <db.password>demopass</db.password>
-                <storage.path>/var/appFiles</storage.path>
+                <spring.profiles.active>local</spring.profiles.active>
             </properties>
         </profile>
 
@@ -61,14 +54,7 @@
             </activation>
             <properties>
                 <packaging.type>jar</packaging.type>
-                <db.driverClassName>com.mysql.cj.jdbc.Driver</db.driverClassName>
-                <db.dialect>org.hibernate.dialect.MySQL55Dialect</db.dialect>
-                <db.url>jdbc:mysql://localhost/demodb?useUnicode=yes&amp;characterEncoding=UTF-8&amp;characterSetResults=UTF-8
-                    &amp;createDatabaseIfNotExist=true
-                </db.url>
-                <db.username>demouser</db.username>
-                <db.password>demopass</db.password>
-                <storage.path>/var/appFiles</storage.path>
+                <spring.profiles.active>dev</spring.profiles.active>
             </properties>
         </profile>
 
@@ -83,14 +69,7 @@
             </activation>
             <properties>
                 <packaging.type>jar</packaging.type>
-                <db.driverClassName>com.mysql.cj.jdbc.Driver</db.driverClassName>
-                <db.dialect>org.hibernate.dialect.MySQL55Dialect</db.dialect>
-                <db.url>jdbc:mysql://localhost/demodb?useUnicode=yes&amp;characterEncoding=UTF-8&amp;characterSetResults=UTF-8
-                    &amp;createDatabaseIfNotExist=true
-                </db.url>
-                <db.username>demouser</db.username>
-                <db.password>demopass</db.password>
-                <storage.path>/var/appFiles</storage.path>
+                <spring.profiles.active>prod</spring.profiles.active>
             </properties>
         </profile>
     </profiles>
