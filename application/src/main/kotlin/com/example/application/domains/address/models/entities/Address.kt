@@ -1,6 +1,6 @@
 package com.example.application.domains.address.models.entities
 
-import com.example.application.domains.common.base.models.entities.BaseEntity
+import com.example.coreweb.domains.base.entities.BaseEntity
 import javax.persistence.Embedded
 import javax.persistence.Entity
 import javax.persistence.ManyToOne

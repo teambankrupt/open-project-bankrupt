@@ -1,6 +1,6 @@
 package com.example.application.domains.users.models.mappers
 
-import com.example.application.domains.common.base.models.mappers.BaseMapper
+import com.example.coreweb.domains.base.models.mappers.BaseMapper
 import com.example.application.domains.users.models.dtos.RoleDto
 import com.example.application.domains.users.models.entities.Role
 import com.example.application.domains.users.services.PrivilegeService

@@ -1,7 +1,7 @@
 package com.example.application.domains.users.models.mappers
 
-import com.example.application.commons.utils.ExceptionUtil
-import com.example.application.commons.utils.PasswordUtil
+import com.example.common.utils.ExceptionUtil
+import com.example.application.utils.PasswordUtil
 import com.example.application.config.security.SecurityContext
 import com.example.application.domains.users.models.dtos.UserUpdateAdminDto
 import com.example.application.domains.users.models.dtos.UserRequest

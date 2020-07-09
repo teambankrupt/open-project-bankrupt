@@ -1,6 +1,6 @@
 package com.example.application.domains.users.controllers.web
 
-import com.example.application.commons.utils.ExceptionUtil
+import com.example.common.utils.ExceptionUtil
 import com.example.application.domains.users.models.dtos.PrivilegeDto
 import com.example.application.domains.users.models.mappers.PrivilegeMapper
 import com.example.application.domains.users.services.PrivilegeService

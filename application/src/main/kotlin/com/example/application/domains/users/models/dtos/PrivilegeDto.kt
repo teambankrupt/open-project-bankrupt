@@ -1,6 +1,6 @@
 package com.example.application.domains.users.models.dtos
 
-import com.example.application.domains.common.base.models.dtos.BaseDto
+import com.example.coreweb.domains.base.models.dtos.BaseDto
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty

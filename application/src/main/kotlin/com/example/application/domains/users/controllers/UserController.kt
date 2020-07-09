@@ -1,6 +1,6 @@
 package com.example.application.domains.users.controllers
 
-import com.example.application.commons.Constants
+import com.example.common.Constants
 import com.example.application.config.security.TokenService
 import com.example.application.domains.users.models.mappers.UserMapper
 import com.example.application.domains.users.services.UserService

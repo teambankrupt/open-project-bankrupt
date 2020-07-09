@@ -2,8 +2,8 @@ package com.example.application.chat.models.mappers
 
 import com.example.application.chat.models.dtos.ChatRoomDto
 import com.example.application.chat.models.entities.ChatRoom
-import com.example.application.commons.utils.ExceptionUtil
-import com.example.application.domains.common.base.models.mappers.BaseMapper
+import com.example.common.utils.ExceptionUtil
+import com.example.coreweb.domains.base.models.mappers.BaseMapper
 import com.example.application.domains.users.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component

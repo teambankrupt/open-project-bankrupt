@@ -3,10 +3,10 @@ package com.example.application.chat.controllers
 import com.example.application.chat.models.dtos.ChatRoomDto
 import com.example.application.chat.models.mappers.ChatRoomMapper
 import com.example.application.chat.services.ChatRoomService
-import com.example.application.commons.Constants
-import com.example.application.commons.utils.ExceptionUtil
+import com.example.common.Constants
+import com.example.common.utils.ExceptionUtil
 
-import com.example.application.domains.common.base.controllers.CrudController
+import com.example.coreweb.domains.base.controllers.CrudController
 import com.example.application.routing.Route
 import io.swagger.annotations.Api
 import org.springframework.beans.factory.annotation.Autowired

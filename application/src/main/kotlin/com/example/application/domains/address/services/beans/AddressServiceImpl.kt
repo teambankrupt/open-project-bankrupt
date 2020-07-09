@@ -1,6 +1,6 @@
 package com.example.application.domains.address.services.beans
 
-import com.example.application.commons.PageAttr
+import com.example.coreweb.utils.PageAttr
 import com.example.application.domains.address.models.entities.Address
 import com.example.application.domains.address.repositories.AddressRepo
 import com.example.application.domains.address.services.AddressService

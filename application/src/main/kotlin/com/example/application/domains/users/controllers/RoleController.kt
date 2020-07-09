@@ -1,8 +1,8 @@
 package com.example.application.domains.users.controllers
 
 
-import com.example.application.commons.Constants
-import com.example.application.domains.common.base.controllers.CrudController
+import com.example.common.Constants
+import com.example.coreweb.domains.base.controllers.CrudController
 import com.example.application.domains.users.models.dtos.RoleDto
 import com.example.application.domains.users.models.mappers.RoleMapper
 import com.example.application.domains.users.services.RoleService

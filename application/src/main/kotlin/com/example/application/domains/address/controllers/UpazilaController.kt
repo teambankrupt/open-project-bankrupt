@@ -1,12 +1,12 @@
 package com.example.application.domains.address.controllers
 
-import com.example.application.commons.Constants
-import com.example.application.commons.utils.ExceptionUtil
+import com.example.common.Constants
+import com.example.common.utils.ExceptionUtil
 import com.example.application.domains.address.models.dto.UpazilaDto
 import com.example.application.domains.address.models.entities.Upazila
 import com.example.application.domains.address.models.mappers.UpazilaMapper
 import com.example.application.domains.address.services.UpazilaService
-import com.example.application.domains.common.base.controllers.CrudController
+import com.example.coreweb.domains.base.controllers.CrudController
 import com.example.application.routing.Route
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation

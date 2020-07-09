@@ -1,12 +1,12 @@
 package com.example.application.domains.address.controllers
 
-import com.example.application.commons.Constants
-import com.example.application.commons.utils.ExceptionUtil
+import com.example.common.Constants
+import com.example.common.utils.ExceptionUtil
 import com.example.application.domains.address.models.dto.UnionDto
 import com.example.application.domains.address.models.entities.Union
 import com.example.application.domains.address.models.mappers.UnionMapper
 import com.example.application.domains.address.services.UnionService
-import com.example.application.domains.common.base.controllers.CrudController
+import com.example.coreweb.domains.base.controllers.CrudController
 import com.example.application.routing.Route
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation

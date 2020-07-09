@@ -1,7 +1,7 @@
 package com.example.application.domains.users.controllers.web
 
 import com.example.application.WebserviceApplication
-import com.example.application.commons.utils.ExceptionUtil
+import com.example.common.utils.ExceptionUtil
 import com.example.application.domains.users.models.dtos.RoleDto
 import com.example.application.domains.users.models.mappers.RoleMapper
 import com.example.application.domains.users.services.PrivilegeService

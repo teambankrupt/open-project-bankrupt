@@ -1,7 +1,7 @@
 package com.example.application.chat.services
 
 import com.example.application.chat.models.entities.ChatRoom
-import com.example.application.domains.common.base.services.CrudService
+import com.example.coreweb.domains.base.services.CrudService
 import org.springframework.data.domain.Page
 
 interface ChatRoomService : CrudService<ChatRoom> {

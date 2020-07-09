@@ -1,7 +1,7 @@
 package com.example.application.domains.promotions.services;
 
 
-import com.example.application.commons.PageAttr;
+import com.example.coreweb.utils.PageAttr;
 import com.example.common.utils.Validator;
 import com.example.application.domains.fileuploads.services.FileUploadService;
 import com.example.application.domains.notifications.models.dto.NotificationData;

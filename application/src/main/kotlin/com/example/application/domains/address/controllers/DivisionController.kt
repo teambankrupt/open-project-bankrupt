@@ -1,7 +1,7 @@
 package com.example.application.domains.address.controllers
 
-import com.example.application.commons.Constants
-import com.example.application.commons.utils.ExceptionUtil
+import com.example.common.Constants
+import com.example.common.utils.ExceptionUtil
 import com.example.application.domains.address.models.dto.DivisionDto
 import com.example.application.domains.address.models.entities.Division
 import com.example.application.domains.address.models.mappers.DivisionMapper

@@ -1,6 +1,6 @@
 package com.example.application.domains.users.controllers.web
 
-import com.example.application.commons.utils.ExceptionUtil
+import com.example.common.utils.ExceptionUtil
 import com.example.application.domains.users.models.dtos.UserUpdateAdminDto
 import com.example.application.domains.users.models.mappers.UserMapper
 import com.example.application.domains.users.services.RoleService

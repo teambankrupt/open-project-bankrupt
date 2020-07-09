@@ -1,6 +1,6 @@
 package com.example.application.domains.users.services.beans;
 
-import com.example.application.commons.PageAttr;
+import com.example.coreweb.utils.PageAttr;
 
 import com.example.application.config.security.SecurityContext;
 import com.example.application.domains.users.models.UserAuth;

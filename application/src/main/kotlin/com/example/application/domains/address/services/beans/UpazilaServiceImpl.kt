@@ -1,6 +1,6 @@
 package com.example.application.domains.address.services.beans
 
-import com.example.application.commons.PageAttr
+import com.example.coreweb.utils.PageAttr
 import com.example.application.domains.address.models.entities.Upazila
 import com.example.application.domains.address.repositories.UpazilaRepo
 import com.example.application.domains.address.services.UpazilaService

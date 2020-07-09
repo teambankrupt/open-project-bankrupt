@@ -1,8 +1,8 @@
 package com.example.application.domains.users.services.beans
 
-import com.example.application.commons.PageAttr
-import com.example.application.commons.utils.ExceptionUtil
-import com.example.application.commons.utils.PasswordUtil
+import com.example.coreweb.utils.PageAttr
+import com.example.common.utils.ExceptionUtil
+import com.example.application.utils.PasswordUtil
 import com.example.application.config.security.SecurityContext
 import com.example.application.domains.notifications.models.dto.NotificationData
 import com.example.application.domains.notifications.models.dto.PushNotification

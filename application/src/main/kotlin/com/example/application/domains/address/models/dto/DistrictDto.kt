@@ -1,6 +1,6 @@
 package com.example.application.domains.address.models.dto
 
-import com.example.application.domains.common.base.models.dtos.BaseDto
+import com.example.coreweb.domains.base.models.dtos.BaseDto
 import com.fasterxml.jackson.annotation.JsonProperty
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull

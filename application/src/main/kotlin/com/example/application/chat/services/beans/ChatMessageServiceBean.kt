@@ -3,8 +3,8 @@ package com.example.application.chat.services.beans
 import com.example.application.chat.models.entities.ChatMessage
 import com.example.application.chat.repositories.ChatMessageRepository
 import com.example.application.chat.services.ChatMessageService
-import com.example.application.commons.PageAttr
-import com.example.application.commons.utils.ExceptionUtil
+import com.example.coreweb.utils.PageAttr
+import com.example.common.utils.ExceptionUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service

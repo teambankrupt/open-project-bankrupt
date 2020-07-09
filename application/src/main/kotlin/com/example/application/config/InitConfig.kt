@@ -1,6 +1,6 @@
 package com.example.application.config
 
-import com.example.application.commons.utils.PasswordUtil
+import com.example.application.utils.PasswordUtil
 
 import com.example.application.domains.users.models.entities.Privilege
 import com.example.application.domains.users.models.entities.Role

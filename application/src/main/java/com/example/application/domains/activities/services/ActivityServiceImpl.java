@@ -1,6 +1,6 @@
 package com.example.application.domains.activities.services;
 
-import com.example.application.commons.PageAttr;
+import com.example.coreweb.utils.PageAttr;
 import com.example.application.domains.activities.models.entities.Activity;
 import com.example.application.domains.activities.repositories.ActivityRepository;
 import com.example.application.domains.users.models.entities.User;

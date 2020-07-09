@@ -1,5 +1,5 @@
 package com.example.application.config;
-import com.example.application.commons.utils.PasswordUtil;
+import com.example.application.utils.PasswordUtil;
 import com.example.application.domains.users.services.beans.CustomUserDetailsService;
 import com.example.application.interceptors.ActivityInterceptor;
 import com.example.application.listeners.AuthenticationFailureEventListener;
