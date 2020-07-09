@@ -1,7 +1,6 @@
 package com.example.application.domains.users.models.mappers
 
 import com.example.common.utils.ExceptionUtil
-import com.example.application.utils.PasswordUtil
 import com.example.application.config.security.SecurityContext
 import com.example.application.domains.users.models.dtos.UserUpdateAdminDto
 import com.example.application.domains.users.models.dtos.UserRequest
@@ -9,6 +8,7 @@ import com.example.application.domains.users.models.dtos.UserResponse
 import com.example.application.domains.users.models.entities.User
 import com.example.application.domains.users.services.RoleService
 import com.example.application.domains.users.services.UserService
+import com.example.auth.utils.PasswordUtil
 import com.example.common.exceptions.exists.AlreadyExistsException
 import com.example.common.exceptions.invalid.InvalidException;
 import com.example.common.exceptions.notfound.NotFoundException

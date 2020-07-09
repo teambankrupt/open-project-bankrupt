@@ -1,9 +1,9 @@
 package com.example.application.config;
-import com.example.application.utils.PasswordUtil;
-import com.example.application.domains.users.services.beans.CustomUserDetailsService;
 import com.example.application.interceptors.ActivityInterceptor;
 import com.example.application.listeners.AuthenticationFailureEventListener;
 import com.example.application.listeners.AuthenticationSuccessEventListener;
+import com.example.auth.services.CustomUserDetailsService;
+import com.example.auth.utils.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
 import org.springframework.context.ApplicationListener;

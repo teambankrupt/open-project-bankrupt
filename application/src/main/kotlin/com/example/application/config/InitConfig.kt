@@ -1,6 +1,5 @@
 package com.example.application.config
 
-import com.example.application.utils.PasswordUtil
 
 import com.example.application.domains.users.models.entities.Privilege
 import com.example.application.domains.users.models.entities.Role
@@ -8,6 +7,7 @@ import com.example.application.domains.users.models.entities.User
 import com.example.application.domains.users.services.PrivilegeService
 import com.example.application.domains.users.services.RoleService
 import com.example.application.domains.users.services.UserService
+import com.example.auth.utils.PasswordUtil
 import com.example.common.exceptions.notfound.NotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value

@@ -1,8 +1,6 @@
 package com.example.application.domains.users.services.beans
 
-import com.example.coreweb.utils.PageAttr
 import com.example.common.utils.ExceptionUtil
-import com.example.application.utils.PasswordUtil
 import com.example.application.config.security.SecurityContext
 import com.example.application.domains.notifications.models.dto.NotificationData
 import com.example.application.domains.notifications.models.dto.PushNotification
@@ -14,6 +12,7 @@ import com.example.application.domains.users.repositories.UserRepository
 import com.example.application.domains.users.services.AcValidationTokenService
 import com.example.application.domains.users.services.RoleService
 import com.example.application.domains.users.services.UserService
+import com.example.auth.utils.PasswordUtil
 import com.example.common.exceptions.exists.UserAlreadyExistsException
 import com.example.common.exceptions.forbidden.ForbiddenException
 import com.example.common.exceptions.invalid.InvalidException
@@ -25,6 +24,7 @@ import com.example.common.utils.SessionIdentifierGenerator
 import com.example.common.utils.Validator
 import com.example.coreweb.domains.mail.services.MailService
 import com.example.coreweb.domains.sms.services.SmsService
+import com.example.coreweb.utils.PageAttr
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.PropertySource

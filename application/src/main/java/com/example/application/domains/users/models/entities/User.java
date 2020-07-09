@@ -1,7 +1,7 @@
 package com.example.application.domains.users.models.entities;
 
 import com.example.coreweb.domains.base.entities.BaseEntity;
-import com.example.application.domains.users.models.UserAuth;
+import com.example.auth.domains.models.entities.UserAuth;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -32,33 +32,23 @@ public class User extends BaseEntity {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "m_users_roles", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "roles_id", referencedColumnName = "id")})
     private List<Role> roles;
 
     private boolean enabled = true;
 
+    @Column(name = "account_non_expired")
     private boolean accountNonExpired = true;
 
+    @Column(name = "account_non_locked")
     private boolean accountNonLocked = true;
 
+    @Column(name = "credentials_non_expired")
     private boolean credentialsNonExpired = true;
 
     public User() {
     }
 
-    public User(UserAuth auth) {
-        if (auth == null) throw new IllegalArgumentException("User can not be null!");
-        this.setId(auth.getId());
-        this.name = auth.getName();
-        this.username = auth.getUsername();
-        this.password = auth.getPassword();
-        this.phone = auth.getPhone();
-        this.email = auth.getEmail();
-        this.enabled = auth.isEnabled();
-        this.roles = auth.getRoles();
-        this.accountNonExpired = auth.isAccountNonExpired();
-        this.accountNonLocked = auth.isAccountNonLocked();
-        this.credentialsNonExpired = auth.isCredentialsNonExpired();
-    }
 
     public void grantRole(Role role) {
         if (this.roles == null)

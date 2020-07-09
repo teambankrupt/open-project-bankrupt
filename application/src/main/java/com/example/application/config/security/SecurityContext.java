@@ -1,8 +1,9 @@
 package com.example.application.config.security;
 
-import com.example.application.domains.users.models.UserAuth;
+import com.example.application.config.security.oauth.AuthAdapter;
 import com.example.application.domains.users.models.entities.User;
 import com.example.application.domains.users.repositories.UserRepository;
+import com.example.auth.domains.models.entities.UserAuth;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -52,7 +53,7 @@ public final class SecurityContext {
                 if (loggedInUser == null || !authentication.getPrincipal().equals(loggedInUser.getUsername())) {
                     Optional<User> user = SecurityContext.userRepository.findByUsername((String) authentication.getPrincipal());
                     if (!user.isPresent()) return null;
-                    loggedInUser = new UserAuth(user.get());
+                    loggedInUser = AuthAdapter.getAuth(user.get());
                 }
                 return loggedInUser;
             }

@@ -2,11 +2,11 @@ package com.example.application.domains.home.controllers.api
 
 import com.example.common.Constants
 import com.example.application.config.security.SecurityContext
-import com.example.application.config.security.TokenService
-import com.example.application.domains.users.models.UserAuth
+import com.example.application.config.security.oauth.AuthAdapter
 import com.example.application.domains.users.models.dtos.UserRequest
 import com.example.application.domains.users.models.mappers.UserMapper
 import com.example.application.domains.users.services.UserService
+import com.example.auth.config.security.TokenService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
@@ -50,8 +50,8 @@ class ApiHomeController @Autowired constructor(
 
         val user = this.userService.register(token, this.userMapper.map(userDto, null))
 
-        SecurityContext.updateAuthentication(UserAuth(user))
-        return ResponseEntity.ok(tokenService.createAccessToken(user))
+        SecurityContext.updateAuthentication(AuthAdapter.getAuth(user))
+        return ResponseEntity.ok(tokenService.createAccessToken(AuthAdapter.getAuth(user)))
     }
 
 

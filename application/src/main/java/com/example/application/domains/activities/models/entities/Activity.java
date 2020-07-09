@@ -1,7 +1,8 @@
 package com.example.application.domains.activities.models.entities;
 
+import com.example.application.config.security.oauth.AuthAdapter;
+import com.example.auth.domains.models.entities.UserAuth;
 import com.example.coreweb.domains.base.entities.BaseEntity;
-import com.example.application.domains.users.models.UserAuth;
 import com.example.application.domains.users.models.entities.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Cascade;
@@ -38,8 +39,8 @@ public class Activity extends BaseEntity {
     }
 
     public void setUser(UserAuth auth) {
-        if (auth==null) throw new IllegalArgumentException("Auth can't be null!");
-        this.user = new User(auth);
+        if (auth == null) throw new IllegalArgumentException("Auth can't be null!");
+        this.user = AuthAdapter.getUser(auth);
     }
 
     public Set<String> getTags() {
