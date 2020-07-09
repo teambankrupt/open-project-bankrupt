@@ -1,7 +1,7 @@
 package com.example.application.chat.controllers.web
 
 import com.example.application.chat.services.ChatRoomService
-import com.example.application.config.security.SecurityContext
+import com.example.auth.config.security.SecurityContext
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model

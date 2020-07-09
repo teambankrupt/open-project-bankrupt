@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AuthService {
@@ -22,30 +21,30 @@ public class AuthService {
     }
 
     public UserAuth findAuthUser(String username) {
+        if (username == null) return null;
         String sql = "SELECT u FROM UserAuth u WHERE u.username=:username AND u.deleted=FALSE";
         Query query = this.entityManager.createQuery(sql);
         query.setParameter("username", username);
-        UserAuth auth = (UserAuth) query.getSingleResult();
-
+        UserAuth auth;
+        try {
+            auth = (UserAuth) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
         return auth;
     }
 
     public List<Privilege> getAuthorities() {
-//        String sql = "SELECT p.name,p.label,p.description FROM privileges p  WHERE p.deleted=false";
         String sql = "SELECT a FROM Privilege a  WHERE a.deleted=false";
         Query query = this.entityManager.createQuery(sql);
 
-        List<Privilege> authorities = query.getResultList();
+        List<Privilege> authorities;
+        try {
+            authorities = query.getResultList();
+        } catch (Exception e) {
+            authorities = new ArrayList<>();
+        }
         return authorities;
-    }
-
-
-    private List<Privilege> populateAccessUrls(List<Privilege> authorities) {
-        if (authorities == null) return new ArrayList<>();
-        return authorities.stream().peek(privilege -> {
-            //TODO: query authorities from database
-            privilege.setAccessUrls(new ArrayList<>());
-        }).collect(Collectors.toList());
     }
 
 }

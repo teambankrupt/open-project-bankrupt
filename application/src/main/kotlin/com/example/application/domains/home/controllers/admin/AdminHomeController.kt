@@ -1,6 +1,6 @@
 package com.example.application.domains.home.controllers.admin
 
-import com.example.application.config.security.SecurityContext
+import com.example.auth.config.security.SecurityContext
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import springfox.documentation.annotations.ApiIgnore

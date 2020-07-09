@@ -1,6 +1,6 @@
 package com.example.application.domains.notifications.controllers;
 
-import com.example.application.config.security.SecurityContext;
+import com.example.auth.config.security.SecurityContext;
 import com.example.application.domains.notifications.services.FirebaseTokenService;
 import com.example.common.exceptions.invalid.InvalidException;
 import com.example.common.exceptions.notfound.UserNotFoundException;

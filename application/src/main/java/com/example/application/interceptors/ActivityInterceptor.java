@@ -1,7 +1,7 @@
 package com.example.application.interceptors;
 
 
-import com.example.application.config.security.SecurityContext;
+import com.example.auth.config.security.SecurityContext;
 import com.example.application.domains.activities.models.entities.Activity;
 import com.example.application.domains.activities.services.ActivityService;
 import com.example.auth.domains.models.entities.UserAuth;

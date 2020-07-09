@@ -1,7 +1,7 @@
 package com.example.application.domains.users.services.beans
 
 import com.example.common.utils.ExceptionUtil
-import com.example.application.config.security.SecurityContext
+import com.example.auth.config.security.SecurityContext
 import com.example.application.domains.notifications.models.dto.NotificationData
 import com.example.application.domains.notifications.models.dto.PushNotification
 import com.example.application.domains.notifications.services.NotificationService

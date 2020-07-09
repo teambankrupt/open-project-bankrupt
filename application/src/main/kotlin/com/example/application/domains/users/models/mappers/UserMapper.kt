@@ -1,7 +1,7 @@
 package com.example.application.domains.users.models.mappers
 
 import com.example.common.utils.ExceptionUtil
-import com.example.application.config.security.SecurityContext
+import com.example.auth.config.security.SecurityContext
 import com.example.application.domains.users.models.dtos.UserUpdateAdminDto
 import com.example.application.domains.users.models.dtos.UserRequest
 import com.example.application.domains.users.models.dtos.UserResponse

@@ -1,5 +1,6 @@
 package com.example.coreweb.domains.base.entities;
 
+import com.example.auth.config.security.SecurityContext;
 import com.example.common.utils.DateUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -51,9 +52,7 @@ public abstract class BaseEntity implements Serializable {
 
     @JsonIgnore
     public String getLoggedInUsername() {
-//        return SecurityContext.getLoggedInUsername();
-        //TODO: add security module and implement here
-        return "admin";
+        return SecurityContext.getLoggedInUsername();
     }
 
 

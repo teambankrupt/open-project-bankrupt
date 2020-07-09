@@ -1,5 +1,6 @@
 package com.example.auth.domains.models.entities;
 
+import com.example.auth.config.security.SecurityContext;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -54,15 +55,14 @@ public class Privilege {
     private void onBasePersist() {
         this.createdAt = new Date();
         this.updatedAt = createdAt;
-        // TODO: add loggedinusername
-//        this.createdBy = this.getLoggedInUsername();
+        this.createdBy = SecurityContext.getLoggedInUsername();
         this.uuid = UUID.randomUUID().toString();
     }
 
     @PreUpdate
     private void onBaseUpdate() {
         this.updatedAt = new Date();
-//        this.updatedBy = this.getLoggedInUsername();
+        this.updatedBy = SecurityContext.getLoggedInUsername();
     }
 
     public Privilege() {

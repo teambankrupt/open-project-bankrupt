@@ -3,7 +3,7 @@ package com.example.application.domains.users.services.beans;
 import com.example.application.config.security.oauth.AuthAdapter;
 import com.example.coreweb.utils.PageAttr;
 
-import com.example.application.config.security.SecurityContext;
+import com.example.auth.config.security.SecurityContext;
 import com.example.auth.domains.models.entities.UserAuth;
 import com.example.application.domains.users.models.entities.Profile;
 import com.example.application.domains.users.models.entities.User;
