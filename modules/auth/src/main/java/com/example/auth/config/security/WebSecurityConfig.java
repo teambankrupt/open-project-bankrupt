@@ -2,7 +2,6 @@ package com.example.auth.config.security;
 
 import com.example.auth.services.CustomUserDetailsService;
 import com.example.auth.utils.PasswordUtil;
-import netscape.security.Privilege;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
