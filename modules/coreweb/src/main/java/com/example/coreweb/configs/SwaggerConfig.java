@@ -1,4 +1,4 @@
-package com.example.application.config;
+package com.example.coreweb.configs;
 
 
 import org.springframework.beans.factory.annotation.Value;
@@ -31,22 +31,35 @@ public class SwaggerConfig {
     public static final String authorizationScopeGlobal = "global";
     public static final String authorizationScopeGlobalDesc = "accessEverything";
 
-    @Value("${auth.client.id}")
-    private String clientId;
-    @Value("${auth.client.secret}")
-    private String clientSecret;
+//    @Value("${auth.client.id}")
+//    private String clientId;
+//    @Value("${auth.client.secret}")
+//    private String clientSecret;
+//
+//    @Value("${applicationName}")
+//    private String applicationName;
+//
+//    @Value("${baseUrl}")
+//    private String appUrl;
+//
+//    @Value("${contactEmail}")
+//    private String contactEmail;
+//
+//    @Value("${host.full.dns.auth.link}")
+//    private String authLink;
 
-    @Value("${applicationName}")
-    private String applicationName;
 
-    @Value("${baseUrl}")
-    private String appUrl;
+    private String clientId = "client_id";
 
-    @Value("${contactEmail}")
-    private String contactEmail;
+    private String clientSecret = "client_secret";
 
-    @Value("${host.full.dns.auth.link}")
-    private String authLink;
+    private String applicationName = "ExampleApp";
+
+    private String appUrl = "https://example.com";
+
+    private String contactEmail = "info@example.com";
+
+    private String authLink = "http://localhost:8080";
 
 
     @Bean

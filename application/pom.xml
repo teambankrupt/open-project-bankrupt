@@ -21,7 +21,6 @@
         <flyway.version>5.2.4</flyway.version>
         <oauth2.version>2.3.6.RELEASE</oauth2.version>
         <jwt.version>1.1.1.RELEASE</jwt.version>
-        <swagger.version>2.9.2</swagger.version>
         <websocket.version>5.2.2.RELEASE</websocket.version>
         <websocket.messaging.version>5.2.2.RELEASE</websocket.messaging.version>
     </properties>
@@ -97,6 +96,7 @@
     </profiles>
 
     <dependencies>
+        <!--MODULE DEPENDENCIES-->
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>coreweb</artifactId>
@@ -109,11 +109,6 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <!--PRIMARY-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
@@ -127,23 +122,6 @@
             <artifactId>jackson-module-kotlin</artifactId>
         </dependency>
         <!--END PRIMARY-->
-
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <!--SPRING DATA JPA-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
-        </dependency>
 
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
@@ -170,38 +148,6 @@
             <version>${jwt.version}</version>
         </dependency>
 
-        <!--EMAIL-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
-
-        <!--SWAGGER-->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${swagger.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${swagger.version}</version>
-        </dependency>
-
-        <!--Utils-->
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.7</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
-        </dependency>
-
         <!--SERIALIZATION-->
         <dependency>
             <groupId>org.json</groupId>
@@ -209,12 +155,6 @@
             <version>20180813</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.5</version>
-        </dependency>
 
         <!--TEMPLATES-->
         <dependency>
@@ -240,12 +180,6 @@
         </dependency>
 
         <!--UTILS-->
-        <!-- https://mvnrepository.com/artifact/com.googlecode.libphonenumber/libphonenumber -->
-        <dependency>
-            <groupId>com.googlecode.libphonenumber</groupId>
-            <artifactId>libphonenumber</artifactId>
-            <version>8.10.22</version>
-        </dependency>
 
         <!--WebSocket-->
         <dependency>

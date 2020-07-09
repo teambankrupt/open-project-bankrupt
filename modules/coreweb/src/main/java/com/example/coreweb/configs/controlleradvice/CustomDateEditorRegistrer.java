@@ -1,4 +1,4 @@
-package com.example.application.config.controlleradvice;
+package com.example.coreweb.configs.controlleradvice;
 
 
 import com.example.common.misc.CustomDateFormat;
