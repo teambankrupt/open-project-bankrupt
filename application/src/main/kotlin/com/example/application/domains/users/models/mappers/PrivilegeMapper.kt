@@ -1,7 +1,7 @@
 package com.example.application.domains.users.models.mappers
 
 import com.example.application.domains.users.models.dtos.PrivilegeDto
-import com.example.auth.domains.models.entities.Privilege
+import com.example.auth.entities.Privilege
 import org.springframework.stereotype.Component
 
 @Component

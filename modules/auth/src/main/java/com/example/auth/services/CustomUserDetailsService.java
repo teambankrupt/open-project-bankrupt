@@ -1,6 +1,6 @@
 package com.example.auth.services;
 
-import com.example.auth.domains.models.entities.UserAuth;
+import com.example.auth.entities.UserAuth;
 import com.example.auth.utils.NetworkUtil;
 import com.example.common.exceptions.notfound.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

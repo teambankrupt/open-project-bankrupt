@@ -1,6 +1,6 @@
 package com.example.auth.config.security.oauth;
 
-import com.example.auth.domains.models.entities.UserAuth;
+import com.example.auth.entities.UserAuth;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;

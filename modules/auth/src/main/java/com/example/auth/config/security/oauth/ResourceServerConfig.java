@@ -1,6 +1,6 @@
 package com.example.auth.config.security.oauth;
 
-import com.example.auth.domains.models.entities.Privilege;
+import com.example.auth.entities.Privilege;
 import com.example.auth.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

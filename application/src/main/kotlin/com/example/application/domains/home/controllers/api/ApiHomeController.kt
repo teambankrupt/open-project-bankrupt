@@ -2,7 +2,7 @@ package com.example.application.domains.home.controllers.api
 
 import com.example.common.Constants
 import com.example.auth.config.security.SecurityContext
-import com.example.application.config.security.AuthAdapter
+import com.example.application.domains.users.models.mappers.UserAuthMapper
 import com.example.application.domains.users.models.dtos.UserRequest
 import com.example.application.domains.users.models.mappers.UserMapper
 import com.example.application.domains.users.services.UserService
@@ -50,8 +50,8 @@ class ApiHomeController @Autowired constructor(
 
         val user = this.userService.register(token, this.userMapper.map(userDto, null))
 
-        SecurityContext.updateAuthentication(AuthAdapter.getAuth(user))
-        return ResponseEntity.ok(tokenService.createAccessToken(AuthAdapter.getAuth(user)))
+        SecurityContext.updateAuthentication(UserAuthMapper.getAuth(user))
+        return ResponseEntity.ok(tokenService.createAccessToken(UserAuthMapper.getAuth(user)))
     }
 
 

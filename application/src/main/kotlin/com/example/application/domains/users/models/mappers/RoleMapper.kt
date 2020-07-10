@@ -1,8 +1,7 @@
 package com.example.application.domains.users.models.mappers
 
-import com.example.coreweb.domains.base.models.mappers.BaseMapper
 import com.example.application.domains.users.models.dtos.RoleDto
-import com.example.auth.domains.models.entities.Role
+import com.example.auth.entities.Role
 import com.example.application.domains.users.services.PrivilegeService
 import com.example.common.exceptions.notfound.NotFoundException
 

@@ -2,7 +2,7 @@ package com.example.application.domains.users.services.beans
 
 import com.example.coreweb.utils.PageAttr
 import com.example.common.utils.ExceptionUtil
-import com.example.auth.domains.models.entities.Role
+import com.example.auth.entities.Role
 import com.example.application.domains.users.repositories.RoleRepository
 import com.example.application.domains.users.repositories.UserRepository
 import com.example.application.domains.users.services.RoleService

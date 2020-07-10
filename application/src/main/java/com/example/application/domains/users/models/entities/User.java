@@ -1,8 +1,7 @@
 package com.example.application.domains.users.models.entities;
 
-import com.example.auth.domains.models.entities.Role;
+import com.example.auth.entities.Role;
 import com.example.coreweb.domains.base.entities.BaseEntity;
-import com.example.auth.domains.models.entities.UserAuth;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;

@@ -1,6 +1,6 @@
 package com.example.application.domains.users.repositories
 
-import com.example.auth.domains.models.entities.Role
+import com.example.auth.entities.Role
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository

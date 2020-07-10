@@ -1,4 +1,4 @@
-package com.example.auth.domains.models.enums;
+package com.example.auth.enums;
 
 public enum Privileges {
     ADMINISTRATION("Administration"), ACCESS_USER_RESOURCES("Access User Resources");

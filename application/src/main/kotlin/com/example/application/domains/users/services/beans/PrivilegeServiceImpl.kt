@@ -2,7 +2,7 @@ package com.example.application.domains.users.services.beans
 
 import com.example.coreweb.utils.PageAttr
 import com.example.common.utils.ExceptionUtil
-import com.example.auth.domains.models.entities.Privilege
+import com.example.auth.entities.Privilege
 import com.example.application.domains.users.repositories.PrivilegeRepository
 import com.example.application.domains.users.services.PrivilegeService
 import com.example.common.exceptions.exists.AlreadyExistsException

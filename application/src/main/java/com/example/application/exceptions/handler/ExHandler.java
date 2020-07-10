@@ -3,7 +3,6 @@ package com.example.application.exceptions.handler;
 import com.example.common.exceptions.exists.AlreadyExistsException;
 import com.example.common.exceptions.forbidden.ForbiddenException;
 import com.example.common.exceptions.invalid.InvalidException;
-import com.example.common.exceptions.notfound.ApartmentNotFoundException;
 import com.example.common.exceptions.notfound.FirebaseTokenNotFoundException;
 import com.example.common.exceptions.notfound.NotFoundException;
 import com.example.common.exceptions.notfound.ProfileNotFoundException;
@@ -18,11 +17,6 @@ import javax.naming.LimitExceededException;
 
 @ControllerAdvice
 public class ExHandler {
-
-    @ExceptionHandler(ApartmentNotFoundException.class)
-    public ResponseEntity handleApartmentNotFoundException(ApartmentNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(ex.getMessage());
-    }
 
     @ExceptionHandler(AlreadyExistsException.class)
     public ResponseEntity handleAlreadyExistsException(AlreadyExistsException ex) {

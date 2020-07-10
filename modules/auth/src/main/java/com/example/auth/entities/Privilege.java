@@ -1,8 +1,8 @@
-package com.example.auth.domains.models.entities;
+package com.example.auth.entities;
 
-import com.example.auth.domains.models.enums.Privileges;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.example.auth.config.security.SecurityContext;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,26 +10,25 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "privileges")
+public class Privilege {
     @Id
-    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
     private Long id;
 
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Column(name = "description")
+    @Column(nullable = false, unique = true)
+    private String label;
+
     private String description;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SUBSELECT)
-    @JoinTable(name = "roles_privileges", joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "privilege_id", referencedColumnName = "id")})
-    private List<Privilege> privileges;
-
-    @Column(nullable = false)
-    private boolean restricted = true;
+    @ElementCollection
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @CollectionTable(name = "privileges_access_urls")
+    private List<String> accessUrls;
 
     @Temporal(value = TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false)
@@ -55,53 +54,64 @@ public class Role {
     private void onBasePersist() {
         this.createdAt = new Date();
         this.updatedAt = createdAt;
-        // TODO: add loggedinusername
-//        this.createdBy = this.getLoggedInUsername();
+        this.createdBy = SecurityContext.getLoggedInUsername();
         this.uuid = UUID.randomUUID().toString();
     }
 
     @PreUpdate
     private void onBaseUpdate() {
         this.updatedAt = new Date();
-//        this.updatedBy = this.getLoggedInUsername();
+        this.updatedBy = SecurityContext.getLoggedInUsername();
     }
 
-    public boolean isAdmin() {
-        return privileges != null && this.privileges.stream().anyMatch(privilege -> Privileges.ADMINISTRATION.name().equals(privilege.getName()));
+    public Privilege() {
     }
 
-    public boolean isSameAs(Role role) {
-        if (role == null) return false;
-        return role.id.equals(this.id);
+    public Privilege(String name, String label) {
+        this.name = name;
+        this.label = label;
     }
 
-    public boolean hasPrivilege(Long privilegeId) {
-        if (privilegeId == null) return false;
-        return this.privileges.stream().anyMatch(p -> p.getId().equals(privilegeId));
+    public String[] accessesArr() {
+        String[] itemsArray = new String[accessUrls.size()];
+        return accessUrls.toArray(itemsArray);
     }
 
-    public Long getId() {
-        return id;
+    public String accessesStr() {
+        return String.join(",", accessUrls);
     }
 
     public String getName() {
         return name;
     }
 
+    public String getLabel() {
+        return label;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    public List<Privilege> getPrivileges() {
-        return privileges;
+    public List<String> getAccessUrls() {
+        return accessUrls;
     }
 
-    public boolean isRestricted() {
-        return restricted;
+    public void setAccessUrls(List<String> accessUrls) {
+        this.accessUrls = accessUrls;
     }
+
 
     public boolean isDeleted() {
         return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public Date getCreatedAt() {
@@ -132,16 +142,12 @@ public class Role {
         this.name = name;
     }
 
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setPrivileges(List<Privilege> privileges) {
-        this.privileges = privileges;
-    }
-
-    public void setRestricted(boolean restricted) {
-        this.restricted = restricted;
     }
 
     public void setCreatedAt(Date createdAt) {
@@ -163,9 +169,4 @@ public class Role {
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
-
 }

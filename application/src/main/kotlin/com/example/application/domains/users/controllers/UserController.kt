@@ -1,6 +1,6 @@
 package com.example.application.domains.users.controllers
 
-import com.example.application.config.security.AuthAdapter
+import com.example.application.domains.users.models.mappers.UserAuthMapper
 import com.example.common.Constants
 import com.example.application.domains.users.models.mappers.UserMapper
 import com.example.application.domains.users.services.UserService
@@ -44,7 +44,7 @@ class UserController @Autowired constructor(
         var user = this.userService.find(id).orElseThrow { UserNotFoundException("Could not find user with id: $id") }
         user.isEnabled = enabled
         user = this.userService.save(user)
-        this.tokenService.revokeAuthentication(AuthAdapter.getAuth(user))
+        this.tokenService.revokeAuthentication(UserAuthMapper.getAuth(user))
         return ResponseEntity.ok(this.userMapper.map(user))
     }
 

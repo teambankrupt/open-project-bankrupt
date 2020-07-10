@@ -1,6 +1,6 @@
 package com.example.auth.config.security;
 
-import com.example.auth.domains.models.entities.UserAuth;
+import com.example.auth.entities.UserAuth;
 import com.example.common.misc.Commons;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -1,6 +1,6 @@
 package com.example.auth.config.security;
 
-import com.example.auth.domains.models.entities.UserAuth;
+import com.example.auth.entities.UserAuth;
 import com.example.auth.services.AuthService;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

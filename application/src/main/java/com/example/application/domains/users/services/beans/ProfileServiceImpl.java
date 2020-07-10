@@ -1,6 +1,6 @@
 package com.example.application.domains.users.services.beans;
 
-import com.example.application.config.security.AuthAdapter;
+import com.example.application.domains.users.models.mappers.UserAuthMapper;
 import com.example.coreweb.utils.PageAttr;
 
 import com.example.auth.config.security.SecurityContext;
@@ -48,7 +48,7 @@ public class ProfileServiceImpl implements ProfileService {
         user.setName(profile.getName());
         this.userService.save(user);
 
-        SecurityContext.updateAuthentication(AuthAdapter.getAuth(profile.getUser()));
+        SecurityContext.updateAuthentication(UserAuthMapper.getAuth(profile.getUser()));
         return this.profileRepository.save(profile);
     }
 

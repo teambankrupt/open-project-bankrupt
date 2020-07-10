@@ -1,7 +1,7 @@
 package com.example.application.domains.activities.models.entities;
 
-import com.example.application.config.security.AuthAdapter;
-import com.example.auth.domains.models.entities.UserAuth;
+import com.example.application.domains.users.models.mappers.UserAuthMapper;
+import com.example.auth.entities.UserAuth;
 import com.example.coreweb.domains.base.entities.BaseEntity;
 import com.example.application.domains.users.models.entities.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -40,7 +40,7 @@ public class Activity extends BaseEntity {
 
     public void setUser(UserAuth auth) {
         if (auth == null) throw new IllegalArgumentException("Auth can't be null!");
-        this.user = AuthAdapter.getUser(auth);
+        this.user = UserAuthMapper.getUser(auth);
     }
 
     public Set<String> getTags() {

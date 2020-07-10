@@ -1,9 +1,9 @@
-package com.example.application.config.security;
+package com.example.application.domains.users.models.mappers;
 
 import com.example.application.domains.users.models.entities.User;
-import com.example.auth.domains.models.entities.UserAuth;
+import com.example.auth.entities.UserAuth;
 
-public class AuthAdapter {
+public class UserAuthMapper {
 
     public static UserAuth getAuth(User user) {
         UserAuth auth = new UserAuth();

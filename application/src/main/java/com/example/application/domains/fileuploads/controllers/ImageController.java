@@ -5,7 +5,7 @@ import com.example.auth.config.security.SecurityContext;
 import com.example.application.domains.fileuploads.models.entities.UploadProperties;
 import com.example.application.domains.fileuploads.models.responses.ImageUploadResponse;
 import com.example.application.domains.fileuploads.services.FileUploadService;
-import com.example.auth.domains.models.entities.UserAuth;
+import com.example.auth.entities.UserAuth;
 import com.example.common.exceptions.invalid.ImageInvalidException;
 import com.example.common.exceptions.notfound.NotFoundException;
 import io.swagger.annotations.Api;

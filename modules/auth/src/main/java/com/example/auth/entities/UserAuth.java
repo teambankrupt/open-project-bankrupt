@@ -1,4 +1,4 @@
-package com.example.auth.domains.models.entities;
+package com.example.auth.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;

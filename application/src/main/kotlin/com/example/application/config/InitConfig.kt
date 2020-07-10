@@ -1,14 +1,14 @@
 package com.example.application.config
 
 
-import com.example.auth.domains.models.entities.Privilege
-import com.example.auth.domains.models.entities.Role
+import com.example.auth.entities.Privilege
+import com.example.auth.entities.Role
 import com.example.application.domains.users.models.entities.User
 import com.example.application.domains.users.services.PrivilegeService
 import com.example.application.domains.users.services.RoleService
 import com.example.application.domains.users.services.UserService
-import com.example.auth.domains.models.enums.Privileges
-import com.example.auth.domains.models.enums.Roles
+import com.example.auth.enums.Privileges
+import com.example.auth.enums.Roles
 import com.example.auth.utils.PasswordUtil
 import com.example.common.exceptions.notfound.NotFoundException
 import org.springframework.beans.factory.annotation.Autowired

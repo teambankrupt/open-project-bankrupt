@@ -6,13 +6,12 @@ import com.example.application.domains.notifications.models.dto.NotificationData
 import com.example.application.domains.notifications.models.dto.PushNotification
 import com.example.application.domains.notifications.services.NotificationService
 import com.example.application.domains.users.models.entities.AcValidationToken
-import com.example.auth.domains.models.entities.Role
 import com.example.application.domains.users.models.entities.User
 import com.example.application.domains.users.repositories.UserRepository
 import com.example.application.domains.users.services.AcValidationTokenService
 import com.example.application.domains.users.services.RoleService
 import com.example.application.domains.users.services.UserService
-import com.example.auth.domains.models.enums.Roles
+import com.example.auth.enums.Roles
 import com.example.auth.utils.PasswordUtil
 import com.example.common.exceptions.exists.UserAlreadyExistsException
 import com.example.common.exceptions.forbidden.ForbiddenException

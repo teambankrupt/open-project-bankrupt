@@ -1,6 +1,6 @@
 package com.example.application.domains.users.services
 
-import com.example.auth.domains.models.entities.Role
+import com.example.auth.entities.Role
 import com.example.common.exceptions.forbidden.ForbiddenException
 import com.example.common.exceptions.notfound.UserNotFoundException
 import org.springframework.data.domain.Page
