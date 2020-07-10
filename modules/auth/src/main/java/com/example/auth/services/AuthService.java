@@ -20,6 +20,10 @@ public class AuthService {
         this.entityManager = entityManager;
     }
 
+    public boolean existsByUsername(String username) {
+        return this.findAuthUser(username) != null;
+    }
+
     public UserAuth findAuthUser(String username) {
         if (username == null) return null;
         String sql = "SELECT u FROM UserAuth u WHERE u.username=:username AND u.deleted=FALSE";

@@ -19,8 +19,6 @@
         <java.version>1.8</java.version>
         <kotlin.version>1.3.72</kotlin.version>
         <flyway.version>5.2.4</flyway.version>
-        <websocket.version>5.2.2.RELEASE</websocket.version>
-        <websocket.messaging.version>5.2.2.RELEASE</websocket.messaging.version>
     </properties>
 
     <profiles>
@@ -87,6 +85,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>messaging</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
         </dependency>
@@ -143,21 +147,6 @@
         <dependency>
             <groupId>net.sourceforge.nekohtml</groupId>
             <artifactId>nekohtml</artifactId>
-        </dependency>
-
-        <!--UTILS-->
-
-        <!--WebSocket-->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-websocket</artifactId>
-            <version>${websocket.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-messaging</artifactId>
-            <version>${websocket.messaging.version}</version>
         </dependency>
 
 
