@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -20,13 +21,13 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
+@PropertySource("classpath:security.properties")
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+
     @Value("${auth.client.id}")
     private String clientId;
     @Value("${auth.client.secret}")
     private String clientSecret;
-    @Value("${auth.loginEndpoint}")
-    private String loginEndpoint;
 
     @Value("${auth.token.type}")
     private String tokenType;

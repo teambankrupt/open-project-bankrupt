@@ -11,6 +11,7 @@ import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.PropertySource
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.oauth2.common.OAuth2AccessToken
@@ -20,6 +21,7 @@ import java.util.*
 @RestController
 @RequestMapping("/api/v1")
 @Api(tags = [Constants.Swagger.BASIC_APIS], description = Constants.Swagger.BASIC_API_DETAILS)
+@PropertySource("classpath:security.properties")
 class ApiHomeController @Autowired constructor(
         private val userService: UserService,
         private val tokenService: TokenService,
