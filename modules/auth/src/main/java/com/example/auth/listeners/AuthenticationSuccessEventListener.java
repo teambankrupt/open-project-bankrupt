@@ -1,7 +1,8 @@
-package com.example.application.listeners;
+package com.example.auth.listeners;
 
 import com.example.auth.services.LoginAttemptService;
-import com.example.common.utils.NetworkUtil;
+import com.example.auth.utils.NetworkUtil;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
@@ -18,7 +19,7 @@ public class AuthenticationSuccessEventListener
         this.loginAttemptService = loginAttemptService;
     }
 
-    public void onApplicationEvent(AuthenticationSuccessEvent e) {
+    public void onApplicationEvent(@NotNull AuthenticationSuccessEvent e) {
         loginAttemptService.loginSucceeded(NetworkUtil.getClientIP());
     }
 }

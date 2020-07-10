@@ -1,6 +1,6 @@
 package com.example.application.domains.fileuploads.controllers;
 
-import com.example.common.utils.ImageValidator;
+import com.example.coreweb.utils.ImageValidator;
 import com.example.auth.config.security.SecurityContext;
 import com.example.application.domains.fileuploads.models.entities.UploadProperties;
 import com.example.application.domains.fileuploads.models.responses.ImageUploadResponse;

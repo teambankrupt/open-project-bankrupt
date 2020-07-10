@@ -1,6 +1,6 @@
 package com.example.application.domains.activities.models.entities;
 
-import com.example.application.config.security.oauth.AuthAdapter;
+import com.example.application.config.security.AuthAdapter;
 import com.example.auth.domains.models.entities.UserAuth;
 import com.example.coreweb.domains.base.entities.BaseEntity;
 import com.example.application.domains.users.models.entities.User;

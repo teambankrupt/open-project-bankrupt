@@ -6,7 +6,7 @@ import com.example.application.domains.activities.models.entities.Activity;
 import com.example.application.domains.activities.services.ActivityService;
 import com.example.auth.domains.models.entities.UserAuth;
 
-import com.example.common.utils.NetworkUtil;
+import com.example.auth.utils.NetworkUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;

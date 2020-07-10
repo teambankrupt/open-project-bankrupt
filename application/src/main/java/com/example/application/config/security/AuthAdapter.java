@@ -1,4 +1,4 @@
-package com.example.application.config.security.oauth;
+package com.example.application.config.security;
 
 import com.example.application.domains.users.models.entities.User;
 import com.example.auth.domains.models.entities.UserAuth;
