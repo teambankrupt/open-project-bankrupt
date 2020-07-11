@@ -50,4 +50,4 @@ use -Denv=dev or -Denv=local or create a new profile.
 
 To deploy app on a cloud instance please look at my blog here.
 
-[Deploy Spring Boot app in a cloud instance](https://www.rimon.xyz/2017/09/deploy-spring-boot-app-in-digitalocean-html/)
+[Deploy Spring Boot app in a cloud instance](https://blog.sayem.dev/2017/09/deploy-spring-boot-app-in-digitalocean-html/)
