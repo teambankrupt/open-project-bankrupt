@@ -1,6 +1,6 @@
 package com.example.messaging.domains.chat.services.beans
 
-import com.example.common.utils.ExceptionUtil
+import com.example.app.utils.ExceptionUtil
 import com.example.messaging.domains.chat.models.entities.ChatMessage
 import com.example.messaging.domains.chat.repositories.ChatMessageRepository
 import com.example.messaging.domains.chat.services.ChatMessageService

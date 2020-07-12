@@ -1,7 +1,7 @@
 package com.example.messaging.domains.chat.models.mappers
 
 import com.example.auth.services.AuthService
-import com.example.common.utils.ExceptionUtil
+import com.example.app.utils.ExceptionUtil
 import com.example.messaging.domains.chat.models.dtos.ChatMessageDto
 import com.example.messaging.domains.chat.models.entities.ChatMessage
 import com.example.messaging.domains.chat.services.ChatRoomService

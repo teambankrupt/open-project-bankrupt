@@ -4,7 +4,7 @@ import com.example.auth.entities.User;
 import com.example.auth.entities.UserAuth;
 import com.example.auth.repositories.UserRepo;
 import com.example.auth.utils.NetworkUtil;
-import com.example.common.exceptions.notfound.UserNotFoundException;
+import com.example.app.exceptions.notfound.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

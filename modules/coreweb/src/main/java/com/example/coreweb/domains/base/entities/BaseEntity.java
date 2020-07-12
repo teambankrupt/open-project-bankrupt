@@ -1,7 +1,7 @@
 package com.example.coreweb.domains.base.entities;
 
 import com.example.auth.config.security.SecurityContext;
-import com.example.common.utils.DateUtil;
+import com.example.app.utils.DateUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;

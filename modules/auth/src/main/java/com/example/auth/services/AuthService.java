@@ -3,7 +3,7 @@ package com.example.auth.services;
 import com.example.auth.entities.Privilege;
 import com.example.auth.entities.User;
 import com.example.auth.repositories.UserRepo;
-import com.example.common.exceptions.notfound.UserNotFoundException;
+import com.example.app.exceptions.notfound.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
