@@ -1,6 +1,7 @@
 package com.example.application.domains.users.models.entities;
 
 
+import com.example.auth.entities.User;
 import com.example.coreweb.domains.base.entities.ValidationToken;
 
 import javax.persistence.Entity;

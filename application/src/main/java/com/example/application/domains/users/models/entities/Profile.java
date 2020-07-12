@@ -1,5 +1,6 @@
 package com.example.application.domains.users.models.entities;
 
+import com.example.auth.entities.User;
 import com.example.common.utils.DateUtil;
 import com.example.application.domains.address.models.entities.Address;
 import com.example.coreweb.domains.base.entities.BaseEntity;

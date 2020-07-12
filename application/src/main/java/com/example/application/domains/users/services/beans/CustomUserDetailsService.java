@@ -2,7 +2,7 @@
 //
 //import com.example.common.utils.NetworkUtil;
 //import com.example.auth.entities.UserAuth;
-//import com.example.application.domains.users.models.entities.User;
+//import com.example.auth.entities.User;
 //import com.example.application.domains.users.services.UserService;
 //import com.example.common.exceptions.notfound.UserNotFoundException;
 //import org.springframework.beans.factory.annotation.Autowired;

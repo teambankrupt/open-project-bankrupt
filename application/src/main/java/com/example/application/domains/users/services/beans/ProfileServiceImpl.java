@@ -1,11 +1,11 @@
 package com.example.application.domains.users.services.beans;
 
-import com.example.application.domains.users.models.mappers.UserAuthMapper;
+import com.example.auth.entities.UserAuth;
 import com.example.coreweb.utils.PageAttr;
 
 import com.example.auth.config.security.SecurityContext;
 import com.example.application.domains.users.models.entities.Profile;
-import com.example.application.domains.users.models.entities.User;
+import com.example.auth.entities.User;
 import com.example.application.domains.users.repositories.ProfileRepository;
 import com.example.application.domains.users.services.ProfileService;
 import com.example.application.domains.users.services.UserService;
@@ -48,7 +48,7 @@ public class ProfileServiceImpl implements ProfileService {
         user.setName(profile.getName());
         this.userService.save(user);
 
-        SecurityContext.updateAuthentication(UserAuthMapper.getAuth(profile.getUser()));
+        SecurityContext.updateAuthentication(new UserAuth(profile.getUser()));
         return this.profileRepository.save(profile);
     }
 

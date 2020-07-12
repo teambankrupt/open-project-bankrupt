@@ -3,7 +3,7 @@ package com.example.application.config
 
 import com.example.auth.entities.Privilege
 import com.example.auth.entities.Role
-import com.example.application.domains.users.models.entities.User
+import com.example.auth.entities.User
 import com.example.application.domains.users.services.PrivilegeService
 import com.example.application.domains.users.services.RoleService
 import com.example.application.domains.users.services.UserService

@@ -2,7 +2,7 @@ package com.example.application.domains.users.services.beans;
 
 import com.example.common.utils.DateUtil;
 import com.example.application.domains.users.models.entities.AcValidationToken;
-import com.example.application.domains.users.models.entities.User;
+import com.example.auth.entities.User;
 import com.example.application.domains.users.repositories.AcValidationTokenRepository;
 import com.example.application.domains.users.services.AcValidationTokenService;
 import com.example.common.exceptions.forbidden.ForbiddenException;

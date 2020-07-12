@@ -6,7 +6,7 @@ import com.example.application.domains.notifications.models.dto.NotificationData
 import com.example.application.domains.notifications.models.dto.PushNotification
 import com.example.application.domains.notifications.services.NotificationService
 import com.example.application.domains.users.models.entities.AcValidationToken
-import com.example.application.domains.users.models.entities.User
+import com.example.auth.entities.User
 import com.example.application.domains.users.repositories.UserRepository
 import com.example.application.domains.users.services.AcValidationTokenService
 import com.example.application.domains.users.services.RoleService

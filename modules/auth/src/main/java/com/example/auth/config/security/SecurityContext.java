@@ -1,7 +1,8 @@
 package com.example.auth.config.security;
 
+import com.example.auth.entities.User;
 import com.example.auth.entities.UserAuth;
-import com.example.auth.services.AuthService;
+import com.example.auth.repositories.UserRepo;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,11 +13,11 @@ import org.springframework.stereotype.Component;
 @Component
 public final class SecurityContext {
 
-    private static AuthService authService;
+    private static UserRepo userRepo;
     private static UserAuth loggedInUser;
 
-    public SecurityContext(AuthService authService) {
-        SecurityContext.authService = authService;
+    public SecurityContext(UserRepo userRepo) {
+        SecurityContext.userRepo = userRepo;
     }
 
 //    @Autowired
@@ -45,7 +46,8 @@ public final class SecurityContext {
 
     public static UserAuth getCurrentUser() {
         String username = getLoggedInUsername();
-        return authService.findAuthUser(username);
+        User user = userRepo.find(username).orElse(null);
+        return user == null ? null : new UserAuth(user);
     }
 
     public static boolean isAuthenticated() {

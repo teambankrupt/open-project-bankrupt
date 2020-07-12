@@ -11,11 +11,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "roles")
-public class Role {
-    @Id
-    @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Role extends BaseEntity {
 
     @Column(nullable = false, unique = true)
     private String name;
@@ -31,57 +27,18 @@ public class Role {
     @Column(nullable = false)
     private boolean restricted = true;
 
-    @Temporal(value = TemporalType.TIMESTAMP)
-    @Column(name = "created_at", nullable = false)
-    private Date createdAt;
-
-    @Temporal(value = TemporalType.TIMESTAMP)
-    @Column(name = "updated_at")
-    private Date updatedAt;
-
-    @Column(name = "created_by")
-    private String createdBy;
-
-    @Column(name = "updated_by")
-    private String updatedBy;
-
-    @Column(name = "uuid_str", nullable = false, unique = true)
-    private String uuid;
-
-    @Column(nullable = false)
-    private boolean deleted;
-
-    @PrePersist
-    private void onBasePersist() {
-        this.createdAt = new Date();
-        this.updatedAt = createdAt;
-        // TODO: add loggedinusername
-//        this.createdBy = this.getLoggedInUsername();
-        this.uuid = UUID.randomUUID().toString();
-    }
-
-    @PreUpdate
-    private void onBaseUpdate() {
-        this.updatedAt = new Date();
-//        this.updatedBy = this.getLoggedInUsername();
-    }
-
     public boolean isAdmin() {
         return privileges != null && this.privileges.stream().anyMatch(privilege -> Privileges.ADMINISTRATION.name().equals(privilege.getName()));
     }
 
     public boolean isSameAs(Role role) {
         if (role == null) return false;
-        return role.id.equals(this.id);
+        return role.getId().equals(this.getId());
     }
 
     public boolean hasPrivilege(Long privilegeId) {
         if (privilegeId == null) return false;
         return this.privileges.stream().anyMatch(p -> p.getId().equals(privilegeId));
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getName() {
@@ -100,34 +57,6 @@ public class Role {
         return restricted;
     }
 
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -144,28 +73,5 @@ public class Role {
         this.restricted = restricted;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
 
 }

@@ -1,7 +1,7 @@
 package com.example.application.batch.userimport.processors
 
 import com.example.application.domains.users.models.dtos.UserRequest
-import com.example.application.domains.users.models.entities.User
+import com.example.auth.entities.User
 import com.example.application.domains.users.models.mappers.UserMapper
 import org.springframework.batch.item.ItemProcessor
 import org.springframework.beans.factory.annotation.Autowired

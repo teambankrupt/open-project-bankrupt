@@ -2,7 +2,7 @@ package com.example.application.domains.notifications.services;
 
 import com.example.application.domains.notifications.models.entities.FirebaseUserToken;
 import com.example.application.domains.notifications.repositories.FirebaseTokenRepository;
-import com.example.application.domains.users.models.entities.User;
+import com.example.auth.entities.User;
 import com.example.application.domains.users.repositories.UserRepository;
 import com.example.common.exceptions.invalid.InvalidException;
 import com.example.common.exceptions.notfound.UserNotFoundException;

@@ -1,7 +1,7 @@
 package com.example.application.domains.activities.services;
 
 import com.example.application.domains.activities.models.entities.Activity;
-import com.example.application.domains.users.models.entities.User;
+import com.example.auth.entities.User;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

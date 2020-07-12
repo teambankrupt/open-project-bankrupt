@@ -3,7 +3,7 @@ package com.example.application.domains.activities.services;
 import com.example.coreweb.utils.PageAttr;
 import com.example.application.domains.activities.models.entities.Activity;
 import com.example.application.domains.activities.repositories.ActivityRepository;
-import com.example.application.domains.users.models.entities.User;
+import com.example.auth.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.example.application.domains.notifications.models.entities;
 
 import com.example.coreweb.domains.base.entities.BaseEntity;
-import com.example.application.domains.users.models.entities.User;
+import com.example.auth.entities.User;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

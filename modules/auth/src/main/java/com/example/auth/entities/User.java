@@ -1,7 +1,6 @@
-package com.example.application.domains.users.models.entities;
+package com.example.auth.entities;
 
 import com.example.auth.entities.Role;
-import com.example.coreweb.domains.base.entities.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -47,6 +46,21 @@ public class User extends BaseEntity {
     private boolean credentialsNonExpired = true;
 
     public User() {
+    }
+
+    public User(UserAuth auth) {
+        if (auth == null) throw new IllegalArgumentException("User can not be null!");
+        this.setId(auth.getId());
+        this.name = auth.getName();
+        this.username = auth.getUsername();
+        this.password = auth.getPassword();
+        this.phone = auth.getPhone();
+        this.email = auth.getEmail();
+        this.enabled = auth.isEnabled();
+        this.roles = auth.getRoles();
+        this.accountNonExpired = auth.isAccountNonExpired();
+        this.accountNonLocked = auth.isAccountNonLocked();
+        this.credentialsNonExpired = auth.isCredentialsNonExpired();
     }
 
     public void grantRole(Role role) {

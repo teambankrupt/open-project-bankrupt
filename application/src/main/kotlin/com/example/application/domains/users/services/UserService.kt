@@ -1,12 +1,15 @@
 package com.example.application.domains.users.services
 
-import com.example.coreweb.domains.base.services.CrudService
-import com.example.application.domains.users.models.entities.User
+import com.example.auth.entities.User
 import org.springframework.data.domain.Page
 import java.util.*
 import javax.transaction.Transactional
 
-interface UserService : CrudService<User> {
+interface UserService {
+    fun save(entity: User): User
+    fun search(query: String, page: Int, size: Int): Page<User>
+    fun find(id: Long): Optional<User>
+    fun delete(id: Long, softDelete: Boolean)
     fun search(query: String, role: String?, page: Int, size: Int): Page<User>
     fun findAll(page: Int): Page<User>
     fun findByRole(role: String, page: Int): Page<User>

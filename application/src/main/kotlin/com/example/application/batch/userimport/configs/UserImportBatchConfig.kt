@@ -1,7 +1,7 @@
 package com.example.application.batch.userimport.configs
 
 import com.example.application.domains.users.models.dtos.UserRequest
-import com.example.application.domains.users.models.entities.User
+import com.example.auth.entities.User
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory

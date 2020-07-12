@@ -1,6 +1,6 @@
 package com.example.application.domains.users.models.dtos;
 
-import com.example.application.domains.users.models.entities.User;
+import com.example.auth.entities.User;
 
 public class UserSlice {
     private Long userId;
