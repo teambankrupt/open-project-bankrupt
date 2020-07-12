@@ -1,7 +1,7 @@
 package com.example.coreweb.configs.controlleradvice;
 
 
-import com.example.app.misc.CustomDateFormat;
+import com.example.common.misc.CustomDateFormat;
 import org.springframework.beans.PropertyEditorRegistrar;
 import org.springframework.beans.PropertyEditorRegistry;
 import org.springframework.beans.propertyeditors.CustomDateEditor;

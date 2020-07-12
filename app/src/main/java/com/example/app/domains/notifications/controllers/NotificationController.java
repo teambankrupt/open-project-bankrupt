@@ -2,8 +2,8 @@ package com.example.app.domains.notifications.controllers;
 
 import com.example.auth.config.security.SecurityContext;
 import com.example.app.domains.notifications.services.FirebaseTokenService;
-import com.example.app.exceptions.invalid.InvalidException;
-import com.example.app.exceptions.notfound.UserNotFoundException;
+import com.example.common.exceptions.invalid.InvalidException;
+import com.example.common.exceptions.notfound.UserNotFoundException;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

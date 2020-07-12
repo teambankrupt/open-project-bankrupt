@@ -2,17 +2,17 @@ package com.example.app.domains.promotions.services;
 
 
 import com.example.coreweb.utils.PageAttr;
-import com.example.app.utils.Validator;
+import com.example.common.utils.Validator;
 import com.example.app.domains.fileuploads.services.FileUploadService;
 import com.example.app.domains.notifications.models.dto.NotificationData;
 import com.example.app.domains.notifications.models.dto.PushNotification;
 import com.example.app.domains.notifications.services.NotificationService;
 import com.example.app.domains.promotions.models.entities.Promo;
 import com.example.app.domains.promotions.repositories.PromoRepository;
-import com.example.app.exceptions.forbidden.ForbiddenException;
-import com.example.app.exceptions.invalid.InvalidException;
-import com.example.app.exceptions.notfound.NotFoundException;
-import com.example.app.exceptions.unknown.UnknownException;
+import com.example.common.exceptions.forbidden.ForbiddenException;
+import com.example.common.exceptions.invalid.InvalidException;
+import com.example.common.exceptions.notfound.NotFoundException;
+import com.example.common.exceptions.unknown.UnknownException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -1,11 +1,11 @@
 package com.example.acl.domains.users.services.beans;
 
-import com.example.app.utils.DateUtil;
+import com.example.common.utils.DateUtil;
 import com.example.acl.domains.users.models.entities.AcValidationToken;
 import com.example.auth.entities.User;
 import com.example.acl.domains.users.repositories.AcValidationTokenRepository;
 import com.example.acl.domains.users.services.AcValidationTokenService;
-import com.example.app.exceptions.forbidden.ForbiddenException;
+import com.example.common.exceptions.forbidden.ForbiddenException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

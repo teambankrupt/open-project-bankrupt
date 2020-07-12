@@ -2,9 +2,9 @@ package com.example.app.domains.fileuploads.services;
 
 import com.example.app.domains.fileuploads.models.entities.UploadProperties;
 import com.example.app.domains.fileuploads.repositories.FileUploadRepository;
-import com.example.app.exceptions.notfound.NotFoundException;
+import com.example.common.exceptions.notfound.NotFoundException;
 import com.example.coreweb.utils.FileIO;
-import com.example.app.utils.ImageUtils;
+import com.example.common.utils.ImageUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

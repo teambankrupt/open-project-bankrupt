@@ -1,6 +1,6 @@
 package com.example.auth.utils;
 
-import com.example.app.exceptions.nullpointer.NullPasswordException;
+import com.example.common.exceptions.nullpointer.NullPasswordException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class PasswordUtil {

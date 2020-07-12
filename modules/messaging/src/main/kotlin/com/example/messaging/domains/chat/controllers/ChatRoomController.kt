@@ -1,7 +1,7 @@
 package com.example.messaging.domains.chat.controllers
 
-import com.example.app.Constants
-import com.example.app.utils.ExceptionUtil
+import com.example.common.Constants
+import com.example.common.utils.ExceptionUtil
 import com.example.messaging.domains.chat.models.dtos.ChatRoomDto
 import com.example.messaging.domains.chat.models.mappers.ChatRoomMapper
 import com.example.messaging.domains.chat.services.ChatRoomService

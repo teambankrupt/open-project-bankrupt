@@ -4,7 +4,7 @@ import com.example.messaging.domains.chat.models.entities.ChatRoom
 import com.example.messaging.domains.chat.repositories.ChatRoomRepository
 import com.example.messaging.domains.chat.services.ChatRoomService
 import com.example.coreweb.utils.PageAttr
-import com.example.app.utils.ExceptionUtil
+import com.example.common.utils.ExceptionUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service

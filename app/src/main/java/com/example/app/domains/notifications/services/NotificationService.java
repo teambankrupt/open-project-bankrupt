@@ -1,9 +1,9 @@
 package com.example.app.domains.notifications.services;
 
 import com.example.app.domains.notifications.models.dto.PushNotification;
-import com.example.app.exceptions.invalid.InvalidException;
-import com.example.app.exceptions.notfound.NotFoundException;
-import com.example.app.exceptions.unknown.UnknownException;
+import com.example.common.exceptions.invalid.InvalidException;
+import com.example.common.exceptions.notfound.NotFoundException;
+import com.example.common.exceptions.unknown.UnknownException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface NotificationService {

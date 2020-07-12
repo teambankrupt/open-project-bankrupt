@@ -1,12 +1,12 @@
 package com.example.app.exceptions.handler;
 
-import com.example.app.exceptions.exists.AlreadyExistsException;
-import com.example.app.exceptions.forbidden.ForbiddenException;
-import com.example.app.exceptions.invalid.InvalidException;
-import com.example.app.exceptions.notfound.FirebaseTokenNotFoundException;
-import com.example.app.exceptions.notfound.NotFoundException;
-import com.example.app.exceptions.notfound.ProfileNotFoundException;
-import com.example.app.exceptions.unknown.UnknownException;
+import com.example.common.exceptions.exists.AlreadyExistsException;
+import com.example.common.exceptions.forbidden.ForbiddenException;
+import com.example.common.exceptions.invalid.InvalidException;
+import com.example.common.exceptions.notfound.FirebaseTokenNotFoundException;
+import com.example.common.exceptions.notfound.NotFoundException;
+import com.example.common.exceptions.notfound.ProfileNotFoundException;
+import com.example.common.exceptions.unknown.UnknownException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

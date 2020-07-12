@@ -10,7 +10,7 @@ import com.example.acl.domains.users.services.UserService
 import com.example.auth.enums.Privileges
 import com.example.auth.enums.Roles
 import com.example.auth.utils.PasswordUtil
-import com.example.app.exceptions.notfound.NotFoundException
+import com.example.common.exceptions.notfound.NotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.PropertySource

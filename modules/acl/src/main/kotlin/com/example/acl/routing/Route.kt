@@ -53,7 +53,7 @@ class Route {
             const val IMPORT_USERS = "$API$VERSION/admin/imports/users"
 
             // Roles (Admin)
-            const val WEB_RELOAD_APPLICATION_CONTEXT = "$ADMIN/roles/reload-applicatication-context"
+            const val WEB_RELOAD_APPLICATION_CONTEXT = "$ADMIN/roles/reload-application-context"
             const val WEB_ROLES_PAGE = "$ADMIN/roles"
             const val WEB_ROLE_DETAILS_PAGE = "$ADMIN/roles/{role_id}"
             const val WEB_ROLE_CREATE = "$ADMIN/roles"

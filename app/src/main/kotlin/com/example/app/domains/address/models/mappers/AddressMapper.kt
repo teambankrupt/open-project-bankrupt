@@ -4,7 +4,7 @@ import com.example.app.domains.address.models.dto.AddressDto
 import com.example.app.domains.address.models.entities.Address
 import com.example.app.domains.address.models.entities.LatLng
 import com.example.app.domains.address.services.*
-import com.example.app.exceptions.notfound.NotFoundException
+import com.example.common.exceptions.notfound.NotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 

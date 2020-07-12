@@ -1,12 +1,12 @@
 package com.example.acl.domains.users.controllers
 
 
-import com.example.app.Constants
+import com.example.common.Constants
 import com.example.coreweb.domains.base.controllers.CrudController
 import com.example.acl.domains.users.models.dtos.RoleDto
 import com.example.acl.domains.users.models.mappers.RoleMapper
 import com.example.acl.domains.users.services.RoleService
-import com.example.app.exceptions.notfound.NotFoundException
+import com.example.common.exceptions.notfound.NotFoundException
 import io.swagger.annotations.Api
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page

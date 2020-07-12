@@ -2,7 +2,7 @@ package com.example.app.domains.remoteconfig.controllers;
 
 import com.example.app.domains.remoteconfig.models.entities.RemoteConfig;
 import com.example.app.domains.remoteconfig.services.RemoteConfigService;
-import com.example.app.exceptions.notfound.NotFoundException;
+import com.example.common.exceptions.notfound.NotFoundException;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

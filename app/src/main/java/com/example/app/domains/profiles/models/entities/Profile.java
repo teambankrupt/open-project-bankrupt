@@ -2,7 +2,7 @@ package com.example.app.domains.profiles.models.entities;
 
 import com.example.app.domains.address.models.entities.Address;
 import com.example.auth.entities.User;
-import com.example.app.utils.DateUtil;
+import com.example.common.utils.DateUtil;
 import com.example.coreweb.domains.base.entities.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

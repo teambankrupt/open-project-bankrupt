@@ -2,8 +2,8 @@ package com.example.app.domains.promotions.controllers.promo;
 
 import com.example.app.domains.promotions.models.entities.Promo;
 import com.example.app.domains.promotions.services.PromoService;
-import com.example.app.exceptions.invalid.InvalidException;
-import com.example.app.exceptions.notfound.NotFoundException;
+import com.example.common.exceptions.invalid.InvalidException;
+import com.example.common.exceptions.notfound.NotFoundException;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

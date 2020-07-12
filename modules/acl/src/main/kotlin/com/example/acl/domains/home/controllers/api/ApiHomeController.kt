@@ -1,6 +1,6 @@
 package com.example.acl.domains.home.controllers.api
 
-import com.example.app.Constants
+import com.example.common.Constants
 import com.example.auth.config.security.SecurityContext
 import com.example.acl.domains.users.models.dtos.UserRequest
 import com.example.acl.domains.users.models.mappers.UserMapper

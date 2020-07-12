@@ -1,15 +1,15 @@
 package com.example.acl.domains.users.services.beans
 
 import com.example.coreweb.utils.PageAttr
-import com.example.app.utils.ExceptionUtil
+import com.example.common.utils.ExceptionUtil
 import com.example.auth.entities.Role
 import com.example.acl.domains.users.repositories.RoleRepository
 import com.example.acl.domains.users.repositories.UserRepository
 import com.example.acl.domains.users.services.RoleService
-import com.example.app.exceptions.exists.AlreadyExistsException
-import com.example.app.exceptions.forbidden.ForbiddenException
-import com.example.app.exceptions.invalid.InvalidException;
-import com.example.app.exceptions.notfound.UserNotFoundException
+import com.example.common.exceptions.exists.AlreadyExistsException
+import com.example.common.exceptions.forbidden.ForbiddenException
+import com.example.common.exceptions.invalid.InvalidException;
+import com.example.common.exceptions.notfound.UserNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service

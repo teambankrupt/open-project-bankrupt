@@ -1,8 +1,8 @@
 package com.example.acl.domains.users.services
 
 import com.example.auth.entities.Role
-import com.example.app.exceptions.forbidden.ForbiddenException
-import com.example.app.exceptions.notfound.UserNotFoundException
+import com.example.common.exceptions.forbidden.ForbiddenException
+import com.example.common.exceptions.notfound.UserNotFoundException
 import org.springframework.data.domain.Page
 import java.util.*
 

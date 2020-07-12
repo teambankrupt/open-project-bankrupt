@@ -1,12 +1,12 @@
 package com.example.app.domains.profiles.services;
 
 import com.example.app.domains.profiles.models.entities.Profile;
-import com.example.app.exceptions.exists.UserAlreadyExistsException;
-import com.example.app.exceptions.forbidden.ForbiddenException;
-import com.example.app.exceptions.invalid.UserInvalidException;
-import com.example.app.exceptions.notfound.NotFoundException;
-import com.example.app.exceptions.notfound.ProfileNotFoundException;
-import com.example.app.exceptions.nullpointer.NullPasswordException;
+import com.example.common.exceptions.exists.UserAlreadyExistsException;
+import com.example.common.exceptions.forbidden.ForbiddenException;
+import com.example.common.exceptions.invalid.UserInvalidException;
+import com.example.common.exceptions.notfound.NotFoundException;
+import com.example.common.exceptions.notfound.ProfileNotFoundException;
+import com.example.common.exceptions.nullpointer.NullPasswordException;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

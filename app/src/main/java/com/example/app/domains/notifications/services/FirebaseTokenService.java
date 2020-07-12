@@ -1,9 +1,9 @@
 package com.example.app.domains.notifications.services;
 
 import com.example.app.domains.notifications.models.entities.FirebaseUserToken;
-import com.example.app.exceptions.invalid.InvalidException;
-import com.example.app.exceptions.notfound.FirebaseTokenNotFoundException;
-import com.example.app.exceptions.notfound.UserNotFoundException;
+import com.example.common.exceptions.invalid.InvalidException;
+import com.example.common.exceptions.notfound.FirebaseTokenNotFoundException;
+import com.example.common.exceptions.notfound.UserNotFoundException;
 
 public interface FirebaseTokenService {
     FirebaseUserToken save(FirebaseUserToken token) throws InvalidException;

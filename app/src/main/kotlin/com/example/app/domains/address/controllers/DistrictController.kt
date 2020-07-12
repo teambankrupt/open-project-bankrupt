@@ -1,7 +1,7 @@
 package com.example.app.domains.address.controllers
 
-import com.example.app.Constants
-import com.example.app.utils.ExceptionUtil
+import com.example.common.Constants
+import com.example.common.utils.ExceptionUtil
 import com.example.app.domains.address.models.dto.DistrictDto
 import com.example.app.domains.address.models.entities.District
 import com.example.app.domains.address.models.mappers.DistrictMapper

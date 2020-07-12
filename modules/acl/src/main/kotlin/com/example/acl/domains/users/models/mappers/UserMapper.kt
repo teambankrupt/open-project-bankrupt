@@ -1,6 +1,6 @@
 package com.example.acl.domains.users.models.mappers
 
-import com.example.app.utils.ExceptionUtil
+import com.example.common.utils.ExceptionUtil
 import com.example.auth.config.security.SecurityContext
 import com.example.acl.domains.users.models.dtos.UserUpdateAdminDto
 import com.example.acl.domains.users.models.dtos.UserRequest
@@ -9,9 +9,9 @@ import com.example.auth.entities.User
 import com.example.acl.domains.users.services.RoleService
 import com.example.acl.domains.users.services.UserService
 import com.example.auth.utils.PasswordUtil
-import com.example.app.exceptions.exists.AlreadyExistsException
-import com.example.app.exceptions.invalid.InvalidException;
-import com.example.app.exceptions.notfound.NotFoundException
+import com.example.common.exceptions.exists.AlreadyExistsException
+import com.example.common.exceptions.invalid.InvalidException;
+import com.example.common.exceptions.notfound.NotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.PropertySource

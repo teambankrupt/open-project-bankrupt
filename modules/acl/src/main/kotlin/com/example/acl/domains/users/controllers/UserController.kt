@@ -1,11 +1,11 @@
 package com.example.acl.domains.users.controllers
 
-import com.example.app.Constants
+import com.example.common.Constants
 import com.example.acl.domains.users.models.mappers.UserMapper
 import com.example.acl.domains.users.services.UserService
 import com.example.auth.config.security.TokenService
 import com.example.auth.entities.UserAuth
-import com.example.app.exceptions.notfound.UserNotFoundException
+import com.example.common.exceptions.notfound.UserNotFoundException
 import io.swagger.annotations.Api
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity

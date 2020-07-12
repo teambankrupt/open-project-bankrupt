@@ -1,7 +1,7 @@
 package com.example.acl.domains.users.controllers.web
 
 import com.example.acl.AclApplication
-import com.example.app.utils.ExceptionUtil
+import com.example.common.utils.ExceptionUtil
 import com.example.acl.domains.users.models.dtos.RoleDto
 import com.example.acl.domains.users.models.mappers.RoleMapper
 import com.example.acl.domains.users.services.PrivilegeService

@@ -1,6 +1,6 @@
 package com.example.acl.domains.users.services.beans
 
-import com.example.app.utils.ExceptionUtil
+import com.example.common.utils.ExceptionUtil
 import com.example.auth.config.security.SecurityContext
 import com.example.acl.domains.users.models.entities.AcValidationToken
 import com.example.auth.entities.User
@@ -10,15 +10,14 @@ import com.example.acl.domains.users.services.RoleService
 import com.example.acl.domains.users.services.UserService
 import com.example.auth.enums.Roles
 import com.example.auth.utils.PasswordUtil
-import com.example.app.exceptions.exists.UserAlreadyExistsException
-import com.example.app.exceptions.forbidden.ForbiddenException
-import com.example.app.exceptions.invalid.InvalidException
-import com.example.app.exceptions.notfound.NotFoundException
-import com.example.app.exceptions.notfound.UserNotFoundException
-import com.example.app.exceptions.unknown.UnknownException
-import com.example.app.utils.DateUtil
-import com.example.app.utils.SessionIdentifierGenerator
-import com.example.app.utils.Validator
+import com.example.common.exceptions.exists.UserAlreadyExistsException
+import com.example.common.exceptions.forbidden.ForbiddenException
+import com.example.common.exceptions.invalid.InvalidException
+import com.example.common.exceptions.notfound.NotFoundException
+import com.example.common.exceptions.notfound.UserNotFoundException
+import com.example.common.exceptions.unknown.UnknownException
+import com.example.common.utils.SessionIdentifierGenerator
+import com.example.common.utils.Validator
 import com.example.coreweb.domains.mail.services.MailService
 import com.example.coreweb.domains.sms.services.SmsService
 import com.example.coreweb.utils.PageAttr

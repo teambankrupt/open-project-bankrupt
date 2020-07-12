@@ -4,7 +4,7 @@ import com.example.coreweb.utils.PageAttr
 import com.example.app.domains.address.models.entities.Union
 import com.example.app.domains.address.repositories.UnionRepo
 import com.example.app.domains.address.services.UnionService
-import com.example.app.exceptions.notfound.NotFoundException
+import com.example.common.exceptions.notfound.NotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service
