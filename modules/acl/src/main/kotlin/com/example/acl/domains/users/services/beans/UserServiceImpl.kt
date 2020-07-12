@@ -2,9 +2,6 @@ package com.example.acl.domains.users.services.beans
 
 import com.example.app.utils.ExceptionUtil
 import com.example.auth.config.security.SecurityContext
-import com.example.acl.domains.notifications.models.dto.NotificationData
-import com.example.acl.domains.notifications.models.dto.PushNotification
-import com.example.acl.domains.notifications.services.NotificationService
 import com.example.acl.domains.users.models.entities.AcValidationToken
 import com.example.auth.entities.User
 import com.example.acl.domains.users.repositories.UserRepository
@@ -39,7 +36,6 @@ import javax.transaction.Transactional
 open class UserServiceImpl @Autowired constructor(
         private val userRepository: UserRepository,
         private val acValidationTokenService: AcValidationTokenService,
-        private val notificationService: NotificationService,
         private val smsService: SmsService,
         private val mailService: MailService,
         private val roleService: RoleService
@@ -92,7 +88,6 @@ open class UserServiceImpl @Autowired constructor(
         acValidationToken.isTokenValid = false
         acValidationToken.reason = "Registration/Otp Confirmation"
         this.acValidationTokenService.save(acValidationToken)
-        this.notifyAdmin(savedUser)
         return savedUser
     }
 
@@ -144,19 +139,6 @@ open class UserServiceImpl @Autowired constructor(
 
     }
 
-
-    private fun notifyAdmin(user: User) {
-        val data = NotificationData()
-        data.title = "New Registration -:- " + user.name
-        val description = "Username: " + user.username + ", On: " + DateUtil.getReadableDateTime(Date())
-        val brief = description.substring(0, description.length.coerceAtMost(100))
-        data.message = brief.substring(0, brief.length.coerceAtMost(100))
-        data.type = PushNotification.Type.ADMIN_NOTIFICATIONS.value
-
-        val notification = PushNotification(null, data)
-        notification.to = "/topics/adminnotifications"
-        this.notificationService.sendNotification(notification)
-    }
 
     override fun find(id: Long): Optional<User> {
         return this.userRepository.findById(id)
