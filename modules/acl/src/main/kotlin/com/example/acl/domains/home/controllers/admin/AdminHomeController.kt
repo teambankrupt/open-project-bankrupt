@@ -9,11 +9,6 @@ import springfox.documentation.annotations.ApiIgnore
 @ApiIgnore
 class AdminHomeController {
 
-    @GetMapping("")
-    fun home(): String {
-        return "index"
-    }
-
     @GetMapping("/login")
     fun loginPage(): String {
         if (SecurityContext.isAuthenticated())

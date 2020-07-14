@@ -7,6 +7,11 @@ class Route {
             private const val VERSION = "/v1"
             private const val ADMIN = "/admin"
 
+            const val VERIFY_REGISTRATION = "$API$VERSION/register/verify"
+            const val REGISTER = "$API$VERSION/register"
+            const val CHANGE_PASSWORD = "$API$VERSION/change_password"
+            const val RESET_PASSWORD = "$API$VERSION/reset_password"
+
             // Address API's
             const val SEARCH_ADDRESSES = "$API$VERSION/addresses"
             const val CREATE_ADDRESSES = "$API$VERSION/addresses"

@@ -1,4 +1,4 @@
-package com.example.acl.batch.userimport.processors
+package com.example.app.batch.userimport.processors
 
 import com.example.acl.domains.users.models.dtos.UserRequest
 import com.example.auth.entities.User

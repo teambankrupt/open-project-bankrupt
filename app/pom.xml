@@ -114,6 +114,11 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
+        <!--BATCH PROCESSING-->
+        <dependency>
+            <groupId>org.springframework.batch</groupId>
+            <artifactId>spring-batch-core</artifactId>
+        </dependency>
 
         <!--Kotlin-->
         <dependency>

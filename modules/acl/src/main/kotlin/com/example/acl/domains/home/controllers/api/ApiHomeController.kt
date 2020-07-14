@@ -5,6 +5,7 @@ import com.example.auth.config.security.SecurityContext
 import com.example.acl.domains.users.models.dtos.UserRequest
 import com.example.acl.domains.users.models.mappers.UserMapper
 import com.example.acl.domains.users.services.UserService
+import com.example.acl.routing.Route
 import com.example.auth.config.security.TokenService
 import com.example.auth.entities.UserAuth
 import io.swagger.annotations.Api
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @RestController
-@RequestMapping("/api/v1")
 @Api(tags = [Constants.Swagger.BASIC_APIS], description = Constants.Swagger.BASIC_API_DETAILS)
 @PropertySource("classpath:security.properties")
 class ApiHomeController @Autowired constructor(
@@ -33,7 +33,7 @@ class ApiHomeController @Autowired constructor(
     @Value("\${token.validity}")
     lateinit var tokenValidity: String
 
-    @PostMapping("/register/verify")
+    @PostMapping(Route.V1.VERIFY_REGISTRATION)
     @ApiOperation(value = Constants.Swagger.VERIFY_PHONE)
     fun verifyIdentity(@RequestParam("identity") phoneOrEmail: String): ResponseEntity<String> {
 
@@ -45,7 +45,7 @@ class ApiHomeController @Autowired constructor(
         else ResponseEntity.ok("Token Validity: " + this.tokenValidity + " ms")
     }
 
-    @PostMapping("/register")
+    @PostMapping(Route.V1.REGISTER)
     @ApiOperation(value = Constants.Swagger.REGISTER)
     fun register(@RequestParam("token") token: String,
                  @RequestBody userDto: UserRequest): ResponseEntity<OAuth2AccessToken> {
@@ -57,7 +57,7 @@ class ApiHomeController @Autowired constructor(
     }
 
 
-    @PostMapping("/change_password")
+    @PostMapping(Route.V1.CHANGE_PASSWORD)
     @ApiOperation(value = Constants.Swagger.CHANGE_PASSWORD)
     fun changePassword(@RequestParam("current_password") currentPassword: String,
                        @RequestParam("new_password") newPassword: String): ResponseEntity<HttpStatus> {
@@ -66,14 +66,14 @@ class ApiHomeController @Autowired constructor(
     }
 
     // Password reset
-    @GetMapping("/reset_password")
+    @GetMapping(Route.V1.RESET_PASSWORD)
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = Constants.Swagger.VERIFY_RESET_PASSWORD)
     fun requestResetPassword(@RequestParam("username") username: String) {
         this.userService.handlePasswordResetRequest(username)
     }
 
-    @PostMapping("/reset_password")
+    @PostMapping(Route.V1.RESET_PASSWORD)
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = Constants.Swagger.RESET_PASSWORD)
     fun resetPassword(@RequestParam("username") username: String,

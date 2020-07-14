@@ -1,4 +1,4 @@
-package com.example.acl.batch.userimport.configs
+package com.example.app.batch.userimport.configs
 
 import com.example.acl.domains.users.models.dtos.UserRequest
 import com.example.auth.entities.User

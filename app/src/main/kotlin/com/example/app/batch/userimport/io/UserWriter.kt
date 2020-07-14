@@ -1,4 +1,4 @@
-package com.example.acl.batch.userimport.io
+package com.example.app.batch.userimport.io
 
 import com.example.auth.entities.User
 import org.springframework.batch.item.ItemWriter
