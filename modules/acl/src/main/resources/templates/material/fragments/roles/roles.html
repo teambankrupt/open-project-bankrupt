@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="material/index">
+<div layout:fragment="main_content">
+
+    <div class="block-header">
+        <h2>MANAGE ROLES &amp; PERMISSIONS</h2>
+        <form th:action="@{/admin/roles/reload-application-context}" method="post" class="form">
+            <button onclick="return confirm('Are you sure you want to restart the application?');" type="submit" class="btn btn-danger  pull-right">Reload Context</button>
+        </form>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="card">
+                <div class="header bg-cyan">
+                    <h2>
+                        Roles <small>Select a role to expand permissions</small>
+                        <a th:href="@{/admin/roles}" class="btn btn-warning pull-right">Create New</a>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);">Action</a></li>
+                                <li><a href="javascript:void(0);">Another action</a></li>
+                                <li><a href="javascript:void(0);">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <ul class="list-group">
+                        <a th:each="role: ${roles}" th:href="@{/admin/roles/}+${role.id}" class="list-group-item"
+                           th:classappend="${selectedRole!=null && role.id==selectedRole.id?'active':''}">
+                            <h5 class="list-group-item-heading">
+                                <span th:text="${role.name}"></span>
+                                <span class="badge bg-pink pull-right" th:if="${role.restricted}">Restricted</span>
+                                <span class="badge bg-cyan pull-right" th:if="${!role.restricted}">Open</span>
+                            </h5>
+                            <p class="list-group-item-text" th:text="${role.description}"></p>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            <div class="card">
+                <div class="header bg-cyan">
+                    <h2>
+                        Permissions <small>List of permissions that a role is granted for...</small>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li>
+                            <a href="javascript:void(0);">
+                                <i class="material-icons">mic</i>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);">Action</a></li>
+                                <li><a href="javascript:void(0);">Another action</a></li>
+                                <li><a href="javascript:void(0);">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+
+                    <form class="form" th:action="@{/admin/roles/}+${selectedRole!=null?selectedRole?.id:''}"
+                          method="post">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label for="name">Role Name</label>
+                                <input id="name" type="text" name="name" class="form-control" required="required" minlength="3"
+                                       placeholder="Enter Role Name (Ex, EDITOR)" th:value="${selectedRole?.name}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label for="description">Description</label>
+                                <input id="description" type="text" name="description" class="form-control" required="required" minlength="3"
+                                       placeholder="Description" th:value="${selectedRole?.description}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h5>Restriction:</h5>
+                            <input type="checkbox" name="restricted" id="restricted" class="chk-col-green"
+                                   th:checked="${selectedRole?.restricted}" value="true"/>
+                            <label for="restricted">Restricted Role <br/><small>(User can't register for this role is
+                                checked.)</small></label>
+                        </div>
+
+                        <h2 class="card-inside-title">Assigned Privileges</h2>
+                        <div class="demo-checkbox">
+                            <item th:each="privilege: ${privileges}">
+                                <input type="checkbox" name="privilegeIds" th:id="${'md_checkbox_'+privilege.id}"
+                                       class="chk-col-green"
+                                       th:checked="${selectedRole?.hasPrivilege(privilege.id)}"
+                                       th:value="${privilege.id}"/>
+                                <label th:for="${'md_checkbox_'+privilege.id}"><span
+                                        th:text="${privilege.name}"></span></label>
+                                <a th:href="@{/admin/privileges/}+${privilege.id}">&nbsp;<small>(Edit)</small>&nbsp;</a>
+                            </item>
+
+                            <div class="form-group m-t-40">
+                                <button type="submit" class="btn btn-success">Save</button>
+                                <a th:href="@{/admin/roles}" class="btn btn-warning">Cancel</a>
+                                <a th:href="@{/admin/privileges}" class="btn btn-danger pull-right">Privileges</a>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>
