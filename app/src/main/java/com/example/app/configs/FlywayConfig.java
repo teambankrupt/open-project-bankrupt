@@ -18,6 +18,7 @@ public class FlywayConfig {
     Flyway flyway() {
         return Flyway.configure()
 //                .outOfOrder(true)
+                .baselineOnMigrate(true)
                 .dataSource(this.dataSource).load();
     }
 
