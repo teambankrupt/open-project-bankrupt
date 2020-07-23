@@ -15,11 +15,11 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>modules/common</module>
-        <module>modules/messaging</module>
-        <module>modules/coreweb</module>
-        <module>modules/auth</module>
-        <module>modules/acl</module>
+        <module>modules/coremodules/common</module>
+        <module>modules/coremodules/coreweb</module>
+        <module>modules/coremodules/auth</module>
+        <module>modules/coremodules/acl</module>
+        <module>modules/appmodules/messaging</module>
         <module>app</module>
     </modules>
 
