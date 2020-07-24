@@ -85,12 +85,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>messaging</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
         </dependency>
