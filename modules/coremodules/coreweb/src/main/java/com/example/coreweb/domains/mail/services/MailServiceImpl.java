@@ -2,6 +2,7 @@ package com.example.coreweb.domains.mail.services;
 
 import com.example.coreweb.domains.mail.models.entities.EmailLog;
 import com.example.coreweb.domains.mail.repositories.EmailLogRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.FileSystemResource;
@@ -39,7 +40,7 @@ public class MailServiceImpl implements MailService {
             System.out.println(e.toString());
             return false;
         }
-        this.saveLog(email, null, subject, message, 0);
+        this.saveLog(email, null, null, null, subject, message, 0);
         return true;
     }
 
@@ -62,13 +63,38 @@ public class MailServiceImpl implements MailService {
             System.out.println(e.toString());
             return false;
         }
-        this.saveLog(to, from, sub, msgBody, attachments == null ? 0 : attachments.size());
+        this.saveLog(to, null, null, from, sub, msgBody, attachments == null ? 0 : attachments.size());
         return true;
     }
 
-    private void saveLog(String to, String from, String subject, String msg, int noOfAttachments) {
-        EmailLog log = new EmailLog(from == null ? "SystemMail" : from, to, null, null, subject, msg, noOfAttachments);
+    public boolean sendEmail(String email, String[] cc, String[] bcc, String subject, String message) {
+        SimpleMailMessage mailMessage = buildMessage(email, cc, bcc, subject, message);
+        try {
+            new Thread(() -> javaMailSender.send(mailMessage)).start();
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return false;
+        }
+        this.saveLog(email, StringUtils.join(cc, ","), StringUtils.join(bcc, ","), null, subject, message, 0);
+        return true;
+    }
+
+    private SimpleMailMessage buildMessage(String email, String[] cc, String[] bcc, String subject, String message) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(email);
+        if (cc != null && cc.length > 0)
+            mailMessage.setCc(cc);
+        if (bcc != null && bcc.length > 0)
+            mailMessage.setBcc(bcc);
+        mailMessage.setSubject(subject);
+        mailMessage.setText(message);
+        return mailMessage;
+    }
+
+    private void saveLog(String to, String cc, String bcc, String from, String subject, String msg, int noOfAttachments) {
+        EmailLog log = new EmailLog(from == null ? "SystemMail" : from, to, cc, bcc, subject, msg, noOfAttachments);
         this.emailLogRepository.save(log);
     }
+
 
 }

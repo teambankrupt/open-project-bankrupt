@@ -8,4 +8,5 @@ public interface MailService {
 
     boolean sendEmail(String email, String from, String subject, String message, List<File> attachments);
 
+    boolean sendEmail(String email, String[] cc, String[] bcc, String subject, String message);
 }
