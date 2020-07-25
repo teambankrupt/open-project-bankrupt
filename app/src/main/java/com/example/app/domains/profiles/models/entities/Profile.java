@@ -1,6 +1,6 @@
 package com.example.app.domains.profiles.models.entities;
 
-import com.example.app.domains.address.models.entities.Address;
+import com.example.coreweb.domains.address.models.entities.Address;
 import com.example.auth.entities.User;
 import com.example.common.utils.DateUtil;
 import com.example.coreweb.domains.base.entities.BaseEntity;

@@ -123,6 +123,13 @@
 			<version>${swagger.version}</version>
 		</dependency>
 
+		<!--SERIALIZATION-->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20180813</version>
+		</dependency>
+
 
 		<!--Kotlin-->
 		<dependency>
