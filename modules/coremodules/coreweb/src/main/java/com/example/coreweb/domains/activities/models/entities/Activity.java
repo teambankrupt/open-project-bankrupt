@@ -1,14 +1,13 @@
 package com.example.coreweb.domains.activities.models.entities;
 
+import com.example.auth.entities.User;
 import com.example.auth.entities.UserAuth;
 import com.example.coreweb.domains.base.entities.BaseEntity;
-import com.example.auth.entities.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.hibernate.annotations.Cascade;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "activity_logs")
@@ -23,31 +22,10 @@ public class Activity extends BaseEntity {
     private String url;
 
     private Long totalVisitors;
-    @ElementCollection
-    @CollectionTable(name = "activity_log_tags")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private Set<String> tags;
-
-    public enum Tag {
-        ALL
-    }
-
-    public void addTag(Tag tag) {
-        if (tags == null) tags = new HashSet<>();
-        tags.add(tag.name());
-    }
 
     public void setUser(UserAuth auth) {
         if (auth == null) throw new IllegalArgumentException("Auth can't be null!");
         this.user = new User(auth);
-    }
-
-    public Set<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(Set<String> tags) {
-        this.tags = tags;
     }
 
     public String getUserAgent() {

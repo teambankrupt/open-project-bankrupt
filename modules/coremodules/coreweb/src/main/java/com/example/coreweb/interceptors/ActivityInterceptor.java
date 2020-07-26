@@ -36,7 +36,6 @@ public class ActivityInterceptor extends HandlerInterceptorAdapter {
         activity.setExpires(expires);
         activity.setRequestMethod(request.getMethod());
         activity.setUrl(request.getRequestURI());
-        activity.addTag(Activity.Tag.ALL);
 
         Matcher m = Pattern.compile("\\(([^)]+)\\)").matcher(userAgent);
         if (m.find()) {
