@@ -2,6 +2,7 @@ package com.example.coreweb.domains.fileuploads.models.entities;
 
 import com.example.coreweb.domains.base.entities.BaseEntity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.File;
@@ -9,10 +10,20 @@ import java.io.File;
 @Entity
 @Table(name = "uploaded_files")
 public class UploadProperties extends BaseEntity {
+
+    @Column(name = "namespace")
     private String namespace;
+
+    @Column(name = "unique_property")
     private String uniqueProperty;
+
+    @Column(name = "root_path")
     private String rootPath;
+
+    @Column(name = "file_name")
     private String fileName;
+
+    @Column(name = "file_type")
     private String fileType = "fileuploads";
 
     public UploadProperties() {

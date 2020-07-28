@@ -5,21 +5,30 @@ import com.example.auth.entities.UserAuth;
 import com.example.coreweb.domains.base.entities.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "activity_logs")
 public class Activity extends BaseEntity {
+    @Column(name = "user_agent")
     private String userAgent;
+
+    @Column(name = "ip")
     private String ip;
+
+    @Column(name = "expires")
     private String expires;
+
+    @Column(name = "request_method")
+    private String requestMethod;
+
+    @Column(name = "url")
+    private String url;
+
     @OneToOne
     @JsonBackReference
+    @JoinColumn(name = "user_id")
     private User user;
-    private String requestMethod;
-    private String url;
 
     private Long totalVisitors;
 
