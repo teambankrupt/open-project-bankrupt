@@ -1,6 +1,5 @@
 package com.example.auth.entities;
 
-import com.example.auth.entities.Role;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;

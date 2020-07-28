@@ -25,7 +25,7 @@ public class Activity extends BaseEntity {
     @Column(name = "url")
     private String url;
 
-    @OneToOne
+    @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "user_id")
     private User user;

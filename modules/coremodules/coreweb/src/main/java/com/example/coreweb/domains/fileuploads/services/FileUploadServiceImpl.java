@@ -16,7 +16,7 @@ import java.io.*;
 @Service
 public class FileUploadServiceImpl implements FileUploadService {
 
-    @Value("${files.upload.path}")
+    @Value("${storage.path}")
     private String rootPath;
 
     @Value("${applicationName}")
