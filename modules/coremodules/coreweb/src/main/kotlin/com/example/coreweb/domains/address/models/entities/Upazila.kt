@@ -15,6 +15,9 @@ class Upazila : BaseEntity() {
     @Column(name = "name_bn")
     var nameBn: String? = null
 
+    @Column(name = "thana")
+    var thana: Boolean = false
+
     @ManyToOne
     var district: District? = null
 }

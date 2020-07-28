@@ -14,6 +14,9 @@ class UpazilaDto : BaseDto() {
     @JsonProperty("name_bn")
     var nameBn: String? = null
 
+    @JsonProperty("thana")
+    var thana: Boolean = false
+
     @NotNull
     @JsonProperty("district_id")
     var districtId: Long? = null
