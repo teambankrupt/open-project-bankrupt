@@ -105,15 +105,6 @@
         </dependency>
 
 
-
-        <!--SERIALIZATION-->
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20180813</version>
-        </dependency>
-
-
         <!--TEMPLATES-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -1,6 +1,6 @@
 package com.example.app.configs;
 
-import com.example.app.interceptors.ActivityInterceptor;
+import com.example.coreweb.interceptors.ActivityInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
