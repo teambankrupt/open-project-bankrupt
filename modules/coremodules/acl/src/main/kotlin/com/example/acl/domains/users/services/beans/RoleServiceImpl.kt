@@ -71,7 +71,7 @@ class RoleServiceImpl @Autowired constructor(
     }
 
     override fun delete(id: Long, softDelete: Boolean) {
-        val role = this.roleRepo.find(id).orElseThrow { ExceptionUtil.getNotFound("role", id) }
+        val role = this.roleRepo.find(id).orElseThrow { ExceptionUtil.notFound("role", id) }
 
         if (softDelete) {
             role.isDeleted = true

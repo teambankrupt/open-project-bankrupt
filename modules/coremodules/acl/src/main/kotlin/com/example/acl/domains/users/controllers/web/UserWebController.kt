@@ -39,7 +39,7 @@ class UserWebController @Autowired constructor(
                     @RequestParam("page", defaultValue = "0") page: Int,
                     @RequestParam("size", defaultValue = "10") size: Int,
                     model: Model): String {
-        val user = this.userService.find(id).orElseThrow { ExceptionUtil.getNotFound("User", id) }
+        val user = this.userService.find(id).orElseThrow { ExceptionUtil.notFound("User", id) }
 
         model.addAttribute("query", query)
         model.addAttribute("user", user)
@@ -51,7 +51,7 @@ class UserWebController @Autowired constructor(
     @PostMapping(Route.V1.WEB_USERS_UPDATE)
     fun update(@PathVariable("user_id") id: Long,
                @Valid @ModelAttribute dto: UserUpdateAdminDto): String {
-        var user = this.userService.find(id).orElseThrow { ExceptionUtil.getNotFound("User", id) }
+        var user = this.userService.find(id).orElseThrow { ExceptionUtil.notFound("User", id) }
         user = this.userService.save(this.userMapper.map(dto, user))
         return "redirect:/admin/users/${user.id}"
     }

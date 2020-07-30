@@ -35,7 +35,7 @@ class DistrictController(
     @GetMapping(Route.V1.FIND_DISTRICT)
     @ApiOperation(value = Constants.Swagger.GET_MSG + Constants.Swagger.DISTRICT)
     override fun find(@PathVariable id: Long): ResponseEntity<DistrictDto> {
-        val district: District = this.districtService.find(id).orElseThrow { ExceptionUtil.getNotFound("district", id) }
+        val district: District = this.districtService.find(id).orElseThrow { ExceptionUtil.notFound("Could not find district with id: $id") }
         return ResponseEntity.ok(this.districtMapper.map(district))
     }
 
@@ -49,7 +49,7 @@ class DistrictController(
     @PatchMapping(Route.V1.UPDATE_DISTRICT)
     @ApiOperation(value = Constants.Swagger.PATCH_MSG + Constants.Swagger.DISTRICT)
     override fun update(@PathVariable id: Long, @Valid @RequestBody dto: DistrictDto): ResponseEntity<DistrictDto> {
-        var district: District = this.districtService.find(id).orElseThrow { ExceptionUtil.getNotFound("district", id) }
+        var district: District = this.districtService.find(id).orElseThrow { ExceptionUtil.notFound("Could not find district with id: $id") }
         district = this.districtService.save(this.districtMapper.map(dto, district))
         return ResponseEntity.ok(this.districtMapper.map(district))
     }

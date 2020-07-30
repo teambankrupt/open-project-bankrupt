@@ -49,7 +49,7 @@ class PrivilegeServiceImpl @Autowired constructor(
 
     override fun delete(id: Long, softDelete: Boolean) {
         if (softDelete) {
-            val privilege = this.privilegeRepo.find(id).orElseThrow { ExceptionUtil.getNotFound("Privilege", id) }
+            val privilege = this.privilegeRepo.find(id).orElseThrow { ExceptionUtil.notFound("Privilege", id) }
             privilege.isDeleted = true
             this.privilegeRepo.save(privilege)
             return

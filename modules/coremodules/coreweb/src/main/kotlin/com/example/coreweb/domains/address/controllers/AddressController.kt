@@ -1,6 +1,5 @@
 package com.example.coreweb.domains.address.controllers
 
-import com.example.coreweb.routing.Route
 import com.example.common.Constants
 import com.example.common.utils.ExceptionUtil
 import com.example.coreweb.domains.address.models.dto.AddressDto
@@ -8,6 +7,7 @@ import com.example.coreweb.domains.address.models.entities.Address
 import com.example.coreweb.domains.address.models.mappers.AddressMapper
 import com.example.coreweb.domains.address.services.AddressService
 import com.example.coreweb.domains.base.controllers.CrudController
+import com.example.coreweb.routing.Route
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
@@ -35,7 +35,7 @@ class AddressController @Autowired constructor(
     @GetMapping(Route.V1.FIND_ADDRESSES)
     @ApiOperation(value = Constants.Swagger.GET_MSG + Constants.Swagger.ADDRESS + Constants.Swagger.BY_ID_MSG)
     override fun find(@PathVariable id: Long): ResponseEntity<AddressDto> {
-        val address = this.addressService.find(id).orElseThrow { ExceptionUtil.getNotFound("Address", id) }
+        val address = this.addressService.find(id).orElseThrow { ExceptionUtil.notFound("Could not find address with id: $id") }
         return ResponseEntity.ok(this.addressMapper.map(address))
     }
 
@@ -49,7 +49,7 @@ class AddressController @Autowired constructor(
     @PatchMapping(Route.V1.UPDATE_ADDRESSES)
     @ApiOperation(value = Constants.Swagger.PATCH_MSG + Constants.Swagger.ADDRESS)
     override fun update(@PathVariable id: Long, @Valid @RequestBody dto: AddressDto): ResponseEntity<AddressDto> {
-        var address: Address = addressService.find(id).orElseThrow { ExceptionUtil.getNotFound(Constants.Swagger.ADDRESS, id) }
+        var address: Address = addressService.find(id).orElseThrow { ExceptionUtil.notFound("Could not find address with id: $id") }
         address = addressService.save(addressMapper.map(dto, address))
         return ResponseEntity.ok(addressMapper.map(address))
     }

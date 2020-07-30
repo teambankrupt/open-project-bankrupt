@@ -1,13 +1,12 @@
 package com.example.acl.domains.users.services.beans
 
-import com.example.common.utils.ExceptionUtil
-import com.example.auth.config.security.SecurityContext
 import com.example.acl.domains.users.models.entities.AcValidationToken
-import com.example.auth.entities.User
 import com.example.acl.domains.users.repositories.UserRepository
 import com.example.acl.domains.users.services.AcValidationTokenService
 import com.example.acl.domains.users.services.RoleService
 import com.example.acl.domains.users.services.UserService
+import com.example.auth.config.security.SecurityContext
+import com.example.auth.entities.User
 import com.example.auth.enums.Roles
 import com.example.auth.utils.PasswordUtil
 import com.example.common.exceptions.exists.UserAlreadyExistsException
@@ -16,6 +15,7 @@ import com.example.common.exceptions.invalid.InvalidException
 import com.example.common.exceptions.notfound.NotFoundException
 import com.example.common.exceptions.notfound.UserNotFoundException
 import com.example.common.exceptions.unknown.UnknownException
+import com.example.common.utils.ExceptionUtil
 import com.example.common.utils.SessionIdentifierGenerator
 import com.example.common.utils.Validator
 import com.example.coreweb.domains.mail.services.MailService
@@ -50,7 +50,7 @@ open class UserServiceImpl @Autowired constructor(
     lateinit var tokenValidity: String
 
     override fun search(query: String, role: String?, page: Int, size: Int): Page<User> {
-        val r = role?.let { this.roleService.find(it).orElseThrow { ExceptionUtil.getNotFound("Role", role) } }
+        val r = role?.let { this.roleService.find(it).orElseThrow { ExceptionUtil.notFound("Could not find role with name: $role") } }
         return this.userRepository.search(query, r, PageAttr.getPageRequest(page, size))
     }
 
@@ -145,7 +145,7 @@ open class UserServiceImpl @Autowired constructor(
 
     override fun delete(id: Long, softDelete: Boolean) {
         if (softDelete) {
-            val user = this.userRepository.find(id).orElseThrow { ExceptionUtil.getNotFound("User", id) }
+            val user = this.userRepository.find(id).orElseThrow { ExceptionUtil.notFound("User", id) }
             user.isDeleted = false
             this.userRepository.save(user)
             return

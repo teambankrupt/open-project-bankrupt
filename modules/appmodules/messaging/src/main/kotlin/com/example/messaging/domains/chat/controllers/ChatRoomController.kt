@@ -34,7 +34,7 @@ class ChatRoomController @Autowired constructor(
 
     @GetMapping(Route.V1.FIND_CHATROOM)
     override fun find(@PathVariable("id") id: Long): ResponseEntity<ChatRoomDto> {
-        val chatRoom = this.chatRoomService.find(id).orElseThrow { ExceptionUtil.getNotFound("Chat Room", id) }
+        val chatRoom = this.chatRoomService.find(id).orElseThrow {  ExceptionUtil.notFound("Could not find chatroom with id: $id")  }
         return ResponseEntity.ok(this.chatRoomMapper.map(chatRoom))
     }
 
@@ -48,7 +48,7 @@ class ChatRoomController @Autowired constructor(
     @PatchMapping(Route.V1.UPDATE_CHATROOM)
     override fun update(@PathVariable("id") id: Long,
                         @Valid @RequestBody dto: ChatRoomDto): ResponseEntity<ChatRoomDto> {
-        val exChatRoom = this.chatRoomService.find(id).orElseThrow { ExceptionUtil.getNotFound("Chat Room", id) }
+        val exChatRoom = this.chatRoomService.find(id).orElseThrow {  ExceptionUtil.notFound("Could not find chatroom with id: $id")  }
         var chatRoom = this.chatRoomMapper.map(dto, exChatRoom)
         chatRoom = this.chatRoomService.save(chatRoom)
         return ResponseEntity.ok(this.chatRoomMapper.map(chatRoom))
