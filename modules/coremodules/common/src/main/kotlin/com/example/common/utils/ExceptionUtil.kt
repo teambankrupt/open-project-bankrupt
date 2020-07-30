@@ -1,6 +1,7 @@
 package com.example.common.utils
 
 import com.example.common.exceptions.forbidden.ForbiddenException
+import com.example.common.exceptions.invalid.InvalidException
 import com.example.common.exceptions.notfound.NotFoundException
 
 /**
@@ -12,14 +13,26 @@ import com.example.common.exceptions.notfound.NotFoundException
 
 class ExceptionUtil {
     companion object {
-        fun getNotFound(name: String, id: Long?): NotFoundException {
-            return NotFoundException("Could not find $name with id: $id")
-        }
-        fun getNotFound(name: String, code: String?): NotFoundException {
-            return NotFoundException("Could not find $name with id: $code")
-        }
+
         fun forbidden(message: String): ForbiddenException {
             return ForbiddenException(message)
         }
+
+        fun notFound(message: String): NotFoundException {
+            return NotFoundException(message)
+        }
+
+        fun notFound(entityName: String, id: Long): NotFoundException {
+            return NotFoundException("Could not find $entityName with id: $id")
+        }
+
+        fun invalid(message: String): InvalidException {
+            return InvalidException(message)
+        }
+
+        fun wtf(message: String): RuntimeException {
+            return RuntimeException(message)
+        }
+
     }
 }

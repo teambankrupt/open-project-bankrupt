@@ -35,7 +35,7 @@ class UpazilaController @Autowired constructor(
     @GetMapping(Route.V1.FIND_UPAZILA)
     @ApiOperation(value = Constants.Swagger.GET_MSG + Constants.Swagger.UPAZILA)
     override fun find(@PathVariable id: Long): ResponseEntity<UpazilaDto> {
-        val upazila: Upazila = upazilaService.find(id).orElseThrow { ExceptionUtil.getNotFound("upazila", id) }
+        val upazila: Upazila = upazilaService.find(id).orElseThrow { ExceptionUtil.notFound("Could not find upazila with id: $id") }
         return ResponseEntity.ok(upazilaMapper.map(upazila))
     }
 
@@ -50,7 +50,7 @@ class UpazilaController @Autowired constructor(
     @PatchMapping(Route.V1.UPDATE_UPAZILA)
     @ApiOperation(value = Constants.Swagger.PATCH_MSG + Constants.Swagger.UPAZILA)
     override fun update(@PathVariable id: Long, @Valid @RequestBody dto: UpazilaDto): ResponseEntity<UpazilaDto> {
-        var upazila: Upazila = upazilaService.find(id).orElseThrow { ExceptionUtil.getNotFound("upazila", id) }
+        var upazila: Upazila = upazilaService.find(id).orElseThrow { ExceptionUtil.notFound("Could not find upazila with id: $id") }
         upazila = upazilaService.save(upazilaMapper.map(dto, upazila))
         return ResponseEntity.ok(upazilaMapper.map(upazila))
     }

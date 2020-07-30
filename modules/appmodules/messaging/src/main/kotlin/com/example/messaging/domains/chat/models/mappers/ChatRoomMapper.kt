@@ -28,7 +28,7 @@ class ChatRoomMapper @Autowired constructor(
         val entity = exEntity ?: ChatRoom()
         entity.title = dto.title
         entity.users = dto.users
-                .map { if (this.authService.existsByUsername(it)) it else throw ExceptionUtil.getNotFound("user", it) }
+                .map { if (this.authService.existsByUsername(it)) it else throw  ExceptionUtil.notFound("Could not find user with username: $it")  }
                 .toMutableList()
         return entity
     }

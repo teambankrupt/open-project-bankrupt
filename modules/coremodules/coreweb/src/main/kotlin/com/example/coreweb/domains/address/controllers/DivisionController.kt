@@ -34,7 +34,7 @@ class DivisionController(
     @GetMapping(Route.V1.FIND_DIVISION)
     @ApiOperation(value = Constants.Swagger.GET_MSG + Constants.Swagger.DIVISION)
     fun find(@PathVariable id: Long): ResponseEntity<Any> {
-        val division: Division = this.divisionService.find(id).orElseThrow { ExceptionUtil.getNotFound("division", id) }
+        val division: Division = this.divisionService.find(id).orElseThrow { ExceptionUtil.notFound("Could not find division with id: $id") }
         return ResponseEntity.ok(this.divisionMapper.map(division))
     }
 
@@ -48,7 +48,7 @@ class DivisionController(
     @PatchMapping(Route.V1.UPDATE_DIVISION)
     @ApiOperation(value = Constants.Swagger.PATCH_MSG + Constants.Swagger.DIVISION)
     fun update(@Valid @RequestBody divisionDto: DivisionDto, @PathVariable id: Long): ResponseEntity<Any> {
-        var division: Division = this.divisionService.find(id).orElseThrow { ExceptionUtil.getNotFound("division", id) }
+        var division: Division = this.divisionService.find(id).orElseThrow { ExceptionUtil.notFound("Could not find division with id: $id") }
         division = this.divisionService.save(this.divisionMapper.map(divisionDto, division))
         return ResponseEntity.ok(this.divisionMapper.map(division))
     }

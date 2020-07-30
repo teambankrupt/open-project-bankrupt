@@ -1,12 +1,12 @@
 package com.example.acl.domains.users.controllers.web
 
 import com.example.acl.AclApplication
-import com.example.common.utils.ExceptionUtil
 import com.example.acl.domains.users.models.dtos.RoleDto
 import com.example.acl.domains.users.models.mappers.RoleMapper
 import com.example.acl.domains.users.services.PrivilegeService
 import com.example.acl.domains.users.services.RoleService
 import com.example.acl.routing.Route
+import com.example.common.utils.ExceptionUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -43,7 +43,7 @@ class RoleWebController @Autowired constructor(
     fun roleDetailsPage(@PathVariable("role_id") roleId: Long,
                         model: Model): String {
 
-        val selectedRole = this.rolesService.find(roleId).orElseThrow { ExceptionUtil.getNotFound("Role", roleId) }
+        val selectedRole = this.rolesService.find(roleId).orElseThrow { ExceptionUtil.notFound("Role", roleId) }
 
         val roles = this.rolesService.findAll()
         val privileges = this.privilegeService.findAll()
@@ -57,7 +57,7 @@ class RoleWebController @Autowired constructor(
     @PostMapping(Route.V1.WEB_ROLE_UPDATE)
     fun updateRole(@PathVariable("role_id") roleId: Long,
                    @Valid @ModelAttribute roleDto: RoleDto): String {
-        var role = this.rolesService.find(roleId).orElseThrow { ExceptionUtil.getNotFound("Role", roleId) }
+        var role = this.rolesService.find(roleId).orElseThrow { ExceptionUtil.notFound("Role", roleId) }
 //        if (role.isAdmin()) throw ExceptionUtil.forbidden("Updating super admin is not possible.")
         role = this.rolesService.save(this.roleMapper.map(roleDto, role))
         return "redirect:/admin/roles/${role.id}"

@@ -34,7 +34,7 @@ class UnionController @Autowired constructor(
     @GetMapping(Route.V1.FIND_UNION)
     @ApiOperation(value = Constants.Swagger.GET_MSG + Constants.Swagger.UNION)
     override fun find(@PathVariable id: Long): ResponseEntity<UnionDto> {
-        val union: Union = unionService.find(id).orElseThrow { ExceptionUtil.getNotFound("union", id) }
+        val union: Union = unionService.find(id).orElseThrow { ExceptionUtil.notFound("Could not find union with id: $id") }
         return ResponseEntity.ok(unionMapper.map(union))
     }
 
@@ -49,7 +49,7 @@ class UnionController @Autowired constructor(
     @PatchMapping(Route.V1.UPDATE_UNION)
     @ApiOperation(value = Constants.Swagger.PATCH_MSG + Constants.Swagger.UNION)
     override fun update(@PathVariable id: Long, @Valid @RequestBody dto: UnionDto): ResponseEntity<UnionDto> {
-        var union: Union = unionService.find(id).orElseThrow { ExceptionUtil.getNotFound("union", id) }
+        var union: Union = unionService.find(id).orElseThrow { ExceptionUtil.notFound("Could not find union with id: $id")  }
         union = unionService.save(unionMapper.map(dto, union))
         return ResponseEntity.ok(unionMapper.map(union))
     }

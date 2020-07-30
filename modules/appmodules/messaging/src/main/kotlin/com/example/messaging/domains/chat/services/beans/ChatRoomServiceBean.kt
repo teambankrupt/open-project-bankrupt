@@ -34,7 +34,7 @@ class ChatRoomServiceBean @Autowired constructor(
 
     override fun delete(id: Long, softDelete: Boolean) {
         if (softDelete) {
-            val chatRoom = this.find(id).orElseThrow { ExceptionUtil.getNotFound("ChatRoom", id) }
+            val chatRoom = this.find(id).orElseThrow {  ExceptionUtil.notFound("Could not find chatroom with id: $id")  }
             chatRoom.isDeleted = true
             this.save(chatRoom)
             return
