@@ -4,18 +4,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import io.swagger.annotations.ApiModelProperty
 import java.io.Serializable
 
-import java.util.*
-
 open class BaseDto : Serializable {
     @JsonProperty("id")
-    @ApiModelProperty(hidden = true)
+    @ApiModelProperty(readOnly = true, example = "1")
     var id: Long? = null
 
-    @ApiModelProperty(notes = "It's read only")
-    @JsonProperty(value = "created_at", access = JsonProperty.Access.READ_ONLY)
-    lateinit var created: Date
+    @JsonProperty(value = "created_at")
+    @ApiModelProperty(readOnly = true, example = "1533115869000", notes = "Date when this entity was first created.")
+    var createdAt: Long = 0
 
-    @JsonProperty("last_updated", access = JsonProperty.Access.READ_ONLY)
-    @ApiModelProperty(notes = "It's read only")
-    lateinit var updatedAt: Date
+    @JsonProperty("updated_at")
+    @ApiModelProperty(readOnly = true, example = "1596274269000", notes = "Date when this entity was last updated")
+    var updatedAt: Long = 0
 }

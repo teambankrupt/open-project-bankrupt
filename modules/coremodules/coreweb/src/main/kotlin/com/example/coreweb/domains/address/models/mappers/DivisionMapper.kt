@@ -12,8 +12,8 @@ class DivisionMapper {
         dto.id = division.id
         dto.nameEn = division.nameEn
         dto.nameBn = division.nameBn
-        dto.created = division.createdAt
-        dto.updatedAt = division.updatedAt
+        dto.createdAt = division.createdAt.time
+        dto.updatedAt = division.updatedAt.time
         return dto
     }
 
