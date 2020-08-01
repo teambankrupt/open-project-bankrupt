@@ -1,7 +1,7 @@
 package com.example.acl.domains.global.controllers
 
 import com.example.acl.AclApplication
-import com.example.common.Constants
+import com.example.coreweb.commons.Constants
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import org.springframework.web.bind.annotation.PatchMapping

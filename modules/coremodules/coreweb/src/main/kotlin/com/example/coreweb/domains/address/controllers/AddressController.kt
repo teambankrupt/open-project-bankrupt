@@ -1,6 +1,6 @@
 package com.example.coreweb.domains.address.controllers
 
-import com.example.common.Constants
+import com.example.coreweb.commons.Constants
 import com.example.common.utils.ExceptionUtil
 import com.example.coreweb.domains.address.models.dto.AddressDto
 import com.example.coreweb.domains.address.models.entities.Address

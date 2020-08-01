@@ -1,6 +1,6 @@
 package com.example.acl.domains.users.controllers
 
-import com.example.common.Constants
+import com.example.coreweb.commons.Constants
 import com.example.coreweb.domains.base.controllers.CrudController
 import com.example.acl.domains.users.models.dtos.PrivilegeDto
 import com.example.acl.domains.users.models.mappers.PrivilegeMapper
