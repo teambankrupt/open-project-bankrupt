@@ -17,8 +17,8 @@ class RoleMapper @Autowired constructor(
     fun map(entity: Role): RoleDto {
         val dto = RoleDto()
         dto.id = entity.id
-        dto.createdAt = entity.createdAt.time
-        dto.updatedAt = entity.updatedAt.time
+        dto.createdAt = entity.createdAt
+        dto.updatedAt = entity.updatedAt
 
         dto.name = entity.name
         dto.description = entity.description

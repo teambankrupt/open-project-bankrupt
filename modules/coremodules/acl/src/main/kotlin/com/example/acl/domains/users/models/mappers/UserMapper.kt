@@ -44,8 +44,8 @@ class UserMapper @Autowired constructor(
     fun map(user: User): UserResponse {
         val dto = UserResponse()
         dto.id = user.id
-        dto.createdAt = user.createdAt.time
-        dto.updatedAt = user.updatedAt.time
+        dto.createdAt = user.createdAt
+        dto.updatedAt = user.updatedAt
 
         dto.name = user.name
         dto.gender = user.gender
