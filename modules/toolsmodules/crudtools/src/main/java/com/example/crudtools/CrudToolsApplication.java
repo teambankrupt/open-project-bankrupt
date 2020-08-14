@@ -2,9 +2,11 @@ package com.example.crudtools;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Objects;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -79,6 +81,7 @@ public class CrudToolsApplication {
                 System.out.println("Successfully renamed to: " + file.getName() + "\n\nReplacing file contents with domain name..");
 
                 replaceText(file, "CrudExample", domainName);
+                replaceText(file, "crudExample", Character.toLowerCase(domainName.charAt(0)) + domainName.substring(1));
                 replaceText(file, "crudexample", domainName.toLowerCase());
                 replaceText(file, "CRUDEXAMPLE", domainName.toUpperCase());
 
