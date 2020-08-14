@@ -15,11 +15,19 @@
     <packaging>pom</packaging>
 
     <modules>
+        <!--Tools Modules-->
+<!--        <module>modules/toolsmodules/crudtools</module>-->
+
+        <!--Core Modules-->
         <module>modules/coremodules/common</module>
         <module>modules/coremodules/coreweb</module>
         <module>modules/coremodules/auth</module>
         <module>modules/coremodules/acl</module>
+
+        <!--App Modules-->
         <module>modules/appmodules/messaging</module>
+
+        <!--BootStrap Module-->
         <module>app</module>
     </modules>
 
