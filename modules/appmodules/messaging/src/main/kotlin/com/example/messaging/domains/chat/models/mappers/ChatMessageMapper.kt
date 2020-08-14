@@ -19,7 +19,7 @@ class ChatMessageMapper @Autowired constructor(
     override fun map(entity: ChatMessage): ChatMessageDto {
         val dto = ChatMessageDto()
         dto.id = entity.id
-        dto.created = entity.createdAt
+        dto.createdAt = entity.createdAt
         dto.updatedAt = entity.updatedAt
 
         dto.from = entity.from

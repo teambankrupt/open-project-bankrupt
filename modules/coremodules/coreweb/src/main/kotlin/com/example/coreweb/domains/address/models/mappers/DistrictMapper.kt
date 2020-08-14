@@ -16,7 +16,7 @@ class DistrictMapper(@Autowired val divisionService: DivisionService) {
         dto.nameEn = district.nameEn
         dto.nameBn = district.nameBn
         dto.divisionId = district.division?.id
-        dto.created = district.createdAt
+        dto.createdAt = district.createdAt
         dto.updatedAt = district.updatedAt
         return dto
     }

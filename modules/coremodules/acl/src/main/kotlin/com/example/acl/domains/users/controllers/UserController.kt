@@ -1,6 +1,6 @@
 package com.example.acl.domains.users.controllers
 
-import com.example.common.Constants
+import com.example.coreweb.commons.Constants
 import com.example.acl.domains.users.models.mappers.UserMapper
 import com.example.acl.domains.users.services.UserService
 import com.example.auth.config.security.TokenService

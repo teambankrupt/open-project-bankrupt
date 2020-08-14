@@ -15,7 +15,7 @@ class UnionMapper(@Autowired val upazilaService: UpazilaService) {
         unionDto.id = union.id
         unionDto.nameEn = union.nameEn
         unionDto.nameBn = union.nameBn
-        unionDto.created = union.createdAt
+        unionDto.createdAt = union.createdAt
         unionDto.updatedAt = union.updatedAt
         unionDto.upazilaId = union.upazila?.id
         return unionDto

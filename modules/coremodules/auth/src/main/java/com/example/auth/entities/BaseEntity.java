@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
 
@@ -16,13 +17,11 @@ public abstract class BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Temporal(value = TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false)
-    private Date createdAt;
+    private Instant createdAt;
 
-    @Temporal(value = TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private Instant updatedAt;
 
     @Column(name = "created_by")
     private String createdBy;
@@ -38,7 +37,7 @@ public abstract class BaseEntity implements Serializable {
 
     @PrePersist
     private void onBasePersist() {
-        this.createdAt = new Date();
+        this.createdAt = Instant.now();
         this.updatedAt = createdAt;
         this.createdBy = this.getLoggedInUsername();
         this.uuid = UUID.randomUUID().toString();
@@ -46,7 +45,7 @@ public abstract class BaseEntity implements Serializable {
 
     @PreUpdate
     private void onBaseUpdate() {
-        this.updatedAt = new Date();
+        this.updatedAt = Instant.now();
         this.updatedBy = this.getLoggedInUsername();
     }
 
@@ -85,12 +84,12 @@ public abstract class BaseEntity implements Serializable {
     }
 
 
-    public Date getCreatedAt() {
+    public Instant getCreatedAt() {
         return createdAt;
     }
 
 
-    public Date getUpdatedAt() {
+    public Instant getUpdatedAt() {
         return updatedAt;
     }
 
@@ -103,7 +102,7 @@ public abstract class BaseEntity implements Serializable {
         return updatedBy;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
 }

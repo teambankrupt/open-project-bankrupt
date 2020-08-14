@@ -16,7 +16,7 @@ class VillageMapper(@Autowired val unionService: UnionService) {
         dto.nameEn = village.nameEn
         dto.nameBn = village.nameBn
         dto.unionId = village.union?.id
-        dto.created = village.createdAt
+        dto.createdAt = village.createdAt
         dto.updatedAt = village.updatedAt
         return dto
     }

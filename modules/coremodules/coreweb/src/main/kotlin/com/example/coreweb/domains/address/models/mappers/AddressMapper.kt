@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component
 
 @Component
 class AddressMapper @Autowired constructor(
-        val divisionService: DivisionService,
-        val districtService: DistrictService,
-        val upazilaService: UpazilaService,
-        val unionService: UnionService,
-        val villageService: VillageService
+        private val divisionService: DivisionService,
+        private val districtService: DistrictService,
+        private val upazilaService: UpazilaService,
+        private val unionService: UnionService,
+        private val villageService: VillageService
 ) {
 
     fun map(address: Address): AddressDto {
@@ -27,7 +27,7 @@ class AddressMapper @Autowired constructor(
         dto.villageId = address.village?.id
         dto.lat = address.latLng?.latitude
         dto.lng = address.latLng?.longitude
-        dto.created = address.createdAt
+        dto.createdAt = address.createdAt
         dto.updatedAt = address.updatedAt
         return dto
     }

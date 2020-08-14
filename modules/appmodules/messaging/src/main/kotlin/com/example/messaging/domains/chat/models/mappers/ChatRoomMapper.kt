@@ -16,7 +16,7 @@ class ChatRoomMapper @Autowired constructor(
     override fun map(entity: ChatRoom): ChatRoomDto {
         val dto = ChatRoomDto()
         dto.id = entity.id
-        dto.created = entity.createdAt
+        dto.createdAt = entity.createdAt
         dto.updatedAt = entity.updatedAt
 
         dto.title = entity.title

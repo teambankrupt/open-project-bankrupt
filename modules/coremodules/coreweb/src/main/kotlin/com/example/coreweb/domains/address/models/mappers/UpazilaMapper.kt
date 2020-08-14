@@ -13,7 +13,7 @@ class UpazilaMapper(@Autowired val districtService: DistrictService) {
     fun map(entity: Upazila): UpazilaDto {
         val dto = UpazilaDto()
         dto.id = entity.id
-        dto.created = entity.createdAt
+        dto.createdAt = entity.createdAt
         dto.updatedAt = entity.updatedAt
 
         dto.nameEn = entity.nameEn
