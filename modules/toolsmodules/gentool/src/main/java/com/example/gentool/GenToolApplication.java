@@ -79,10 +79,12 @@ public class GenToolApplication {
 
         for (int i = 0; i < (listOfFiles != null ? listOfFiles.length : 0); i++) {
             File file = listOfFiles[i];
+
+            System.out.println("Rename file: " + file.getName());
+            file = changeFilename(genType, file, domainName);
+            System.out.println("Successfully renamed to: " + file.getName() + "\n\nReplacing file contents with domain name..");
+
             if (file.isFile()) {
-                System.out.println("Rename file: " + file.getName());
-                file = changeFilename(genType, file, domainName);
-                System.out.println("Successfully renamed to: " + file.getName() + "\n\nReplacing file contents with domain name..");
                 replaceTexts(genType, file, domainName);
                 System.out.println("\nSuccessfully Replaced!");
             } else if (file.isDirectory()) {
@@ -94,7 +96,7 @@ public class GenToolApplication {
 
     private static void replaceTexts(GenerationTypes genType, File file, String domainName) throws IOException {
         if (genType == GenerationTypes.MODULE) {
-            replaceText(file, "examplemodule", domainName.toLowerCase() + "module");
+            replaceText(file, "examplemodule", domainName.toLowerCase());
             replaceText(file, "ExampleApplication", domainName + "Application");
         } else if (genType == GenerationTypes.CRUD) {
             replaceText(file, "CrudExample", domainName);
@@ -106,9 +108,10 @@ public class GenToolApplication {
 
     private static File changeFilename(GenerationTypes genType, File file, String domainName) throws IOException {
         String filePath = file.getAbsolutePath();
-        if (genType == GenerationTypes.MODULE)
+        if (genType == GenerationTypes.MODULE) {
+            filePath = filePath.replace("examplemodule", domainName.toLowerCase());
             filePath = filePath.replace("ExampleApplication", domainName + "Application");
-        else if (genType == GenerationTypes.CRUD)
+        } else if (genType == GenerationTypes.CRUD)
             filePath = filePath.replace("CrudExample", domainName);
         File renamedFile = new File(filePath);
         file.renameTo(renamedFile);

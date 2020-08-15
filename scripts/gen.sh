@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$1" = "crud" ]; then
-  srcDir="examples/crudexample/crudexample"
+  srcDir="examples/crudexample"
 elif [ "$1" = "module" ]; then
   srcDir="examples/examplemodule"
 fi

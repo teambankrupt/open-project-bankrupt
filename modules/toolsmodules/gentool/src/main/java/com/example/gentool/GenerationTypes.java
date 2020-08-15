@@ -1,7 +1,5 @@
 package com.example.gentool;
 
-import java.util.Arrays;
-
 public enum GenerationTypes {
     MODULE("module", ""),
     CRUD("crud", "s");
@@ -23,9 +21,10 @@ public enum GenerationTypes {
     }
 
     public static GenerationTypes find(String label) {
-        return Arrays.stream(values())
-                .filter(v -> v.label.equals(label))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Couldn't find GenerationType with: " + label));
+        for (GenerationTypes v : values()) {
+            if (v.label.equals(label))
+                return v;
+        }
+        throw new RuntimeException("Couldn't find GenerationType with: " + label);
     }
 }
