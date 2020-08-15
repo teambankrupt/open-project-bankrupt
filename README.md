@@ -2,6 +2,16 @@
 
 It's a skeleton project with lots of features implemented by default.
 
+## Module and CRUD Generator
+### Example
+Generate CRUD
+
+`./scripts/gen.sh crud Issue app/src/main/kotlin/com/example/app/domains/`
+
+Generate Module
+
+`./scripts/gen.sh module IssueTracker modules/appmodules`
+
 ## Features At a Glance
 
 ### For Admin Panel

@@ -16,7 +16,7 @@
 
     <modules>
         <!--Tools Modules-->
-<!--        <module>modules/toolsmodules/crudtools</module>-->
+<!--        <module>modules/toolsmodules/gentool</module>-->
 
         <!--Core Modules-->
         <module>modules/coremodules/common</module>
