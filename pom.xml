@@ -23,10 +23,10 @@
         <module>modules/coremodules/coreweb</module>
         <module>modules/coremodules/auth</module>
         <module>modules/coremodules/acl</module>
+        <module>modules/coremodules/virtualfilesystem</module>
 
         <!--App Modules-->
         <module>modules/appmodules/messaging</module>
-        <module>modules/appmodules/virtualfilesystem</module>
 
         <!--BootStrap Module-->
         <module>app</module>
