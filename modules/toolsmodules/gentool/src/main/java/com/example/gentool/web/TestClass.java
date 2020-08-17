@@ -1,5 +1,8 @@
 package com.example.gentool.web;
 
+import com.example.gentool.web.views.ButtonInput;
+import com.example.gentool.web.views.enums.ButtonTypes;
+
 import java.time.Instant;
 
 public class TestClass {
@@ -10,6 +13,16 @@ public class TestClass {
     private Instant birthDate;
 
     private Double value;
+
+    private ButtonTypes buttonType;
+
+    public ButtonTypes getButtonType() {
+        return buttonType;
+    }
+
+    public void setButtonType(ButtonTypes buttonType) {
+        this.buttonType = buttonType;
+    }
 
     public Instant getBirthDate() {
         return birthDate;
