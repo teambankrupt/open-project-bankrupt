@@ -16,13 +16,14 @@
 
     <modules>
         <!--Tools Modules-->
-<!--        <module>modules/toolsmodules/gentool</module>-->
+        <!--        <module>modules/toolsmodules/gentool</module>-->
 
         <!--Core Modules-->
         <module>modules/coremodules/common</module>
         <module>modules/coremodules/coreweb</module>
         <module>modules/coremodules/auth</module>
         <module>modules/coremodules/acl</module>
+        <module>modules/coremodules/virtualfilesystem</module>
 
         <!--App Modules-->
         <module>modules/appmodules/messaging</module>
