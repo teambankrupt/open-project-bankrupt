@@ -8,13 +8,16 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import com.example.gentool.web.WebComponentGenerator;
+import com.example.gentool.web.FormGenerator;
+import com.example.gentool.web.TestClass;
 
 public class GenToolApplication {
 
     public static void main(String[] args) {
-        process(args);
-//        WebComponentGenerator generator = new FormGenerator();
-//        generator.generate(TestClass.class);
+//        process(args);
+        WebComponentGenerator generator = new FormGenerator();
+        generator.generate(TestClass.class);
     }
 
     private static void process(String[] args) {
