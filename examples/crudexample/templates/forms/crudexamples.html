@@ -1,0 +1,11 @@
+<form method="post" th:action="@{/admin/crudexamples/}+${crudexample!=null?crudexample?.id:''}">
+
+    <div>
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" placeholder="Name">
+    </div>
+
+    <button type="submit">Submit</button>
+
+
+</form>

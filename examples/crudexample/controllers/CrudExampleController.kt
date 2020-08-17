@@ -34,13 +34,13 @@ class CrudExampleController @Autowired constructor(
     override fun search(@RequestParam("q", defaultValue = "") query: String,
                         @RequestParam("page", defaultValue = "0") page: Int,
                         @RequestParam("size", defaultValue = "10") size: Int): ResponseEntity<Page<CrudExampleDto>> {
-        val entities = this.crudExampleService.search(query, page, size);
+        val entities = this.crudExampleService.search(query, page, size)
         return ResponseEntity.ok(entities.map { this.crudExampleMapper.map(it) })
     }
 
     @GetMapping(Route.V1.FIND_CRUDEXAMPLE)
     override fun find(@PathVariable("id") id: Long): ResponseEntity<CrudExampleDto> {
-        val entity = this.crudExampleService.find(id).orElseThrow { ExceptionUtil.notFound("Example", id) }
+        val entity = this.crudExampleService.find(id).orElseThrow { ExceptionUtil.notFound("CrudExample", id) }
         return ResponseEntity.ok(this.crudExampleMapper.map(entity))
     }
 
@@ -53,7 +53,7 @@ class CrudExampleController @Autowired constructor(
     @PatchMapping(Route.V1.UPDATE_CRUDEXAMPLE)
     override fun update(@PathVariable("id") id: Long,
                         @Valid @RequestBody dto: CrudExampleDto): ResponseEntity<CrudExampleDto> {
-        var entity = this.crudExampleService.find(id).orElseThrow { ExceptionUtil.notFound("Example", id) }
+        var entity = this.crudExampleService.find(id).orElseThrow { ExceptionUtil.notFound("CrudExample", id) }
         entity = this.crudExampleService.save(this.crudExampleMapper.map(dto, entity))
         return ResponseEntity.ok(this.crudExampleMapper.map(entity))
     }
