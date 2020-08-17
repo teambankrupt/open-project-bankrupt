@@ -13,6 +13,8 @@ public class GenToolApplication {
 
     public static void main(String[] args) {
         process(args);
+//        WebComponentGenerator generator = new FormGenerator();
+//        generator.generate(TestClass.class);
     }
 
     private static void process(String[] args) {
