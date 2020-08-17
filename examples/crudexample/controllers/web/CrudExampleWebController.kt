@@ -38,7 +38,7 @@ class CrudExampleWebController @Autowired constructor(
                         model: Model): String {
         val entities = this.crudExampleService.search(query, page, size)
         model.addAttribute("crudexamples", entities)
-        return "fragments/crudexamples/all"
+        return "crudexamples/fragments/all"
     }
 
     @GetMapping(Route.V1.ADMIN_FIND_CRUDEXAMPLE)
@@ -46,12 +46,12 @@ class CrudExampleWebController @Autowired constructor(
                       model: Model): String {
         val entity = this.crudExampleService.find(id).orElseThrow { ExceptionUtil.notFound("CrudExample", id) }
         model.addAttribute("crudexample", entity)
-        return "fragments/crudexamples/details"
+        return "crudexamples/fragments/details"
     }
 
     @GetMapping(Route.V1.ADMIN_CREATE_CRUDEXAMPLE_PAGE)
     override fun createPage(model: Model): String {
-        return "fragments/crudexamples/create"
+        return "crudexamples/fragments/create"
     }
 
     @PostMapping(Route.V1.ADMIN_CREATE_CRUDEXAMPLE)
@@ -66,7 +66,7 @@ class CrudExampleWebController @Autowired constructor(
     override fun updatePage(@PathVariable("id") id: Long, model: Model): String {
         val entity = this.crudExampleService.find(id).orElseThrow { ExceptionUtil.notFound("CrudExample", id) }
         model.addAttribute("crudexample", entity)
-        return "fragments/crudexamples/create"
+        return "crudexamples/fragments/create"
     }
 
     @PostMapping(Route.V1.ADMIN_UPDATE_CRUDEXAMPLE)
