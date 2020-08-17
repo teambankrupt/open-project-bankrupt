@@ -16,7 +16,7 @@ public class FormGenerator implements WebComponentGenerator {
         Field[] fields = cls.getDeclaredFields();
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("<form method=\"post\" class=\"form\">\n");
+        stringBuilder.append("<form method=\"post\" th:action=\"@{/admin/crudexamples/}+${crudexample!=null?crudexample?.id:''}\">\n");
         for (Field field : fields) {
             stringBuilder.append("\n<!--------------").append(StringUtils.capitalize(field.getName())).append("----------------->\n");
             String fieldType = field.getType().getSimpleName();
