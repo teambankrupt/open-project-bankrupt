@@ -1,6 +1,7 @@
 package com.example.gentool;
 
 import com.example.gentool.web.FormGenerator;
+import com.example.gentool.web.TestClass;
 import com.example.gentool.web.WebComponentGenerator;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -15,6 +16,9 @@ public class GenToolApplication {
 
     public static void main(String[] args) {
         process(args);
+
+//        WebComponentGenerator generator = new FormGenerator();
+//        generator.generate(TestClass.class);
     }
 
     private static void process(String[] args) {
@@ -30,13 +34,6 @@ public class GenToolApplication {
 
         try {
 
-            if (GenerationTypes.ASSET.equals(genType)) {
-                Class cls = Class.forName("com.example.app.domains." + domainName.toLowerCase() + "s.models.entities." + domainName);
-                WebComponentGenerator generator = new FormGenerator();
-                generator.generate(cls);
-                return;
-            }
-
             print("Starting process...");
             File gendir = genDir(genType, domainName, generationPath);
             copy(exampleDir(exampleDirPath), gendir);
@@ -45,7 +42,7 @@ public class GenToolApplication {
             replace(genType, genDir(genType, domainName, generationPath), domainName);
             print("Completed!");
 
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
