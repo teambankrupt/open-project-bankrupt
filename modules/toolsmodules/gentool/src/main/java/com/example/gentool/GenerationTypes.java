@@ -2,8 +2,7 @@ package com.example.gentool;
 
 public enum GenerationTypes {
     MODULE("module", ""),
-    CRUD("crud", "s"),
-    ASSET("asset", "s");
+    CRUD("crud", "s");
 
     private String label;
     private String suffixForPackage;
