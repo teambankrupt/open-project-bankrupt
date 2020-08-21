@@ -13,6 +13,11 @@ class Route {
             const val UPDATE_VFOLDER = "$API$VERSION/vfolders/{id}"
             const val DELETE_VFOLDER = "$API$VERSION/vfolders/{id}"
 
+            const val SEARCH_VEXTENSIONS = "$API$VERSION/vextensions"
+            const val CREATE_VEXTENSION = "$API$VERSION/vextensions"
+            const val FIND_VEXTENSION = "$API$VERSION/vextensions/{id}"
+            const val UPDATE_VEXTENSION = "$API$VERSION/vextensions/{id}"
+            const val DELETE_VEXTENSION = "$API$VERSION/vextensions/{id}"
         }
     }
 }
