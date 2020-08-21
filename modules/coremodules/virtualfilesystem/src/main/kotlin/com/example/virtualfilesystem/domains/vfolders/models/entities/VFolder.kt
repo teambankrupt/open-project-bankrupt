@@ -4,7 +4,7 @@ import com.example.coreweb.domains.base.entities.BaseEntity
 import javax.persistence.*
 
 @Entity
-@Table(name = "virtual_folders")
+@Table(name = "vfs_folders")
 class VFolder : BaseEntity() {
 
     @Column(name = "name", nullable = false)
