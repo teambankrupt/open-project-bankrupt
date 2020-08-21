@@ -10,6 +10,11 @@ class Route {
             // Imports batch
             const val IMPORT_USERS = "$API$VERSION/admin/imports/users"
 
+            const val SEARCH_ISSUES = "$API$VERSION/issues"
+            const val CREATE_ISSUE = "$API$VERSION/issues"
+            const val FIND_ISSUE = "$API$VERSION/issues/{id}"
+            const val UPDATE_ISSUE = "$API$VERSION/issues/{id}"
+            const val DELETE_ISSUE = "$API$VERSION/issues/{id}"
         }
     }
 }

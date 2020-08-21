@@ -16,7 +16,9 @@ class VFileMapper : BaseMapper<VFile, VFileDto> {
         dto.updatedAt = entity.updatedAt
 
         dto.name = entity.name
-        dto.ext = entity.ext
+        dto.hidden = entity.hidden
+        dto.extId = entity.ext.id
+        dto.ext = entity.ext.ext
         dto.folderId = entity.folder.id
 
         return dto
