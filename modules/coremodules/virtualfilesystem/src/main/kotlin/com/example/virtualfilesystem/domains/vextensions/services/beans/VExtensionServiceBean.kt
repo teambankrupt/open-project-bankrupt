@@ -5,6 +5,7 @@ import com.example.coreweb.utils.PageAttr
 import com.example.virtualfilesystem.domains.vextensions.models.entities.VExtension
 import com.example.virtualfilesystem.domains.vextensions.repositories.VExtensionRepository
 import com.example.virtualfilesystem.domains.vextensions.services.VExtensionService
+import com.example.virtualfilesystem.domains.vfiles.models.VFile
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service
@@ -17,6 +18,17 @@ class VExtensionServiceBean @Autowired constructor(
 
     override fun search(query: String, page: Int, size: Int): Page<VExtension> {
         return this.vExtensionRepository.search(query, PageAttr.getPageRequest(page, size))
+    }
+
+    override fun findOrCreate(cls: Class<out VFile>): VExtension {
+        val className = cls.simpleName
+        val extension = this.vExtensionRepository.find(className)
+        if (extension.isPresent) return extension.get()
+        // create new one
+        val newExt = VExtension()
+        newExt.name = className
+        newExt.ext = className
+        return this.save(newExt)
     }
 
     override fun save(entity: VExtension): VExtension {
@@ -38,7 +50,6 @@ class VExtensionServiceBean @Autowired constructor(
     }
 
     private fun validate(entity: VExtension) {
-
         // For new entity
         if (entity.id == null) {
             val ex = this.vExtensionRepository.find(entity.ext)

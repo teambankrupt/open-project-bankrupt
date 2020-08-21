@@ -5,6 +5,7 @@ import com.example.virtualfilesystem.domains.vextensions.models.mappers.VExtensi
 import com.example.virtualfilesystem.domains.vextensions.services.VExtensionService
 import com.example.common.utils.ExceptionUtil
 import com.example.coreweb.domains.base.controllers.CrudController
+import com.example.virtualfilesystem.domains.vfiles.models.VFile
 import com.example.virtualfilesystem.routing.Route
 import io.swagger.annotations.Api
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,7 +25,7 @@ class VExtensionController @Autowired constructor(
     override fun search(@RequestParam("q", defaultValue = "") query: String,
                         @RequestParam("page", defaultValue = "0") page: Int,
                         @RequestParam("size", defaultValue = "10") size: Int): ResponseEntity<Page<VExtensionDto>> {
-        val entities = this.vExtensionService.search(query, page, size);
+        val entities = this.vExtensionService.search(query, page, size)
         return ResponseEntity.ok(entities.map { this.vExtensionMapper.map(it) })
     }
 

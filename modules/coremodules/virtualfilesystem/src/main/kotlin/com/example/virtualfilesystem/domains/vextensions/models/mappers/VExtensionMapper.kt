@@ -1,5 +1,6 @@
 package com.example.virtualfilesystem.domains.vextensions.models.mappers
 
+import com.example.common.utils.ExceptionUtil
 import com.example.coreweb.domains.base.models.mappers.BaseMapper
 import com.example.virtualfilesystem.domains.vextensions.models.dtos.VExtensionDto
 import com.example.virtualfilesystem.domains.vextensions.models.entities.VExtension
@@ -21,15 +22,6 @@ class VExtensionMapper : BaseMapper<VExtension, VExtensionDto> {
     }
 
     override fun map(dto: VExtensionDto, exEntity: VExtension?): VExtension {
-        val entity = exEntity ?: VExtension()
-
-        entity.name = dto.name
-        entity.ext = dto.ext
-                .replace(" ", "")
-                .toLowerCase()
-        if (!entity.ext.startsWith("."))
-            entity.ext = ".".plus(entity.ext)
-
-        return entity
+        throw ExceptionUtil.forbidden("This operation is not allowed at this time.")
     }
 }
