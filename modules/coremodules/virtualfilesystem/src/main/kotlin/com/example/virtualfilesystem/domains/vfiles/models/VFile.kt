@@ -11,6 +11,9 @@ abstract class VFile : BaseEntity() {
     @Column(name = "name", nullable = false)
     lateinit var name: String
 
+    @Column(name = "hidden", nullable = false)
+    var hidden: Boolean = false
+
     @OneToOne
     @JoinColumn(name = "v_extension_id", nullable = false)
     lateinit var ext: VExtension

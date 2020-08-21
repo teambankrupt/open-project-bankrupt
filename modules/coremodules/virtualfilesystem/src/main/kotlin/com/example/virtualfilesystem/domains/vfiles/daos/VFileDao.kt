@@ -23,8 +23,10 @@ class VFileDao @Autowired constructor(
     }
 
     private fun filesOfExt(ext: VExtension, folderId: Long): List<VFile> {
-        val sql = "SELECT * FROM ${ext.ext} e WHERE e.id=:${ext.id} AND e.folder.id=:folderId AND e.deleted = FALSE"
+        val sql = "SELECT e FROM ${ext.ext} e WHERE e.ext.id=:extId AND e.folder.id=:folderId AND e.deleted = FALSE"
         val query = entityManager.createQuery(sql)
+        query.setParameter("extId", ext.id)
+        query.setParameter("folderId", folderId)
 
         return try {
             query.resultList as List<VFile>
