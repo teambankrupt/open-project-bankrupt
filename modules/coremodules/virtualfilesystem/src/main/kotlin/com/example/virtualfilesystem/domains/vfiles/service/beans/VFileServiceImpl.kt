@@ -11,8 +11,8 @@ class VFileServiceImpl @Autowired constructor(
         private val fileDao: VFileDao
 ) : VFileService {
 
-    override fun getFilesInFolder(folerId: Long): List<VFile> {
-        return this.fileDao.getFiles(folerId)
+    override fun getFilesInFolder(folderId: Long, page: Int, size: Int): List<VFile> {
+        return this.fileDao.getFiles(folderId, page, size)
     }
 
 }
