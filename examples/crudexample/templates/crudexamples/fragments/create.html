@@ -1,0 +1,22 @@
+<html layout:decorate="dashboard" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
+<div layout:fragment="main_content">
+
+    <div class="card">
+        <div class="header">
+            <h2>
+                CrudExample <small>Description text here...</small>
+            </h2>
+            <div>
+                <a th:href="@{/admin/tasks}" class="btn btn-primary pull-right">All Tasks</a>
+                <a th:href="@{/admin/tasks/create}" class="btn btn-primary pull-right">Create New</a>
+            </div>
+        </div>
+
+        <div class="body">
+            <div th:include="crudexamples/forms/create"></div>
+        </div>
+
+    </div>
+
+</div>
+</html>
