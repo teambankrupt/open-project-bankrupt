@@ -2,6 +2,9 @@ package com.example.virtualfilesystem.domains.vfolders.controllers
 
 import com.example.common.utils.ExceptionUtil
 import com.example.coreweb.domains.base.controllers.CrudController
+import com.example.virtualfilesystem.domains.vfiles.models.dtos.VFileDto
+import com.example.virtualfilesystem.domains.vfiles.models.mappers.VFileMapper
+import com.example.virtualfilesystem.domains.vfiles.service.VFileService
 import com.example.virtualfilesystem.domains.vfolders.models.dtos.VFolderDto
 import com.example.virtualfilesystem.domains.vfolders.models.mappers.VFolderMapper
 import com.example.virtualfilesystem.domains.vfolders.services.VFolderService
@@ -17,7 +20,9 @@ import javax.validation.Valid
 @Api(tags = ["VFolders"], description = "Description about VFolders")
 class VFolderController @Autowired constructor(
         private val vFolderService: VFolderService,
-        private val vFolderMapper: VFolderMapper
+        private val vFolderMapper: VFolderMapper,
+        private val vFileService: VFileService,
+        private val vFileMapper: VFileMapper
 ) : CrudController<VFolderDto> {
 
     @GetMapping(Route.V1.SEARCH_VFOLDERS)
@@ -32,6 +37,14 @@ class VFolderController @Autowired constructor(
     override fun find(@PathVariable("id") id: Long): ResponseEntity<VFolderDto> {
         val entity = this.vFolderService.find(id).orElseThrow { ExceptionUtil.notFound("Example", id) }
         return ResponseEntity.ok(this.vFolderMapper.map(entity))
+    }
+
+    @GetMapping(Route.V1.FIND_FILES_IN_VFOLDER)
+    fun findFilesInFolder(@PathVariable("folder_id") folderId: Long,
+                          @RequestParam("page", defaultValue = "0") page: Int,
+                          @RequestParam("size", defaultValue = "10") size: Int): ResponseEntity<List<VFileDto>> {
+        val entities = this.vFileService.getFilesInFolder(folderId, page, size)
+        return ResponseEntity.ok(entities.map { this.vFileMapper.map(it) })
     }
 
     @PostMapping(Route.V1.CREATE_VFOLDER)
