@@ -40,8 +40,10 @@ class VFolderController @Autowired constructor(
     }
 
     @GetMapping(Route.V1.FIND_FILES_IN_VFOLDER)
-    fun findFilesInFolder(@PathVariable("folder_id") folderId: Long): ResponseEntity<List<VFileDto>> {
-        val entities = this.vFileService.getFilesInFolder(folderId)
+    fun findFilesInFolder(@PathVariable("folder_id") folderId: Long,
+                          @RequestParam("page", defaultValue = "0") page: Int,
+                          @RequestParam("size", defaultValue = "10") size: Int): ResponseEntity<List<VFileDto>> {
+        val entities = this.vFileService.getFilesInFolder(folderId, page, size)
         return ResponseEntity.ok(entities.map { this.vFileMapper.map(it) })
     }
 
