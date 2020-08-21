@@ -1,27 +1,38 @@
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Created At</th>
-        <th>Updated At</th>
-        <th>Update</th>
-        <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="crudexample: ${crudexamples}">
-        <td th:text="${crudexample?.id}"></td>
-        <td th:text="${crudexample?.createdAt}"></td>
-        <td th:text="${crudexample?.updatedAt}"></td>
-        <td>
-            <a class="btn btn-warning" th:href="@{/admin/crudexamples/}+${crudexample?.id}+@{/update}">Update</a>
-        </td>
-        <td>
-            <form method="post" th:action="@{/admin/crudexamples/}+${crudexample?.id}+@{/delete}"
-                  onclick="return confirm('Are you sure?')">
-                <button type="submit" class="btn btn-warning">Delete</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="card">
+
+    <div class="card-header">
+        <a th:href="@{/admin/crudexamples/create}" class="btn btn-primary pull-right">Create New</a>
+    </div>
+
+    <div class="card-content">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Created At</th>
+                <th>Updated At</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="crudexample: ${crudexamples}">
+                <td><a th:href="@{/admin/crudexamples/}+${crudexample?.id}" th:text="${crudexample?.id}"></a></td>
+                <td th:text="${crudexample?.createdAt}"></td>
+                <td th:text="${crudexample?.updatedAt}"></td>
+                <td>
+                    <a class="btn btn-warning"
+                       th:href="@{/admin/crudexamples/}+${crudexample?.id}+@{/update}">Update</a>
+                </td>
+                <td>
+                    <form method="post" th:action="@{/admin/crudexamples/}+${crudexample?.id}+@{/delete}"
+                          onclick="return confirm('Are you sure?')">
+                        <button type="submit" class="btn btn-warning">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

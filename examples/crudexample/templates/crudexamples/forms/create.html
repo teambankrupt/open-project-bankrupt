@@ -1,11 +1,20 @@
-<form method="post" th:action="@{/admin/crudexamples/}+${crudexample!=null?crudexample?.id:''}">
-
-    <div>
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" placeholder="Name">
+<div class="card">
+    <div class="card-header">
+        <a th:href="@{/admin/crudexamples}" class="btn btn-primary pull-right">All CrudExamples</a>
     </div>
 
-    <button type="submit">Submit</button>
+    <div class="card-content">
+        <form method="post" th:action="@{/admin/crudexamples/}+${crudexample!=null?crudexample?.id:''}">
 
+            <div>
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" placeholder="Name">
+            </div>
 
-</form>
+            <div>
+                <a th:href="@{/admin/crudexamples}" class="btn btn-primary pull-right">Cancel</a>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
