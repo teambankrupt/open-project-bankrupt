@@ -20,4 +20,6 @@ class VFileDto : BaseDto() {
     @JsonProperty("folder_id")
     var folderId: Long = 0
 
+    @JsonProperty("url_prefix")
+    lateinit var urlPrefix: String
 }

@@ -5,5 +5,5 @@ import com.example.virtualfilesystem.domains.vextensions.models.entities.VExtens
 import com.example.virtualfilesystem.domains.vfiles.models.VFile
 
 interface VExtensionService : CrudService<VExtension> {
-    fun findOrCreate(cls: Class<out VFile>): VExtension
+    fun findOrCreate(cls: Class<out VFile>, urlPrefix: String): VExtension
 }

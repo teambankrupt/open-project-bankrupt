@@ -17,6 +17,7 @@ class VExtensionMapper : BaseMapper<VExtension, VExtensionDto> {
 
         dto.name = entity.name
         dto.ext = entity.ext
+        dto.urlPrefix = entity.urlPrefix
 
         return dto
     }

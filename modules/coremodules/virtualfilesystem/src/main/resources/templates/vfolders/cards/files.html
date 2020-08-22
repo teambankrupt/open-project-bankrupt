@@ -2,9 +2,12 @@
 
     <div class="card">
         <div class="header">
-            <h2>
-                <span th:text="${vfile?.name}"></span>
-            </h2>
+
+            <a th:href="@{/admin}+${vfile?.ext?.urlPrefix}+@{/}+${vfile?.id}">
+                <h2 th:text="${vfile?.name}"></h2>
+                .<small th:text="${vfile?.ext?.ext}"></small>
+            </a>
+
             <ul class="header-dropdown m-r--5">
                 <li class="dropdown">
                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -16,8 +19,10 @@
         </div>
         <div class="body">
             <div>
-                <small style="font-size: 10px;">Created: <span th:text="${vfile?.getCreatedAtReadable()}"></span></small><br/>
-                <small style="font-size: 10px;">Last Updated: <span th:text="${vfile?.getUpdatedAtReadable()}"></span></small>
+                <small style="font-size: 10px;">Created: <span
+                        th:text="${vfile?.getCreatedAtReadable()}"></span></small><br/>
+                <small style="font-size: 10px;">Last Updated: <span
+                        th:text="${vfile?.getUpdatedAtReadable()}"></span></small>
             </div>
         </div>
     </div>

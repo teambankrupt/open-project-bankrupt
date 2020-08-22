@@ -11,4 +11,7 @@ class VExtensionDto : BaseDto() {
     @JsonProperty("ext")
     lateinit var ext: String
 
+    @JsonProperty("url_prefix")
+    lateinit var urlPrefix: String
+
 }

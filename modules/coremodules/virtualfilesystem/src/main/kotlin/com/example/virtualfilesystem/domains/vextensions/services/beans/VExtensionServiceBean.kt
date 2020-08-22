@@ -20,7 +20,7 @@ class VExtensionServiceBean @Autowired constructor(
         return this.vExtensionRepository.search(query, PageAttr.getPageRequest(page, size))
     }
 
-    override fun findOrCreate(cls: Class<out VFile>): VExtension {
+    override fun findOrCreate(cls: Class<out VFile>, urlPrefix: String): VExtension {
         val className = cls.simpleName
         val extension = this.vExtensionRepository.find(className)
         if (extension.isPresent) return extension.get()
@@ -28,6 +28,7 @@ class VExtensionServiceBean @Autowired constructor(
         val newExt = VExtension()
         newExt.name = className
         newExt.ext = className
+        newExt.urlPrefix = urlPrefix
         return this.save(newExt)
     }
 

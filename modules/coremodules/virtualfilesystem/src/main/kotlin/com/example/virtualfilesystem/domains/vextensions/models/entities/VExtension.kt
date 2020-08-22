@@ -15,4 +15,7 @@ class VExtension : BaseEntity() {
     @Column(name = "ext")
     lateinit var ext: String
 
+    @Column(name = "url_prefix")
+    lateinit var urlPrefix: String
+
 }

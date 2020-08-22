@@ -19,6 +19,7 @@ class VFileMapper : BaseMapper<VFile, VFileDto> {
         dto.hidden = entity.hidden
         dto.extId = entity.ext.id
         dto.ext = entity.ext.ext
+        dto.urlPrefix = entity.ext.urlPrefix
         dto.folderId = entity.folder.id
 
         return dto
