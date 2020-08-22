@@ -36,7 +36,7 @@ class VFolderWebController @Autowired constructor(
 
         model.addAttribute("vfolders", entities)
         model.addAttribute("parent", parent)
-        model.addAttribute("files",files)
+        model.addAttribute("vfiles",files)
 
         return "vfolders/fragments/all"
     }

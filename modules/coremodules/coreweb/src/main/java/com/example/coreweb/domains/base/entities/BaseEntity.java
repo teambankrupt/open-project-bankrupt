@@ -2,6 +2,7 @@ package com.example.coreweb.domains.base.entities;
 
 import com.example.auth.config.security.SecurityContext;
 import com.example.common.utils.DateUtil;
+import com.example.common.utils.TimeUtility;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -54,6 +55,15 @@ public abstract class BaseEntity implements Serializable {
         return SecurityContext.getLoggedInUsername();
     }
 
+    @JsonIgnore
+    public String getCreatedAtReadable() {
+        return TimeUtility.readableDateTimeFromInstant(this.createdAt);
+    }
+
+    @JsonIgnore
+    public String getUpdatedAtReadable() {
+        return TimeUtility.readableDateTimeFromInstant(this.updatedAt);
+    }
 
     public String getUuid() {
         return uuid;

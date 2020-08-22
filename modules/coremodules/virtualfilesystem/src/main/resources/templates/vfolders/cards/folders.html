@@ -12,7 +12,9 @@
                         <i class="material-icons">more_vert</i>
                     </a>
                     <ul class="dropdown-menu pull-right">
-                        <li><a th:href="@{/admin/vfolders/}+${vfolder?.id}+@{/update(parent_id=${vfolder?.parent?.id})}">Update</a></li>
+                        <li>
+                            <a th:href="@{/admin/vfolders/}+${vfolder?.id}+@{/update(parent_id=${vfolder?.parent?.id})}">Update</a>
+                        </li>
                         <li>
                             <form method="post" th:action="@{/admin/vfolders/}+${vfolder?.id}+@{/delete}"
                                   onclick="return confirm('Are you sure?')">
@@ -24,8 +26,13 @@
             </ul>
         </div>
         <div class="body" th:styleappend="'background-color:'+ ${vfolder?.accentColor}">
-            Created At: <span th:text="${vfolder?.createdAt}"></span><br/>
-            Updated At: <span th:text="${vfolder?.updatedAt}"></span>
+            <span th:text="${vfolder?.description}"></span>
+            <hr/>
+
+            <div>
+                <small style="font-size: 10px;">Created: <span th:text="${vfolder?.getCreatedAtReadable()}"></span></small><br/>
+                <small  style="font-size: 10px;">Last Updated: <span th:text="${vfolder?.getUpdatedAtReadable()}"></span></small>
+            </div>
         </div>
     </div>
 </div>

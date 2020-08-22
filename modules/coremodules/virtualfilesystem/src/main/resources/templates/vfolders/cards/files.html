@@ -1,6 +1,6 @@
 <div th:each="vfile: ${vfiles}" class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
 
-    <div class="card" th:styleappend="'background-color:'+ ${vfile?.accentColor}">
+    <div class="card">
         <div class="header">
             <h2>
                 <span th:text="${vfile?.name}"></span>
@@ -14,9 +14,11 @@
                 </li>
             </ul>
         </div>
-        <div class="body" th:styleappend="'background-color:'+ ${vfile?.accentColor}">
-            Created At: <span th:text="${vfile?.createdAt}"></span><br/>
-            Updated At: <span th:text="${vfile?.updatedAt}"></span>
+        <div class="body">
+            <div>
+                <small style="font-size: 10px;">Created: <span th:text="${vfile?.getCreatedAtReadable()}"></span></small><br/>
+                <small style="font-size: 10px;">Last Updated: <span th:text="${vfile?.getUpdatedAtReadable()}"></span></small>
+            </div>
         </div>
     </div>
 </div>
