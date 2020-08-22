@@ -2,6 +2,7 @@ package com.example.virtualfilesystem.domains.vfolders.controllers.web
 
 import com.example.common.utils.ExceptionUtil
 import com.example.coreweb.domains.base.controllers.CrudWebController
+import com.example.virtualfilesystem.domains.vfiles.service.VFileService
 import com.example.virtualfilesystem.domains.vfolders.models.dtos.VFolderDto
 import com.example.virtualfilesystem.domains.vfolders.models.mappers.VFolderMapper
 import com.example.virtualfilesystem.domains.vfolders.services.VFolderService
@@ -18,7 +19,8 @@ import javax.validation.Valid
 @ApiIgnore
 class VFolderWebController @Autowired constructor(
         private val vFolderService: VFolderService,
-        private val vFolderMapper: VFolderMapper
+        private val vFolderMapper: VFolderMapper,
+        private val vFileService: VFileService
 ) : CrudWebController<VFolderDto> {
 
     @GetMapping(Route.V1.ADMIN_SEARCH_VFOLDERS)
@@ -30,9 +32,12 @@ class VFolderWebController @Autowired constructor(
         val entities = this.vFolderService.search(query, parentId, page, size)
 
         val parent = parentId?.let { this.vFolderService.find(it).orElseThrow { ExceptionUtil.notFound("VFolder", parentId) } }
-        model.addAttribute("parent", parent)
+        val files = parentId?.let { this.vFileService.getFilesInFolder(it, page, size) }
 
         model.addAttribute("vfolders", entities)
+        model.addAttribute("parent", parent)
+        model.addAttribute("files",files)
+
         return "vfolders/fragments/all"
     }
 
