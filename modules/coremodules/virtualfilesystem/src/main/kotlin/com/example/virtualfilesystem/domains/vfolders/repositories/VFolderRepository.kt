@@ -15,6 +15,12 @@ interface VFolderRepository : JpaRepository<VFolder, Long> {
     @Query("SELECT e FROM VFolder e WHERE (:q IS NULL OR e.createdBy LIKE %:q%) AND e.deleted=FALSE")
     fun search(@Param("q") query: String, pageable: Pageable): Page<VFolder>
 
+    @Query("SELECT e FROM VFolder e WHERE (:q IS NULL OR e.name LIKE %:q%) AND (:parentId IS NULL OR e.parent.id=:parentId) AND e.deleted=FALSE")
+    fun search(@Param("q") query: String, @Param("parentId") parentId: Long?, pageable: Pageable): Page<VFolder>
+
+    @Query("SELECT e FROM VFolder e WHERE (:q IS NULL OR e.name LIKE %:q%) AND e.parent.id IS NULL AND e.deleted=FALSE")
+    fun searchRootFolders(@Param("q") query: String, pageable: Pageable): Page<VFolder>
+
     @Query("SELECT e FROM VFolder e WHERE e.id=:id AND e.deleted=FALSE")
     fun find(@Param("id") id: Long): Optional<VFolder>
 

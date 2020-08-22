@@ -1,0 +1,33 @@
+<table class="table table-hover table-condensed table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+        <th>Details</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="vfolder: ${vfolders}">
+        <td><a th:href="@{/admin/vfolders/}+${vfolder?.id}" th:text="${vfolder?.id}"></a></td>
+        <td th:text="${vfolder?.createdAt}"></td>
+        <td th:text="${vfolder?.updatedAt}"></td>
+        <td>
+            <a class="btn btn-primary"
+               th:href="@{/admin/vfolders/}+${vfolder?.id}">Details</a>
+        </td>
+        <td>
+            <a class="btn btn-warning"
+               th:href="@{/admin/vfolders/}+${vfolder?.id}+@{/update}">Update</a>
+        </td>
+        <td>
+            <form method="post" th:action="@{/admin/vfolders/}+${vfolder?.id}+@{/delete}"
+                  onclick="return confirm('Are you sure?')">
+                <button type="submit" class="btn btn-warning">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
