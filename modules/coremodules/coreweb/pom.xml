@@ -137,10 +137,10 @@
 <!--		</dependency>-->
 
 		<!-- https://mvnrepository.com/artifact/postgres/postgres-connector-java -->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.postgresql</groupId>-->
+<!--			<artifactId>postgresql</artifactId>-->
+<!--		</dependency>-->
 
 
 		<!--Kotlin-->
