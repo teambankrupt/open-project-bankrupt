@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="material/index">
+<div layout:fragment="main_content">
+
+    <div class="block-header">
+        <h2>MANAGE PRIVILEGES</h2>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="card">
+                <div class="header bg-cyan">
+                    <h2>
+                        Privileges <small>Select a privilege to edit</small>
+                        <a th:href="@{/admin/privileges}" class="btn btn-warning pull-right">Create New</a>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);">Action</a></li>
+                                <li><a href="javascript:void(0);">Another action</a></li>
+                                <li><a href="javascript:void(0);">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <ul class="list-group">
+                        <a th:each="privilege: ${privileges}" th:href="@{/admin/privileges/}+${privilege.id}"
+                           class="list-group-item"
+                           th:classappend="${selectedPrivilege!=null && privilege.id==selectedPrivilege.id?'active':''}">
+                            <h5 class="list-group-item-heading">
+                                <span th:text="${privilege.label}"></span>
+                                <small class="badge bg-pink pull-right"
+                                       th:text="${privilege.name}">ADMINISTRATION</small>
+                            </h5>
+<!--                            <p class="list-group-item-text">-->
+<!--                                <label for="access">Access:</label>-->
+<!--                                <span id="access" th:text="${privilege.accessesStr()}"></span>-->
+<!--                            </p>-->
+                            <p class="list-group-item-text">
+                                <small th:text="${privilege.description}"></small>
+                            </p>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            <div class="card">
+                <div class="header bg-cyan">
+                    <h2>
+                        <span th:text="${selectedPrivilege!=null? 'Update': 'Create Permission'}"></span> <span
+                            th:text="${selectedPrivilege?.name}"></span>
+                        <small>Form to create/update permission...</small>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li>
+                            <a href="javascript:void(0);">
+                                <i class="material-icons">mic</i>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);">Action</a></li>
+                                <li><a href="javascript:void(0);">Another action</a></li>
+                                <li><a href="javascript:void(0);">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+
+                    <form class="form"
+                          th:action="@{/admin/privileges/}+${selectedPrivilege!=null?selectedPrivilege?.id:''}"
+                          method="post">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label for="label">Label</label>
+                                <input id="label" type="text" name="label" class="form-control" required="required"
+                                       minlength="3"
+                                       placeholder="Enter Label (Ex, Access User Resource)"
+                                       th:value="${selectedPrivilege?.label}"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label for="name">Name</label>
+                                <input id="name" type="text" name="name" class="form-control" required="required"
+                                       minlength="3"
+                                       placeholder="Enter Privilege Name (Ex, ACCESS_USER_RESOURCES)"
+                                       th:value="${selectedPrivilege?.name}"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label for="description">Description</label>
+                                <input id="description" type="text" name="description" class="form-control"
+                                       placeholder="Enter description about this privilege"
+                                       th:value="${selectedPrivilege?.description}"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group demo-tagsinput-area">
+                            <div class="form-line">
+                                <label for="accessUrls">Access Urls</label>
+                                <input type="text" id="accessUrls" name="accessUrls" class="form-control"
+                                       data-role="tagsinput" th:value="${selectedPrivilege?.accessesStr()}"
+                                       placeholder="Enter access urls">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group m-t-40">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                            <a th:href="@{/admin/roles}" class="btn btn-warning">Cancel</a>
+                            <a th:href="@{/admin/roles}" class="btn btn-danger pull-right">Back to Roles</a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

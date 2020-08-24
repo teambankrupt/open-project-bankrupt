@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="material/index">
+<div layout:fragment="main_content">
+
+    <div class="block-header">
+        <h2>MANAGE USERS</h2>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        Users
+                        <small>Search and manage users facilities for <code>Super Admin</code></small>
+                        <form class="form pull-right" th:action="@{/admin/users}">
+                            <input type="text" name="query" placeholder="Search User" class="form-control"
+                                   th:value="${query}"></input>
+                        </form>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);">Action</a></li>
+                                <li><a href="javascript:void(0);">Another action</a></li>
+                                <li><a href="javascript:void(0);">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body table-responsive">
+                    <table class="table table-condensed">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>NAME</th>
+                            <th>USERNAME</th>
+                            <th>GENDER</th>
+                            <th>EMAIL</th>
+                            <th>PHONE</th>
+                            <th>DISABLED</th>
+                            <th>ACCOUNT EXPIRED</th>
+                            <th>LOCKED</th>
+                            <th>CREDENTIALS EXPIRED</th>
+                            <th>EDIT</th>
+                            <th>DISABLE</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user, iter: ${users}" class="" th:classappend="${user.canLogin()?'':'bg-pink'}">
+                            <th scope="row"><span th:text="${iter.index+1}"></span></th>
+                            <td th:text="${user.name}">Mark</td>
+                            <td th:text="${user.username}">Otto</td>
+                            <td th:text="${user.gender}">@mdo</td>
+                            <td th:text="${user.email}">@mdo</td>
+                            <td th:text="${user.phone}">@mdo</td>
+                            <td th:text="${!user.enabled?'Yes': 'No'}">@mdo</td>
+                            <td th:text="${user.accountNonExpired?'No':'Yes'}">@mdo</td>
+                            <td th:text="${user.accountNonLocked?'No':'Yes'}">@mdo</td>
+                            <td th:text="${user.credentialsNonExpired?'No':'Yes'}">@mdo</td>
+                            <td>
+                                <a class="btn btn-primary" th:href="@{/admin/users/}+${user.id}">UPDATE</a>
+                            </td>
+                            <td th:if="${!user.isAdmin()}">
+                                <a class="btn btn-danger" th:if="${user.enabled}"
+                                   th:href="@{/admin/users/}+${user.id}+@{/toggle-access?enable=false}">DISABLE</a>
+                                <a class="btn btn-success" th:if="${!user.enabled}"
+                                   th:href="@{/admin/users/}+${user.id}+@{/toggle-access?enable=true}">ENABLE</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</html>

@@ -2,6 +2,16 @@
 
 It's a skeleton project with lots of features implemented by default.
 
+## Module and CRUD Generator
+### Example
+Generate CRUD
+
+`./scripts/gen.sh crud Issue app/src/main/kotlin/com/example/app/domains/`
+
+Generate Module
+
+`./scripts/gen.sh module IssueTracker modules/appmodules`
+
 ## Features At a Glance
 
 ### For Admin Panel
@@ -21,6 +31,7 @@ It's a skeleton project with lots of features implemented by default.
 * Profile CRUD
 
 ### Common
+* Swagger Documentation
 * Email configuration for sending Emails
 * SMS service configuration for sending SMS
 * Exception Handling
@@ -29,6 +40,10 @@ It's a skeleton project with lots of features implemented by default.
 * Firebase Push server configuration (Implemented on NotificationService)
 * File Upload Configuration for storing files on FileSystem
 * And lots of utility classes
+
+## Extra
+* Spring Batch Integration/Implementation
+* Spring Websocket (STOMP) implementation (Chatroom)
 
 <hr/>
 
@@ -45,4 +60,4 @@ use -Denv=dev or -Denv=local or create a new profile.
 
 To deploy app on a cloud instance please look at my blog here.
 
-[Deploy Spring Boot app in a cloud instance](https://www.rimon.xyz/2017/09/deploy-spring-boot-app-in-digitalocean-html/)
+[Deploy Spring Boot app in a cloud instance](https://blog.sayem.dev/2017/09/deploy-spring-boot-app-in-digitalocean-html/)

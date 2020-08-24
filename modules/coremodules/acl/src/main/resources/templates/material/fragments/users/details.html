@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="material/index">
+<div layout:fragment="main_content">
+
+    <div class="block-header">
+        <h2>MANAGE USERS &amp; ROLES</h2>
+        <!--        <form th:action="@{/admin/roles/reload-applicatication-context}" method="post" class="form">-->
+        <!--            <button onclick="return confirm('Are you sure you want to restart the application?');" type="submit" class="btn btn-danger  pull-right">Reload Context</button>-->
+        <!--        </form>-->
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="card">
+                <div class="header bg-cyan">
+                    <h2>
+                        USERS <small>Select a user to update</small><br/>
+                        <!--                        <a th:href="@{/admin/roles}" class="btn btn-warning pull-right">Create New</a>-->
+                        <form class="form form-line" th:action="@{/admin/users/}+${user?.id}">
+                            <input type="text" name="query" placeholder="Search User" class="form-control"
+                                   th:value="${query}"></input><br/>
+                            <button type="submit" class="btn btn-success pull-right">Search</button>
+                        </form>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);">Action</a></li>
+                                <li><a href="javascript:void(0);">Another action</a></li>
+                                <li><a href="javascript:void(0);">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <ul class="list-group">
+                        <a th:each="u: ${users}" th:href="@{/admin/users/}+${u.id}+@{/(query=${query})}"
+                           class="list-group-item"
+                           th:classappend="${user!=null && u.id==user.id?'active':''}">
+                            <h5 class="list-group-item-heading">
+                                <span th:text="${u.name}"></span>
+                                <!--                                <span class="badge bg-pink pull-right" th:if="${role.restricted}">Restricted</span>-->
+                                <!--                                <span class="badge bg-cyan pull-right" th:if="${!role.restricted}">Open</span>-->
+                            </h5>
+                            <p class="list-group-item-text" th:text="${u.name}"></p>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            <div class="card">
+                <div class="header bg-cyan">
+                    <h2>
+                        UPDATE USER <small>Update user information...</small>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li>
+                            <a href="javascript:void(0);">
+                                <i class="material-icons">mic</i>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);">Action</a></li>
+                                <li><a href="javascript:void(0);">Another action</a></li>
+                                <li><a href="javascript:void(0);">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+
+                    <form class="form" th:action="@{/admin/users/}+${user!=null?user?.id:''}"
+                          method="post">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label for="name">Name</label>
+                                <input id="name" type="text" name="name" class="form-control" required="required"
+                                       minlength="3"
+                                       placeholder="Enter Name" th:value="${user?.name}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label for="gender">Gender</label>
+                                <div id="gender" class="demo-radio-button">
+                                    <input name="gender" value="male" type="radio" id="radio_male"
+                                           th:checked="${user?.gender=='male'}"/>
+                                    <label for="radio_male">Male</label>
+
+                                    <input name="gender" value="female" type="radio" id="radio_female"
+                                           th:checked="${user?.gender=='female'}"/>
+                                    <label for="radio_female">Female</label>
+
+                                    <input name="gender" value="other" type="radio" id="radio_other"
+                                           th:checked="${user?.gender=='other'}"/>
+                                    <label for="radio_other">Other</label>
+
+                                </div>
+                                <!--                                <select id="gender" name="gender" class="form-control show-tick">-->
+                                <!--                                    <option th:value="male" th:selected="${user?.gender=='male'}">Male</option>-->
+                                <!--                                    <option th:value="female" th:selected="${user?.gender=='female'}">Female</option>-->
+                                <!--                                    <option th:value="other" th:selected="${user?.gender=='other'}">Other</option>-->
+                                <!--                                </select>-->
+                                <!--                                <input id="gender" type="text" name="gender" class="form-control" required="required"-->
+                                <!--                                       minlength="3"-->
+                                <!--                                       placeholder="Enter Gender" th:value="${user?.name}"/>-->
+                            </div>
+                        </div>
+                        <!--                        <div class="form-group">-->
+                        <!--                            <div class="form-line">-->
+                        <!--                                <label for="username">Username</label>-->
+                        <!--                                <input id="username" type="text" name="description" class="form-control"-->
+                        <!--                                       required="required" minlength="3"-->
+                        <!--                                       placeholder="Username" th:value="${user?.username}"/>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label for="email">Email</label>
+                                <input id="email" type="email" name="email" class="form-control"
+                                       placeholder="Email" th:value="${user?.email}"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label for="phone">Phone</label>
+                                <input id="phone" type="text" name="phone" class="form-control"
+                                       placeholder="Phone" th:value="${user?.phone}"/>
+                            </div>
+                        </div>
+
+                        <div class="card clearfix">
+                            <div class="body">
+                                <div class="form-group form-line border1">
+                                    <div class="col-sm-6">
+                                        <label for="username">Username</label>
+                                        <input id="username" type="text" name="username" class="form-control"
+                                               required="required" minlength="3"
+                                               placeholder="Username" th:value="${user?.username}"/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="password">Password</label>
+                                        <input id="password" type="password" name="password" class="form-control"
+                                               placeholder="Password"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <h5>Enabled:</h5>
+                                <input type="checkbox" name="enabled" id="enabled" class="chk-col-green"
+                                       th:checked="${user?.enabled}" value="1"/>
+                                <label for="enabled">Enabled</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5>Account Non Expired:</h5>
+                                <input type="checkbox" name="accountNonExpired" id="accountNonExpired"
+                                       class="chk-col-green"
+                                       th:checked="${user?.accountNonExpired}" value="1"/>
+                                <label for="accountNonExpired">Account Non Expired</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5>Account Non Locked:</h5>
+                                <input type="checkbox" name="accountNonLocked" id="accountNonLocked"
+                                       class="chk-col-green"
+                                       th:checked="${user?.accountNonLocked}" value="1"/>
+                                <label for="accountNonLocked">Account Non Locked</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5>Credentials Non Expired:</h5>
+                                <input type="checkbox" name="credentialsNonExpired" id="credentialsNonExpired"
+                                       class="chk-col-green"
+                                       th:checked="${user?.credentialsNonExpired}" value="1"/>
+                                <label for="credentialsNonExpired">Credentials Non Expired</label>
+                            </div>
+                        </div>
+
+                        <h2 class="card-inside-title">Assigned Privileges</h2>
+                        <div class="demo-checkbox">
+                            <item th:each="role: ${roles}" th:if="${!role.isAdmin()}">
+                                <input type="checkbox" name="roleIds" th:id="${'md_checkbox_'+role.id}"
+                                       class="chk-col-green"
+                                       th:checked="${user?.hasRole(role)}"
+                                       th:value="${role.id}"/>
+                                <label th:for="${'md_checkbox_'+role.id}"><span
+                                        th:text="${role.name}"></span></label>
+                                <a th:href="@{/admin/roles/}+${role.id}">&nbsp;<small>(Edit)</small>&nbsp;</a>
+                            </item>
+
+                            <div class="form-group m-t-40">
+                                <button type="submit" class="btn btn-success">Save</button>
+                                <a th:href="@{/admin/users}" class="btn btn-warning">Cancel</a>
+                                <a th:href="@{/admin/roles}" class="btn btn-danger pull-right">Roles</a>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>
