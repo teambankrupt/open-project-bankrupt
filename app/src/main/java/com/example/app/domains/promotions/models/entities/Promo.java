@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "promotions")
+@Table(name = "promotions", schema = "app")
 public class Promo extends BaseEntity {
     @NotNull
     @Column(nullable = false)

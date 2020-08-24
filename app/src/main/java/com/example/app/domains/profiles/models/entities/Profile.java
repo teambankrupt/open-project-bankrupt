@@ -12,8 +12,9 @@ import java.time.Period;
 import java.util.Date;
 
 @Entity
-@Table(name = "profiles")
+@Table(name = "profiles", schema = "app")
 public class Profile extends BaseEntity {
+
     private String name;
 
     @Column(name = "birthday", nullable = false)

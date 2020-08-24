@@ -7,14 +7,15 @@ import javax.persistence.ManyToOne
 import javax.persistence.Table
 
 @Entity
-@Table(name = "addr_districts")
-class District: BaseEntity() {
-        @Column(name = "name_en")
-        var nameEn: String? = null
+@Table(name = "addr_districts", schema = "core_web")
+class District : BaseEntity() {
 
-        @Column(name = "name_bn")
-        var nameBn: String? = null
+    @Column(name = "name_en")
+    var nameEn: String? = null
 
-        @ManyToOne
-        var division: Division? = null
+    @Column(name = "name_bn")
+    var nameBn: String? = null
+
+    @ManyToOne
+    var division: Division? = null
 }

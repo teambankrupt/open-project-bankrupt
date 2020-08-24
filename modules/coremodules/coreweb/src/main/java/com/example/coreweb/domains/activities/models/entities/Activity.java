@@ -8,8 +8,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "activity_logs")
+@Table(name = "activity_logs", schema = "core_web")
 public class Activity extends BaseEntity {
+
     @Column(name = "user_agent")
     private String userAgent;
 

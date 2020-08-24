@@ -7,8 +7,9 @@ import javax.persistence.ManyToOne
 import javax.persistence.Table
 
 @Entity
-@Table(name = "addr_villages")
+@Table(name = "addr_villages", schema = "core_web")
 class Village : BaseEntity() {
+
     @Column(name = "name_en")
     var nameEn: String? = null
 

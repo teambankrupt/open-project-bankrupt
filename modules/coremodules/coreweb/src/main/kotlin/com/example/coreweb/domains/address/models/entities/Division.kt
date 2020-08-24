@@ -6,8 +6,9 @@ import javax.persistence.Entity
 import javax.persistence.Table
 
 @Entity
-@Table(name = "addr_divisions")
+@Table(name = "addr_divisions", schema = "core_web")
 class Division : BaseEntity() {
+
     @Column(name = "name_en")
     var nameEn: String? = null
 

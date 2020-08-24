@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "privileges")
+@Table(name = "privileges", schema = "auth")
 public class Privilege extends BaseEntity {
 
     @Column(nullable = false, unique = true)
@@ -20,7 +20,7 @@ public class Privilege extends BaseEntity {
 
     @ElementCollection
     @LazyCollection(LazyCollectionOption.FALSE)
-    @CollectionTable(name = "privileges_access_urls")
+    @CollectionTable(name = "privileges_access_urls", schema = "auth")
     private List<String> accessUrls;
 
 

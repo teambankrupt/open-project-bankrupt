@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "roles", schema = "auth")
 public class Role extends BaseEntity {
 
     @Column(nullable = false, unique = true)
@@ -21,7 +21,7 @@ public class Role extends BaseEntity {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
-    @JoinTable(name = "roles_privileges", joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "privilege_id", referencedColumnName = "id")})
+    @JoinTable(name = "roles_privileges", schema = "auth", joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "privilege_id", referencedColumnName = "id")})
     private List<Privilege> privileges;
 
     @Column(nullable = false)
