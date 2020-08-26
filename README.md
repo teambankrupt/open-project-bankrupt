@@ -2,6 +2,10 @@
 
 It's a skeleton project with lots of features implemented by default.
 
+## Environment Setup
+
+[Environment Setup: First Run](https://github.com/sayemkcn/Spring-Boot-Featured-Skeleton/wiki/Environment-Setup:-First-Run)
+
 ## Module and CRUD Generator
 ### Example
 Generate CRUD
