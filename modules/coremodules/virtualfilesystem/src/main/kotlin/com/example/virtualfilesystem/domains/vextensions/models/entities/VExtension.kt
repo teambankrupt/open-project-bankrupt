@@ -6,7 +6,7 @@ import javax.persistence.Entity
 import javax.persistence.Table
 
 @Entity
-@Table(name = "vfs_extensions")
+@Table(name = "vfs_extensions",schema = "vfs")
 class VExtension : BaseEntity() {
 
     @Column(name = "name")
