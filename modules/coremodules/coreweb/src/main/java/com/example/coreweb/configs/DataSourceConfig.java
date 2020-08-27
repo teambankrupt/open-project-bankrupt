@@ -15,9 +15,6 @@ import javax.sql.DataSource;
 @Configuration
 public class DataSourceConfig {
 
-    @Value("${spring.profiles.active}")
-    private String activeProfile;
-
     @Value("${spring.datasource.driver-class-name}")
     private String driverClassName;
 
