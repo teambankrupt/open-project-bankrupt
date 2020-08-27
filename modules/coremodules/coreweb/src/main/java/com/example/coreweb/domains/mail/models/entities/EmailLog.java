@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "email_logs")
+@Table(name = "email_logs", schema = "core_web")
 public class EmailLog extends BaseEntity {
 
     @Column(name = "mail_from", nullable = false)

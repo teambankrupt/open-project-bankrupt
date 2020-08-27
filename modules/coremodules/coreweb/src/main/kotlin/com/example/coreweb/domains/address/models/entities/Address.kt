@@ -4,7 +4,7 @@ import com.example.coreweb.domains.base.entities.BaseEntity
 import javax.persistence.*
 
 @Entity
-@Table(name = "addr_addresses")
+@Table(name = "addr_addresses", schema = "core_web")
 class Address : BaseEntity() {
 
     @ManyToOne

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "m_users")
+@Table(name = "m_users", schema = "auth")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User extends BaseEntity {
 
@@ -30,7 +30,7 @@ public class User extends BaseEntity {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "m_users_roles", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "roles_id", referencedColumnName = "id")})
+    @JoinTable(name = "m_users_roles", schema = "auth", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "roles_id", referencedColumnName = "id")})
     private List<Role> roles;
 
     private boolean enabled = true;

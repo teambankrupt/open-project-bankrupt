@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ac_validation_tokens")
+@Table(name = "ac_validation_tokens", schema = "acl")
 public class AcValidationToken extends ValidationToken {
     @OneToOne
     private User user;

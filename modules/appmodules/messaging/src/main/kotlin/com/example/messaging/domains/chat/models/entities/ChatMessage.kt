@@ -4,7 +4,7 @@ import com.example.coreweb.domains.base.entities.BaseEntity
 import javax.persistence.*
 
 @Entity
-@Table(name = "chat_messages")
+@Table(name = "chat_messages", schema = "messaging")
 class ChatMessage : BaseEntity() {
 
     @Column(name = "from_username")
