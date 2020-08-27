@@ -1,0 +1,33 @@
+<table class="table table-hover table-condensed table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+        <th>Details</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="crudexample: ${crudexamples}">
+        <td><a th:href="@{/admin/crudexamples/}+${crudexample?.id}" th:text="${crudexample?.id}"></a></td>
+        <td th:text="${crudexample?.createdAt}"></td>
+        <td th:text="${crudexample?.updatedAt}"></td>
+        <td>
+            <a class="btn btn-primary"
+               th:href="@{/admin/crudexamples/}+${crudexample?.id}">Details</a>
+        </td>
+        <td>
+            <a class="btn btn-warning"
+               th:href="@{/admin/crudexamples/}+${crudexample?.id}+@{/update}">Update</a>
+        </td>
+        <td>
+            <form method="post" th:action="@{/admin/crudexamples/}+${crudexample?.id}+@{/delete}"
+                  onclick="return confirm('Are you sure?')">
+                <button type="submit" class="btn btn-warning">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>

@@ -1,5 +1,8 @@
 package com.example.gentool;
 
+import com.example.gentool.web.FormGenerator;
+import com.example.gentool.web.TestClass;
+import com.example.gentool.web.WebComponentGenerator;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -13,6 +16,9 @@ public class GenToolApplication {
 
     public static void main(String[] args) {
         process(args);
+
+//        WebComponentGenerator generator = new FormGenerator();
+//        generator.generate(TestClass.class);
     }
 
     private static void process(String[] args) {
@@ -29,7 +35,8 @@ public class GenToolApplication {
         try {
 
             print("Starting process...");
-            copy(exampleDir(exampleDirPath), genDir(genType, domainName, generationPath));
+            File gendir = genDir(genType, domainName, generationPath);
+            copy(exampleDir(exampleDirPath), gendir);
 
             print("Replacing file name and file contents with your provided domain name...");
             replace(genType, genDir(genType, domainName, generationPath), domainName);
@@ -111,8 +118,10 @@ public class GenToolApplication {
         if (genType == GenerationTypes.MODULE) {
             filePath = filePath.replace("examplemodule", domainName.toLowerCase());
             filePath = filePath.replace("ExampleApplication", domainName + "Application");
-        } else if (genType == GenerationTypes.CRUD)
+        } else if (genType == GenerationTypes.CRUD) {
             filePath = filePath.replace("CrudExample", domainName);
+            filePath = filePath.replace("crudexample", domainName.toLowerCase());
+        }
         File renamedFile = new File(filePath);
         file.renameTo(renamedFile);
         return renamedFile;
