@@ -22,6 +22,7 @@ class CrudExampleWebController @Autowired constructor(
     /*
         COPY THESE URLS TO ROUTE FILE AND ADJUST
         ------------------------------------------------------
+        // CrudExamples (Admin)
         const val ADMIN_SEARCH_CRUDEXAMPLES = "$ADMIN/crudexamples"
         const val ADMIN_CREATE_CRUDEXAMPLE_PAGE = "$ADMIN/crudexamples/create"
         const val ADMIN_CREATE_CRUDEXAMPLE = "$ADMIN/crudexamples"
@@ -29,6 +30,7 @@ class CrudExampleWebController @Autowired constructor(
         const val ADMIN_UPDATE_CRUDEXAMPLE_PAGE = "$ADMIN/crudexamples/{id}/update"
         const val ADMIN_UPDATE_CRUDEXAMPLE = "$ADMIN/crudexamples/{id}"
         const val ADMIN_DELETE_CRUDEXAMPLE = "$ADMIN/crudexamples/{id}/delete"
+        ------------------------------------------------------
     */
 
     @GetMapping(Route.V1.ADMIN_SEARCH_CRUDEXAMPLES)

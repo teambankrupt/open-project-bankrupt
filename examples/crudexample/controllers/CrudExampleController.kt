@@ -23,11 +23,13 @@ class CrudExampleController @Autowired constructor(
     /*
         COPY THESE URLS TO ROUTE FILE AND ADJUST
         ------------------------------------------------------
+        // CrudExamples
         const val SEARCH_CRUDEXAMPLES = "$API$VERSION/crudexamples"
         const val CREATE_CRUDEXAMPLE = "$API$VERSION/crudexamples"
         const val FIND_CRUDEXAMPLE = "$API$VERSION/crudexamples/{id}"
         const val UPDATE_CRUDEXAMPLE = "$API$VERSION/crudexamples/{id}"
         const val DELETE_CRUDEXAMPLE = "$API$VERSION/crudexamples/{id}"
+        ------------------------------------------------------
     */
 
     @GetMapping(Route.V1.SEARCH_CRUDEXAMPLES)
