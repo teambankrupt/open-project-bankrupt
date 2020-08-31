@@ -17,6 +17,7 @@ class UnionServiceImpl @Autowired constructor(
 ) : UnionService {
 
     override fun save(entity: Union): Union {
+        this.validate(entity)
         return this.unionRepo.save(entity)
     }
 
@@ -36,6 +37,10 @@ class UnionServiceImpl @Autowired constructor(
         val union: Union = this.find(id).orElseThrow { NotFoundException("Could not find union with id $id") }
         union.isDeleted = true
         this.save(union)
+    }
+
+    override fun validate(entity: Union) {
+        TODO("Not yet implemented")
     }
 
 

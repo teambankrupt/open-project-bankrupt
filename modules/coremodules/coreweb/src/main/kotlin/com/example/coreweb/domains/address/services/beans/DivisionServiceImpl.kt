@@ -16,6 +16,7 @@ class DivisionServiceImpl @Autowired constructor(
 ) : DivisionService {
 
     override fun save(entity: Division): Division {
+        this.validate(entity)
         return this.divisionRepo.save(entity)
     }
 
@@ -35,6 +36,10 @@ class DivisionServiceImpl @Autowired constructor(
         val division: Division = this.find(id).orElseThrow { NotFoundException("Could not find division with id $id") }
         division.isDeleted = true
         this.save(division)
+    }
+
+    override fun validate(entity: Division) {
+        TODO("Not yet implemented")
     }
 
 }

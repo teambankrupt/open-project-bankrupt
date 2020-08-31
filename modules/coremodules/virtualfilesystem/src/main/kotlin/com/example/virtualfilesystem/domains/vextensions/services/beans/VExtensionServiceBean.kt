@@ -50,7 +50,7 @@ class VExtensionServiceBean @Autowired constructor(
         this.vExtensionRepository.deleteById(id)
     }
 
-    private fun validate(entity: VExtension) {
+    override fun validate(entity: VExtension) {
         // For new entity
         if (entity.id == null) {
             val ex = this.vExtensionRepository.find(entity.ext)

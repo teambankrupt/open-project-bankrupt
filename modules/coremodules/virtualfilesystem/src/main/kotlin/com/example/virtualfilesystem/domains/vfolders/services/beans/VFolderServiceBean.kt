@@ -25,6 +25,7 @@ class VFolderServiceBean @Autowired constructor(
     }
 
     override fun save(entity: VFolder): VFolder {
+        this.validate(entity)
         return this.vFolderRepository.save(entity)
     }
 
@@ -39,6 +40,10 @@ class VFolderServiceBean @Autowired constructor(
             this.vFolderRepository.save(entity)
         }
         this.vFolderRepository.deleteById(id)
+    }
+
+    override fun validate(entity: VFolder) {
+        TODO("Not yet implemented")
     }
 
 }

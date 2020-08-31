@@ -19,6 +19,7 @@ class ChatMessageServiceBean @Autowired constructor(
     }
 
     override fun save(entity: ChatMessage): ChatMessage {
+        this.validate(entity)
         return this.chatMessageRepository.save(entity)
     }
 
@@ -34,6 +35,10 @@ class ChatMessageServiceBean @Autowired constructor(
             return
         }
         this.chatMessageRepository.deleteById(id)
+    }
+
+    override fun validate(entity: ChatMessage) {
+        TODO("Not yet implemented")
     }
 
 }

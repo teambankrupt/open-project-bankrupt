@@ -20,6 +20,7 @@ class CrudExampleServiceBean @Autowired constructor(
     }
 
     override fun save(entity: CrudExample): CrudExample {
+        this.validate(entity)
         return this.crudExampleRepository.save(entity)
     }
 
@@ -36,4 +37,7 @@ class CrudExampleServiceBean @Autowired constructor(
         this.crudExampleRepository.deleteById(id)
     }
 
+    override fun validate(entity: CrudExample) {
+        TODO("Not yet implemented")
+    }
 }

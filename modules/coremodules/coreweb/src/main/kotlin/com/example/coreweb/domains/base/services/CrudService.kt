@@ -9,4 +9,5 @@ interface CrudService<T : BaseEntity> {
     fun save(entity: T): T
     fun find(id: Long): Optional<T>
     fun delete(id: Long, softDelete: Boolean)
+    fun validate(entity: T)
 }

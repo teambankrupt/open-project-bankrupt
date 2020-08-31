@@ -16,6 +16,7 @@ class DistrictServiceImpl @Autowired constructor(
 ) : DistrictService {
 
     override fun save(entity: District): District {
+        this.validate(entity)
         return this.districtRepo.save(entity)
     }
 
@@ -35,6 +36,10 @@ class DistrictServiceImpl @Autowired constructor(
         val district: District = this.find(id).orElseThrow { NotFoundException("Could not find district with id $id") }
         district.isDeleted = true
         this.save(district)
+    }
+
+    override fun validate(entity: District) {
+        TODO("Not yet implemented")
     }
 
 }

@@ -1,10 +1,10 @@
 package com.example.coreweb.domains.address.services.beans
 
-import com.example.coreweb.utils.PageAttr
+import com.example.common.exceptions.notfound.NotFoundException
 import com.example.coreweb.domains.address.models.entities.Upazila
 import com.example.coreweb.domains.address.repositories.UpazilaRepo
 import com.example.coreweb.domains.address.services.UpazilaService
-import com.example.common.exceptions.notfound.NotFoundException
+import com.example.coreweb.utils.PageAttr
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service
@@ -17,11 +17,12 @@ class UpazilaServiceImpl @Autowired constructor(
 ) : UpazilaService {
 
     override fun save(entity: Upazila): Upazila {
+        this.validate(entity)
         return upazilaRepo.save(entity)
     }
 
     override fun search(query: String, page: Int, size: Int): Page<Upazila> {
-        return upazilaRepo.search(query, PageAttr.getPageRequest(page,size))
+        return upazilaRepo.search(query, PageAttr.getPageRequest(page, size))
     }
 
     override fun find(id: Long): Optional<Upazila> {
@@ -36,6 +37,10 @@ class UpazilaServiceImpl @Autowired constructor(
         val upazila: Upazila = find(id).orElseThrow { NotFoundException("Could not find upazila with id $id") }
         upazila.isDeleted = true
         save(upazila)
+    }
+
+    override fun validate(entity: Upazila) {
+        TODO("Not yet implemented")
     }
 
 
