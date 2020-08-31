@@ -43,7 +43,9 @@ class VFolderServiceBean @Autowired constructor(
     }
 
     override fun validate(entity: VFolder) {
-        TODO("Not yet implemented")
+        if (entity.id == entity.parent?.id) {
+            ExceptionUtil.wtf("Have you seen \"Back to the future\" movie? What if Marty would get enticed by his own mommy and tried to conceive himself? Well, people would say, this could only mean a catastrophe.")
+        }
     }
 
 }
