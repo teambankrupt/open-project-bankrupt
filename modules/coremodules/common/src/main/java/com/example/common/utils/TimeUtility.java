@@ -11,6 +11,14 @@ public class TimeUtility {
     private TimeUtility() {
     }
 
+    public static String readableTimeFromInstant(Instant instant) {
+        if (instant == null) return "";
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)
+                .withLocale(Locale.US)
+                .withZone(ZoneId.systemDefault());
+        return formatter.format(instant);
+    }
+
     public static String readableDateFromInstant(Instant instant) {
         if (instant == null) return "";
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)

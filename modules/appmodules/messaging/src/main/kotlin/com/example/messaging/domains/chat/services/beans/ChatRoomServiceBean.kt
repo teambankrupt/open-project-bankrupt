@@ -1,10 +1,10 @@
 package com.example.messaging.domains.chat.services.beans
 
+import com.example.common.utils.ExceptionUtil
+import com.example.coreweb.utils.PageAttr
 import com.example.messaging.domains.chat.models.entities.ChatRoom
 import com.example.messaging.domains.chat.repositories.ChatRoomRepository
 import com.example.messaging.domains.chat.services.ChatRoomService
-import com.example.coreweb.utils.PageAttr
-import com.example.common.utils.ExceptionUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service
@@ -35,7 +35,7 @@ class ChatRoomServiceBean @Autowired constructor(
 
     override fun delete(id: Long, softDelete: Boolean) {
         if (softDelete) {
-            val chatRoom = this.find(id).orElseThrow {  ExceptionUtil.notFound("Could not find chatroom with id: $id")  }
+            val chatRoom = this.find(id).orElseThrow { ExceptionUtil.notFound("Could not find chatroom with id: $id") }
             chatRoom.isDeleted = true
             this.save(chatRoom)
             return
@@ -44,7 +44,6 @@ class ChatRoomServiceBean @Autowired constructor(
     }
 
     override fun validate(entity: ChatRoom) {
-        TODO("Not yet implemented")
     }
 
 }

@@ -1,10 +1,10 @@
 package com.example.messaging.domains.chat.services.beans
 
 import com.example.common.utils.ExceptionUtil
+import com.example.coreweb.utils.PageAttr
 import com.example.messaging.domains.chat.models.entities.ChatMessage
 import com.example.messaging.domains.chat.repositories.ChatMessageRepository
 import com.example.messaging.domains.chat.services.ChatMessageService
-import com.example.coreweb.utils.PageAttr
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service
@@ -29,7 +29,7 @@ class ChatMessageServiceBean @Autowired constructor(
 
     override fun delete(id: Long, softDelete: Boolean) {
         if (softDelete) {
-            val cm = this.chatMessageRepository.find(id).orElseThrow {  ExceptionUtil.notFound("Could not find chat message with id: $id")  }
+            val cm = this.chatMessageRepository.find(id).orElseThrow { ExceptionUtil.notFound("Could not find chat message with id: $id") }
             cm.isDeleted = false
             this.save(cm)
             return
@@ -38,7 +38,6 @@ class ChatMessageServiceBean @Autowired constructor(
     }
 
     override fun validate(entity: ChatMessage) {
-        TODO("Not yet implemented")
     }
 
 }
