@@ -1,0 +1,28 @@
+[submodule "modules/appmodules/messaging"]
+	path = modules/appmodules/messaging
+	url = git@github.com:teambankrupt/messaging.git
+	branch = master
+[submodule "modules/toolsmodules/gentool"]
+	path = modules/toolsmodules/gentool
+	url = git@github.com:teambankrupt/gentool.git
+	branch = master
+[submodule "modules/coremodules/virtualfilesystem"]
+	path = modules/coremodules/virtualfilesystem
+	url = git@github.com:teambankrupt/virtualfilesystem.git
+	branch = master
+[submodule "modules/coremodules/acl"]
+	path = modules/coremodules/acl
+	url = git@github.com:teambankrupt/acl.git
+	branch = master
+[submodule "modules/coremodules/coreweb"]
+	path = modules/coremodules/coreweb
+	url = git@github.com:teambankrupt/coreweb.git
+	branch = master
+[submodule "modules/coremodules/auth"]
+	path = modules/coremodules/auth
+	url = git@github.com:teambankrupt/auth.git
+	branch = master
+[submodule "modules/coremodules/common"]
+	path = modules/coremodules/common
+	url = git@github.com:teambankrupt/common.git
+	branch = master
