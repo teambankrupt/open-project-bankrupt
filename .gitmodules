@@ -26,3 +26,7 @@
 	path = modules/coremodules/common
 	url = git@github.com:teambankrupt/common.git
 	branch = master
+[submodule "examples"]
+	path = examples
+	url = git@github.com:teambankrupt/examples.git
+	branch = master
