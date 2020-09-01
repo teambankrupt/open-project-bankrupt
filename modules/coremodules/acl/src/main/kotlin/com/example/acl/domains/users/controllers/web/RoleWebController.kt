@@ -63,8 +63,4 @@ class RoleWebController @Autowired constructor(
         return "redirect:/admin/roles/${role.id}"
     }
 
-    @PostMapping(Route.V1.WEB_RELOAD_APPLICATION_CONTEXT)
-    fun reloadApplicationContext() {
-        AclApplication.restart()
-    }
 }

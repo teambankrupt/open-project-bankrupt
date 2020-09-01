@@ -9,7 +9,8 @@ class Route {
 
             // Imports batch
             const val IMPORT_USERS = "$API$VERSION/admin/imports/users"
-            
+            const val WEB_RELOAD_APPLICATION_CONTEXT = "$ADMIN/reload-application-context"
+            const val WEB_SHUTDOWN_APPLICATION_CONTEXT = "$ADMIN/shutdown-application-context"
         }
     }
 }

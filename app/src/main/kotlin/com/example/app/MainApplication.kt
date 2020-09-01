@@ -33,6 +33,12 @@ open class MainApplication {
             thread.isDaemon = false
             thread.start()
         }
+
+        @JvmStatic
+        fun terminate() {
+            this.context?.close()
+        }
+
     }
 
 }

@@ -13,7 +13,6 @@ class Route {
             const val RESET_PASSWORD = "$API$VERSION/reset_password"
 
             // Roles (Admin)
-            const val WEB_RELOAD_APPLICATION_CONTEXT = "$ADMIN/roles/reload-application-context"
             const val WEB_ROLES_PAGE = "$ADMIN/roles"
             const val WEB_ROLE_DETAILS_PAGE = "$ADMIN/roles/{role_id}"
             const val WEB_ROLE_CREATE = "$ADMIN/roles"
