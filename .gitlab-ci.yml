@@ -28,7 +28,7 @@ deploy_dev:
     - cat $DEV_SERV_SECRET_KEY > key.pem
     - chmod 400 key.pem
     - mvn -f pom.xml clean package -DskipTests -Denv=dev $MAVEN_CLI_OPTS
-    - scp -i key.pem app/target/webservice-0.0.1-SNAPSHOT.jar $DEV_SERV_USERNAME@$DEV_SERV_IP:app-dev/app-dev.jar
+    - scp -i key.pem app/target/app-0.0.1-SNAPSHOT.jar $DEV_SERV_USERNAME@$DEV_SERV_IP:app-dev/app-dev.jar
     - /bin/sh -c "ssh -i key.pem $DEV_SERV_USERNAME@$DEV_SERV_IP 'bash -s' < scripts/deploy_dev.sh"
 
   only:
