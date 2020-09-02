@@ -4,6 +4,7 @@ stages:
   - deploy
 
 variables:
+  GIT_SUBMODULE_STRATEGY: recursive
   MAVEN_CLI_OPTS: " --batch-mode --errors --fail-at-end --show-version"
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository -DAWS_S3_ID=$AWS_ACCESS_KEY_ID -DAWS_S3_PASSWORD=$AWS_SECRET_KEY"
   DEV_SERV_IP: "$DEV_SERVER_IP"
