@@ -1,36 +1,36 @@
 [submodule "modules/appmodules/messaging"]
 	path = modules/appmodules/messaging
-	url = git@github.com:teambankrupt/messaging.git
+	url = https://github.com/teambankrupt/messaging.git
 	branch = master
 [submodule "modules/toolsmodules/gentool"]
 	path = modules/toolsmodules/gentool
-	url = git@github.com:teambankrupt/gentool.git
+	url = https://github.com/teambankrupt/gentool.git
 	branch = master
 [submodule "modules/coremodules/virtualfilesystem"]
 	path = modules/coremodules/virtualfilesystem
-	url = git@github.com:teambankrupt/virtualfilesystem.git
+	url = https://github.com/teambankrupt/virtualfilesystem.git
 	branch = master
 [submodule "modules/coremodules/acl"]
 	path = modules/coremodules/acl
-	url = git@github.com:teambankrupt/acl.git
+	url = https://github.com/teambankrupt/acl.git
 	branch = master
 [submodule "modules/coremodules/coreweb"]
 	path = modules/coremodules/coreweb
-	url = git@github.com:teambankrupt/coreweb.git
+	url = https://github.com/teambankrupt/coreweb.git
 	branch = master
 [submodule "modules/coremodules/auth"]
 	path = modules/coremodules/auth
-	url = git@github.com:teambankrupt/auth.git
+	url = https://github.com/teambankrupt/auth.git
 	branch = master
 [submodule "modules/coremodules/common"]
 	path = modules/coremodules/common
-	url = git@github.com:teambankrupt/common.git
+	url = https://github.com/teambankrupt/common.git
 	branch = master
 [submodule "examples"]
 	path = examples
-	url = git@github.com:teambankrupt/examples.git
+	url = https://github.com/teambankrupt/examples.git
 	branch = master
 [submodule "scripts"]
 	path = scripts
-	url = git@github.com:teambankrupt/scripts.git
+	url = https://github.com/teambankrupt/scripts.git
 	branch = master
