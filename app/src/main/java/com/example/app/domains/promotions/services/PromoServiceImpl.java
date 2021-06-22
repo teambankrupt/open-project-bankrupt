@@ -3,7 +3,6 @@ package com.example.app.domains.promotions.services;
 
 import com.example.coreweb.utils.PageAttr;
 import com.example.common.utils.Validator;
-import com.example.coreweb.domains.fileuploads.services.FileUploadService;
 import com.example.app.domains.notifications.models.dto.NotificationData;
 import com.example.app.domains.notifications.models.dto.PushNotification;
 import com.example.app.domains.notifications.services.NotificationService;
@@ -25,13 +24,11 @@ public class PromoServiceImpl implements PromoService {
 
     private final PromoRepository promoRepo;
     private final NotificationService notificationService;
-    private final FileUploadService fileUploadService;
 
     @Autowired
-    public PromoServiceImpl(PromoRepository promoRepo, NotificationService notificationService, FileUploadService fileUploadService) {
+    public PromoServiceImpl(PromoRepository promoRepo, NotificationService notificationService) {
         this.promoRepo = promoRepo;
         this.notificationService = notificationService;
-        this.fileUploadService = fileUploadService;
     }
 
     @Override

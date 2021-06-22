@@ -34,3 +34,7 @@
 	path = scripts
 	url = git@github.com:teambankrupt/scripts.git
 	branch = master
+[submodule "modules/coremodules/cms"]
+	path = modules/coremodules/cms
+	url = https://github.com/teambankrupt/cms.git
+	branch = master
