@@ -24,6 +24,7 @@
         <module>modules/coremodules/auth</module>
         <module>modules/coremodules/acl</module>
         <module>modules/coremodules/virtualfilesystem</module>
+        <module>modules/coremodules/filehandler</module>
         <module>modules/coremodules/cms</module>
 
         <!--App Modules-->
