@@ -1,4 +1,4 @@
-# Spring Boot Featured Skeleton
+# Project Open bankrupt
 
 It's a skeleton project with lots of features implemented by default.
 
