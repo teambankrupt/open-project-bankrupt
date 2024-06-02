@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>17</java.version>
-        <kotlin.version>1.9.10</kotlin.version>
+        <kotlin.version>2.0.0</kotlin.version>
         <flyway.version>7.9.0</flyway.version>
     </properties>
 

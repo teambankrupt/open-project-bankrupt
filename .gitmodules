@@ -2,8 +2,8 @@
 	path = modules/appmodules/messaging
 	url = https://github.com/teambankrupt/messaging.git
 	branch = master
-[submodule "modules/appmodules/gentool"]
-	path = modules/appmodules/gentool
+[submodule "modules/toolsmodules/gentool"]
+	path = modules/toolsmodules/gentool
 	url = https://github.com/teambankrupt/gentool.git
 	branch = master
 [submodule "modules/coremodules/virtualfilesystem"]
